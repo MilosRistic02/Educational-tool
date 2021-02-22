@@ -17,6 +17,8 @@ Add your own name (do not add the names for others!) to the section below.
 | ![](https://gitlab.ewi.tudelft.nl/uploads/-/system/user/avatar/2496/avatar.png?width=400) | Rodrigo Álvarez Lucendo | R.AlvarezLucendo@student.tudelft.nl |
 | ![](./docs/profile_pictures/profile_serenic_low_res.JPG) | Sérénic Monté | S.G.M.Monte@student.tudelft.nl |
 | ![](https://gitlab.ewi.tudelft.nl/uploads/-/system/user/avatar/3681/avatar.png?width=400) | Miloš Ristić | m.ristic-1@student.tudelft.nl |
+| ![](https://gitlab.ewi.tudelft.nl/uploads/-/system/user/avatar/3678/avatar.png?width=400) | Jos Sloof | a.j.g.sloof@student.tudelft.nl |
+
 
 
 <!-- Instructions (remove once assignment has been completed -->
