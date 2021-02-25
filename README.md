@@ -14,7 +14,14 @@ Add your own name (do not add the names for others!) to the section below.
 
 | 📸 | Name | Email |
 |---|---|---|
-| ![](https://eu.ui-avatars.com/api/?name=OOPP&length=4&size=50&color=DDD&background=777&font-size=0.325) | Your Name Here | Y.NameHere@student.tudelft.nl |
+| ![](https://gitlab.ewi.tudelft.nl/uploads/-/system/user/avatar/2496/avatar.png?width=400) | Rodrigo Álvarez Lucendo | R.AlvarezLucendo@student.tudelft.nl |
+| ![](./docs/profile_pictures/profile_serenic_low_res.JPG) | Sérénic Monté | S.G.M.Monte@student.tudelft.nl |
+| ![](https://gitlab.ewi.tudelft.nl/uploads/-/system/user/avatar/3681/avatar.png?width=400) | Miloš Ristić | m.ristic-1@student.tudelft.nl |
+| ![](https://gitlab.ewi.tudelft.nl/uploads/-/system/user/avatar/3678/avatar.png?width=400) | Jos Sloof | a.j.g.sloof@student.tudelft.nl |
+| ![](https://gitlab.ewi.tudelft.nl/uploads/-/system/user/avatar/3679/avatar.png?width=400) | Efe Sozen | E.Sozen@student.tudelft.nl |
+| ![](https://gitlab.ewi.tudelft.nl/uploads/-/system/user/avatar/3680/avatar.png?width=400) | Marc Neeleman | m.r.w.neeleman@student.tudelft.nl |
+
+
 
 <!-- Instructions (remove once assignment has been completed -->
 <!-- - Add (only!) your own name to the table above (use Markdown formatting) -->
