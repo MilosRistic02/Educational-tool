@@ -19,7 +19,7 @@ Add your own name (do not add the names for others!) to the section below.
 | ![](https://gitlab.ewi.tudelft.nl/uploads/-/system/user/avatar/3681/avatar.png?width=400) | Miloš Ristić | m.ristic-1@student.tudelft.nl |
 | ![](https://gitlab.ewi.tudelft.nl/uploads/-/system/user/avatar/3678/avatar.png?width=400) | Jos Sloof | a.j.g.sloof@student.tudelft.nl |
 | ![](https://gitlab.ewi.tudelft.nl/uploads/-/system/user/avatar/3679/avatar.png?width=400) | Efe Sozen | E.Sozen@student.tudelft.nl |
-| ![](https://gitlab.ewi.tudelft.nl/uploads/-/system/user/avatar/3681/avatar.png?width=400) | Marc Neeleman | m.r.w.neeleman@student.tudelft.nl |
+| ![](https://gitlab.ewi.tudelft.nl/uploads/-/system/user/avatar/3680/avatar.png?width=400) | Marc Neeleman | m.r.w.neeleman@student.tudelft.nl |
 
 
 
