@@ -10,4 +10,12 @@ public class Moderator extends User{
     public Moderator(String username, String email, String password) {
         super(username, email, password, "moderator");
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if(o instanceof Moderator) {
+            return super.equals(o);
+        }
+        return false;
+    }
 }

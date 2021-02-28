@@ -11,4 +11,12 @@ public class Student extends User {
     public Student(String username, String email, String password) {
         super(username, email, password, "student");
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if(o instanceof Student) {
+            return super.equals(o);
+        }
+        return false;
+    }
 }
