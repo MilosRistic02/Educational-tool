@@ -2,9 +2,7 @@ package nl.tudelft.oopp.demo.entities;
 
 import org.springframework.lang.NonNull;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 
@@ -12,6 +10,7 @@ import java.sql.Timestamp;
 public class Question {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @NonNull
@@ -56,10 +55,6 @@ public class Question {
         return score;
     }
 
-    public Timestamp getTimestamp() {
-        return timestamp;
-    }
-
     public boolean isAnswered() {
         return isAnswered;
     }
@@ -86,6 +81,14 @@ public class Question {
 
     public void setAnswered(boolean answered) {
         isAnswered = answered;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public void setLecturePin(String lecturePin) {
+        this.lecturePin = lecturePin;
     }
 
     @Override
