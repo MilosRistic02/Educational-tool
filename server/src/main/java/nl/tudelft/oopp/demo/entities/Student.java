@@ -14,7 +14,7 @@ public class Student extends Users {
 
     @Override
     public boolean equals(Object o) {
-        if(o instanceof Student) {
+        if (o instanceof Student) {
             return super.equals(o);
         }
         return false;

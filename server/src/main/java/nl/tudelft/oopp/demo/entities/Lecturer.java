@@ -13,7 +13,7 @@ public class Lecturer extends Users {
 
     @Override
     public boolean equals(Object o) {
-        if(o instanceof Lecturer) {
+        if (o instanceof Lecturer) {
             return super.equals(o);
         }
         return false;

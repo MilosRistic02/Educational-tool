@@ -1,10 +1,12 @@
 package nl.tudelft.oopp.demo.entities;
 
-import org.springframework.lang.NonNull;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import org.springframework.lang.NonNull;
 
 @Entity
 public class Question {
@@ -32,6 +34,12 @@ public class Question {
     public Question() {
     }
 
+    /** Constructor to make instance of Question.
+     *
+     * @param question      The string containing the question
+     * @param lecturePin    The pin for the lecture
+     * @param author        The string containing the author
+     */
     public Question(@NonNull @NotBlank String question, String lecturePin, String author) {
         this.question = question;
         this.lecturePin = lecturePin;
@@ -93,8 +101,12 @@ public class Question {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         Question question = (Question) o;
 

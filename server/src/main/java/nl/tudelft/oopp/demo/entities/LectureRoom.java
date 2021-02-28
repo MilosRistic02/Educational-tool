@@ -1,14 +1,11 @@
 package nl.tudelft.oopp.demo.entities;
 
-import org.hibernate.annotations.CreationTimestamp;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 public class LectureRoom {
@@ -27,7 +24,7 @@ public class LectureRoom {
     }
 
     /**
-     * Constructs a new LectureRoom
+     * Constructs a new LectureRoom.
      *
      * @param lecturerID - Identifier of the lecturer that created the LectureRoom
      * @param courseId - Identifier of the course
@@ -37,7 +34,7 @@ public class LectureRoom {
         this.courseId = courseId;
     }
 
-    /** Getter for the lecturerID
+    /** Getter for the lecturerID.
      *
      * @return the identifier of the responsible lecturer
      */
@@ -46,14 +43,14 @@ public class LectureRoom {
     }
 
     /**
-     * Set the responsible lecturer for the room by changing the ID
+     * Set the responsible lecturer for the room by changing the ID.
      * @param lecturerID - The Identifier of the responsible lecturer
      */
     public void setLecturerID(String lecturerID) {
         this.lecturerID = lecturerID;
     }
 
-    /**Getter for the courseID
+    /**Getter for the courseID.
      *
      * @return the identifier of the course
      */
@@ -61,7 +58,7 @@ public class LectureRoom {
         return courseId;
     }
 
-    /**Setter for the courseID
+    /**Setter for the courseID.
      *
      * @param courseId - the identifier of the course
      */
@@ -69,7 +66,7 @@ public class LectureRoom {
         this.courseId = courseId;
     }
 
-    /**Getter for the lecture pin
+    /**Getter for the lecture pin.
      *
      * @return the uniquely generated pin of the LectureRoom
      */
@@ -78,10 +75,10 @@ public class LectureRoom {
     }
 
     /**
-     * Used whenever the pin needs to be reset for a LectureRoom
+     * Used whenever the pin needs to be reset for a LectureRoom.
      *
      * @param lecturePin - the uniquely generated pin of the LectureRoom,
-     * constructed of a timestamp, courseID and LecturerID
+     *      constructed of a timestamp, courseID and LecturerID
      */
     public void setLecturePin(String lecturePin) {
         this.lecturePin = lecturePin;
@@ -89,8 +86,12 @@ public class LectureRoom {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         LectureRoom that = (LectureRoom) o;
         return Objects.equals(lecturePin, that.lecturePin);
     }

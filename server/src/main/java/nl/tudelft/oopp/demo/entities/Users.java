@@ -1,10 +1,12 @@
 package nl.tudelft.oopp.demo.entities;
 
 import com.sun.istack.NotNull;
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
 
 @Entity
 @Inheritance
@@ -20,8 +22,16 @@ public abstract class Users {
     @NotNull
     private String role;
 
-    public Users(){}
+    public Users(){
+    }
 
+    /** Constructor to make instance of Users.
+     *
+     * @param username  String containing the userId
+     * @param email     String containing the users email
+     * @param password  String with the password
+     * @param role      String with the role
+     */
     public Users(String username, String email, String password, String role) {
         this.username = username;
         this.email = email;
@@ -63,8 +73,12 @@ public abstract class Users {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Users)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Users)) {
+            return false;
+        }
         Users users = (Users) o;
         return getUsername().equals(users.getUsername());
     }

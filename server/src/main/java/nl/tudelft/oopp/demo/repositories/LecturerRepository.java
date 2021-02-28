@@ -4,5 +4,5 @@ import nl.tudelft.oopp.demo.entities.Lecturer;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
-public interface LecturerRepository extends UsersRepository<Lecturer>{
+public interface LecturerRepository extends UsersRepository<Lecturer> {
 }
