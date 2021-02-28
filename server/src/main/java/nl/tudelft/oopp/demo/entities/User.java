@@ -2,9 +2,7 @@ package nl.tudelft.oopp.demo.entities;
 
 import com.sun.istack.NotNull;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -12,6 +10,7 @@ import java.util.Objects;
 public abstract class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String username;
     @NotNull
     private String email;

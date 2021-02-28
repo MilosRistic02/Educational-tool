@@ -1,20 +1,28 @@
 package nl.tudelft.oopp.demo.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
 public class LectureRoom {
 
+    @NotNull
     private long lecturerID;
     private int courseId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String lecturePin;
 
     private Timestamp timestamp;
+
+    public LectureRoom() {
+    }
 
     /**
      * Constructs a new LectureRoom
