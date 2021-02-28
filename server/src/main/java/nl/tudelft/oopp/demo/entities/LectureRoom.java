@@ -1,5 +1,7 @@
 package nl.tudelft.oopp.demo.entities;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,14 +13,14 @@ import java.util.Objects;
 @Entity
 public class LectureRoom {
 
+    @Id
+    private String lecturePin;
+
     @NotNull
     private String lecturerID;
     private int courseId;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String lecturePin;
-
+    @CreationTimestamp
     private Timestamp timestamp;
 
     public LectureRoom() {
@@ -35,7 +37,7 @@ public class LectureRoom {
         this.courseId = courseId;
     }
 
-    /**
+    /** Getter for the lecturerID
      *
      * @return the identifier of the responsible lecturer
      */
@@ -51,7 +53,7 @@ public class LectureRoom {
         this.lecturerID = lecturerID;
     }
 
-    /**
+    /**Getter for the courseID
      *
      * @return the identifier of the course
      */
@@ -59,7 +61,7 @@ public class LectureRoom {
         return courseId;
     }
 
-    /**
+    /**Setter for the courseID
      *
      * @param courseId - the identifier of the course
      */
@@ -67,7 +69,7 @@ public class LectureRoom {
         this.courseId = courseId;
     }
 
-    /**
+    /**Getter for the lecture pin
      *
      * @return the uniquely generated pin of the LectureRoom
      */
@@ -83,14 +85,6 @@ public class LectureRoom {
      */
     public void setLecturePin(String lecturePin) {
         this.lecturePin = lecturePin;
-    }
-
-    /**
-     *
-     * @return the timestamp that was generated at the creation of the LectureRoom
-     */
-    public Timestamp getTimestamp() {
-        return timestamp;
     }
 
     @Override

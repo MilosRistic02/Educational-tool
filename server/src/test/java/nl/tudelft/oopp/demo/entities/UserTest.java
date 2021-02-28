@@ -24,6 +24,18 @@ public class UserTest {
     }
 
     @Test
+    void studentConstructorTest() {
+        assertNotNull(student);
+    }
+    @Test
+    void moderatorConstructorTest() {
+        assertNotNull(moderator);
+    }
+    @Test
+    void lecturerConstructorTest() {
+        assertNotNull(lecturer);
+    }
+    @Test
     void getUsernameStudentTest() {
         assertEquals(student.getUsername(), "user_std");
 
@@ -57,30 +69,26 @@ public class UserTest {
     void getRoleLecturerTest() {
         assertEquals(lecturer.getRole(), "lecturer");
     }
-
     @Test
     void setUsernameTest(){
         student.setUsername("newUsername");
         assertEquals(student.getUsername(), "newUsername");
-
     }
     @Test
     void setPasswordTest(){
         student.setPassword("newPassword123");
         assertEquals(student.getPassword(), "newPassword123");
-
     }
     @Test
     void setEmailTest(){
         student.setEmail("newEmail@gmail.com");
         assertEquals(student.getEmail(), "newEmail@gmail.com");
-
     }
-   @Test
+    @Test
     void equalsStudentTest(){
        student = new Student("user_std","user_std@gmail.com","pass123");
        assertEquals(student, student);
-   }
+    }
     @Test
     void equalsStudentTestDifferentStudents(){
         student = new Student("user_std","user_std@gmail.com","pass123");
@@ -93,7 +101,8 @@ public class UserTest {
     @Test
     void equalsModeratorTestDifferentModerators(){
         assertNotEquals(moderator, moderator2);
-    }@Test
+    }
+    @Test
     void equalsLecturerTest(){
         assertEquals(lecturer, lecturer);
     }

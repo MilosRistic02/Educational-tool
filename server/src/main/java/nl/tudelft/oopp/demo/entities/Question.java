@@ -55,10 +55,6 @@ public class Question {
         return score;
     }
 
-    public Timestamp getTimestamp() {
-        return timestamp;
-    }
-
     public boolean isAnswered() {
         return isAnswered;
     }
@@ -85,6 +81,14 @@ public class Question {
 
     public void setAnswered(boolean answered) {
         isAnswered = answered;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public void setLecturePin(String lecturePin) {
+        this.lecturePin = lecturePin;
     }
 
     @Override
