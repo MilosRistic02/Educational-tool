@@ -3,7 +3,7 @@ package nl.tudelft.oopp.demo.entities;
 import javax.persistence.Entity;
 
 @Entity
-public class Moderator extends User{
+public class Moderator extends Users {
 
     public Moderator() {}
 

@@ -3,7 +3,7 @@ package nl.tudelft.oopp.demo.entities;
 import javax.persistence.Entity;
 
 @Entity
-public class Student extends User {
+public class Student extends Users {
 
     public Student() {
     }

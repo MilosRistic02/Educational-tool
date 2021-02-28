@@ -1,13 +1,14 @@
 package nl.tudelft.oopp.demo.entities;
 
 import com.sun.istack.NotNull;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Inheritance
-public abstract class User {
+public abstract class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,9 +20,9 @@ public abstract class User {
     @NotNull
     private String role;
 
-    public User(){}
+    public Users(){}
 
-    public User(String username, String email, String password, String role) {
+    public Users(String username, String email, String password, String role) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -63,9 +64,9 @@ public abstract class User {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        User user = (User) o;
-        return getUsername().equals(user.getUsername());
+        if (!(o instanceof Users)) return false;
+        Users users = (Users) o;
+        return getUsername().equals(users.getUsername());
     }
 
     @Override

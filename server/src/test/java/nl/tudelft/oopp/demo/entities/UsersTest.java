@@ -4,13 +4,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class UserTest {
-    User student;
-    User moderator;
-    User lecturer;
-    User student2;
-    User moderator2;
-    User lecturer2;
+public class UsersTest {
+    Users student;
+    Users moderator;
+    Users lecturer;
+    Users student2;
+    Users moderator2;
+    Users lecturer2;
 
 
     @BeforeEach
