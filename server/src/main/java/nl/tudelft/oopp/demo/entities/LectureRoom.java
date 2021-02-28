@@ -12,7 +12,7 @@ import java.util.Objects;
 public class LectureRoom {
 
     @NotNull
-    private long lecturerID;
+    private String lecturerID;
     private int courseId;
 
     @Id
@@ -30,7 +30,7 @@ public class LectureRoom {
      * @param lecturerID - Identifier of the lecturer that created the LectureRoom
      * @param courseId - Identifier of the course
      */
-    public LectureRoom(long lecturerID, int courseId) {
+    public LectureRoom(String lecturerID, int courseId) {
         this.lecturerID = lecturerID;
         this.courseId = courseId;
     }
@@ -39,7 +39,7 @@ public class LectureRoom {
      *
      * @return the identifier of the responsible lecturer
      */
-    public long getLecturerID() {
+    public String getLecturerID() {
         return lecturerID;
     }
 
@@ -47,7 +47,7 @@ public class LectureRoom {
      * Set the responsible lecturer for the room by changing the ID
      * @param lecturerID - The Identifier of the responsible lecturer
      */
-    public void setLecturerID(long lecturerID) {
+    public void setLecturerID(String lecturerID) {
         this.lecturerID = lecturerID;
     }
 

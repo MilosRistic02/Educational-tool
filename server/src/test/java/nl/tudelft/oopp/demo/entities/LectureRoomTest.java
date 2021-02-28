@@ -11,18 +11,18 @@ class LectureRoomTest {
 
     @BeforeEach
     public void setup(){
-        lectureRoom = new LectureRoom(1, 2);
+        lectureRoom = new LectureRoom("Stefan", 2);
     }
 
     @Test
     void getLecturerID() {
-        assertEquals(lectureRoom.getLecturerID(), 1);
+        assertEquals(lectureRoom.getLecturerID(), "Stefan");
     }
 
     @Test
     void setLecturerID() {
-        lectureRoom.setLecturerID(2);
-        assertEquals(lectureRoom.getLecturerID(), 2);
+        lectureRoom.setLecturerID("Koen");
+        assertEquals(lectureRoom.getLecturerID(), "Koen");
     }
 
     @Test
@@ -35,25 +35,4 @@ class LectureRoomTest {
         lectureRoom.setCourseId(5);
         assertEquals(lectureRoom.getCourseId(), 5);
     }
-
-//    @Test
-//    void getLecturePin() {
-//        //TODO
-//    }
-
-//    @Test
-//    void setLecturePin() {
-//        //TODO
-//    }
-
-//    @Test
-//    void getTimestamp() {
-//
-//    }
-
-//    @Test
-//    void testEquals() {
-//        LectureRoom lectureRoom1 = new LectureRoom(2, 3);
-    //TODO
-//    }
 }
