@@ -1,11 +1,14 @@
 package nl.tudelft.oopp.demo.services;
 
+import nl.tudelft.oopp.demo.entities.Lecturer;
+import nl.tudelft.oopp.demo.entities.Moderator;
+import nl.tudelft.oopp.demo.entities.Student;
 import nl.tudelft.oopp.demo.entities.Users;
 import nl.tudelft.oopp.demo.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 public class UsersService {
@@ -21,12 +24,39 @@ public class UsersService {
 
 
     //getAllUsers
+    public List<Users> getAllUsers() {
+        return usersRepo.getAllUsers();
+    }
 
     //getAllStudents
+    public List<Student> getAllStudents() {
+        List<Users> allUsers = usersRepo.getAllUsers();
+        List<Student> allStudents = new LinkedList<>();
+        for (Users user : allUsers) {
+            if (user.getRole().equals("student")) allStudents.add((Student) user);
+        }
+        return allStudents;
+    }
 
     //getAllModerators
+    public List<Moderator> getAllModerators() {
+        List<Users> allUsers = usersRepo.getAllUsers();
+        List<Moderator> allModerators = new LinkedList<>();
+        for(Users user : allUsers) {
+            if (user.getRole().equals("moderator")) allModerators.add((Moderator) user);
+        }
+        return allModerators;
+    }
 
     //getAllLecturers
+    public List<Lecturer> getAllLecturers() {
+        List<Users> allUsers = usersRepo.getAllUsers();
+        List<Lecturer> allLecturers = new LinkedList<>();
+        for(Users user : allUsers) {
+            if (user.getRole().equals("lecturer")) allLecturers.add((Lecturer) user);
+        }
+        return allLecturers;
+    }
 
     /**
      * This methods adds a user to the database.
