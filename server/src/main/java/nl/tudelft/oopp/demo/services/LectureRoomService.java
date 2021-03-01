@@ -62,12 +62,16 @@ public class LectureRoomService {
         return true;
     }
 
-    //Made this for development but I dont see use for it in the product so we can remove it in the future
+    //Made these for development but I dont see use for it in the product so we can remove it in the future
     public boolean deleteAllLectureRooms() {
         List<LectureRoom> lectureRooms = lectureRoomRepository.getAll();
         for(LectureRoom lectureRoom : lectureRooms) {
             lectureRoomRepository.delete(lectureRoom);
         }
         return true;
+    }
+
+    public List<LectureRoom> getAllLectureRooms() {
+        return lectureRoomRepository.getAll();
     }
 }
