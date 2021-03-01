@@ -34,13 +34,26 @@ public class Request {
         Entity<T> requestBody = Entity.entity(t, MediaType.APPLICATION_JSON);
         GenericType<String> responseBodyType = new GenericType<String>(){};
 
-        String objects = ClientBuilder.newClient()
+        String responseBody = ClientBuilder.newClient()
             .target(url)
             .request(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON)
             .post(requestBody, responseBodyType);
 
-        return "Saved to database";
+        return responseBody;
+    }
+
+    public static <T> String put(String url, T t) {
+        Entity<T> requestBody = Entity.entity(t, MediaType.APPLICATION_JSON);
+        GenericType<String> responseBodyType = new GenericType<String>(){};
+
+        String responseBody = ClientBuilder.newClient()
+                .target(url)
+                .request(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .put(requestBody, responseBodyType);
+
+        return responseBody;
     }
 
 }
