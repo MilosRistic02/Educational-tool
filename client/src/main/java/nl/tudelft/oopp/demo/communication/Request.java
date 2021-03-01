@@ -56,4 +56,14 @@ public class Request {
         return responseBody;
     }
 
+    public static String delete(String url, String id) {
+        GenericType<String> responseBodyType = new GenericType<String>(){};
+        String objects = ClientBuilder.newClient()
+                .target(url + "/" + id)
+                .request(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .delete(responseBodyType);
+        return objects;
+    }
+
 }
