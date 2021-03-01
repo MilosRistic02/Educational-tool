@@ -1,4 +1,4 @@
-# Backlog
+# Backlog group 32
 ## Must Have
 - As a student I want to be able to ask questions so that the lecturer can clarify it.
 - As a student I want to be able to delete my own question so that I can remove my question if someone else already asked it.
