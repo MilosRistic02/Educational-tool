@@ -13,6 +13,9 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.glassfish.jersey.inject/jersey-hk2
     implementation group: 'org.glassfish.jersey.inject', name: 'jersey-hk2', version: '3.0.1'
+
+    // https://mvnrepository.com/artifact/org.glassfish.jersey.media/jersey-media-json-jackson
+    implementation group: 'org.glassfish.jersey.media', name: 'jersey-media-json-jackson', version: '3.0.1'
 }
 
 javafx {
