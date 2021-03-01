@@ -5,6 +5,8 @@ import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
@@ -23,6 +25,10 @@ public class LectureRoom {
     public LectureRoom() {
     }
 
+    public LectureRoom(@JsonProperty("lecturer")@NotNull String lecturerID) {
+        this.lecturerID = lecturerID;
+    }
+
     /**
      * Constructs a new LectureRoom.
      *
@@ -31,7 +37,6 @@ public class LectureRoom {
      */
     public LectureRoom(String lecturerID, int courseId) {
         this.lecturerID = lecturerID;
-        this.courseId = courseId;
     }
 
     /** Getter for the lecturerID.
