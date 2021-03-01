@@ -1,10 +1,6 @@
 package nl.tudelft.oopp.demo.services;
 
-import nl.tudelft.oopp.demo.entities.Moderator;
 import nl.tudelft.oopp.demo.entities.Users;
-import nl.tudelft.oopp.demo.repositories.LecturerRepository;
-import nl.tudelft.oopp.demo.repositories.ModeratorRepository;
-import nl.tudelft.oopp.demo.repositories.StudentRepository;
 import nl.tudelft.oopp.demo.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,19 +11,12 @@ import java.util.List;
 public class UsersService {
 
     private UsersRepository usersRepo;
-    private StudentRepository studentRepo;
-    private ModeratorRepository moderatorRepo;
-    private LecturerRepository lecturerRepo;
+
 
     @Autowired
-    public UsersService(UsersRepository usersRepo,
-                        StudentRepository studentRepo,
-                        ModeratorRepository moderatorRepo,
-                        LecturerRepository lecturerRepo){
+    public UsersService(UsersRepository usersRepo){
         this.usersRepo = usersRepo;
-        this.studentRepo = studentRepo;
-        this.moderatorRepo = moderatorRepo;
-        this.lecturerRepo = lecturerRepo;
+
     }
 
 

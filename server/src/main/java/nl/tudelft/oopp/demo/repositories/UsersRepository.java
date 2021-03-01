@@ -6,10 +6,8 @@ import org.springframework.data.repository.NoRepositoryBean;
 
 import java.util.List;
 
-@NoRepositoryBean
-public interface UsersRepository<T extends Users> extends JpaRepository<T, Long> {
 
-
+public interface UsersRepository extends JpaRepository<Users, Long> {
 
     List<Users> getAllUsers();
 
