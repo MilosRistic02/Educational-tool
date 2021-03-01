@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("lecture")
 public class LectureRoomController {
@@ -29,9 +31,16 @@ public class LectureRoomController {
         return lectureRoomService.deleteLectureRoom(lectureHost);
     }
 
+    //Made these for development, may get deleted later on if we think we dont need it
     @DeleteMapping
     @ResponseBody
     public boolean deleteAllLectureRooms() {
         return lectureRoomService.deleteAllLectureRooms();
+    }
+
+    @GetMapping
+    @ResponseBody
+    public List<LectureRoom> getAllLectureRooms() {
+        return lectureRoomService.getAllLectureRooms();
     }
 }
