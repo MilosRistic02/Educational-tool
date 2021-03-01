@@ -1,18 +1,21 @@
 package nl.tudelft.oopp.demo.entities;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.sql.Timestamp;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class LectureRoomTest {
 
     LectureRoom lectureRoom;
 
+    /**
+     * Test for the different LectureRoom class.
+     */
     @BeforeEach
-    public void setup(){
+    public void setup() {
         lectureRoom = new LectureRoom("Stefan", 2);
         lectureRoom.setLecturePin("2802202001Stefan");
     }
