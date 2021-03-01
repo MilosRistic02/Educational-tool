@@ -35,6 +35,7 @@ class LectureRoomTest {
 
     @Test
     void getCourseId() {
+        lectureRoom.setCourseId(2);
         assertEquals(lectureRoom.getCourseId(), 2);
     }
 
