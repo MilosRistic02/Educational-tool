@@ -48,8 +48,9 @@ public class QuestionService {
      *
      * @param question question to add to the database.
      */
-    public void addQuestion(Question question) {
+    public String addQuestion(Question question) {
         questionRepository.save(question);
+        return question.getQuestion();
     }
 
     /**

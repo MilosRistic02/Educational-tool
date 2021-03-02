@@ -23,19 +23,19 @@ public class UsersController {
         this.usersService = usersService;
     }
 
-    @GetMapping
+    @GetMapping("user")
     @ResponseBody
     public List<Users> getAllUsers() { return usersService.getAllUsers(); }
 
-    @GetMapping
+    @GetMapping("student")
     @ResponseBody
     public List<Student> getAllStudents() { return usersService.getAllStudents(); }
 
-    @GetMapping
+    @GetMapping("moderator")
     @ResponseBody
     public List<Moderator> getAllModerators() { return usersService.getAllModerators(); }
 
-    @GetMapping
+    @GetMapping("lecturer")
     @ResponseBody
     public List<Lecturer> getAllLecturers() { return usersService.getAllLecturers(); }
 
@@ -51,19 +51,19 @@ public class UsersController {
         return usersService.deleteUser(user);
     }
 
-    @DeleteMapping
+    @DeleteMapping("user")
     public void deleteAllUsers(){
          usersService.deleteAllUsers();
     }
-    @DeleteMapping
+    @DeleteMapping("student")
     public void deleteAllStudents(){
         usersService.deleteAllStudents();
     }
-    @DeleteMapping
+    @DeleteMapping("moderator")
     public void deleteAllModerators(){
         usersService.deleteAllModerators();
     }
-    @DeleteMapping
+    @DeleteMapping("lecturer")
     public void deleteAllLecturers(){
         usersService.deleteAllLecturers();
     }

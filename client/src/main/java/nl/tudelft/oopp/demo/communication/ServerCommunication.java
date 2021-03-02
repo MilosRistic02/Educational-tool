@@ -15,7 +15,8 @@ public class ServerCommunication extends Request {
      * @throws Exception if communication with the server fails.
      */
     public static String getQuote() {
-        return get("http://localhost:8080/quote");
+        return post("http://localhost:8080/question",
+                "{\"question\" : \"This is a new question\",\"lecturePin\":\"342\",\"author\":\"hello\"}");
     }
 
 }

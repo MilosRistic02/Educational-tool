@@ -15,7 +15,6 @@ public class UsersService {
 
     private UsersRepository usersRepo;
 
-
     @Autowired
     public UsersService(UsersRepository usersRepo){
         this.usersRepo = usersRepo;
@@ -25,12 +24,12 @@ public class UsersService {
 
     //getAllUsers
     public List<Users> getAllUsers() {
-        return usersRepo.getAllUsers();
+        return usersRepo.findAll();
     }
 
     //getAllStudents
     public List<Student> getAllStudents() {
-        List<Users> allUsers = usersRepo.getAllUsers();
+        List<Users> allUsers = usersRepo.findAll();
         List<Student> allStudents = new LinkedList<>();
         for (Users user : allUsers) {
             if (user.getRole().equals("student")) allStudents.add((Student) user);
@@ -40,7 +39,7 @@ public class UsersService {
 
     //getAllModerators
     public List<Moderator> getAllModerators() {
-        List<Users> allUsers = usersRepo.getAllUsers();
+        List<Users> allUsers = usersRepo.findAll();
         List<Moderator> allModerators = new LinkedList<>();
         for(Users user : allUsers) {
             if (user.getRole().equals("moderator")) allModerators.add((Moderator) user);
@@ -50,7 +49,7 @@ public class UsersService {
 
     //getAllLecturers
     public List<Lecturer> getAllLecturers() {
-        List<Users> allUsers = usersRepo.getAllUsers();
+        List<Users> allUsers = usersRepo.findAll();
         List<Lecturer> allLecturers = new LinkedList<>();
         for(Users user : allUsers) {
             if (user.getRole().equals("lecturer")) allLecturers.add((Lecturer) user);
@@ -94,7 +93,7 @@ public class UsersService {
     }
 
     public void deleteAllStudents(){
-        List<Users> usersList = usersRepo.getAllUsers();
+        List<Users> usersList = usersRepo.findAll();
 
         for(Users user : usersList){
             if(user.getRole().equals("student")){
@@ -104,7 +103,7 @@ public class UsersService {
     }
 
     public void deleteAllModerators(){
-        List<Users> usersList = usersRepo.getAllUsers();
+        List<Users> usersList = usersRepo.findAll();
 
         for(Users user : usersList){
             if(user.getRole().equals("moderator")){
@@ -114,7 +113,7 @@ public class UsersService {
     }
 
     public void deleteAllLecturers(){
-        List<Users> usersList = usersRepo.getAllUsers();
+        List<Users> usersList = usersRepo.findAll();
 
         for(Users user : usersList){
             if(user.getRole().equals("lecturer")){
