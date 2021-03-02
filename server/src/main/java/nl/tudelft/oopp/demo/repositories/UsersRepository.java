@@ -4,6 +4,13 @@ import nl.tudelft.oopp.demo.entities.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
-@NoRepositoryBean
-public interface UsersRepository<T extends Users> extends JpaRepository<T, Long> {
+import java.util.List;
+
+
+public interface UsersRepository extends JpaRepository<Users, Long> {
+
+    List<Users> getAllUsers();
+
+    boolean existsByUsername(String username);
+
 }

@@ -1,24 +1,26 @@
 package nl.tudelft.oopp.demo.entities;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-
 class QuestionTest {
+
     Question question;
-
     Question question1;
-
     Question question2;
-
     String questionString = "Is this a good example question?";
-
     String lecturePin = "2802202001Stefan";
-
     String author = "Stefan";
 
+    /**
+     * Test for the Question class.
+     */
     @BeforeEach
     public void setUp() {
         question = new Question();

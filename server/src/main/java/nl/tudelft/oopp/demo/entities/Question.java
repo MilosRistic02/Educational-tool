@@ -167,7 +167,7 @@ public class Question {
     }
 
     /**
-     * Equals method for Question
+     * Equals method for Question.
      *
      * @param o the object to compare to
      * @return true if the question is also of class Question and has the same Id, false otherwise

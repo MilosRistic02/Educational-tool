@@ -13,7 +13,6 @@ import javax.persistence.Inheritance;
 public abstract class Users {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private String username;
     @NotNull
     private String email;
