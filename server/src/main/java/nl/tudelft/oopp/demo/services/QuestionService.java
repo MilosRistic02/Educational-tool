@@ -22,12 +22,12 @@ public class QuestionService {
      */
     public String updateScoreQuestion(Question question) {
 
-        if (!questionRepository.existsByQuestionAndAuthorAndLecturePin(
-                question.getQuestion(), question.getAuthor(), question.getLecturePin())) {
+        if (!questionRepository.existsByLecturePin(
+                question.getLecturePin())) {
             return "Question does not yet exists";
         }
-        Question prev = questionRepository.getByQuestionAndAuthorAndLecturePin(
-                question.getQuestion(), question.getAuthor(), question.getLecturePin());
+        Question prev = questionRepository.getByLecturePin(
+                question.getLecturePin());
         prev.setScore(question.getScore());
         questionRepository.save(prev);
         return "Updated score of Question";

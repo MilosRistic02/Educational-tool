@@ -6,9 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface QuestionRepository extends JpaRepository<Question, Long> {
 
-    boolean existsByQuestionAndAuthorAndLecturePin(
-            String question, String author, String lecturePin);
+    boolean existsByLecturePin(String lecturePin);
 
-    Question getByQuestionAndAuthorAndLecturePin(
-            String question, String author, String lecturePin);
+    Question getByLecturePin(String lecturePin);
 }
