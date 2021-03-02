@@ -1,8 +1,5 @@
 package nl.tudelft.oopp.demo.services;
 
-import nl.tudelft.oopp.demo.entities.Lecturer;
-import nl.tudelft.oopp.demo.entities.Moderator;
-import nl.tudelft.oopp.demo.entities.Student;
 import nl.tudelft.oopp.demo.entities.Users;
 import nl.tudelft.oopp.demo.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,31 +25,31 @@ public class UsersService {
     }
 
     //getAllStudents
-    public List<Student> getAllStudents() {
+    public List<Users> getAllStudents() {
         List<Users> allUsers = usersRepo.findAll();
-        List<Student> allStudents = new LinkedList<>();
+        List<Users> allStudents = new LinkedList<>();
         for (Users user : allUsers) {
-            if (user.getRole().equals("student")) allStudents.add((Student) user);
+            if (user.getRole().equals("student")) allStudents.add(user);
         }
         return allStudents;
     }
 
     //getAllModerators
-    public List<Moderator> getAllModerators() {
+    public List<Users> getAllModerators() {
         List<Users> allUsers = usersRepo.findAll();
-        List<Moderator> allModerators = new LinkedList<>();
+        List<Users> allModerators = new LinkedList<>();
         for(Users user : allUsers) {
-            if (user.getRole().equals("moderator")) allModerators.add((Moderator) user);
+            if (user.getRole().equals("moderator")) allModerators.add(user);
         }
         return allModerators;
     }
 
     //getAllLecturers
-    public List<Lecturer> getAllLecturers() {
+    public List<Users> getAllLecturers() {
         List<Users> allUsers = usersRepo.findAll();
-        List<Lecturer> allLecturers = new LinkedList<>();
+        List<Users> allLecturers = new LinkedList<>();
         for(Users user : allUsers) {
-            if (user.getRole().equals("lecturer")) allLecturers.add((Lecturer) user);
+            if (user.getRole().equals("lecturer")) allLecturers.add(user);
         }
         return allLecturers;
     }

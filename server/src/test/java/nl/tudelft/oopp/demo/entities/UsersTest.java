@@ -22,12 +22,12 @@ public class UsersTest {
      */
     @BeforeEach
     public void setup() {
-        student = new Student("user_std","user_std@gmail.com","pass123");
-        moderator = new Moderator("user_mod", "user_mod@gmail.com","pass123");
-        lecturer = new Lecturer("user_lec", "user_lec@gmail.com", "pass123");
-        student2 = new Student("user_std2","user_std2@gmail.com","pass123");
-        moderator2 = new Moderator("user_mod2","user_mod2@gmail.com","pass123");
-        lecturer2 = new Lecturer("user_lec2", "user_lec2@gmail.com", "pass123");
+        student = new Users("user_std","user_std@gmail.com","pass123", "student");
+        moderator = new Users("user_mod", "user_mod@gmail.com","pass123", "moderator");
+        lecturer = new Users("user_lec", "user_lec@gmail.com", "pass123", "lecturer");
+        student2 = new Users("user_std2","user_std2@gmail.com","pass123", "student2");
+        moderator2 = new Users("user_mod2","user_mod2@gmail.com","pass123", "moderator2");
+        lecturer2 = new Users("user_lec2", "user_lec2@gmail.com", "pass123", "lecturer2");
     }
 
     @Test
@@ -106,13 +106,11 @@ public class UsersTest {
 
     @Test
     void equalsStudentTest() {
-        student = new Student("user_std","user_std@gmail.com","pass123");
         assertEquals(student, student);
     }
 
     @Test
     void equalsStudentTestDifferentStudents() {
-        student = new Student("user_std","user_std@gmail.com","pass123");
         assertNotEquals(student, student2);
     }
 
