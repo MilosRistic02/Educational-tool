@@ -14,9 +14,8 @@ public class ServerCommunication extends Request {
      * @return the body of a get request to the server.
      * @throws Exception if communication with the server fails.
      */
-    public static String getQuote() {
-        return post("http://localhost:8080/question",
-                "{\"question\" : \"This is a new question\",\"lecturePin\":\"342\",\"author\":\"hello\"}");
+    public static String saveQuestion(String question) {
+        return post("http://localhost:8080/question/save-question", question);
     }
 
 }
