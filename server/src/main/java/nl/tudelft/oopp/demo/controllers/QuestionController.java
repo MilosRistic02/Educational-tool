@@ -27,7 +27,7 @@ public class QuestionController {
         return questionService.getAllQuestions();
     }
 
-    @PostMapping
+    @PostMapping("/save-question")
     @ResponseBody
     public String addQuestion(@RequestBody Question question) {
         questionService.addQuestion(question);

@@ -1,9 +1,6 @@
 package nl.tudelft.oopp.demo.controllers;
 
 
-import nl.tudelft.oopp.demo.entities.Lecturer;
-import nl.tudelft.oopp.demo.entities.Moderator;
-import nl.tudelft.oopp.demo.entities.Student;
 import nl.tudelft.oopp.demo.entities.Users;
 import nl.tudelft.oopp.demo.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,15 +26,15 @@ public class UsersController {
 
     @GetMapping("student")
     @ResponseBody
-    public List<Student> getAllStudents() { return usersService.getAllStudents(); }
+    public List<Users> getAllStudents() { return usersService.getAllStudents(); }
 
     @GetMapping("moderator")
     @ResponseBody
-    public List<Moderator> getAllModerators() { return usersService.getAllModerators(); }
+    public List<Users> getAllModerators() { return usersService.getAllModerators(); }
 
     @GetMapping("lecturer")
     @ResponseBody
-    public List<Lecturer> getAllLecturers() { return usersService.getAllLecturers(); }
+    public List<Users> getAllLecturers() { return usersService.getAllLecturers(); }
 
 
     @PostMapping

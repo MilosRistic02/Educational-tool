@@ -9,8 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 
 @Entity
-@Inheritance
-public abstract class Users {
+public class Users {
 
     @Id
     private String username;
@@ -79,7 +78,8 @@ public abstract class Users {
             return false;
         }
         Users users = (Users) o;
-        return getUsername().equals(users.getUsername());
+        return getUsername().equals(users.getUsername())
+                && getRole().equals(users.getRole());
     }
 
     @Override
