@@ -16,8 +16,9 @@ public class QuestionController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Quote for you");
         alert.setHeaderText(null);
-        alert.setContentText(ServerCommunication.saveQuestion("{\"question\" : \"" + question + "\"," +
-                "\"lecturePin\":\"342\",\"author\":\"hello\"}"));
+        alert.setContentText(ServerCommunication.saveQuestion("{\"question\" : "
+                + "\"" + question + "\","
+                + "\"lecturePin\":\"342\",\"author\":\"hello\"}"));
         alert.showAndWait();
     }
 }

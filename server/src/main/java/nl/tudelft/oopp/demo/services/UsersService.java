@@ -12,6 +12,10 @@ public class UsersService {
 
     private UsersRepository usersRepo;
 
+    /**
+     * UsersService constructor to utilize dependency injection.
+     * @param usersRepo
+     */
     @Autowired
     public UsersService(UsersRepository usersRepo){
         this.usersRepo = usersRepo;
@@ -19,12 +23,18 @@ public class UsersService {
     }
 
 
-    //getAllUsers
+    /**
+     * Service to get all users.
+     * @return Spring query to find all users
+     */
     public List<Users> getAllUsers() {
         return usersRepo.findAll();
     }
 
-    //getAllStudents
+    /**
+     * Service to get all students.
+     * @return Spring query to find all students
+     */
     public List<Users> getAllStudents() {
         List<Users> allUsers = usersRepo.findAll();
         List<Users> allStudents = new LinkedList<>();
@@ -34,7 +44,10 @@ public class UsersService {
         return allStudents;
     }
 
-    //getAllModerators
+    /**
+     * Service to get all moderators.
+     * @return Spring query to find all moderators
+     */
     public List<Users> getAllModerators() {
         List<Users> allUsers = usersRepo.findAll();
         List<Users> allModerators = new LinkedList<>();
@@ -44,7 +57,10 @@ public class UsersService {
         return allModerators;
     }
 
-    //getAllLecturers
+    /**
+     * Service to get all moderators.
+     * @return Spring query to find all lecturers
+     */
     public List<Users> getAllLecturers() {
         List<Users> allUsers = usersRepo.findAll();
         List<Users> allLecturers = new LinkedList<>();
@@ -70,7 +86,7 @@ public class UsersService {
     }
 
     /**
-     * A method that deletes an already existing user from the database
+     * A method that deletes an already existing user from the database.
      * @param user
      * @return Error message iff the user does not exists,
      * Success if the user is successfully deleted from the database.
@@ -85,10 +101,16 @@ public class UsersService {
                 ", has been deleted from the database";
     }
 
+    /**
+     * A method that deletes all the users existing in the database.
+     */
     public void deleteAllUsers(){
         usersRepo.deleteAll();
     }
 
+    /**
+     * A method that deletes all the Students existing in the database.
+     */
     public void deleteAllStudents(){
         List<Users> usersList = usersRepo.findAll();
 
@@ -98,7 +120,9 @@ public class UsersService {
             }
         }
     }
-
+    /**
+     * A method that deletes all the Moderators existing in the database.
+     */
     public void deleteAllModerators(){
         List<Users> usersList = usersRepo.findAll();
 
@@ -108,7 +132,9 @@ public class UsersService {
             }
         }
     }
-
+    /**
+     * A method that deletes all the Moderators existing in the database.
+     */
     public void deleteAllLecturers(){
         List<Users> usersList = usersRepo.findAll();
 

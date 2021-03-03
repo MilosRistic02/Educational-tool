@@ -37,38 +37,75 @@ public class Users {
         this.role = role;
     }
 
+    /**
+     * username getter.
+     * @return username of the object
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * username setter, sets the username of the users object that calls the method.
+     * @param username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * email getter
+     * @return email of the object
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * email setter, sets the email of the users object that calls the method.
+     * @param email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * password getter
+     * @return password of the object
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * password setter, sets the password of the users object that calls the method.
+     * @param password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * role getter
+     * @return role of the object
+     */
     public String getRole() {
         return role;
     }
 
+    /**
+     * role setter, sets the role of the users object that calls the method.
+     * @param role
+     */
     public void setRole(String role) {
         this.role = role;
     }
 
+    /**
+     * equals method that checks whether two users are identical.
+     * @param o any object that is used for comparison
+     * @return true iff two objects are identical, false otherwise
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -82,6 +119,10 @@ public class Users {
                 && getRole().equals(users.getRole());
     }
 
+    /**
+     * hashCode function for the username.
+     * @return hashed username of the user
+     */
     @Override
     public int hashCode() {
         return Objects.hash(getUsername());
