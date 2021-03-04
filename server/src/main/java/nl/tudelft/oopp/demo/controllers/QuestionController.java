@@ -23,6 +23,7 @@ public class QuestionController {
     }
 
     @GetMapping
+    @ResponseBody
     public List<Question> getAllQuestions() {
         return questionService.getAllQuestions();
     }

@@ -1,5 +1,7 @@
 package nl.tudelft.oopp.demo.services;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import nl.tudelft.oopp.demo.entities.Users;
 import nl.tudelft.oopp.demo.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -143,6 +145,13 @@ public class UsersService {
                 usersRepo.delete(user);
             }
         }
+    }
+
+    public String getUser(String username, String password) throws JsonProcessingException {
+        if(!usersRepo.existsByUsername(username)) return "User doesn't exist";
+        if(!usersRepo.existsByUsernameAndPassword(username, password)) return "Wrong password";
+        Users user = usersRepo.getByUsernameAndPassword(username, password);
+        return new ObjectMapper().writeValueAsString(user);
     }
 
 

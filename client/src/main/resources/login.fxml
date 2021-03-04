@@ -42,7 +42,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="937.0" style="-fx-background-color: #A5C4D4;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.MainSceneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="937.0" style="-fx-background-color: #A5C4D4;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.LogInController">
    <children>
       <Pane prefHeight="630.0" prefWidth="315.0" style="-fx-background-color: #8499B1;" />
       <ImageView fitHeight="97.0" fitWidth="207.0" layoutX="691.0">
@@ -50,7 +50,7 @@
             <Image url="@images/TUDELFT.png" />
          </image>
       </ImageView>
-      <TextField layoutX="519.0" layoutY="263.0" prefHeight="47.0" prefWidth="262.0" style="-fx-background-color: #E4EDF2;">
+      <TextField fx:id="usernameField" layoutX="519.0" layoutY="263.0" prefHeight="47.0" prefWidth="262.0" style="-fx-background-color: #E4EDF2;">
          <font>
             <Font name="Cantarell Light" size="30.0" />
          </font>
@@ -65,14 +65,29 @@
             <Font name="Cantarell Light" size="30.0" />
          </font>
       </Label>
-      <PasswordField layoutX="519.0" layoutY="343.0" prefHeight="59.0" prefWidth="262.0" style="-fx-background-color: #E4EDF2;">
+      <PasswordField fx:id="passwordField" layoutX="519.0" layoutY="343.0" prefHeight="59.0" prefWidth="262.0" style="-fx-background-color: #E4EDF2;">
          <font>
             <Font size="30.0" />
          </font></PasswordField>
-      <Button layoutX="572.0" layoutY="449.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="157.0" style="-fx-background-color: #8499B1;" text="Log in">
+      <Button layoutX="572.0" layoutY="449.0" mnemonicParsing="false" onAction="#logInButtonClicked" prefHeight="56.0" prefWidth="157.0" style="-fx-background-color: #8499B1;" text="Log in">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
+      <Label fx:id="invalidUser" layoutX="589.0" layoutY="230.0" prefHeight="19.0" prefWidth="122.0" text="User doesn't exist" textFill="#d34343" visible="false">
+         <font>
+            <Font name="Cantarell Extra Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="wrongPassword" layoutX="582.0" layoutY="230.0" prefHeight="19.0" prefWidth="136.0" text="Password is wrong" textFill="#d34343" visible="false">
+         <font>
+            <Font name="Cantarell Extra Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="emptyFields" layoutX="568.0" layoutY="230.0" prefHeight="19.0" prefWidth="166.0" text="Please fill out the fields" textFill="#d34343" visible="false">
+         <font>
+            <Font name="Cantarell Extra Bold" size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

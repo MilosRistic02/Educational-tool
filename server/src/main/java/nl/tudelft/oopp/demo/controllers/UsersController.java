@@ -1,13 +1,16 @@
 package nl.tudelft.oopp.demo.controllers;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import nl.tudelft.oopp.demo.entities.Users;
 import nl.tudelft.oopp.demo.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("users")
@@ -63,6 +66,13 @@ public class UsersController {
     @DeleteMapping("lecturer")
     public void deleteAllLecturers(){
         usersService.deleteAllLecturers();
+    }
+
+    @PostMapping("login")
+    @ResponseBody
+    public String getUser(@RequestBody String json) throws Exception {
+        Map<String, String> credentials = new ObjectMapper().readValue(json, HashMap.class);
+        return usersService.getUser(credentials.get("username"), credentials.get("password"));
     }
 
 }
