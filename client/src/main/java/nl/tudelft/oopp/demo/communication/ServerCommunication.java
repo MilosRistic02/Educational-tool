@@ -2,6 +2,7 @@ package nl.tudelft.oopp.demo.communication;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.QueryParam;
+import nl.tudelft.oopp.demo.entities.Question;
 
 import java.net.http.HttpClient;
 
@@ -14,7 +15,7 @@ public class ServerCommunication extends Request {
      * @return the body of a get request to the server.
      * @throws Exception if communication with the server fails.
      */
-    public static String saveQuestion(String question) {
+    public static String saveQuestion(Question question) {
         return post("http://localhost:8080/question/save-question", question);
     }
 
