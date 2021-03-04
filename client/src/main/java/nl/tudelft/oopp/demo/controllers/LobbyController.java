@@ -12,7 +12,11 @@ public class LobbyController {
 
     @FXML
     private void checkPin() {
-        String question = pinText.getText();
+        String pin = pinText.getText();
+
+        //TODO
+        // lobby voor mod/lecturer
+
 
         // Check if the pinText is an existing lecturePin with queries
         // if it exists, joinRoom(lecturePin)
@@ -20,7 +24,7 @@ public class LobbyController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Incorrect pin");
         alert.setHeaderText(null);
-        alert.setContentText("This lecturepin is not valid");
+        alert.setContentText("This lecture pin is not valid");
         alert.showAndWait();
     }
 }

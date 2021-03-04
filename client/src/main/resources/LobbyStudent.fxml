@@ -4,10 +4,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Lobby">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.LobbyController">
    <children>
-      <TextField layoutX="165.0" layoutY="207.0" prefHeight="40.0" prefWidth="269.0" promptText="Your pin here" />
-      <Button layoutX="230.0" layoutY="274.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="138.0" text="Submit" textFill="WHITE">
+      <TextField fx:id="pinText" layoutX="165.0" layoutY="207.0" prefHeight="40.0" prefWidth="269.0" promptText="Your pin here" />
+      <Button onAction="#checkPin" layoutX="230.0" layoutY="274.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="138.0" text="Join" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
