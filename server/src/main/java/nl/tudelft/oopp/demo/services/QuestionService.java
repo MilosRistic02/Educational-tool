@@ -21,7 +21,6 @@ public class QuestionService {
      * @return          Result of the operation
      */
     public String updateScoreQuestion(Question question) {
-
         if (!questionRepository.existsByLecturePin(
                 question.getLecturePin())) {
             return "Question does not yet exists";
@@ -31,6 +30,33 @@ public class QuestionService {
         prev.setScore(question.getScore());
         questionRepository.save(prev);
         return "Updated score of Question";
+    }
+
+    /**
+     * Update the answered status of a question, given that the question exists in
+     * the database.
+     * @param question with the updated answered status.
+     * @return a String informing if the update was successful or not.
+     */
+    public String updateQuestionAnsweredStatus(Question question) {
+        if (!questionRepository.existsByLecturePin(question.getLecturePin()))
+            return "The question is not in the database.";
+        Question q = questionRepository.getByLecturePin(question.getLecturePin());
+        q.setAnswered(question.isAnswered());
+        questionRepository.save(q);
+        return "The answered status of the question has been updated.";
+
+    }
+
+    /**
+     * Check the answered status of a given question in the database. Assumes that
+     * the given question is in the database.
+     * @param question for which to check the answered status.
+     * @return true if the question has been answered, false otherwise.
+     */
+    public Boolean isQuestionAnswered(Question question) {
+        Question q = questionRepository.getByLecturePin(question.getLecturePin());
+        return q.isAnswered();
     }
 
 
