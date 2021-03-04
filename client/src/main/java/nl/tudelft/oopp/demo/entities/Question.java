@@ -13,6 +13,8 @@ public class Question {
     private String lecturePin;
     private String author;
 
+    public Question() {
+    }
 
     /**
      * Constructor to make instance of Question.

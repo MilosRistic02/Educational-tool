@@ -5,6 +5,7 @@ import jakarta.ws.rs.QueryParam;
 import nl.tudelft.oopp.demo.entities.Question;
 
 import java.net.http.HttpClient;
+import java.util.List;
 
 public class ServerCommunication extends Request {
 
@@ -17,6 +18,10 @@ public class ServerCommunication extends Request {
      */
     public static String saveQuestion(Question question) {
         return post("http://localhost:8080/question/save-question", question);
+    }
+
+    public static List<Question> getAllQuestion(){
+        return get("http://localhost:8080/question/get-all");
     }
 
 }
