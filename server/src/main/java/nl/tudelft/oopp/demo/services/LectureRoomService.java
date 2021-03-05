@@ -87,4 +87,8 @@ public class LectureRoomService {
     public List<LectureRoom> getAllLectureRooms() {
         return lectureRoomRepository.getAll();
     }
+
+    public boolean existsByPin(String pin) {
+        return lectureRoomRepository.existsByLecturePin(pin);
+    }
 }

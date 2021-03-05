@@ -52,4 +52,10 @@ public class LectureRoomController {
     public List<LectureRoom> getAllLectureRooms() {
         return lectureRoomService.getAllLectureRooms();
     }
+
+    @GetMapping("{pin}")
+    @ResponseBody
+    public boolean checkPin(@PathVariable String pin) {
+        return lectureRoomService.existsByPin(pin);
+    }
 }

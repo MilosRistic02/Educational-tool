@@ -19,4 +19,8 @@ public class ServerCommunication extends Request {
         return post("http://localhost:8080/question/save-question", question);
     }
 
+    public static boolean checkPin(String pin) {
+        return Boolean.parseBoolean(get("http://localhost:8080/lecture/" + pin));
+    }
+
 }
