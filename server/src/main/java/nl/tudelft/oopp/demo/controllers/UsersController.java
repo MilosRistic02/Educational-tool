@@ -40,11 +40,9 @@ public class UsersController {
     public List<Users> getAllLecturers() { return usersService.getAllLecturers(); }
 
 
-    @PostMapping
+    @PostMapping("register")
     @ResponseBody
-    public String addUser(@RequestBody Users user){
-        return usersService.addUser(user);
-    }
+    public String addUser(@RequestBody Users user){ return usersService.addUser(user); }
     @DeleteMapping
     @ResponseBody
     public String deleteUser(@RequestBody Users user){

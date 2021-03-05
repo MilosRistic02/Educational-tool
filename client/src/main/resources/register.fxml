@@ -32,16 +32,12 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.scene.control.TextField?>
-<VBox prefHeight="400.0" prefWidth="640.0" style="-fx-background-color: #A5C4D4;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="400.0" prefWidth="640.0" style="-fx-background-color: #A5C4D4;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.RegisterController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
@@ -66,10 +62,10 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <TextField layoutX="279.0" layoutY="304.0" prefHeight="26.0" prefWidth="293.0" style="-fx-background-color: #E4EDF2;" />
-            <TextField layoutX="279.0" layoutY="242.0" prefHeight="26.0" prefWidth="293.0" style="-fx-background-color: #E4EDF2;" />
-            <TextField layoutX="279.0" layoutY="187.0" prefHeight="26.0" prefWidth="293.0" style="-fx-background-color: #E4EDF2;" />
-            <TextField layoutX="279.0" layoutY="130.0" prefHeight="26.0" prefWidth="293.0" style="-fx-background-color: #E4EDF2;" />
+            <PasswordField fx:id="reEnteredPasswordField" layoutX="279.0" layoutY="304.0" prefHeight="26.0" prefWidth="293.0" style="-fx-background-color: #E4EDF2;" />
+            <PasswordField fx:id="passwordField" layoutX="279.0" layoutY="242.0" prefHeight="26.0" prefWidth="293.0" style="-fx-background-color: #E4EDF2;" />
+            <TextField fx:id="emailField" layoutX="279.0" layoutY="187.0" prefHeight="26.0" prefWidth="293.0" style="-fx-background-color: #E4EDF2;" />
+            <TextField fx:id="usernameField" layoutX="279.0" layoutY="130.0" prefHeight="26.0" prefWidth="293.0" style="-fx-background-color: #E4EDF2;" />
             <Label layoutX="161.0" layoutY="307.0" prefHeight="45.0" prefWidth="95.0" text="Password">
                <font>
                   <Font size="20.0" />
@@ -83,6 +79,32 @@
             <Label layoutX="161.0" layoutY="52.0" text="Register">
                <font>
                   <Font size="40.0" />
+               </font>
+            </Label>
+            <Button fx:id="registerButton" layoutX="400.0" layoutY="353.0" mnemonicParsing="false" onAction="#registerButtonClicked" text="Register" />
+            <Label fx:id="nonMatchingPassword" layoutX="161.0" layoutY="357.0" prefHeight="26.0" prefWidth="228.0" text="Passwords do not match" textFill="#d34343" visible="false">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="userExists" layoutX="161.0" layoutY="362.0" prefHeight="22.0" prefWidth="228.0" text="This user already exists!" textFill="#d34343" visible="false">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="emptyFields" layoutX="161.0" layoutY="361.0" prefHeight="22.0" prefWidth="236.0" text="Some fields are empty" textFill="#d34343" visible="false">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="emailAlreadyExists" layoutX="161.0" layoutY="357.0" prefHeight="22.0" prefWidth="214.0" text="This email address is already in use" textFill="#d34343" visible="false">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="emailInvalid" layoutX="161.0" layoutY="357.0" prefHeight="22.0" prefWidth="228.0" text="Email address is invalid" textFill="#d34343" visible="false">
+               <font>
+                  <Font size="15.0" />
                </font>
             </Label>
       </children>

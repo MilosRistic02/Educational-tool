@@ -4,11 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.QueryParam;
-import nl.tudelft.oopp.demo.entities.Question;
-
 import java.net.http.HttpClient;
 import java.util.HashMap;
 import java.util.Map;
+
+import nl.tudelft.oopp.demo.entities.Question;
 
 public class ServerCommunication extends Request {
 
@@ -20,13 +20,46 @@ public class ServerCommunication extends Request {
      * @throws Exception if communication with the server fails.
      */
     public static String saveQuestion(Question question) {
-        return post("http://localhost:8080/question/save-question", question);
+        return post(
+                "http://localhost:8080/question/save-question",
+                question);
     }
 
-    public static String sendCredentials(String username, String password) throws JsonProcessingException {
+    /**
+     * Sends the user information to the server via a post request.
+     * @param username of the user
+     * @param password of the user
+     * @return response body of the post request
+     * @throws JsonProcessingException when the json couldn't be processed
+     */
+    public static String sendCredentials(String username,
+                                         String password) throws JsonProcessingException {
         Map<String, String> credentials = new HashMap<>();
         credentials.put("username", username);
         credentials.put("password", password);
-        return post("http://localhost:8080/users/login", new ObjectMapper().writeValueAsString(credentials));
+        return post(
+                "http://localhost:8080/users/login",
+                new ObjectMapper().writeValueAsString(credentials));
+    }
+
+    /**
+     * Sends the user information to the server via a post request.
+     * @param username of the user
+     * @param email    of the user
+     * @param password of the user
+     * @return response body of the post request
+     * @throws JsonProcessingException when the json couldn't be processed
+     */
+    public static String sendCredentials(String username,
+                                         String email,
+                                         String password) throws JsonProcessingException {
+        Map<String, String> credentials = new HashMap<>();
+        credentials.put("username", username);
+        credentials.put("email", email);
+        credentials.put("password", password);
+        credentials.put("role", "student");
+        return post(
+                "http://localhost:8080/users/register",
+                new ObjectMapper().writeValueAsString(credentials));
     }
 }

@@ -31,20 +31,23 @@ public class LogInController {
         String username = usernameField.getText();
         String password = passwordField.getText();
         reset();
-        if(username == null || password == null || username.length() == 0 || password.length() == 0) {
+        if (username == null
+                || password == null
+                || username.length() == 0
+                || password.length() == 0) {
             emptyFields.setVisible(true);
             usernameField.requestFocus();
             return;
         }
 
         String response = ServerCommunication.sendCredentials(username, password);
-        if(response.equals("User doesn't exist")) {
+        if (response.equals("User doesn't exist")) {
             invalidUser.setVisible(true);
             usernameField.setText("");
             usernameField.requestFocus();
             return;
         }
-        if(response.equals("Wrong password")) {
+        if (response.equals("Wrong password")) {
             wrongPassword.setVisible(true);
             passwordField.setText("");
             passwordField.requestFocus();

@@ -81,6 +81,9 @@ public class UsersService {
         if(usersRepo.existsByUsername(user.getUsername())){
             return "This user already exists!";
         }
+        if(usersRepo.existsByEmail(user.getEmail())){
+            return "This email address is already used!";
+        }
         usersRepo.save(user);
         return "User type: " + user.getRole() +
                 ", username: " + user.getUsername() +

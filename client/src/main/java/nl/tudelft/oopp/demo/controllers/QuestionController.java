@@ -17,7 +17,7 @@ public class QuestionController {
         ServerCommunication.saveQuestion(q);
     }
 
-    /**
+    /*
      * Alert alert = new Alert(Alert.AlertType.INFORMATION);
      * alert.setTitle("Quote for you");
      * alert.setHeaderText(null);
