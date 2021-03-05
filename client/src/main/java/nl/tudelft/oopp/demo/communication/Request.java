@@ -14,6 +14,11 @@ public class Request {
 
     private static HttpClient client = HttpClient.newBuilder().build();
 
+    /**
+     * Handles GET requests from the client.
+     * @param url that which the request is made
+     * @return response body
+     */
     public static String get(String url) {
         HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create(url)).build();
         HttpResponse<String> response = null;
@@ -30,6 +35,12 @@ public class Request {
         return response.body();
     }
 
+    /**
+     * Handles POST requests from the client.
+     * @param url that which the request is made
+     * @param t Json version of the object handled
+     * @return response body
+     */
     public static <T> String post(String url, T t) {
         Entity<T> requestBody = Entity.entity(t, MediaType.APPLICATION_JSON);
         GenericType<String> responseBodyType = new GenericType<String>(){};
@@ -43,6 +54,12 @@ public class Request {
         return responseBody;
     }
 
+    /**
+     * Handles PUT requests from the client.
+     * @param url that which the request is made
+     * @param t Json version of the object handled
+     * @return response body
+     */
     public static <T> String put(String url, T t) {
         Entity<T> requestBody = Entity.entity(t, MediaType.APPLICATION_JSON);
         GenericType<String> responseBodyType = new GenericType<String>(){};
@@ -56,6 +73,12 @@ public class Request {
         return responseBody;
     }
 
+    /**
+     * Handles DELETE requests from the client.
+     * @param url that which the request is made
+     * @param id id of the object stored in the database
+     * @return deleted object
+     */
     public static String delete(String url, String id) {
         GenericType<String> responseBodyType = new GenericType<String>(){};
         String objects = ClientBuilder.newClient()

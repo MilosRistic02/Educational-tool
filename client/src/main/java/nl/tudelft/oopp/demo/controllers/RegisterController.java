@@ -43,6 +43,16 @@ public class RegisterController {
     @FXML
     private Label emailInvalid;
 
+    /**
+     * Activated upon a click on the register button.
+     * Throws error messages if:
+     * some fields are empty
+     * passwords do not match
+     * user already exists
+     * email is not valid
+     * email is already being used by another user
+     * @throws JsonProcessingException if the json couldn't be processed
+     */
     public void registerButtonClicked() throws JsonProcessingException {
         String username = usernameField.getText();
         String password = passwordField.getText();
@@ -89,6 +99,9 @@ public class RegisterController {
         alert.showAndWait();
     }
 
+    /**
+     * Reset all the Labels and TextFields.
+     */
     private void reset() {
         emptyFields.setVisible(false);
         nonMatchingPassword.setVisible(false);
@@ -109,6 +122,11 @@ public class RegisterController {
     public static final Pattern validEmailRegex =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
+    /**
+     * Checks to see if an email is valid.
+     * @param email being analyzed
+     * @return true if the email is valid.
+     */
     public static boolean isValidEmailAddress(String email) {
         Matcher matcher = validEmailRegex.matcher(email);
         return matcher.find();
