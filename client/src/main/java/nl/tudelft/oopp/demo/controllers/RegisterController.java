@@ -60,10 +60,14 @@ public class RegisterController {
         String reEnteredPassword = reEnteredPasswordField.getText();
 
         reset();
-        if(!checkRequest(username, password, email, reEnteredPassword)) return;
+        if (!checkRequest(username, password, email, reEnteredPassword)) {
+            return;
+        }
 
         String response = ServerCommunication.sendCredentials(username, email, password);
-        if(!checkResponse(response)) return;
+        if (!checkResponse(response)) {
+            return;
+        }
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Registration successful");
@@ -72,8 +76,16 @@ public class RegisterController {
         alert.showAndWait();
     }
 
-    private boolean checkRequest(String username, String password, String email, String rePassword) {
-        if (username.length() == 0
+    /**
+     * Checks the request to see if it is valid.
+     * @param user String with the username entered by the user
+     * @param password String with the password the user provided
+     * @param email String with the email the user provided
+     * @param rePassword String with the confirmation password the user entered
+     * @return Boolean that is true iff the request is valid
+     */
+    private boolean checkRequest(String user, String password, String email, String rePassword) {
+        if (user.length() == 0
                 || password.length() == 0
                 || email.length() == 0
                 || rePassword.length() == 0) {
@@ -96,6 +108,11 @@ public class RegisterController {
         return true;
     }
 
+    /**
+     * Checks the response to see if it is valid.
+     * @param response String with the response message
+     * @return Boolean that is true iff the response is valid
+     */
     private boolean checkResponse(String response) {
         if (response.equals("This user already exists!")) {
             userExists.setVisible(true);

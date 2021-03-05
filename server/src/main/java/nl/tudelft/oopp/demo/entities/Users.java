@@ -47,14 +47,14 @@ public class Users {
 
     /**
      * username setter, sets the username of the users object that calls the method.
-     * @param username
+     * @param username String containing the new username of this User
      */
     public void setUsername(String username) {
         this.username = username;
     }
 
     /**
-     * email getter
+     * Getter for the Email.
      * @return email of the object
      */
     public String getEmail() {
@@ -62,15 +62,15 @@ public class Users {
     }
 
     /**
-     * email setter, sets the email of the users object that calls the method.
-     * @param email
+     * Setter for the Email, sets the email of the users object that calls the method.
+     * @param email String containing the new Email of this User
      */
     public void setEmail(String email) {
         this.email = email;
     }
 
     /**
-     * password getter
+     * Getter for the password.
      * @return password of the object
      */
     public String getPassword() {
@@ -78,15 +78,15 @@ public class Users {
     }
 
     /**
-     * password setter, sets the password of the users object that calls the method.
-     * @param password
+     * Setter for the password, sets the password of the users object that calls the method.
+     * @param password String containing the new Password of this User
      */
     public void setPassword(String password) {
         this.password = password;
     }
 
     /**
-     * role getter
+     * Getter for the role.
      * @return role of the object
      */
     public String getRole() {
@@ -94,8 +94,8 @@ public class Users {
     }
 
     /**
-     * role setter, sets the role of the users object that calls the method.
-     * @param role
+     * Setter for the role, sets the role of the users object that calls the method.
+     * @param role String containing the new Role of this User
      */
     public void setRole(String role) {
         this.role = role;

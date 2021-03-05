@@ -29,7 +29,8 @@ public class LogInController {
      * Activated upon a click on the login button.
      * Throws error messages if:
      * some fields are empty
-     * user doesn't exists
+     * user doesn't exist
+     * password is wrong
      * @throws JsonProcessingException if the json couldn't be processed
      */
     public void logInButtonClicked() throws JsonProcessingException {
@@ -43,7 +44,9 @@ public class LogInController {
         }
 
         String response = ServerCommunication.sendCredentials(username, password);
-        if(!checkValidResponse(response)) return;
+        if (!checkValidResponse(response)) {
+            return;
+        }
 
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -64,7 +67,7 @@ public class LogInController {
     }
 
     /**
-     * Checks if the reponse of the server is valid.
+     * Checks if the response of the server is valid.
      * @param response Json string that is the server's response
      * @return true if valid
      */
