@@ -31,10 +31,7 @@ public class LogInController {
         String username = usernameField.getText();
         String password = passwordField.getText();
         reset();
-        if (username == null
-                || password == null
-                || username.length() == 0
-                || password.length() == 0) {
+        if(username.length() == 0 || password.length() == 0) {
             emptyFields.setVisible(true);
             usernameField.requestFocus();
             return;
@@ -53,6 +50,8 @@ public class LogInController {
             passwordField.requestFocus();
             return;
         }
+        if(!checkValidResponse(response)) return;
+
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("You logged in");
@@ -66,5 +65,19 @@ public class LogInController {
         wrongPassword.setVisible(false);
         invalidUser.setVisible(false);
         passwordField.setText("");
+    }
+
+    private boolean checkValidResponse(String response) {
+        if(response.contains("{")) return true;
+        if(response.equals("User doesn't exist")) {
+            invalidUser.setVisible(true);
+            usernameField.setText("");
+            usernameField.requestFocus();
+            return false;
+        }
+
+        wrongPassword.setVisible(true);
+        passwordField.requestFocus();
+        return false;
     }
 }
