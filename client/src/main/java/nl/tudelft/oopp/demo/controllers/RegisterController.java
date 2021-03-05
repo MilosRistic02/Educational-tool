@@ -58,45 +58,58 @@ public class RegisterController {
         String password = passwordField.getText();
         String email = emailField.getText();
         String reEnteredPassword = reEnteredPasswordField.getText();
+
         reset();
-        if (username.length() == 0
-                || password.length() == 0
-                || email.length() == 0
-                || reEnteredPassword.length() == 0) {
-            emptyFields.setVisible(true);
-            usernameField.requestFocus();
-            return;
-        }
-        if (!password.equals(reEnteredPassword)) {
-            nonMatchingPassword.setVisible(true);
-            reEnteredPasswordField.requestFocus();
-            return;
-        }
-        if (!isValidEmailAddress(email)) {
-            emailInvalid.setVisible(true);
-            emailField.requestFocus();
-            return;
-        }
+        if(!checkRequest(username, password, email, reEnteredPassword)) return;
+
         String response = ServerCommunication.sendCredentials(username, email, password);
-        if (response.equals("This user already exists!")) {
-            userExists.setVisible(true);
-            usernameField.requestFocus();
-            return;
-        }
-        if (response.equals("This email address is already used!")) {
-            emailAlreadyExists.setVisible(true);
-            usernameField.requestFocus();
-            return;
-        }
-
-
-
+        if(!checkResponse(response)) return;
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Registration successful");
         alert.setContentText(response);
         alert.setHeaderText(null);
         alert.showAndWait();
+    }
+
+    private boolean checkRequest(String username, String password, String email, String rePassword) {
+        if (username.length() == 0
+                || password.length() == 0
+                || email.length() == 0
+                || rePassword.length() == 0) {
+            emptyFields.setVisible(true);
+            usernameField.requestFocus();
+            return false;
+        }
+        if (!password.equals(rePassword)) {
+            nonMatchingPassword.setVisible(true);
+            passwordField.requestFocus();
+            return false;
+        }
+        if (!isValidEmailAddress(email)) {
+            emailInvalid.setVisible(true);
+            emailField.setText("");
+            emailField.requestFocus();
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean checkResponse(String response) {
+        if (response.equals("This user already exists!")) {
+            userExists.setVisible(true);
+            usernameField.setText("");
+            usernameField.requestFocus();
+            return false;
+        }
+        if (response.equals("This email address is already used!")) {
+            emailAlreadyExists.setVisible(true);
+            usernameField.requestFocus();
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -108,14 +121,8 @@ public class RegisterController {
         userExists.setVisible(false);
         emailAlreadyExists.setVisible(false);
         emailInvalid.setVisible(false);
-
-        usernameField.setText("");
-        emailField.setText("");
         passwordField.setText("");
         reEnteredPasswordField.setText("");
-
-
-        usernameField.requestFocus();
     }
 
     //https://stackoverflow.com/questions/8204680/java-regex-email

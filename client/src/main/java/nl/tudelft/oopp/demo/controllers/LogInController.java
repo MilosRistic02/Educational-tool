@@ -43,21 +43,8 @@ public class LogInController {
         }
 
         String response = ServerCommunication.sendCredentials(username, password);
-        if (response.equals("User doesn't exist")) {
-            invalidUser.setVisible(true);
-            usernameField.setText("");
-            usernameField.requestFocus();
-            return;
-        }
-        if (response.equals("Wrong password")) {
-            wrongPassword.setVisible(true);
-            passwordField.setText("");
-            passwordField.requestFocus();
-            return;
-        }
-        if (!checkValidResponse(response)) {
-            return;
-        }
+        if(!checkValidResponse(response)) return;
+
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("You logged in");
