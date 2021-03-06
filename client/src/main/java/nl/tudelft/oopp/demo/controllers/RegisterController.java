@@ -155,4 +155,6 @@ public class RegisterController {
         Matcher matcher = validEmailRegex.matcher(email);
         return matcher.find();
     }
+
+
 }

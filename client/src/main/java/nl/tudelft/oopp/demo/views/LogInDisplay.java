@@ -14,7 +14,7 @@ public class LogInDisplay extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        URL xmlUrl = getClass().getResource("/register.fxml");
+        URL xmlUrl = getClass().getResource("/login.fxml");
         loader.setLocation(xmlUrl);
         Parent root = loader.load();
 

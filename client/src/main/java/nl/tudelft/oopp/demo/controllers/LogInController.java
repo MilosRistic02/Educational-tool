@@ -2,13 +2,20 @@ package nl.tudelft.oopp.demo.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 
+import java.io.IOException;
+
 public class LogInController {
+
+    @FXML
+    AnchorPane rootPane;
 
     @FXML
     TextField usernameField;
@@ -86,5 +93,10 @@ public class LogInController {
         wrongPassword.setVisible(true);
         passwordField.requestFocus();
         return false;
+    }
+
+    public void signupButtonClicked() throws IOException {
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("/register.fxml"));
+        rootPane.getChildren().setAll(pane);
     }
 }
