@@ -33,6 +33,7 @@ public class QuestionController {
         Collections.sort(qs, new QuestionComparator());
 
         stack.getChildren().clear();
+        stack.setSpacing(15);
         for (Question q : qs) {
             QuestionFormatComponent questionFormatComponent = new QuestionFormatComponent();
             questionFormatComponent.question.setText(q.getQuestion());
