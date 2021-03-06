@@ -6,12 +6,14 @@ import javafx.scene.layout.VBox;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Question;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class QuestionController {
-
-//    @FXML
-//    private Pane pane;
 
     @FXML
     private VBox stack;
@@ -36,6 +38,13 @@ public class QuestionController {
             questionFormatComponent.question.setText(q.getQuestion());
             questionFormatComponent.score.setText(Integer.toString(q.getScore()));
             questionFormatComponent.author.setText(q.getAuthor());
+
+            // Date format to be displayed.
+            String pattern = "HH:mm:ss";
+            DateFormat df = new SimpleDateFormat(pattern);
+            String date = df.format(q.getCreationDate());
+
+            questionFormatComponent.creationDate.setText(date);
             stack.getChildren().add(questionFormatComponent);
         }
     }

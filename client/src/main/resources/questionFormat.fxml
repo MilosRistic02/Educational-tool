@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<fx:root fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="61.0" prefWidth="600.0" style="-fx-border-color: #000000; -fx-border-width: 5;" type="javafx.scene.layout.Pane" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="600.0" style="-fx-border-color: #000000; -fx-border-width: 5;" type="javafx.scene.layout.Pane" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
 <!--   <children>-->
       <RadioButton layoutX="28.0" layoutY="10.0" mnemonicParsing="false" text="Upvote" />
       <RadioButton layoutX="28.0" layoutY="34.0" mnemonicParsing="false" text="Downvote" />
-      <Text fx:id="score" layoutX="116.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score" wrappingWidth="59.419921875" />
-      <Text fx:id="question" layoutX="196.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Question" wrappingWidth="271.0" />
-      <Text fx:id="author" layoutX="484.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Author" wrappingWidth="75.029296875" />
+      <Text fx:id="score" layoutX="126.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score" wrappingWidth="59.419921875" />
+      <Text fx:id="question" layoutX="202.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Question" wrappingWidth="271.0" />
+      <Text fx:id="author" layoutX="473.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Author" wrappingWidth="75.029296875" />
+   <Text fx:id="creationDate" layoutX="473.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Creation Date" wrappingWidth="75.029296875" />
 <!--   </children>-->
 </fx:root>

@@ -18,6 +18,9 @@ public class QuestionFormatComponent extends Pane{
     @FXML
     public Text author;
 
+    @FXML
+    public Text creationDate;
+
 
     public QuestionFormatComponent(){
         try {
