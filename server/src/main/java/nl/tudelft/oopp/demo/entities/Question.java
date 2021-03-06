@@ -1,6 +1,6 @@
 package nl.tudelft.oopp.demo.entities;
 
-import java.sql.Timestamp;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,7 +26,7 @@ public class Question {
     private int score;
 
     @CreationTimestamp
-    private Timestamp timestamp;
+    private Date creationDate;
 
     private boolean isAnswered;
 
@@ -167,6 +167,14 @@ public class Question {
      */
     public void setLecturePin(String lecturePin) {
         this.lecturePin = lecturePin;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     /**

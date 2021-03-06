@@ -2,7 +2,7 @@ package nl.tudelft.oopp.demo.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -21,7 +21,7 @@ public class LectureRoom {
     private int courseId;
 
     @CreationTimestamp
-    private Timestamp timestamp;
+    private Date creationDate;
 
     public LectureRoom() {
     }
@@ -88,6 +88,14 @@ public class LectureRoom {
      */
     public void setLecturePin(String lecturePin) {
         this.lecturePin = lecturePin;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     @Override
