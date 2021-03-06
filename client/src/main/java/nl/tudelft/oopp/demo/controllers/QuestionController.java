@@ -8,9 +8,7 @@ import nl.tudelft.oopp.demo.entities.Question;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.Collections;
 import java.util.List;
 
 public class QuestionController {
@@ -31,6 +29,8 @@ public class QuestionController {
     @FXML
     private void displayAllQuestion() {
         List<Question> qs = ServerCommunication.getAllQuestion();
+        // Sort questions first by their score, then by their creation date.
+        Collections.sort(qs, new QuestionComparator());
 
         stack.getChildren().clear();
         for (Question q : qs) {
