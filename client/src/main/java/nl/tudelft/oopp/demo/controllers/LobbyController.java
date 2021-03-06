@@ -1,17 +1,25 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import nl.tudelft.oopp.demo.MainApp;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.views.LobbyLecturerDisplay;
 import nl.tudelft.oopp.demo.views.LobbyStudentDisplay;
 
+import java.io.IOException;
+
 public class LobbyController {
 
     @FXML
-    private TextField pinText;
+    TextField pinText;
+
+    @FXML
+    AnchorPane rootPane;
+
 
     @FXML
     private void checkPin() {
@@ -42,8 +50,9 @@ public class LobbyController {
 
     }
 
-    @FXML
-    private void enterPin() {
-        LobbyStudentDisplay.start();
+    public void enterPin() throws IOException {
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("/lobbyStudent.fxml"));
+        rootPane.getChildren().setAll(pane);
     }
+
 }
