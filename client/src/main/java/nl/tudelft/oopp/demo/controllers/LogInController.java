@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.io.IOException;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
@@ -13,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.entities.Users;
 import nl.tudelft.oopp.demo.views.QuoteDisplay;
 
 public class LogInController {
@@ -58,7 +60,8 @@ public class LogInController {
             return;
         }
 
-        loadQuestion();
+        Users loggedUser = new ObjectMapper().readValue(response, Users.class);
+        QuoteDisplay.showQuestion(loggedUser);;
     }
 
     /**
@@ -96,11 +99,5 @@ public class LogInController {
     public void signupButtonClicked() throws IOException {
         AnchorPane pane = FXMLLoader.load(getClass().getResource("/register.fxml"));
         rootPane.getChildren().setAll(pane);
-    }
-
-    public void loadQuestion() throws IOException {
-//        AnchorPane pane = FXMLLoader.load(getClass().getResource("/question.fxml"));
-//        rootPane.getChildren().setAll(pane);
-        QuoteDisplay.showQuestion();
     }
 }

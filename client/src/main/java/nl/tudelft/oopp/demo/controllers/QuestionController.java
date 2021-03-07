@@ -5,6 +5,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Question;
+import nl.tudelft.oopp.demo.entities.Users;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -19,9 +20,11 @@ public class QuestionController {
     @FXML
     private TextField questionText;
 
+    private Users users;
+
     @FXML
     private void displayQuestion() {
-        Question q = new Question(questionText.getText(), "20", "Rodrigo");
+        Question q = new Question(questionText.getText(), "20", users.getUsername());
         ServerCommunication.saveQuestion(q);
         displayAllQuestion();
     }
@@ -48,6 +51,10 @@ public class QuestionController {
             questionFormatComponent.creationDate.setText(date);
             stack.getChildren().add(questionFormatComponent);
         }
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
     }
 
     /*
