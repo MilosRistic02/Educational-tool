@@ -17,8 +17,8 @@ public class Users {
     @NotNull
     private String role;
 
-    @OneToMany(mappedBy = "users")
-    Set<ScoringLog> scoringLogs;
+//    @OneToMany(mappedBy = "users")
+//    Set<ScoringLog> scoringLogs;
 
     public Users(){
     }

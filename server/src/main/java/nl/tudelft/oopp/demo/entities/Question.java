@@ -32,8 +32,8 @@ public class Question {
 
     private String author;
 
-    @OneToMany(mappedBy = "question")
-    Set<ScoringLog> scoringLogs;
+//    @OneToMany(mappedBy = "question")
+//    Set<ScoringLog> scoringLogs;
 
     public Question() {
     }
