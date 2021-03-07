@@ -83,7 +83,7 @@
       </Label>
       <Button fx:id="registerButton" layoutX="572.0" layoutY="486.0" mnemonicParsing="false" onAction="#registerButtonClicked" prefHeight="56.0" prefWidth="157.0" style="-fx-background-color: #00A6D6;" text="Register">
          <font>
-            <Font name="Cantarell Light" size="30.0" />
+            <Font name="Cantarell Regular" size="30.0" />
          </font>
       </Button>
       <Label fx:id="nonMatchingPassword" layoutX="538.0" layoutY="131.0" prefHeight="26.0" prefWidth="193.0" text="Passwords do not match" textFill="#d34343" visible="false">

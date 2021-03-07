@@ -83,16 +83,13 @@ public class RegisterController {
         }
 
         userSuccess.setVisible(true);
-        //Thread.sleep(3000);
-        new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
-            @Override
-        public void handle(ActionEvent event) {
-                try {
-                    backButtonClicked();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }})).play();
+        new Timeline(new KeyFrame(Duration.millis(750), event -> {
+            try {
+                backButtonClicked();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        })).play();
     }
     
     public void backButtonClicked() throws IOException {
@@ -146,7 +143,8 @@ public class RegisterController {
         }
         if (response.equals("This email address is already used!")) {
             emailAlreadyExists.setVisible(true);
-            usernameField.requestFocus();
+            emailField.setText("");
+            emailField.requestFocus();
             return false;
         }
 
