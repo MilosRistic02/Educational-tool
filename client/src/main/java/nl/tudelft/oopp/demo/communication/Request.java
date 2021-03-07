@@ -5,6 +5,7 @@ import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import nl.tudelft.oopp.demo.entities.Question;
+import nl.tudelft.oopp.demo.entities.ScoringLog;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -20,6 +21,18 @@ public class Request {
         GenericType<List<Question>> responseBodyType = new GenericType<List<Question>>(){};
 
          List<Question> responseBody = ClientBuilder.newClient()
+                .target(url)
+                .request(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .get(responseBodyType);
+
+        return responseBody;
+    }
+
+    public static List<ScoringLog> getVotes(String url) {
+        GenericType<List<ScoringLog>> responseBodyType = new GenericType<List<ScoringLog>>(){};
+
+        List<ScoringLog> responseBody = ClientBuilder.newClient()
                 .target(url)
                 .request(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)

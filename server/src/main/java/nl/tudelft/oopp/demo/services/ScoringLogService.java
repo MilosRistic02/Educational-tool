@@ -4,6 +4,8 @@ import nl.tudelft.oopp.demo.entities.ScoringLog;
 import nl.tudelft.oopp.demo.repositories.ScoringLogRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ScoringLogService {
 
@@ -26,5 +28,9 @@ public class ScoringLogService {
 
         scoringLogRepository.save(newScoringLog);
         return "Success";
+    }
+
+    public List<ScoringLog> getVotes(){
+        return scoringLogRepository.findAll();
     }
 }

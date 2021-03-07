@@ -78,4 +78,8 @@ public class ServerCommunication extends Request {
 
         return post("http://localhost:8080/scoringlog/vote", scoringLog);
     }
+
+    public static List<ScoringLog> getVotes(){
+        return getVotes("http://localhost:8080/scoringlog/get-votes");
+    }
 }

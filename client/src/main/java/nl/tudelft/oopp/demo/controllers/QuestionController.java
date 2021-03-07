@@ -6,6 +6,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Question;
+import nl.tudelft.oopp.demo.entities.ScoringLog;
 import nl.tudelft.oopp.demo.entities.Users;
 
 import java.text.DateFormat;
@@ -34,12 +35,20 @@ public class QuestionController {
     @FXML
     private void displayAllQuestion() {
         List<Question> qs = ServerCommunication.getAllQuestion();
+        List<ScoringLog> votes = ServerCommunication.getVotes();
         // Sort questions first by their score, then by their creation date.
         Collections.sort(qs, new QuestionComparator());
 
         stack.getChildren().clear();
         stack.setSpacing(15);
         for (Question q : qs) {
+
+            for(ScoringLog scoringLog: votes){
+                if(scoringLog.getQuestion().equals(q)){
+                    q.setScore(q.getScore() + scoringLog.getScore());
+                }
+            }
+
             QuestionFormatComponent questionFormatComponent = new QuestionFormatComponent();
             questionFormatComponent.question.setText(q.getQuestion());
             questionFormatComponent.score.setText(Integer.toString(q.getScore()));
