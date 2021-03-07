@@ -25,11 +25,12 @@ public class QuestionController {
     private transient QuestionService questionService;
 
     @PutMapping("/upvote")
+    @ResponseBody
     public String changeUpvote(@RequestBody Question question) {
         return questionService.updateScoreQuestion(question);
     }
 
-    @GetMapping
+    @GetMapping("/get-all")
     @ResponseBody
     public List<Question> getAllQuestions() {
         return questionService.getAllQuestions();
@@ -43,6 +44,7 @@ public class QuestionController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseBody
     public boolean deleteQuestion(@PathVariable long id) {
         return questionService.deleteQuestion(id);
     }

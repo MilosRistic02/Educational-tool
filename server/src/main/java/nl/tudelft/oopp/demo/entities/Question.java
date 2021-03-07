@@ -1,10 +1,8 @@
 package nl.tudelft.oopp.demo.entities;
 
-import java.sql.Timestamp;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.util.Date;
+import java.util.Set;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -26,13 +24,16 @@ public class Question {
     private int score;
 
     @CreationTimestamp
-    private Timestamp timestamp;
+    private Date creationDate;
 
     private boolean isAnswered;
 
     private String lecturePin;
 
     private String author;
+
+    @OneToMany(mappedBy = "question")
+    Set<ScoringLog> scoringLogs;
 
     public Question() {
     }
@@ -167,6 +168,14 @@ public class Question {
      */
     public void setLecturePin(String lecturePin) {
         this.lecturePin = lecturePin;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     /**

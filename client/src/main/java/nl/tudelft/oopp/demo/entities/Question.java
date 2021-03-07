@@ -1,6 +1,7 @@
 package nl.tudelft.oopp.demo.entities;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class Question {
 
@@ -8,11 +9,13 @@ public class Question {
     private String question;
     private String answer;
     private int score;
-    private Timestamp timestamp;
+    private Date creationDate;
     private boolean isAnswered;
     private String lecturePin;
     private String author;
 
+    public Question() {
+    }
 
     /**
      * Constructor to make instance of Question.
@@ -145,6 +148,14 @@ public class Question {
      */
     public void setLecturePin(String lecturePin) {
         this.lecturePin = lecturePin;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     /**
