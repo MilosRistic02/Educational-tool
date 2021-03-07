@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
 <fx:root fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="600.0" style="-fx-background-color: #00A6D6; -fx-background-radius: 18; -fx-border-radius: 18;" type="javafx.scene.layout.Pane" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
-      <Text fx:id="score" layoutX="126.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score" wrappingWidth="59.419921875" />
-      <Text fx:id="question" layoutX="202.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Question" wrappingWidth="271.0" />
-      <Text fx:id="author" layoutX="473.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Author" wrappingWidth="75.029296875" />
-   <Text fx:id="creationDate" layoutX="473.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Creation Date" wrappingWidth="98.029296875" />
-   <ToggleButton layoutX="29.0" layoutY="13.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="59.0" text="Like" />
-   <ToggleButton layoutX="29.0" layoutY="45.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="59.0" text="Dislike" />
+      <Text fx:id="score" layoutX="132.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score" wrappingWidth="59.419921875" />
+      <Text fx:id="question" layoutX="192.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Question" wrappingWidth="271.0" />
+      <Text fx:id="author" layoutX="473.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Author" wrappingWidth="104.029296875" />
+   <Text fx:id="creationDate" layoutX="473.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Creation Date" wrappingWidth="98.029296875" />
+   <ToggleButton layoutX="20.0" layoutY="22.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="11.0" style="-fx-effect: #99d28c;">
+      <graphic>
+         <ImageView fitHeight="17.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: #99d28c;">
+            <Image url="images/thumb-up.png"></Image>
+         </ImageView>
+      </graphic></ToggleButton>
+   <ToggleButton layoutX="73.0" layoutY="22.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="25.0">
+      <graphic>
+          <ImageView fitHeight="17.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+              <Image url="images/thumb-down.png"></Image>
+          </ImageView>
+      </graphic></ToggleButton>
 <!--   </children>-->
 </fx:root>

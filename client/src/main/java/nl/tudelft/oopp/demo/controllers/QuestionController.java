@@ -38,7 +38,7 @@ public class QuestionController {
             QuestionFormatComponent questionFormatComponent = new QuestionFormatComponent();
             questionFormatComponent.question.setText(q.getQuestion());
             questionFormatComponent.score.setText(Integer.toString(q.getScore()));
-            questionFormatComponent.author.setText(q.getAuthor());
+            questionFormatComponent.author.setText("Asked by " + q.getAuthor());
 
             // Date format to be displayed.
             String pattern = "HH:mm:ss";
