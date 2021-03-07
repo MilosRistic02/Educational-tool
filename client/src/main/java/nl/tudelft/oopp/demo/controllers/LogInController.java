@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.views.QuoteDisplay;
 
 public class LogInController {
 
@@ -98,7 +99,8 @@ public class LogInController {
     }
 
     public void loadQuestion() throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("/question.fxml"));
-        rootPane.getChildren().setAll(pane);
+//        AnchorPane pane = FXMLLoader.load(getClass().getResource("/question.fxml"));
+//        rootPane.getChildren().setAll(pane);
+        QuoteDisplay.showQuestion();
     }
 }
