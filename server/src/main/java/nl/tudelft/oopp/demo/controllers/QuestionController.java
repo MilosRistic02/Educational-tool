@@ -30,11 +30,8 @@ public class QuestionController {
         return questionService.updateScoreQuestion(question);
     }
 
-<<<<<<< server/src/main/java/nl/tudelft/oopp/demo/controllers/QuestionController.java
-    @GetMapping
-=======
+
     @GetMapping("/get-all")
->>>>>>> server/src/main/java/nl/tudelft/oopp/demo/controllers/QuestionController.java
     @ResponseBody
     public List<Question> getAllQuestions() {
         return questionService.getAllQuestions();
