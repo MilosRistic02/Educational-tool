@@ -2,11 +2,8 @@ package nl.tudelft.oopp.demo.entities;
 
 import com.sun.istack.NotNull;
 import java.util.Objects;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
+import java.util.Set;
+import javax.persistence.*;
 
 @Entity
 public class Users {
@@ -19,6 +16,9 @@ public class Users {
     private String password;
     @NotNull
     private String role;
+
+    @OneToMany(mappedBy = "users")
+    Set<ScoringLog> scoringLogs;
 
     public Users(){
     }

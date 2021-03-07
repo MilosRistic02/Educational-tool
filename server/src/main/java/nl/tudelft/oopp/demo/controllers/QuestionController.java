@@ -25,11 +25,16 @@ public class QuestionController {
     private transient QuestionService questionService;
 
     @PutMapping("/upvote")
+    @ResponseBody
     public String changeUpvote(@RequestBody Question question) {
         return questionService.updateScoreQuestion(question);
     }
 
+<<<<<<< server/src/main/java/nl/tudelft/oopp/demo/controllers/QuestionController.java
     @GetMapping
+=======
+    @GetMapping("/get-all")
+>>>>>>> server/src/main/java/nl/tudelft/oopp/demo/controllers/QuestionController.java
     @ResponseBody
     public List<Question> getAllQuestions() {
         return questionService.getAllQuestions();
@@ -43,6 +48,7 @@ public class QuestionController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseBody
     public boolean deleteQuestion(@PathVariable long id) {
         return questionService.deleteQuestion(id);
     }

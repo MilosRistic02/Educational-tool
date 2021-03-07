@@ -2,12 +2,26 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="nl.tudelft.oopp.demo.controllers.QuestionController">
+<AnchorPane prefHeight="827.0" prefWidth="1133.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.QuestionController">
    <children>
-      <Button onAction="#displayQuestion" layoutX="353.0" layoutY="234.0" mnemonicParsing="false" text="Send" />
-      <TextField fx:id="questionText" layoutX="165.0" layoutY="234.0" promptText="Write your question here" />
+      <Button layoutX="875.0" layoutY="769.0" mnemonicParsing="false" onAction="#displayQuestion" text="Send" />
+      <TextField fx:id="questionText" layoutX="91.0" layoutY="769.0" prefHeight="27.0" prefWidth="761.0" promptText="Write your question here" />
+      <Button layoutX="948.0" layoutY="769.0" mnemonicParsing="false" onAction="#displayAllQuestion" text="Show" />
+      <Pane layoutX="89.0" layoutY="43.0" prefHeight="703.0" prefWidth="939.0" style="-fx-background-color: #99d28c; -fx-background-radius: 18;">
+         <children>
+            <Text layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Questions" textAlignment="CENTER" wrappingWidth="939.0">
+               <font>
+                  <Font size="50.0" />
+               </font>
+            </Text>
+            <ScrollPane layoutY="75.0">
+               <content>
+                  <VBox fx:id="stack" alignment="CENTER" prefHeight="613.0" prefWidth="939.0" style="-fx-border-color: #000000; -fx-background-color: #f1be3e; -fx-border-radius: 20; -fx-background-radius: 20;" />
+               </content>
+            </ScrollPane>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
