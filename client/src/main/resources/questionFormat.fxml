@@ -10,13 +10,13 @@
       <Text fx:id="question" layoutX="192.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Question" wrappingWidth="271.0" />
       <Text fx:id="author" layoutX="473.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Author" wrappingWidth="104.029296875" />
    <Text fx:id="creationDate" layoutX="473.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Creation Date" wrappingWidth="98.029296875" />
-   <ToggleButton layoutX="20.0" layoutY="22.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="11.0" style="-fx-effect: #99d28c;">
+   <ToggleButton fx:id="like" onAction="#upvote" layoutX="20.0" layoutY="22.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="11.0">
       <graphic>
-         <ImageView fitHeight="17.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: #99d28c;">
+         <ImageView fitHeight="17.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
             <Image url="images/thumb-up.png"></Image>
          </ImageView>
       </graphic></ToggleButton>
-   <ToggleButton layoutX="73.0" layoutY="22.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="25.0">
+   <ToggleButton fx:id="dislike" onAction="#downvote" layoutX="73.0" layoutY="22.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="25.0">
       <graphic>
           <ImageView fitHeight="17.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
               <Image url="images/thumb-down.png"></Image>

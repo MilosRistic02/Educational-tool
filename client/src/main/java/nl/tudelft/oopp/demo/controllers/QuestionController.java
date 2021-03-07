@@ -2,6 +2,7 @@ package nl.tudelft.oopp.demo.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Question;
@@ -21,6 +22,7 @@ public class QuestionController {
     private TextField questionText;
 
     private Users users;
+
 
     @FXML
     private void displayQuestion() {
@@ -42,6 +44,11 @@ public class QuestionController {
             questionFormatComponent.question.setText(q.getQuestion());
             questionFormatComponent.score.setText(Integer.toString(q.getScore()));
             questionFormatComponent.author.setText("Asked by " + q.getAuthor());
+
+            // Set to current question.
+            questionFormatComponent.setCurrentQuestion(q);
+            // Set current logged user.
+            questionFormatComponent.setLoggedUser(users);
 
             // Date format to be displayed.
             String pattern = "HH:mm:ss";

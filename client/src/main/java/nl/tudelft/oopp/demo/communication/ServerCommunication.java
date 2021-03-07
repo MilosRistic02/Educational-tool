@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import nl.tudelft.oopp.demo.entities.Question;
+import nl.tudelft.oopp.demo.entities.ScoringLog;
 
 import java.net.http.HttpClient;
 import java.util.List;
@@ -71,5 +72,10 @@ public class ServerCommunication extends Request {
         return post(
                 "http://localhost:8080/users/register",
                 new ObjectMapper().writeValueAsString(credentials));
+    }
+
+    public static String voteQuestion(ScoringLog scoringLog) {
+
+        return post("http://localhost:8080/scoringlog/vote", scoringLog);
     }
 }
