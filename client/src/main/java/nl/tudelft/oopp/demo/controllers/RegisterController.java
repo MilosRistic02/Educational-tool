@@ -2,20 +2,30 @@ package nl.tudelft.oopp.demo.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 
 
 
 public class RegisterController {
-
+    @FXML
+    private AnchorPane rootPane;
     @FXML
     private TextField usernameField;
 
@@ -43,6 +53,9 @@ public class RegisterController {
     @FXML
     private Label emailInvalid;
 
+    @FXML
+    private Label userSuccess;
+
     /**
      * Activated upon a click on the register button.
      * Throws error messages if:
@@ -51,9 +64,9 @@ public class RegisterController {
      * user already exists
      * email is not valid
      * email is already being used by another user
-     * @throws JsonProcessingException if the json couldn't be processed
+     * @throws IOException if login page cannot be loaded
      */
-    public void registerButtonClicked() throws JsonProcessingException {
+    public void registerButtonClicked() throws IOException, InterruptedException {
         String username = usernameField.getText();
         String password = passwordField.getText();
         String email = emailField.getText();
@@ -69,11 +82,22 @@ public class RegisterController {
             return;
         }
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Registration successful");
-        alert.setContentText(response);
-        alert.setHeaderText(null);
-        alert.showAndWait();
+        userSuccess.setVisible(true);
+        //Thread.sleep(3000);
+        new Timeline(new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent>() {
+            @Override
+        public void handle(ActionEvent event) {
+                try {
+                    backButtonClicked();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }})).play();
+    }
+    
+    public void backButtonClicked() throws IOException {
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("/login.fxml"));
+        rootPane.getChildren().setAll(pane);
     }
 
     /**
