@@ -54,13 +54,6 @@ public class UsersController {
         return usersService.getAllLecturers();
     }
 
-
-    @PostMapping("register")
-    @ResponseBody
-    public String addUser(@RequestBody Users user) {
-        return usersService.addUser(user);
-    }
-
     @DeleteMapping
     @ResponseBody
     public String deleteUser(@RequestBody Users user) {
@@ -89,9 +82,15 @@ public class UsersController {
 
     @PostMapping("login")
     @ResponseBody
-    public String getUser(@RequestBody String json) throws Exception {
+    public String authenticateLogin(@RequestBody String json) throws Exception {
         Map<String, String> credentials = new ObjectMapper().readValue(json, HashMap.class);
-        return usersService.getUser(credentials.get("username"), credentials.get("password"));
+        return usersService.authenticateLogin(credentials.get("username"), credentials.get("password"));
+    }
+
+    @PostMapping("register")
+    @ResponseBody
+    public String addUser(@RequestBody Users user) {
+        return usersService.addUser(user);
     }
 
 }

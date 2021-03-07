@@ -64,9 +64,9 @@
          <font>
             <Font size="30.0" />
          </font></PasswordField>
-      <Button layoutX="571.0" layoutY="409.0" mnemonicParsing="false" onAction="#logInButtonClicked" prefHeight="56.0" prefWidth="157.0" style="-fx-background-color: #00A6D6;" text="Log in">
+      <Button layoutX="571.0" layoutY="409.0" mnemonicParsing="false" onAction="#logInButtonClicked" prefHeight="56.0" prefWidth="157.0" style="-fx-background-color: #00A6D6;" text="Log in" textFill="WHITE">
          <font>
-            <Font name="Cantarell Regular" size="30.0" />
+            <Font name="Cantarell Bold" size="30.0" />
          </font>
       </Button>
       <Label fx:id="invalidUser" layoutX="588.0" layoutY="190.0" prefHeight="19.0" prefWidth="122.0" text="User doesn't exist" textFill="#d34343" visible="false">
@@ -84,9 +84,9 @@
             <Font name="Cantarell Extra Bold" size="15.0" />
          </font>
       </Label>
-      <Button layoutX="572.0" layoutY="486.0" mnemonicParsing="false" onAction="#signupButtonClicked" prefHeight="56.0" prefWidth="157.0" style="-fx-background-color: #00A6D6;" text="Sign up">
+      <Button layoutX="572.0" layoutY="486.0" mnemonicParsing="false" onAction="#signupButtonClicked" prefHeight="56.0" prefWidth="157.0" style="-fx-background-color: #00A6D6;" text="Sign up" textFill="WHITE">
          <font>
-            <Font name="Cantarell Regular" size="30.0" />
+            <Font name="Cantarell Bold" size="30.0" />
          </font>
       </Button>
    </children>

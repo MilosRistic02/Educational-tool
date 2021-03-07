@@ -81,9 +81,9 @@
             <Font name="Cantarell Light" size="30.0" />
          </font>
       </Label>
-      <Button fx:id="registerButton" layoutX="572.0" layoutY="486.0" mnemonicParsing="false" onAction="#registerButtonClicked" prefHeight="56.0" prefWidth="157.0" style="-fx-background-color: #00A6D6;" text="Register">
+      <Button fx:id="registerButton" layoutX="572.0" layoutY="486.0" mnemonicParsing="false" onAction="#registerButtonClicked" prefHeight="56.0" prefWidth="157.0" style="-fx-background-color: #00A6D6;" text="Register" textFill="WHITE">
          <font>
-            <Font name="Cantarell Regular" size="30.0" />
+            <Font name="Cantarell Bold" size="30.0" />
          </font>
       </Button>
       <Label fx:id="nonMatchingPassword" layoutX="538.0" layoutY="131.0" prefHeight="26.0" prefWidth="193.0" text="Passwords do not match" textFill="#d34343" visible="false">
@@ -111,7 +111,7 @@
             <Font name="Cantarell Extra Bold" size="15.0" />
          </font>
       </Label>
-      <ImageView fitHeight="45.0" fitWidth="54.0" layoutX="324.0" layoutY="26.0" onMouseClicked="#backButtonClicked" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="45.0" fitWidth="54.0" layoutX="324.0" layoutY="26.0" onMouseClicked="#loadLoginPage" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/back_button.png" />
          </image>

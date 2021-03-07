@@ -83,24 +83,6 @@ public class UsersService {
     }
 
     /**
-     * This methods adds a user to the database.
-     * @param user User containing the user that needs to be added
-     * @return Success/Error message
-     */
-    public String addUser(Users user) {
-        if (usersRepo.existsByUsername(user.getUsername())) {
-            return "This user already exists!";
-        }
-        if (usersRepo.existsByEmail(user.getEmail())) {
-            return "This email address is already used!";
-        }
-        usersRepo.save(user);
-        return "User type: " + user.getRole()
-                + ", username: " + user.getUsername()
-                + " has been added successfully";
-    }
-
-    /**
      * A method that deletes an already existing user from the database.
      * @param user User that needs to be deleted
      * @return Error message iff the user does not exists, otherwise success message
@@ -168,7 +150,7 @@ public class UsersService {
      * @return String that is representing a student iff the combination valid
      * @throws JsonProcessingException Thrown when something goes wrong while JsonProcessing
      */
-    public String getUser(String username, String password) throws JsonProcessingException {
+    public String authenticateLogin(String username, String password) throws JsonProcessingException {
         if (!usersRepo.existsByUsername(username)) {
             return "User doesn't exist";
         }
@@ -177,6 +159,24 @@ public class UsersService {
         }
         Users user = usersRepo.getByUsernameAndPassword(username, password);
         return new ObjectMapper().writeValueAsString(user);
+    }
+
+    /**
+     * This methods adds a user to the database.
+     * @param user User containing the user that needs to be added
+     * @return Success/Error message
+     */
+    public String addUser(Users user) {
+        if (usersRepo.existsByUsername(user.getUsername())) {
+            return "This user already exists!";
+        }
+        if (usersRepo.existsByEmail(user.getEmail())) {
+            return "This email address is already used!";
+        }
+        usersRepo.save(user);
+        return "User type: " + user.getRole()
+                + ", username: " + user.getUsername()
+                + " has been added successfully";
     }
 
 

@@ -24,8 +24,10 @@ import nl.tudelft.oopp.demo.communication.ServerCommunication;
 
 
 public class RegisterController {
+
     @FXML
     private AnchorPane rootPane;
+
     @FXML
     private TextField usernameField;
 
@@ -85,14 +87,18 @@ public class RegisterController {
         userSuccess.setVisible(true);
         new Timeline(new KeyFrame(Duration.millis(750), event -> {
             try {
-                backButtonClicked();
+                loadLoginPage();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         })).play();
     }
-    
-    public void backButtonClicked() throws IOException {
+
+    /**
+     * Loads the login page.
+     * @throws IOException Thrown when something goes wrong with IO
+     */
+    public void loadLoginPage() throws IOException {
         AnchorPane pane = FXMLLoader.load(getClass().getResource("/login.fxml"));
         rootPane.getChildren().setAll(pane);
     }
