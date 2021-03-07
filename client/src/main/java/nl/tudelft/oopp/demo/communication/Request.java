@@ -4,23 +4,25 @@ import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
+import java.net.http.HttpClient;
+import java.util.List;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
-
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.util.List;
 
 public class Request {
 
     private static HttpClient client = HttpClient.newBuilder().build();
 
+    /** Method to get questions.
+     *
+     * @param url   the url
+     * @param <T>   the generic parameter
+     * @return      returns a list of questions
+     */
     public static <T> List<Question> get(String url) {
         GenericType<List<Question>> responseBodyType = new GenericType<List<Question>>(){};
 
-         List<Question> responseBody = ClientBuilder.newClient()
+        List<Question> responseBody = ClientBuilder.newClient()
                 .target(url)
                 .request(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
@@ -29,6 +31,11 @@ public class Request {
         return responseBody;
     }
 
+    /** Method to get all scoring logs.
+     *
+     * @param url   the url
+     * @return      returns a list of scoring logs
+     */
     public static List<ScoringLog> getVotes(String url) {
         GenericType<List<ScoringLog>> responseBodyType = new GenericType<List<ScoringLog>>(){};
 

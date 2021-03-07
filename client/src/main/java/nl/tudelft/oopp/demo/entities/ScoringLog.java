@@ -11,6 +11,13 @@ public class ScoringLog {
     public ScoringLog() {
     }
 
+    /** Constructor for scoring log.
+     * The id is set to -1 since the real id is set on the server.
+     *
+     * @param question  the question that is being upvoted
+     * @param users     the user that upvotes
+     * @param score     the score of the vote
+     */
     public ScoringLog(Question question, Users users, int score) {
         this.id = -1L;
         this.question = question;

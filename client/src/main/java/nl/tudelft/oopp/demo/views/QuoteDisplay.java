@@ -21,6 +21,10 @@ public class QuoteDisplay extends Application {
         showLogin();
     }
 
+    /** This functions sets the main screen to the login screen.
+     *
+     * @throws IOException  can throw an error
+     */
     public static void showLogin() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         URL xmlUrl = QuoteDisplay.class.getResource("/login.fxml");
@@ -31,6 +35,11 @@ public class QuoteDisplay extends Application {
         primaryStage.show();
     }
 
+    /** This functions sets the main screen to the login screen.
+     *
+     * @param users         the current logged user so it is known who votes or asks a question
+     * @throws IOException  can throw an exception
+     */
     public static void showQuestion(Users users) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         URL xmlUrl = QuoteDisplay.class.getResource("/question.fxml");

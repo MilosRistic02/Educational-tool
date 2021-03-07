@@ -1,5 +1,6 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ToggleButton;
@@ -10,9 +11,7 @@ import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
 import nl.tudelft.oopp.demo.entities.Users;
 
-import java.io.IOException;
-
-public class QuestionFormatComponent extends Pane{
+public class QuestionFormatComponent extends Pane {
 
     @FXML
     public Text score;
@@ -35,15 +34,19 @@ public class QuestionFormatComponent extends Pane{
     private Question currentQuestion;
     private Users loggedUser;
 
-    public QuestionFormatComponent(){
+    /** constructor for Question Format component.
+     *  This method loads an instance of question format and sets the controller to be this file.
+     *
+     */
+    public QuestionFormatComponent() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/questionFormat.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
-        }
-        catch (IOException exception){
-
+        } catch (IOException exception) {
+            System.out.println("could not create instance");
+            System.out.println(exception);
         }
     }
 
@@ -55,28 +58,36 @@ public class QuestionFormatComponent extends Pane{
         this.loggedUser = loggedUser;
     }
 
+    /** The action if the upvote button is toggled.
+     *
+     */
     @FXML
     public void upvote() {
         ScoringLog scoringLog = null;
         dislike.setSelected(false);
 
-        if (like.isSelected())
+        if (like.isSelected()) {
             scoringLog = new ScoringLog(currentQuestion, loggedUser, 1);
-        else
+        } else {
             scoringLog = new ScoringLog(currentQuestion, loggedUser, 0);
+        }
 
         ServerCommunication.voteQuestion(scoringLog);
     }
 
+    /** The action if the downvote button is toggled.
+     *
+     */
     @FXML
     public void downvote() {
         ScoringLog scoringLog = null;
         like.setSelected(false);
 
-        if (dislike.isSelected())
+        if (dislike.isSelected()) {
             scoringLog = new ScoringLog(currentQuestion, loggedUser, -1);
-        else
+        } else {
             scoringLog = new ScoringLog(currentQuestion, loggedUser, 0);
+        }
 
         ServerCommunication.voteQuestion(scoringLog);
     }

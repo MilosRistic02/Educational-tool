@@ -1,11 +1,14 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import java.util.List;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
 import nl.tudelft.oopp.demo.services.ScoringLogService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("scoringlog")
@@ -25,7 +28,7 @@ public class ScoringLogController {
 
     @GetMapping("/get-votes")
     @ResponseBody
-    public List<ScoringLog> getVotes(){
+    public List<ScoringLog> getVotes() {
         return scoringLogService.getVotes();
     }
 

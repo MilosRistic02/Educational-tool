@@ -6,6 +6,9 @@ import nl.tudelft.oopp.demo.entities.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ScoringLogRepository extends JpaRepository<ScoringLog, Long> {
+
     boolean existsByQuestionAndUsers(Question question, Users users);
+
     ScoringLog getByQuestionAndUsers(Question question, Users users);
+
 }

@@ -2,17 +2,13 @@ package nl.tudelft.oopp.demo.communication;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.inject.Inject;
-import jakarta.ws.rs.QueryParam;
 import java.net.http.HttpClient;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
 
-import java.net.http.HttpClient;
-import java.util.List;
 
 
 public class ServerCommunication extends Request {
@@ -31,7 +27,7 @@ public class ServerCommunication extends Request {
     }
 
 
-    public static List<Question> getAllQuestion(){
+    public static List<Question> getAllQuestion() {
         return get("http://localhost:8080/question/get-all");
     }
 
@@ -79,7 +75,7 @@ public class ServerCommunication extends Request {
         return post("http://localhost:8080/scoringlog/vote", scoringLog);
     }
 
-    public static List<ScoringLog> getVotes(){
+    public static List<ScoringLog> getVotes() {
         return getVotes("http://localhost:8080/scoringlog/get-votes");
     }
 }

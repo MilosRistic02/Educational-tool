@@ -1,18 +1,16 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
 import nl.tudelft.oopp.demo.entities.Users;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.List;
 
 public class QuestionController {
 
@@ -53,7 +51,7 @@ public class QuestionController {
         // Sort questions first by their score, then by their creation date.
         Collections.sort(qs, new QuestionComparator());
 
-        for(Question q: qs){
+        for (Question q: qs) {
 
             QuestionFormatComponent questionFormatComponent = new QuestionFormatComponent();
             questionFormatComponent.question.setText(q.getQuestion());

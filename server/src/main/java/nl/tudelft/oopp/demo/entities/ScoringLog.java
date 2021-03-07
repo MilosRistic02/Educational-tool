@@ -1,6 +1,10 @@
 package nl.tudelft.oopp.demo.entities;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class ScoringLog {
@@ -19,6 +23,12 @@ public class ScoringLog {
     public ScoringLog() {
     }
 
+    /** Constructor of scoring log.
+     *
+     * @param question  the question that is upvoted
+     * @param users     the user that upvotes
+     * @param score     the score of the vote
+     */
     public ScoringLog(Question question, Users users, int score) {
         this.question = question;
         this.users = users;
