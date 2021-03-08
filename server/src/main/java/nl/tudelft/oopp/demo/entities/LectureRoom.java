@@ -26,7 +26,7 @@ public class LectureRoom {
     public LectureRoom() {
     }
 
-    public LectureRoom(@JsonProperty("lecturer")@NotNull String lecturerID) {
+    public LectureRoom(@JsonProperty("lecturerID")@NotNull String lecturerID) {
         this.lecturerID = lecturerID;
     }
 
