@@ -38,6 +38,7 @@ public class LectureRoom {
      */
     public LectureRoom(String lecturerID, int courseId) {
         this.lecturerID = lecturerID;
+        this.courseId = courseId;
     }
 
     /** Getter for the lecturerID.
