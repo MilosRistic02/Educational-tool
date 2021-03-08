@@ -4,6 +4,7 @@ import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
+import nl.tudelft.oopp.demo.entities.LectureRoom;
 
 import java.net.URI;
 import java.net.http.HttpClient;

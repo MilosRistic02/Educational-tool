@@ -2,6 +2,7 @@ package nl.tudelft.oopp.demo.communication;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.QueryParam;
+import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Question;
 
 import java.net.http.HttpClient;
@@ -23,4 +24,7 @@ public class ServerCommunication extends Request {
         return Boolean.parseBoolean(get("http://localhost:8080/lecture/" + pin));
     }
 
+    public static String addLectureRoom(LectureRoom lectureRoom) {
+        return post("http://localhost:8080/lecture", lectureRoom);
+    }
 }

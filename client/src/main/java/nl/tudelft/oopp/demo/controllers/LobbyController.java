@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import nl.tudelft.oopp.demo.MainApp;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.views.LobbyLecturerDisplay;
 import nl.tudelft.oopp.demo.views.LobbyStudentDisplay;
 
@@ -20,11 +21,32 @@ public class LobbyController {
     @FXML
     AnchorPane rootPane;
 
+    // TODO
+    // Why is the lectureroom constructor like that?
+    // Show archive
+    // delete own lectures
+    // join existing room: show list?
+
     /**
      * Creates a new lectureRoom and redirects the lecturer to that room.
      */
     @FXML
     public void createRoom(){
+        LectureRoom lectureRoom = new LectureRoom("Jsloof", 1200);
+        String response = ServerCommunication.addLectureRoom(lectureRoom);
+        if (response.equals("Too many rooms created under this host")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Too many rooms");
+            alert.setHeaderText(null);
+            alert.setContentText(response);
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("lecture pin");
+            alert.setHeaderText(null);
+            alert.setContentText("Your lecture pin is: " + response);
+            alert.showAndWait();
+        }
         // use the create database method
         // TODO
 
@@ -58,7 +80,7 @@ public class LobbyController {
             alert.setContentText("This lecture pin is valid");
             alert.showAndWait();
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Incorrect pin");
             alert.setHeaderText(null);
             alert.setContentText("This lecture pin is not valid");
