@@ -22,11 +22,20 @@ public class QuestionController {
         return questionService.updateScoreQuestion(question);
     }
 
+    /**
+     * Controller for getting all questions from the database
+     * @return list with all questions
+     */
     @GetMapping
     public List<Question> getAllQuestions() {
         return questionService.getAllQuestions();
     }
 
+    /**
+     * Controller for saving a question in the database
+     * @param question the question to save
+     * @return the question String
+     */
     @PostMapping("/save-question")
     @ResponseBody
     public String addQuestion(@RequestBody Question question) {
@@ -34,6 +43,11 @@ public class QuestionController {
         return question.getQuestion();
     }
 
+    /**
+     * Controller for deleting a question
+     * @param id the id of the question to delete
+     * @return true if the question was deleted successfully, false otherwise
+     */
     @DeleteMapping("/{id}")
     public boolean deleteQuestion(@PathVariable long id) {
         return questionService.deleteQuestion(id);
