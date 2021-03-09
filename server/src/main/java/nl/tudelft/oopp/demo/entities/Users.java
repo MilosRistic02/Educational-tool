@@ -3,10 +3,7 @@ package nl.tudelft.oopp.demo.entities;
 import com.sun.istack.NotNull;
 import java.util.Objects;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
 
 @Entity
 public class Users {
@@ -47,14 +44,14 @@ public class Users {
 
     /**
      * username setter, sets the username of the users object that calls the method.
-     * @param username
+     * @param username the username to set
      */
     public void setUsername(String username) {
         this.username = username;
     }
 
     /**
-     * email getter
+     * email getter.
      * @return email of the object
      */
     public String getEmail() {
@@ -63,14 +60,14 @@ public class Users {
 
     /**
      * email setter, sets the email of the users object that calls the method.
-     * @param email
+     * @param email email to set
      */
     public void setEmail(String email) {
         this.email = email;
     }
 
     /**
-     * password getter
+     * password getter.
      * @return password of the object
      */
     public String getPassword() {
@@ -79,14 +76,14 @@ public class Users {
 
     /**
      * password setter, sets the password of the users object that calls the method.
-     * @param password
+     * @param password password to set
      */
     public void setPassword(String password) {
         this.password = password;
     }
 
     /**
-     * role getter
+     * role getter.
      * @return role of the object
      */
     public String getRole() {
@@ -95,7 +92,7 @@ public class Users {
 
     /**
      * role setter, sets the role of the users object that calls the method.
-     * @param role
+     * @param role role to set
      */
     public void setRole(String role) {
         this.role = role;

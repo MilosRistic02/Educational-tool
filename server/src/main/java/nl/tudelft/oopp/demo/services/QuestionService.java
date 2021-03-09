@@ -39,8 +39,9 @@ public class QuestionService {
      * @return a String informing if the update was successful or not.
      */
     public String updateQuestionAnsweredStatus(Question question) {
-        if (!questionRepository.existsByLecturePin(question.getLecturePin()))
+        if (!questionRepository.existsByLecturePin(question.getLecturePin())) {
             return "The question is not in the database.";
+        }
         Question q = questionRepository.getByLecturePin(question.getLecturePin());
         q.setAnswered(question.isAnswered());
         questionRepository.save(q);
