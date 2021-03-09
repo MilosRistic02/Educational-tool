@@ -16,12 +16,4 @@ public class QuestionController {
         Question q = new Question(questionText.getText(), "20", "Rodrigo");
         ServerCommunication.saveQuestion(q);
     }
-
-    /**
-     * Alert alert = new Alert(Alert.AlertType.INFORMATION);
-     * alert.setTitle("Quote for you");
-     * alert.setHeaderText(null);
-     * alert.setContentText();
-     * alert.showAndWait();
-     */
 }

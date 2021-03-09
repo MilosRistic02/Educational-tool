@@ -2,10 +2,11 @@ package nl.tudelft.oopp.demo.communication;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.QueryParam;
+import java.net.http.HttpClient;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Question;
 
-import java.net.http.HttpClient;
+
 
 public class ServerCommunication extends Request {
 

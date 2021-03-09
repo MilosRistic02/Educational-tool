@@ -1,5 +1,6 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
@@ -11,7 +12,6 @@ import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.views.LobbyLecturerDisplay;
 import nl.tudelft.oopp.demo.views.LobbyStudentDisplay;
 
-import java.io.IOException;
 
 public class LobbyController {
 
@@ -31,7 +31,7 @@ public class LobbyController {
      * Creates a new lectureRoom and redirects the lecturer to that room.
      */
     @FXML
-    public void createRoom(){
+    public void createRoom() {
         LectureRoom lectureRoom = new LectureRoom("Jsloof", 1200);
         String response = ServerCommunication.addLectureRoom(lectureRoom);
         if (response.equals("Too many rooms created under this host")) {
@@ -57,7 +57,7 @@ public class LobbyController {
     /**
      * Redirects the user to the next scene, where they can enter a lecture pin.
      *
-     * @throws IOException
+     * @throws IOException if lobbyStudent cannot be loaded
      */
     @FXML
     public void joinLobby() throws IOException {
