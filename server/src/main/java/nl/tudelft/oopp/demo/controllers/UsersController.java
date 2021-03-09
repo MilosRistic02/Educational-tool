@@ -83,8 +83,8 @@ public class UsersController {
     @PostMapping("login")
     @ResponseBody
     public String authenticateLogin(@RequestBody String json) throws Exception {
-        Map<String, String> credentials = new ObjectMapper().readValue(json, HashMap.class);
-        return usersService.authenticateLogin(credentials.get("username"), credentials.get("password"));
+        Map<String, String> info = new ObjectMapper().readValue(json, HashMap.class);
+        return usersService.authenticateLogin(info.get("username"), info.get("password"));
     }
 
     @PostMapping("register")

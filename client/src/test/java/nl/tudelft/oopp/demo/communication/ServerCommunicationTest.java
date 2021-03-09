@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 
 public class ServerCommunicationTest {
 
-     @Test
+    @Test
     public void testRandomQuote() {
          
-     }
+    }
 }

@@ -150,7 +150,7 @@ public class UsersService {
      * @return String that is representing a student iff the combination valid
      * @throws JsonProcessingException Thrown when something goes wrong while JsonProcessing
      */
-    public String authenticateLogin(String username, String password) throws JsonProcessingException {
+    public String authenticateLogin(String username, String password) throws Exception {
         if (!usersRepo.existsByUsername(username)) {
             return "User doesn't exist";
         }
