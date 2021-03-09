@@ -65,11 +65,11 @@ public class QuestionFormatComponent extends Pane {
     @FXML
     public void upvote() {
         ScoringLog scoringLog = null;
-        if (like.isSelected())
+        if (like.isSelected()) {
             scoringLog = new ScoringLog(currentQuestion, loggedUser, 1);
-        else
+        } else {
             scoringLog = new ScoringLog(currentQuestion, loggedUser, 0);
-
+        }
         ServerCommunication.voteQuestion(scoringLog);
     }
 
@@ -79,11 +79,11 @@ public class QuestionFormatComponent extends Pane {
     @FXML
     public void downvote() {
         ScoringLog scoringLog = null;
-        if (dislike.isSelected())
+        if (dislike.isSelected()) {
             scoringLog = new ScoringLog(currentQuestion, loggedUser, -1);
-        else
+        } else {
             scoringLog = new ScoringLog(currentQuestion, loggedUser, 0);
-        
+        }
         ServerCommunication.voteQuestion(scoringLog);
     }
 }

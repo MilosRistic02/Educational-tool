@@ -47,8 +47,9 @@ public class QuestionController {
         // Update the scores for each question.
         for (Question q : qs) {
             for (ScoringLog scoringLog : votes) {
-                if (scoringLog.getQuestion().equals(q))
+                if (scoringLog.getQuestion().equals(q)) {
                     q.setScore(q.getScore() + scoringLog.getScore());
+                }
             }
         }
 
