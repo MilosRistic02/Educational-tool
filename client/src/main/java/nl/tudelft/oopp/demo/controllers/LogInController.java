@@ -93,6 +93,10 @@ public class LogInController {
         return false;
     }
 
+    /**
+     * Loads the signup page.
+     * @throws IOException Thrown when something goes wrong with IO
+     */
     public void signupButtonClicked() throws IOException {
         AnchorPane pane = FXMLLoader.load(getClass().getResource("/register.fxml"));
         rootPane.getChildren().setAll(pane);
