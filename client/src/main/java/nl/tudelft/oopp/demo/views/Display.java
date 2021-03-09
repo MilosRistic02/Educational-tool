@@ -9,9 +9,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nl.tudelft.oopp.demo.controllers.QuestionController;
+import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Users;
 
-public class QuoteDisplay extends Application {
+public class Display extends Application {
 
     private static Stage primaryStage;
 
@@ -27,7 +28,7 @@ public class QuoteDisplay extends Application {
      */
     public static void showLogin() throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        URL xmlUrl = QuoteDisplay.class.getResource("/login.fxml");
+        URL xmlUrl = Display.class.getResource("/login.fxml");
         loader.setLocation(xmlUrl);
         Parent root = loader.load();
 
@@ -42,7 +43,7 @@ public class QuoteDisplay extends Application {
      */
     public static void showQuestion(Users users) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        URL xmlUrl = QuoteDisplay.class.getResource("/question.fxml");
+        URL xmlUrl = Display.class.getResource("/question.fxml");
         loader.setLocation(xmlUrl);
         Parent root = loader.load();
 
@@ -51,7 +52,6 @@ public class QuoteDisplay extends Application {
 
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-
     }
 
     public static void main(String[] args) {

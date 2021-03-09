@@ -12,7 +12,7 @@ import javafx.scene.layout.AnchorPane;
 
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Users;
-import nl.tudelft.oopp.demo.views.QuoteDisplay;
+import nl.tudelft.oopp.demo.views.Display;
 
 public class LogInController {
 
@@ -58,7 +58,7 @@ public class LogInController {
         }
 
         Users loggedUser = new ObjectMapper().readValue(response, Users.class);
-        QuoteDisplay.showQuestion(loggedUser);;
+        Display.showQuestion(loggedUser);;
     }
 
     /**

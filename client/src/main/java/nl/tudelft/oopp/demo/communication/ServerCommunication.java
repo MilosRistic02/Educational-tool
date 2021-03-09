@@ -6,6 +6,10 @@ import java.net.http.HttpClient;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.QueryParam;
+import java.net.http.HttpClient;
+import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
 
@@ -26,6 +30,13 @@ public class ServerCommunication extends Request {
                 question);
     }
 
+    public static boolean checkPin(String pin) {
+        return Boolean.parseBoolean(getPin("http://localhost:8080/lecture/" + pin));
+    }
+
+    public static String addLectureRoom(LectureRoom lectureRoom) {
+        return post("http://localhost:8080/lecture", lectureRoom);
+    }
 
     public static List<Question> getAllQuestion() {
         return get("http://localhost:8080/question/get-all");

@@ -2,13 +2,10 @@ package nl.tudelft.oopp.demo.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.util.LinkedList;
 import java.util.List;
-
 import nl.tudelft.oopp.demo.entities.Users;
 import nl.tudelft.oopp.demo.repositories.UsersRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +24,6 @@ public class UsersService {
     public UsersService(UsersRepository usersRepo) {
         this.usersRepo = usersRepo;
     }
-
 
     /**
      * Service to get all users.
@@ -84,8 +80,9 @@ public class UsersService {
 
     /**
      * A method that deletes an already existing user from the database.
-     * @param user User that needs to be deleted
-     * @return Error message iff the user does not exists, otherwise success message
+     * @param user the user
+     * @return Error message iff the user does not exists,
+     *     Success if the user is successfully deleted from the database.
      */
     public String deleteUser(Users user) {
         if (!usersRepo.existsByUsername(user.getUsername())) {

@@ -68,8 +68,8 @@ public class LectureRoomService {
         return true;
     }
 
-    /** Method for deleting all the lecture rooms.
-     *
+    /**
+     * Method for deleting all the lecture rooms.
      * @return Boolean that is true iff all rooms were deleted
      */
     public boolean deleteAllLectureRooms() {
@@ -80,11 +80,20 @@ public class LectureRoomService {
         return true;
     }
 
-    /** Method for getting all the lecture rooms.
-     *
+    /**
+     * Method for getting all the lecture rooms.
      * @return List containing all the lecture rooms.
      */
     public List<LectureRoom> getAllLectureRooms() {
         return lectureRoomRepository.getAll();
+    }
+
+    /**
+     * Method for checking if a room exists.
+     * @param pin the pin to check for.
+     * @return true if the room exists, false otherwise.
+     */
+    public boolean existsByPin(String pin) {
+        return lectureRoomRepository.existsByLecturePin(pin);
     }
 }

@@ -4,7 +4,6 @@ import java.util.List;
 
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.services.QuestionService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,6 +36,11 @@ public class QuestionController {
         return questionService.getAllQuestions();
     }
 
+    /**
+     * Controller for saving a question in the database.
+     * @param question the question to save
+     * @return the question String
+     */
     @PostMapping("/save-question")
     @ResponseBody
     public String addQuestion(@RequestBody Question question) {
@@ -44,6 +48,11 @@ public class QuestionController {
         return question.getQuestion();
     }
 
+    /**
+     * Controller for deleting a question.
+     * @param id the id of the question to delete
+     * @return true if the question was deleted successfully, false otherwise
+     */
     @DeleteMapping("/{id}")
     @ResponseBody
     public boolean deleteQuestion(@PathVariable long id) {

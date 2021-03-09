@@ -5,9 +5,6 @@ import java.util.List;
 import nl.tudelft.oopp.demo.entities.Users;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.NoRepositoryBean;
-
-
 
 
 public interface UsersRepository extends JpaRepository<Users, Long> {
