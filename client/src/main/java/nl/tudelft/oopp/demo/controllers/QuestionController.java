@@ -6,7 +6,10 @@ import java.util.Collections;
 import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
@@ -19,6 +22,9 @@ public class QuestionController {
 
     @FXML
     private TextField questionText;
+
+    @FXML
+    private Text greetings;
 
     private Users users;
 
@@ -35,16 +41,14 @@ public class QuestionController {
         List<Question> qs = ServerCommunication.getAllQuestion();
         List<ScoringLog> votes = ServerCommunication.getVotes();
 
-
-
         stack.getChildren().clear();
-        stack.setSpacing(15);
-        for (Question q : qs) {
+        stack.setSpacing(20);   // Space between questions.
 
+        // Update the scores for each question.
+        for (Question q : qs) {
             for (ScoringLog scoringLog : votes) {
-                if (scoringLog.getQuestion().equals(q)) {
+                if (scoringLog.getQuestion().equals(q))
                     q.setScore(q.getScore() + scoringLog.getScore());
-                }
             }
         }
 
@@ -52,13 +56,14 @@ public class QuestionController {
         Collections.sort(qs, new QuestionComparator());
 
         for (Question q: qs) {
-
+            // Create a new generic question format and fill it with
+            // the specific information of the current question.
             QuestionFormatComponent questionFormatComponent = new QuestionFormatComponent();
             questionFormatComponent.question.setText(q.getQuestion());
             questionFormatComponent.score.setText(Integer.toString(q.getScore()));
             questionFormatComponent.author.setText("By " + q.getAuthor());
 
-            // Set to current question.
+            // Set current question.
             questionFormatComponent.setCurrentQuestion(q);
             // Set current logged user.
             questionFormatComponent.setLoggedUser(users);
@@ -67,14 +72,47 @@ public class QuestionController {
             String pattern = "HH:mm:ss";
             DateFormat df = new SimpleDateFormat(pattern);
             String date = df.format(q.getCreationDate());
-
             questionFormatComponent.creationDate.setText(date);
+
+            // Select the like and dislike buttons that were pressed
+            // for certain questions by the current logged user.
+            for (ScoringLog scoringLog : votes) {
+                if (scoringLog.getQuestion().equals(q)
+                        && scoringLog.getUsers().equals(users)) {
+                    if (scoringLog.getScore() == 1) {
+                        questionFormatComponent.like.setSelected(true);
+                        questionFormatComponent.dislike.setSelected(false);
+                    } else if (scoringLog.getScore() == -1) {
+                        questionFormatComponent.dislike.setSelected(true);
+                        questionFormatComponent.like.setSelected(false);
+                    } else {
+                        questionFormatComponent.like.setSelected(false);
+                        questionFormatComponent.dislike.setSelected(false);
+                    }
+                }
+            }
+
+            // Show which buttons have been pressed by the current logged user,
+            // by changing their color.
+            if (questionFormatComponent.like.isSelected()) {
+                questionFormatComponent.like.setStyle("-fx-background-color: #99d28c;");
+                questionFormatComponent.dislike.setStyle("-fx-background-color: #FFFFFF;");
+            } else if (questionFormatComponent.dislike.isSelected()) {
+                questionFormatComponent.dislike.setStyle("-fx-background-color: #c3312f;");
+                questionFormatComponent.like.setStyle("-fx-background-color: #FFFFFF;");
+            } else {
+                questionFormatComponent.like.setStyle("-fx-background-color: #FFFFFF;");
+                questionFormatComponent.dislike.setStyle("-fx-background-color: #FFFFFF;");
+            }
+
+            // Add the updated question to the VBox (i.e. the main questions view).
             stack.getChildren().add(questionFormatComponent);
         }
     }
 
     public void setUsers(Users users) {
         this.users = users;
+        greetings.setText("Welcome, " + users.getUsername());
     }
 
     /*
