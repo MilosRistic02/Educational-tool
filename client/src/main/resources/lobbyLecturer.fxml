@@ -6,16 +6,20 @@
 
 <AnchorPane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.LobbyController">
    <children>
-
-      <Button layoutX="174.0" layoutY="210.0" mnemonicParsing="false" onAction="#joinLobby" prefHeight="64.0" prefWidth="251.0" text="Join existing room" textFill="WHITE">
+      <Button layoutX="174.0" layoutY="228.0" mnemonicParsing="false" onAction="#joinLobby" prefHeight="64.0" prefWidth="251.0" style="-fx-background-color: #00A6D6;" text="Join existing room" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button layoutX="174.0" layoutY="117.0" mnemonicParsing="false" onAction="#createRoom" prefHeight="64.0" prefWidth="251.0" text="Create room" textFill="WHITE">
+      <Button layoutX="174.0" layoutY="128.0" mnemonicParsing="false" onAction="#createRoom" prefHeight="64.0" prefWidth="251.0" style="-fx-background-color: #00A6D6;" text="Create new room" textFill="WHITE">
          <font>
-            <Font size="24.0" />
+            <Font size="26.0" />
          </font>
       </Button>
+<!--      <Label layoutX="105.0" layoutY="37.0" text="Create a new lecture or join a lecture">-->
+<!--         <font>-->
+<!--            <Font size="24.0" />-->
+<!--         </font>-->
+<!--      </Label>-->
    </children>
 </AnchorPane>
