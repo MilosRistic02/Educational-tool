@@ -1,43 +1,18 @@
 package nl.tudelft.oopp.demo.entities;
 
+import java.sql.Timestamp;
 import java.util.Date;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.NotBlank;
-import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.lang.NonNull;
-
-@Entity
 public class Question {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
-    @NonNull
     private String question;
-
     private String answer;
-
     private int score;
-
-    @CreationTimestamp
     private Date creationDate;
-
     private boolean isAnswered;
-
     private String lecturePin;
-
     private String author;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
-    Set<ScoringLog> scoringLogs;
 
     public Question() {
     }
@@ -49,7 +24,7 @@ public class Question {
      * @param lecturePin The pin for the lecture
      * @param author     The string containing the author
      */
-    public Question(@NonNull String question, String lecturePin, String author) {
+    public Question(String question, String lecturePin, String author) {
         this.question = question;
         this.lecturePin = lecturePin;
         this.author = author;
@@ -68,8 +43,9 @@ public class Question {
      * Gets question.
      *
      * @return the question asked by a student
+     *
      */
-    @NonNull
+
     public String getQuestion() {
         return question;
     }
@@ -133,7 +109,7 @@ public class Question {
      *
      * @param question the question String
      */
-    public void setQuestion(@NonNull String question) {
+    public void setQuestion(String question) {
         this.question = question;
     }
 
@@ -206,4 +182,6 @@ public class Question {
     public int hashCode() {
         return (int) (id ^ (id >>> 32));
     }
+
+
 }

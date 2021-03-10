@@ -1,16 +1,12 @@
 package nl.tudelft.oopp.demo.services;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import java.time.LocalDateTime;
 import java.util.List;
-
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.repositories.LectureRoomRepository;
-
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
 
 @Service
 public class LectureRoomService {
@@ -68,8 +64,8 @@ public class LectureRoomService {
         return true;
     }
 
-    /** Method for deleting all the lecture rooms.
-     *
+    /**
+     * Method for deleting all the lecture rooms.
      * @return Boolean that is true iff all rooms were deleted
      */
     public boolean deleteAllLectureRooms() {
@@ -80,11 +76,29 @@ public class LectureRoomService {
         return true;
     }
 
-    /** Method for getting all the lecture rooms.
-     *
+    /**
+     * Method for getting all the lecture rooms.
      * @return List containing all the lecture rooms.
      */
     public List<LectureRoom> getAllLectureRooms() {
         return lectureRoomRepository.getAll();
+    }
+
+    /**
+     * Method for checking if a room exists.
+     * @param pin the pin to check for.
+     * @return true if the room exists, false otherwise.
+     */
+    public boolean existsByPin(String pin) {
+        return lectureRoomRepository.existsByLecturePin(pin);
+    }
+
+    /**
+     * Getter for the LectureRoom class.
+     * @param pin String of the pin that we want to identify the LectureRoom with
+     * @return A LectureRoom that is associated with the pin
+     */
+    public LectureRoom getLectureRoom(String pin) {
+        return lectureRoomRepository.getLectureRoomByLecturePin(pin);
     }
 }

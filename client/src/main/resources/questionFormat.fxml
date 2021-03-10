@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<fx:root fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="800.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #00A6D6; -fx-border-width: 4; -fx-background-radius: 18; -fx-border-radius: 18;" type="javafx.scene.layout.Pane" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+      <Text fx:id="score" layoutX="132.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score" wrappingWidth="59.419921875" />
+      <Text fx:id="question" layoutX="191.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Question" wrappingWidth="404.0" />
+      <Text fx:id="author" layoutX="615.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Author" textAlignment="RIGHT" wrappingWidth="121.029296875" />
+   <Text fx:id="creationDate" layoutX="615.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Creation Date" textAlignment="RIGHT" wrappingWidth="121.029296875" />
+   <ToggleButton fx:id="like" layoutX="20.0" layoutY="22.0" mnemonicParsing="false" onAction="#upvote" opacity="0.4" prefHeight="37.0" prefWidth="11.0">
+      <graphic>
+         <ImageView fitHeight="17.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+             <Image url="images/thumb-up.png"></Image>
+         </ImageView>
+      </graphic></ToggleButton>
+   <ToggleButton fx:id="dislike" layoutX="73.0" layoutY="22.0" mnemonicParsing="false" onAction="#downvote" opacity="0.4" prefHeight="37.0" prefWidth="25.0">
+      <graphic>
+          <ImageView fitHeight="17.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+              <Image url="images/thumb-down.png"></Image>
+          </ImageView>
+      </graphic></ToggleButton>
+   <Button fx:id="delete" disable="true" onAction="#delete" layoutX="747.0" layoutY="14.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="43.0" style="-fx-background-color: #FFFFFF;" visible="false">
+      <graphic>
+         <ImageView disable="true" fitHeight="22.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+             <Image url="images/delete-bin.png"></Image>
+         </ImageView>
+      </graphic>
+   </Button>
+<!--   </children>-->
+</fx:root>
