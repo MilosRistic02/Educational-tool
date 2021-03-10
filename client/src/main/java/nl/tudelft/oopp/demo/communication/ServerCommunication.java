@@ -35,8 +35,8 @@ public class ServerCommunication extends Request {
         return post("http://localhost:8080/lecture", lectureRoom);
     }
 
-    public static List<Question> getAllQuestion() {
-        return get("http://localhost:8080/question/get-all");
+    public static List<Question> getAllQuestion(String lectureRoom) {
+        return get("http://localhost:8080/question/get-all/" + lectureRoom);
     }
 
 

@@ -37,14 +37,16 @@ public class QuestionController {
 
     @FXML
     private void displayQuestion() {
-        Question q = new Question(questionText.getText(), "20", users.getUsername());
+        Question q = new Question(questionText.getText(),
+                lectureRoom.getLecturePin(),
+                users.getUsername());
         ServerCommunication.saveQuestion(q);
         displayAllQuestion();
     }
 
     @FXML
     private void displayAllQuestion() {
-        List<Question> qs = ServerCommunication.getAllQuestion();
+        List<Question> qs = ServerCommunication.getAllQuestion(lectureRoom.getLecturePin());
         List<ScoringLog> votes = ServerCommunication.getVotes();
 
         stack.getChildren().clear();

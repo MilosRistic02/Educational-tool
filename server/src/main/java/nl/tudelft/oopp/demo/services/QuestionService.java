@@ -66,8 +66,8 @@ public class QuestionService {
      *
      * @return all questions found in the database.
      */
-    public List<Question> getAllQuestions() {
-        return questionRepository.findAll();
+    public List<Question> getAllQuestions(String id) {
+        return questionRepository.getAllByLecturePin(id);
     }
 
     /**

@@ -30,10 +30,10 @@ public class QuestionController {
     }
 
 
-    @GetMapping("/get-all")
+    @GetMapping("/get-all/{id}")
     @ResponseBody
-    public List<Question> getAllQuestions() {
-        return questionService.getAllQuestions();
+    public List<Question> getAllQuestions(@PathVariable String id) {
+        return questionService.getAllQuestions(id);
     }
 
     /**
