@@ -4,10 +4,13 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javafx.application.Platform;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
@@ -120,20 +123,31 @@ public class QuestionController {
         }
     }
 
+    /**
+     * Set a new user for the view and update the question list
+     * every 2 seconds.
+     * @param users - the current logged user.
+     */
     public void setUsers(Users users) {
         this.users = users;
         greetings.setText("Welcome, " + users.getUsername());
+
+        // Update question list every 2 seconds.
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        displayAllQuestion();
+                    }
+                });
+            }
+        }, 0, 2000);
     }
 
     public void setLectureRoom(LectureRoom lectureRoom) {
         this.lectureRoom = lectureRoom;
     }
-
-    /*
-     * Alert alert = new Alert(Alert.AlertType.INFORMATION);
-     * alert.setTitle("Quote for you");
-     * alert.setHeaderText(null);
-     * alert.setContentText();
-     * alert.showAndWait();
-     */
 }

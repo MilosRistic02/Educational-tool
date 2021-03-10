@@ -21,7 +21,6 @@ public class Question {
     private long id;
 
     @NonNull
-    @NotBlank
     private String question;
 
     private String answer;
@@ -50,7 +49,7 @@ public class Question {
      * @param lecturePin The pin for the lecture
      * @param author     The string containing the author
      */
-    public Question(@NonNull @NotBlank String question, String lecturePin, String author) {
+    public Question(@NonNull String question, String lecturePin, String author) {
         this.question = question;
         this.lecturePin = lecturePin;
         this.author = author;
