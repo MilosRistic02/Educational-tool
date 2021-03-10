@@ -2,6 +2,7 @@ package nl.tudelft.oopp.demo.controllers;
 
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.services.LectureRoomService;
 
@@ -53,9 +54,10 @@ public class LectureRoomController {
         return lectureRoomService.getAllLectureRooms();
     }
 
-    @GetMapping("{pin}")
+    @GetMapping("/{pin}")
     @ResponseBody
-    public boolean checkPin(@PathVariable String pin) {
-        return lectureRoomService.existsByPin(pin);
+    public String getLectureRoom(@PathVariable String pin) throws JsonProcessingException {
+        return lectureRoomService.getLectureRoom(pin);
     }
+
 }

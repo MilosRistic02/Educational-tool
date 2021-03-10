@@ -3,6 +3,8 @@ package nl.tudelft.oopp.demo.services;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.repositories.LectureRoomRepository;
 
@@ -95,5 +97,12 @@ public class LectureRoomService {
      */
     public boolean existsByPin(String pin) {
         return lectureRoomRepository.existsByLecturePin(pin);
+    }
+
+    public String getLectureRoom(String pin) throws JsonProcessingException {
+        if(!lectureRoomRepository.existsByLecturePin(pin)) {
+            return "Room doesn't exist";
+        }
+        return new ObjectMapper().writeValueAsString(lectureRoomRepository.getLectureRoomByLecturePin(pin));
     }
 }
