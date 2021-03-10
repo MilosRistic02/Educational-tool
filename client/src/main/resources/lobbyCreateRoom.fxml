@@ -11,7 +11,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <TextField fx:id="courseIDField" layoutX="185.0" layoutY="209.0" prefHeight="40.0" prefWidth="230.0" promptText="e.g. 1100" />
+      <TextField fx:id="courseIdField" layoutX="185.0" layoutY="209.0" prefHeight="40.0" prefWidth="230.0" promptText="e.g. 1100" />
       <Button layoutX="233.0" layoutY="284.0" mnemonicParsing="false" onAction="#createRoom" prefHeight="52.0" prefWidth="131.0" style="-fx-background-color: #00A6D6;" text="Create" textFill="WHITE">
          <font>
             <Font size="28.0" />

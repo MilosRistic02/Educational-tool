@@ -6,6 +6,8 @@ import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import java.net.http.HttpClient;
 import java.util.List;
+
+import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
 
@@ -35,10 +37,10 @@ public class Request {
      * @param url   the url
      * @return      returns a list of questions
      */
-    public static String getPin(String url) {
-        GenericType<String> responseBodyType = new GenericType<String>(){};
+    public static LectureRoom getPin(String url) {
+        GenericType<LectureRoom> responseBodyType = new GenericType<LectureRoom>(){};
 
-        String responseBody = ClientBuilder.newClient()
+        LectureRoom responseBody = ClientBuilder.newClient()
                 .target(url)
                 .request(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)

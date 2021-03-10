@@ -82,6 +82,19 @@ public class Display extends Application {
         primaryStage.show();
     }
 
+    public static void showLobbyCreateRoom(Users users) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        URL xmlUrl = Display.class.getResource("/lobbyCreateRoom.fxml");
+        loader.setLocation(xmlUrl);
+        Parent root = loader.load();
+
+        LobbyController lobbyController = loader.getController();
+        lobbyController.setUsers(users);
+
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+    }
+
     public static void main(String[] args) {
         launch(args);
     }

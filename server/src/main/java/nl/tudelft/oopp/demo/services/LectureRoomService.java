@@ -99,10 +99,10 @@ public class LectureRoomService {
         return lectureRoomRepository.existsByLecturePin(pin);
     }
 
-    public String getLectureRoom(String pin) throws JsonProcessingException {
-        if(!lectureRoomRepository.existsByLecturePin(pin)) {
-            return "Room doesn't exist";
-        }
-        return new ObjectMapper().writeValueAsString(lectureRoomRepository.getLectureRoomByLecturePin(pin));
+    public LectureRoom getLectureRoom(String pin) throws JsonProcessingException {
+//        if(!lectureRoomRepository.existsByLecturePin(pin)) {
+//            return "Room doesn't exist";
+//        }
+        return lectureRoomRepository.getLectureRoomByLecturePin(pin);
     }
 }

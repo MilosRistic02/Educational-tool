@@ -27,8 +27,8 @@ public class ServerCommunication extends Request {
                 question);
     }
 
-    public static boolean checkPin(String pin) {
-        return Boolean.parseBoolean(getPin("http://localhost:8080/lecture/" + pin));
+    public static LectureRoom getLectureRoom(String pin) {
+        return getPin("http://localhost:8080/lecture/" + pin);
     }
 
     public static String addLectureRoom(LectureRoom lectureRoom) {

@@ -56,7 +56,7 @@ public class LectureRoomController {
 
     @GetMapping("/{pin}")
     @ResponseBody
-    public String getLectureRoom(@PathVariable String pin) throws JsonProcessingException {
+    public LectureRoom getLectureRoom(@PathVariable String pin) throws JsonProcessingException {
         return lectureRoomService.getLectureRoom(pin);
     }
 

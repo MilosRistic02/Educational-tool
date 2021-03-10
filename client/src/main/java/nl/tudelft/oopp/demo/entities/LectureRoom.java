@@ -1,12 +1,18 @@
 
 package nl.tudelft.oopp.demo.entities;
 
+import java.util.Date;
 import java.util.Objects;
 
 public class LectureRoom {
     private String lecturePin;
     private String lecturerID;
     private int courseId;
+    private Date creationDate;
+
+
+    public LectureRoom() {
+    }
 
     /**
      * Constructs a new LectureRoom.
@@ -67,6 +73,14 @@ public class LectureRoom {
     */
     public void setLecturePin(String lecturePin) {
         this.lecturePin = lecturePin;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     @Override

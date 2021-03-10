@@ -1,17 +1,16 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import nl.tudelft.oopp.demo.MainApp;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Users;
-import nl.tudelft.oopp.demo.views.LobbyLecturerDisplay;
-import nl.tudelft.oopp.demo.views.LobbyStudentDisplay;
+import nl.tudelft.oopp.demo.views.Display;
 
 
 public class LobbyController {
@@ -39,8 +38,7 @@ public class LobbyController {
      */
     @FXML
     public void showLobbyCreateRoom() throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("/lobbyCreateRoom.fxml"));
-        rootPane.getChildren().setAll(pane);
+        Display.showLobbyCreateRoom(users);
     }
 
     /**
@@ -49,7 +47,7 @@ public class LobbyController {
     @FXML
     public void createRoom() {
         int courseID = Integer.parseInt(courseIdField.getText());
-        LectureRoom lectureRoom = new LectureRoom("Jsloof", courseID);
+        LectureRoom lectureRoom = new LectureRoom(users.getUsername(), courseID);
 
         String response = ServerCommunication.addLectureRoom(lectureRoom);
         if (response.equals("Too many rooms created under this host")) {
@@ -74,8 +72,7 @@ public class LobbyController {
      */
     @FXML
     public void joinLobby() throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("/lobbyStudent.fxml"));
-        rootPane.getChildren().setAll(pane);
+        Display.showStudent(users);
     }
 
     /**
@@ -84,14 +81,12 @@ public class LobbyController {
      * else, the player is alerted that the pin is not valid, and can try to enter another pin.
      */
     @FXML
-    private void checkPin() {
+    private void checkPin() throws IOException {
         String pin = pinText.getText();
-        if (ServerCommunication.checkPin(pin)) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Correct pin");
-            alert.setHeaderText(null);
-            alert.setContentText("This lecture pin is valid");
-            alert.showAndWait();
+        LectureRoom response = ServerCommunication.getLectureRoom(pin);
+        if (response != null) {
+//            LectureRoom room = new ObjectMapper().readValue(response, LectureRoom.class);
+            Display.showQuestion(users, response);
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Incorrect pin");
