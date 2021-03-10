@@ -56,6 +56,13 @@ public class Display extends Application {
         primaryStage.show();
     }
 
+
+    /**
+     * If the current logged user is a lecturer, redirect it to the
+     * lecturer view.
+     * @param users - current logged user.
+     * @throws IOException - can throw an error.
+     */
     public static void showLecturer(Users users) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         URL xmlUrl = Display.class.getResource("/lobbyLecturer.fxml");
@@ -69,6 +76,12 @@ public class Display extends Application {
         primaryStage.show();
     }
 
+    /**
+     * If the current logged user is a student, redirect it to the
+     * student view.
+     * @param users - current logged user.
+     * @throws IOException - can throw an error.
+     */
     public static void showStudent(Users users) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         URL xmlUrl = Display.class.getResource("/lobbyStudent.fxml");

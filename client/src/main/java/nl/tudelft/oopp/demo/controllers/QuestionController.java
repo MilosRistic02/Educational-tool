@@ -132,7 +132,6 @@ public class QuestionController {
         this.users = users;
         greetings.setText("Welcome, " + users.getUsername());
 
-<<<<<<< HEAD
         // Update question list every 2 seconds.
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -147,17 +146,8 @@ public class QuestionController {
             }
         }, 0, 2000);
     }
-=======
+
     public void setLectureRoom(LectureRoom lectureRoom) {
         this.lectureRoom = lectureRoom;
     }
-
-    /*
-     * Alert alert = new Alert(Alert.AlertType.INFORMATION);
-     * alert.setTitle("Quote for you");
-     * alert.setHeaderText(null);
-     * alert.setContentText();
-     * alert.showAndWait();
-     */
->>>>>>> a2adacb021ae90a57d76381d1ae973cb28eb7a8d
 }
