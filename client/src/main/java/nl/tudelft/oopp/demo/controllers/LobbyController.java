@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import nl.tudelft.oopp.demo.MainApp;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
+import nl.tudelft.oopp.demo.entities.Users;
 import nl.tudelft.oopp.demo.views.LobbyLecturerDisplay;
 import nl.tudelft.oopp.demo.views.LobbyStudentDisplay;
 
@@ -23,6 +24,8 @@ public class LobbyController {
 
     @FXML
     TextField courseIdField;
+
+    private Users users;
 
     // TODO
     // Show archive
@@ -98,4 +101,7 @@ public class LobbyController {
         }
     }
 
+    public void setUsers(Users users) {
+        this.users = users;
+    }
 }

@@ -11,6 +11,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
 import nl.tudelft.oopp.demo.entities.Users;
@@ -27,6 +28,8 @@ public class QuestionController {
     private Text greetings;
 
     private Users users;
+
+    private LectureRoom lectureRoom;
 
 
     @FXML
@@ -120,6 +123,10 @@ public class QuestionController {
     public void setUsers(Users users) {
         this.users = users;
         greetings.setText("Welcome, " + users.getUsername());
+    }
+
+    public void setLectureRoom(LectureRoom lectureRoom) {
+        this.lectureRoom = lectureRoom;
     }
 
     /*

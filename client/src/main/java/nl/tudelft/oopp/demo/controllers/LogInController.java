@@ -58,7 +58,11 @@ public class LogInController {
         }
 
         Users loggedUser = new ObjectMapper().readValue(response, Users.class);
-        Display.showQuestion(loggedUser);;
+        if (loggedUser.getRole().equals("lecturer")) {
+            Display.showLecturer(loggedUser);
+        } else {
+            Display.showStudent(loggedUser);
+        }
     }
 
     /**
