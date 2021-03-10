@@ -85,7 +85,6 @@ public class LobbyController {
         String pin = pinText.getText();
         LectureRoom response = ServerCommunication.getLectureRoom(pin);
         if (response != null) {
-//            LectureRoom room = new ObjectMapper().readValue(response, LectureRoom.class);
             Display.showQuestion(users, response);
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -96,6 +95,10 @@ public class LobbyController {
         }
     }
 
+    /**
+     * Setter for the users of this controller.
+     * @param users Users we want to set it to.
+     */
     public void setUsers(Users users) {
         this.users = users;
     }

@@ -1,11 +1,9 @@
 package nl.tudelft.oopp.demo.controllers;
 
-import java.util.List;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
+import java.util.List;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.services.LectureRoomService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,8 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-
 
 @Controller
 @RequestMapping("lecture")

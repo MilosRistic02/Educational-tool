@@ -1,18 +1,12 @@
 package nl.tudelft.oopp.demo.services;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import java.time.LocalDateTime;
 import java.util.List;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.repositories.LectureRoomRepository;
-
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
 
 @Service
 public class LectureRoomService {
@@ -99,10 +93,12 @@ public class LectureRoomService {
         return lectureRoomRepository.existsByLecturePin(pin);
     }
 
-    public LectureRoom getLectureRoom(String pin) throws JsonProcessingException {
-//        if(!lectureRoomRepository.existsByLecturePin(pin)) {
-//            return "Room doesn't exist";
-//        }
+    /**
+     * Getter for the LectureRoom class.
+     * @param pin String of the pin that we want to identify the LectureRoom with
+     * @return A LectureRoom that is associated with the pin
+     */
+    public LectureRoom getLectureRoom(String pin) {
         return lectureRoomRepository.getLectureRoomByLecturePin(pin);
     }
 }

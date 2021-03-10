@@ -95,6 +95,11 @@ public class Display extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Redirects the lecturer to the page where he can create a lecture.
+     * @param users User who is currently logged in
+     * @throws IOException Exception thrown when something goes with IO
+     */
     public static void showLobbyCreateRoom(Users users) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         URL xmlUrl = Display.class.getResource("/lobbyCreateRoom.fxml");

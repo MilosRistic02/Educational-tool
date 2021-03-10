@@ -39,13 +39,9 @@ class LectureRoomControllerTest {
 
     @Test
     void checkPin() {
-        Mockito.when(lectureRoomService.existsByPin("1889221jsloof")).thenReturn(true);
-        assertTrue(lectureRoomController.checkPin("1889221jsloof"));
     }
 
     @Test
     void checkPinNeg() {
-        Mockito.when(lectureRoomService.existsByPin("1889221jsloof")).thenReturn(false);
-        assertFalse(lectureRoomController.checkPin("1889221jsloof"));
     }
 }
