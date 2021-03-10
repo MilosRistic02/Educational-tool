@@ -49,8 +49,8 @@ public class Display extends Application {
         Parent root = loader.load();
 
         QuestionController questionController = loader.getController();
-        questionController.setUsers(users);
         questionController.setLectureRoom(lectureRoom);
+        questionController.setUsers(users);
 
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

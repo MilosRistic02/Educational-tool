@@ -132,7 +132,7 @@ public class QuestionController {
      */
     public void setUsers(Users users) {
         this.users = users;
-        greetings.setText("Welcome, " + users.getUsername());
+        greetings.setText("Welcome, " + users.getUsername() + " you are in room: " + lectureRoom.getLecturePin());
 
         // Update question list every 2 seconds.
         Timer timer = new Timer();
