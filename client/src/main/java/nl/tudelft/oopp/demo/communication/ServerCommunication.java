@@ -86,4 +86,8 @@ public class ServerCommunication extends Request {
     public static List<ScoringLog> getVotes() {
         return getVotes("http://localhost:8080/scoringlog/get-votes");
     }
+
+    public static String deleteQuestion(String id) {
+        return delete("http://localhost:8080/question", id);
+    }
 }

@@ -106,6 +106,12 @@ public class QuestionController {
                 questionFormatComponent.dislike.setStyle("-fx-background-color: #FFFFFF;");
             }
 
+            // Enable the delete button, only for the questions made by the current logged user.
+            if (q.getAuthor().equals(users.getUsername())) {
+                questionFormatComponent.delete.setDisable(false);
+                questionFormatComponent.delete.setVisible(true);
+            }
+
             // Add the updated question to the VBox (i.e. the main questions view).
             stack.getChildren().add(questionFormatComponent);
         }

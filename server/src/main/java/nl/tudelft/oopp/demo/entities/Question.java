@@ -2,6 +2,8 @@ package nl.tudelft.oopp.demo.entities;
 
 import java.util.Date;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,7 +37,7 @@ public class Question {
 
     private String author;
 
-    @OneToMany(mappedBy = "question")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
     Set<ScoringLog> scoringLogs;
 
     public Question() {

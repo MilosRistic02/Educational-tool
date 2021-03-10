@@ -3,6 +3,7 @@ package nl.tudelft.oopp.demo.controllers;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -30,6 +31,9 @@ public class QuestionFormatComponent extends Pane {
 
     @FXML
     public ToggleButton dislike;
+
+    @FXML
+    public Button delete;
 
 
     private Question currentQuestion;
@@ -85,5 +89,10 @@ public class QuestionFormatComponent extends Pane {
             scoringLog = new ScoringLog(currentQuestion, loggedUser, 0);
         }
         ServerCommunication.voteQuestion(scoringLog);
+    }
+
+    @FXML
+    public void delete() {
+        ServerCommunication.deleteQuestion(Integer.toString((int) currentQuestion.getId()));
     }
 }
