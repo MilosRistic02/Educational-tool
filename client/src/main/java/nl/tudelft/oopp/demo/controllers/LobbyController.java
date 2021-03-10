@@ -16,23 +16,38 @@ import nl.tudelft.oopp.demo.views.LobbyStudentDisplay;
 public class LobbyController {
 
     @FXML
+    AnchorPane rootPane;
+
+    @FXML
     TextField pinText;
 
     @FXML
-    AnchorPane rootPane;
+    TextField courseIdField;
 
     // TODO
-    // Why is the lectureroom constructor like that?
     // Show archive
     // delete own lectures
     // join existing room: show list?
+
+    /**
+     * Redirects the user to the next scene, where they can enter courseID.
+     *
+     * @throws IOException if lobbyCreateRoom.fxml cannot be loaded
+     */
+    @FXML
+    public void showLobbyCreateRoom() throws IOException {
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("/lobbyCreateRoom.fxml"));
+        rootPane.getChildren().setAll(pane);
+    }
 
     /**
      * Creates a new lectureRoom and redirects the lecturer to that room.
      */
     @FXML
     public void createRoom() {
-        LectureRoom lectureRoom = new LectureRoom("Jsloof", 1200);
+        int courseID = Integer.parseInt(courseIdField.getText());
+        LectureRoom lectureRoom = new LectureRoom("Jsloof", courseID);
+
         String response = ServerCommunication.addLectureRoom(lectureRoom);
         if (response.equals("Too many rooms created under this host")) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -47,11 +62,6 @@ public class LobbyController {
             alert.setContentText("Your lecture pin is: " + response);
             alert.showAndWait();
         }
-        // use the create database method
-        // TODO
-
-        // redirect the user to the next scene
-        // TODO
     }
 
     /**
