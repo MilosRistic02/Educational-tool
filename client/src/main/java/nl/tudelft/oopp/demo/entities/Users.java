@@ -1,26 +1,14 @@
 package nl.tudelft.oopp.demo.entities;
 
-import com.sun.istack.NotNull;
 import java.util.Objects;
-import java.util.Set;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
-@Entity
 public class Users {
 
-    @Id
-    private String username;
-    @NotNull
-    private String email;
-    @NotNull
-    private String password;
-    @NotNull
-    private String role;
 
-    @OneToMany(mappedBy = "users")
-    Set<ScoringLog> scoringLogs;
+    private String username;
+    private String email;
+    private String password;
+    private String role;
 
     public Users(){
     }
@@ -130,3 +118,4 @@ public class Users {
         return Objects.hash(getUsername());
     }
 }
+
