@@ -11,7 +11,7 @@
             <Font size="24.0" />
          </font>
       </Button>
-      <Button layoutX="174.0" layoutY="128.0" mnemonicParsing="false" onAction="#createRoom" prefHeight="64.0" prefWidth="251.0" style="-fx-background-color: #00A6D6;" text="Create new room" textFill="WHITE">
+      <Button layoutX="174.0" layoutY="128.0" mnemonicParsing="false" onAction="#showLobbyCreateRoom" prefHeight="64.0" prefWidth="251.0" style="-fx-background-color: #00A6D6;" text="Create new room" textFill="WHITE">
          <font>
             <Font size="26.0" />
          </font>
