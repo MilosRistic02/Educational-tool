@@ -45,7 +45,7 @@ public class LobbyController {
      * Creates a new lectureRoom and redirects the lecturer to that room.
      */
     @FXML
-    public void createRoom() {
+    public void createRoom() throws IOException {
         int courseID = Integer.parseInt(courseIdField.getText());
         LectureRoom lectureRoom = new LectureRoom(users.getUsername(), courseID);
 
@@ -62,6 +62,7 @@ public class LobbyController {
             alert.setHeaderText(null);
             alert.setContentText("Your lecture pin is: " + response);
             alert.showAndWait();
+            Display.showQuestion(users, lectureRoom);
         }
     }
 
