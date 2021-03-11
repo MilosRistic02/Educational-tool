@@ -28,8 +28,9 @@ public class LobbyController {
 
     // TODO
     // Show archive
-    // delete own lectures
-    // join existing room: show list?
+    // close lecture
+    // schedule lecture
+    // validate input everywhere
 
     /**
      * Redirects the user to the next scene, where they can enter courseID.
@@ -87,6 +88,12 @@ public class LobbyController {
         LectureRoom response = ServerCommunication.getLectureRoom(pin);
         if (response != null) {
             Display.showQuestion(users, response);
+        } else if (!response.isOpen()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Closed room");
+            alert.setHeaderText(null);
+            alert.setContentText("This lecture room is closed");
+            alert.showAndWait();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Incorrect pin");

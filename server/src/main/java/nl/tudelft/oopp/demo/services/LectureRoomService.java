@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import java.time.LocalDateTime;
 import java.util.List;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
+import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.repositories.LectureRoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -100,5 +101,17 @@ public class LectureRoomService {
      */
     public LectureRoom getLectureRoom(String pin) {
         return lectureRoomRepository.getLectureRoomByLecturePin(pin);
+    }
+
+    public String putLectureRoom(LectureRoom lectureRoom) {
+        if (!lectureRoomRepository.existsByLecturePin(
+                lectureRoom.getLecturePin())) {
+            return "Room does not yet exists";
+        }
+        LectureRoom prev = lectureRoomRepository.getByLecturePin(
+                lectureRoom.getLecturePin());
+        prev.setOpen(lectureRoom.isOpen());
+        lectureRoomRepository.save(prev);
+        return "Updated room";
     }
 }

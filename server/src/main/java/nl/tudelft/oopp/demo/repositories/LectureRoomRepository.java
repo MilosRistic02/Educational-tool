@@ -20,4 +20,6 @@ public interface LectureRoomRepository extends JpaRepository<LectureRoom, String
     List<LectureRoom> getAll();
 
     List<LectureRoom> getAllByLecturerID(String lecturerID);
+
+    LectureRoom getByLecturePin(String lectureRoomPin);
 }

@@ -23,6 +23,9 @@ public class LectureRoom {
     @CreationTimestamp
     private Date creationDate;
 
+    @NotNull
+    private boolean isOpen;
+
     public LectureRoom() {
     }
 
@@ -39,6 +42,7 @@ public class LectureRoom {
     public LectureRoom(String lecturerID, int courseId) {
         this.lecturerID = lecturerID;
         this.courseId = courseId;
+        this.isOpen = true;
     }
 
     /** Getter for the lecturerID.
@@ -89,6 +93,15 @@ public class LectureRoom {
      */
     public void setLecturePin(String lecturePin) {
         this.lecturePin = lecturePin;
+    }
+
+
+    public boolean isOpen() {
+        return isOpen;
+    }
+
+    public void setOpen(boolean open) {
+        isOpen = open;
     }
 
     public Date getCreationDate() {

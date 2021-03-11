@@ -9,6 +9,7 @@ import java.util.TimerTask;
 
 import javafx.application.Platform;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -125,6 +126,17 @@ public class QuestionController {
         }
     }
 
+
+    @FXML
+    public void closeRoom() {
+        this.lectureRoom.setOpen(false);
+        String response = ServerCommunication.closeRoom(this.lectureRoom);
+
+
+        //boolean isOpen op false
+        //go back to lobby
+    }
+
     /**
      * Set a new user for the view and update the question list
      * every 2 seconds.
@@ -144,6 +156,7 @@ public class QuestionController {
                     @Override
                     public void run() {
                         displayAllQuestion();
+                        // one in 10? times, check if room is still open
                     }
                 });
             }
@@ -153,4 +166,5 @@ public class QuestionController {
     public void setLectureRoom(LectureRoom lectureRoom) {
         this.lectureRoom = lectureRoom;
     }
+
 }

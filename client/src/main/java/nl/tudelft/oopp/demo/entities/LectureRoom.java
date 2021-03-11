@@ -9,6 +9,7 @@ public class LectureRoom {
     private String lecturerID;
     private int courseId;
     private Date creationDate;
+    private boolean isOpen;
 
 
     public LectureRoom() {
@@ -22,6 +23,8 @@ public class LectureRoom {
     */
     public LectureRoom(String lecturerID, int courseId) {
         this.lecturerID = lecturerID;
+        this.courseId = courseId;
+        this.isOpen = true;
     }
 
     /** Getter for the lecturerID.
@@ -81,6 +84,15 @@ public class LectureRoom {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+
+    public boolean isOpen() {
+        return isOpen;
+    }
+
+    public void setOpen(boolean open) {
+        isOpen = open;
     }
 
     @Override
