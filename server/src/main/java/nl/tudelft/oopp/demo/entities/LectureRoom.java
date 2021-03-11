@@ -23,7 +23,6 @@ public class LectureRoom {
     @CreationTimestamp
     private Date creationDate;
 
-    @NotNull
     private boolean isOpen;
 
     public LectureRoom() {

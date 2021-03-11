@@ -23,7 +23,7 @@ public class QuestionService {
     public String updateScoreQuestion(Question question) {
         if (!questionRepository.existsByLecturePin(
                 question.getLecturePin())) {
-            return "Question does not yet exists";
+            return "Question does not yet exist";
         }
         Question prev = questionRepository.getByLecturePin(
                 question.getLecturePin());

@@ -103,10 +103,15 @@ public class LectureRoomService {
         return lectureRoomRepository.getLectureRoomByLecturePin(pin);
     }
 
+    /**
+     * Method to change a lectureRoom in the database.
+     * @param lectureRoom the lectureroom to change to
+     * @return whether the room is updated or didn't exist
+     */
     public String putLectureRoom(LectureRoom lectureRoom) {
         if (!lectureRoomRepository.existsByLecturePin(
                 lectureRoom.getLecturePin())) {
-            return "Room does not yet exists";
+            return "Room does not yet exist";
         }
         LectureRoom prev = lectureRoomRepository.getByLecturePin(
                 lectureRoom.getLecturePin());

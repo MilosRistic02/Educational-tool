@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
@@ -23,6 +24,9 @@ public class LobbyController {
 
     @FXML
     TextField courseIdField;
+
+    @FXML
+    Label wrongId;
 
     private Users users;
 
@@ -43,12 +47,31 @@ public class LobbyController {
     }
 
     /**
+     * Checks if entered course ID is valid.
+     * @throws IOException if a room cannot be created.
+     */
+    @FXML
+    public void createRoomButtonClicked() throws IOException {
+        int courseId;
+        try {
+            courseId = Integer.parseInt(courseIdField.getText());
+        } catch (NumberFormatException e) {
+            wrongId.setVisible(true);
+            courseIdField.setText("");
+            courseIdField.requestFocus();
+            return;
+        }
+        wrongId.setVisible(false);
+        createRoom(courseId);
+    }
+
+    /**
      * Creates a new lectureRoom and redirects the lecturer to that room.
      */
     @FXML
-    public void createRoom() throws IOException {
-        int courseID = Integer.parseInt(courseIdField.getText());
-        LectureRoom lectureRoom = new LectureRoom(users.getUsername(), courseID);
+    public void createRoom(int courseId) throws IOException {
+
+        LectureRoom lectureRoom = new LectureRoom(users.getUsername(), courseId);
 
         String response = ServerCommunication.addLectureRoom(lectureRoom);
         if (response.equals("Too many rooms created under this host")) {
@@ -86,20 +109,21 @@ public class LobbyController {
     private void checkPin() throws IOException {
         String pin = pinText.getText();
         LectureRoom response = ServerCommunication.getLectureRoom(pin);
-        if (response != null) {
-            Display.showQuestion(users, response);
+        if (response == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Incorrect pin");
+            alert.setHeaderText(null);
+            alert.setContentText("This lecture pin is not valid");
+            alert.showAndWait();
         } else if (!response.isOpen()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Closed room");
             alert.setHeaderText(null);
             alert.setContentText("This lecture room is closed");
             alert.showAndWait();
+            pinText.requestFocus();
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Incorrect pin");
-            alert.setHeaderText(null);
-            alert.setContentText("This lecture pin is not valid");
-            alert.showAndWait();
+            Display.showQuestion(users, response);
         }
     }
 

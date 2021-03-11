@@ -12,10 +12,15 @@
          </font>
       </Label>
       <TextField fx:id="courseIdField" layoutX="185.0" layoutY="209.0" prefHeight="40.0" prefWidth="230.0" promptText="e.g. 1100" />
-      <Button layoutX="233.0" layoutY="284.0" mnemonicParsing="false" onAction="#createRoom" prefHeight="52.0" prefWidth="131.0" style="-fx-background-color: #00A6D6;" text="Create" textFill="WHITE">
+      <Button layoutX="233.0" layoutY="284.0" mnemonicParsing="false" onAction="#createRoomButtonClicked" prefHeight="52.0" prefWidth="131.0" style="-fx-background-color: #00A6D6;" text="Create" textFill="WHITE">
          <font>
             <Font size="28.0" />
          </font>
       </Button>
+      <Label fx:id="wrongId" layoutX="236.0" layoutY="250.0" prefHeight="26.0" prefWidth="131.0" text="invalid course ID" textFill="#d34343" visible="false">
+         <font>
+            <Font name="Cantarell Extra Bold" size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

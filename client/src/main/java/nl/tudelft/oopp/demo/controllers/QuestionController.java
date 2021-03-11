@@ -1,5 +1,6 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -11,6 +12,7 @@ import javafx.application.Platform;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -19,6 +21,7 @@ import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
 import nl.tudelft.oopp.demo.entities.Users;
+import nl.tudelft.oopp.demo.views.Display;
 
 public class QuestionController {
 
@@ -126,13 +129,20 @@ public class QuestionController {
         }
     }
 
-
+    /**
+     * Closes the lecture room.
+     * @throws IOException if server communication fails.
+     */
     @FXML
-    public void closeRoom() {
+    public void closeRoom() throws IOException {
         this.lectureRoom.setOpen(false);
         String response = ServerCommunication.closeRoom(this.lectureRoom);
 
-
+        if (this.users.getRole().equals("lecturer")) {
+            Display.showLecturer(this.users);
+        } else {
+            Display.showStudent(this.users);
+        }
         //boolean isOpen op false
         //go back to lobby
     }
@@ -156,11 +166,37 @@ public class QuestionController {
                     @Override
                     public void run() {
                         displayAllQuestion();
+                        try {
+                            if (checkRoomClosed()) {
+                                timer.cancel();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         // one in 10? times, check if room is still open
                     }
                 });
             }
-        }, 0, 2000);
+        }, 0, 5000);
+    }
+
+    private boolean checkRoomClosed() throws IOException {
+        boolean closed = false;
+        LectureRoom room = ServerCommunication.getLectureRoom(this.lectureRoom.getLecturePin());
+        if (!room.isOpen()) {
+            closed = true;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Lecture has ended");
+            alert.setHeaderText(null);
+            alert.setContentText("You are redirected to the lobby");
+            alert.show();
+            if (this.users.getRole().equals("lecturer")) {
+                Display.showLecturer(users);
+            } else {
+                Display.showStudent(users);
+            }
+        }
+        return closed;
     }
 
     public void setLectureRoom(LectureRoom lectureRoom) {
