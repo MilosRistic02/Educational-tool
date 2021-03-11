@@ -143,8 +143,6 @@ public class QuestionController {
         } else {
             Display.showStudent(this.users);
         }
-        //boolean isOpen op false
-        //go back to lobby
     }
 
     /**

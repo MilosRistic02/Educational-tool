@@ -55,6 +55,17 @@ class LectureRoomTest {
     }
 
     @Test
+    void getLectureOpen() {
+        assertEquals(true, lectureRoom.isOpen());
+    }
+
+    @Test
+    void setLectureOpen() {
+        lectureRoom.setOpen(false);
+        assertEquals(false, lectureRoom.isOpen());
+    }
+
+    @Test
     void testEquals() {
         LectureRoom room = new LectureRoom("Stefan", 2);
         room.setLecturePin("2802202001Stefan");
