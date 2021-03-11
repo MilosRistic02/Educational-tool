@@ -22,7 +22,7 @@ public class Question {
 
     @NonNull
     private String question;
-
+    
     private String answer;
 
     private int score;

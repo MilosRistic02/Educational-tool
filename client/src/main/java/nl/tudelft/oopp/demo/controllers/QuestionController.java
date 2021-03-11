@@ -52,6 +52,7 @@ public class QuestionController {
         stack.getChildren().clear();
         stack.setSpacing(20);   // Space between questions.
 
+
         // Update the scores for each question.
         for (Question q : qs) {
             for (ScoringLog scoringLog : votes) {
@@ -71,6 +72,13 @@ public class QuestionController {
             questionFormatComponent.question.setText(q.getQuestion());
             questionFormatComponent.score.setText(Integer.toString(q.getScore()));
             questionFormatComponent.author.setText("By " + q.getAuthor());
+
+            if(q.isAnswered()){
+                questionFormatComponent.answer.setText(q.getAnswer());
+                questionFormatComponent.qanda.setStyle("-fx-border-color: #99d28c ; -fx-border-width: 4; -fx-border-radius: 18");
+                questionFormatComponent.isAnswered.setVisible(true);
+//                questionFormatComponent.qanda.setStyle("-fx-border-color: #99d28c ");
+            }
 
             // Set current question.
             questionFormatComponent.setCurrentQuestion(q);
@@ -104,7 +112,7 @@ public class QuestionController {
             // Show which buttons have been pressed by the current logged user,
             // by changing their color.
             if (questionFormatComponent.like.isSelected()) {
-                questionFormatComponent.like.setStyle("-fx-background-color: #99d28c;");
+                questionFormatComponent.like.setStyle("-fx-background-color: #f1be3e;");
                 questionFormatComponent.dislike.setStyle("-fx-background-color: #FFFFFF;");
             } else if (questionFormatComponent.dislike.isSelected()) {
                 questionFormatComponent.dislike.setStyle("-fx-background-color: #c3312f;");

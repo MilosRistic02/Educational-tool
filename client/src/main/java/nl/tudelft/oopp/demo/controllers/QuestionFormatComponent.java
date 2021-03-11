@@ -4,15 +4,21 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
 import nl.tudelft.oopp.demo.entities.Users;
 
-public class QuestionFormatComponent extends Pane {
+public class QuestionFormatComponent extends VBox {
+
+    @FXML
+    public VBox qanda;
 
     @FXML
     public Text score;
@@ -35,6 +41,15 @@ public class QuestionFormatComponent extends Pane {
     @FXML
     public Button delete;
 
+    @FXML
+    public Text answer;
+
+    @FXML
+    public Pane pane;
+
+    @FXML
+    public Text isAnswered;
+
 
     private Question currentQuestion;
     private Users loggedUser;
@@ -49,6 +64,15 @@ public class QuestionFormatComponent extends Pane {
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
+//            qanda.setMaxHeight(like.getMaxHeight() * 2);
+//            VBox.setVgrow(qanda, Priority.ALWAYS);
+//            qanda.setVgrow(answer, Priority.ALWAYS);
+//            qanda.setMaxHeight(answer.getmaxHeight());
+//            qanda.maxHeightProperty().bind(qanda.heightProperty());
+            pane.maxHeightProperty().bind(pane.heightProperty());
+
+
+//            qanda.setMaxHeight(like.getMaxHeight() + answer.maxHeight() * 2);
         } catch (IOException exception) {
             System.out.println("could not create instance");
             System.out.println(exception);
