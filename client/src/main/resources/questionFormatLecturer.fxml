@@ -55,7 +55,7 @@
             </font>
          </Text>
          <Button fx:id="makeAnswer" layoutX="14.0" layoutY="9.0" mnemonicParsing="false" onAction="#makeAnswer" text="Answer" />
-         <Button fx:id="editQuestion" layoutX="83.0" layoutY="9.0" mnemonicParsing="false" text="Edit Question" />
+         <Button fx:id="editQuestion" layoutX="83.0" layoutY="9.0" mnemonicParsing="false" onAction="#editQuestion" text="Edit Question" />
          <VBox.margin>
             <Insets bottom="10.0" />
          </VBox.margin>

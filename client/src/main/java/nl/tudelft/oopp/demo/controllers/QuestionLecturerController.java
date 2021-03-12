@@ -81,7 +81,7 @@ public class QuestionLecturerController {
                 // change border of the question to green.
                 questionFormatLecturerComponent.qanda.setStyle("-fx-border-color: #99d28c ; -fx-border-width: 4; -fx-border-radius: 18");
                 // change status to "Answered" and its color to green.
-                questionFormatLecturerComponent.isAnswered.setText("Answered");
+                questionFormatLecturerComponent.isAnswered.setText("Answered by " + users.getUsername());
                 questionFormatLecturerComponent.isAnswered.setFill(Color.valueOf("#99d28c"));
             }
 

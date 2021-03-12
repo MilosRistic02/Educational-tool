@@ -46,6 +46,18 @@ public class QuestionService {
         return "Updated score of Question";
     }
 
+    public String updateContentQuestion(Question question) {
+        if (!questionRepository.existsByIdAndAndLecturePin(
+                question.getId(), question.getLecturePin())) {
+            return "Question does not yet exists";
+        }
+        Question old = questionRepository.getByIdAndLecturePin(
+                question.getId(), question.getLecturePin());
+
+        old.setQuestion(question.getQuestion());
+        questionRepository.save(old);
+        return "Updated score of Question";
+    }
 
 
     /**

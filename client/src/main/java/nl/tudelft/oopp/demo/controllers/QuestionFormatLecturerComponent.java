@@ -110,6 +110,27 @@ public class QuestionFormatLecturerComponent extends VBox {
     }
 
     @FXML
+    public void editQuestion() {
+        String oldQuestion = currentQuestion.getQuestion();
+
+        // Dialog to input the answer.
+        TextInputDialog textInputDialog = new TextInputDialog(oldQuestion);
+        textInputDialog.setGraphic(null);
+        textInputDialog.setHeaderText(null);
+        textInputDialog.setTitle("Edit question");
+        textInputDialog.setContentText("Enter the updated question:");
+
+        Optional<String> result = textInputDialog.showAndWait();
+        String input = textInputDialog.getEditor().getText();
+        // Update only if there is a change and the question is non blank.
+        if (result.isPresent() && !input.isEmpty() && !input.equals(oldQuestion)) {
+            currentQuestion.setQuestion(result.get());
+            ServerCommunication.updateContentQuestion(currentQuestion);
+        }
+
+    }
+
+    @FXML
     public void delete() {
         ServerCommunication.deleteQuestion(Integer.toString((int) currentQuestion.getId()));
     }
