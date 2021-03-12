@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import nl.tudelft.oopp.demo.controllers.ArchiveController;
 import nl.tudelft.oopp.demo.controllers.LobbyController;
 import nl.tudelft.oopp.demo.controllers.QuestionController;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
@@ -112,6 +113,36 @@ public class Display extends Application {
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
+
+
+    public static void showArchiveList(Users users) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        URL xmlUrl = Display.class.getResource("/archiveList.fxml");
+        loader.setLocation(xmlUrl);
+        Parent root = loader.load();
+
+        ArchiveController archiveController = loader.getController();
+        archiveController.setUsers(users);
+        archiveController.showPins();
+
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+    }
+
+
+    public static void showArchive(String lecturePin) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        URL xmlUrl = Display.class.getResource("/archiveList.fxml");
+        loader.setLocation(xmlUrl);
+        Parent root = loader.load();
+
+        ArchiveController archiveController = loader.getController();
+        archiveController.showArchive(lecturePin);
+
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+    }
+
 
     public static void main(String[] args) {
         launch(args);

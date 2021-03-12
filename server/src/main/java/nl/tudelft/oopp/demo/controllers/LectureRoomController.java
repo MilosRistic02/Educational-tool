@@ -3,6 +3,7 @@ package nl.tudelft.oopp.demo.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import java.util.List;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
+import nl.tudelft.oopp.demo.entities.Users;
 import nl.tudelft.oopp.demo.services.LectureRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -63,6 +64,12 @@ public class LectureRoomController {
     public String getLectureRoom(@RequestBody LectureRoom lectureRoom)
             throws JsonProcessingException {
         return lectureRoomService.putLectureRoom(lectureRoom);
+    }
+
+    @GetMapping("/getClosed/{lectureHost}")
+    @ResponseBody
+    public List<LectureRoom> getClosedLecturePins(@PathVariable String lectureHost) {
+        return lectureRoomService.getClosedLecturePins(lectureHost);
     }
 
 }

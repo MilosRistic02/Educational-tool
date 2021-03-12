@@ -2,6 +2,7 @@ package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
@@ -133,5 +134,9 @@ public class LobbyController {
      */
     public void setUsers(Users users) {
         this.users = users;
+    }
+
+    public void showArchiveList() throws IOException {
+        Display.showArchiveList(users);
     }
 }
