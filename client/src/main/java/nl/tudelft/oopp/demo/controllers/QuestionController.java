@@ -65,6 +65,9 @@ public class QuestionController {
         // Sort questions first by their score, then by their creation date.
         Collections.sort(qs, new QuestionComparator());
 
+        QuestionFormatLecturerComponent questionFormatLecturerComponent = new QuestionFormatLecturerComponent();
+        stack.getChildren().add(questionFormatLecturerComponent);
+
         for (Question q: qs) {
             // Create a new generic question format and fill it with
             // the specific information of the current question.
