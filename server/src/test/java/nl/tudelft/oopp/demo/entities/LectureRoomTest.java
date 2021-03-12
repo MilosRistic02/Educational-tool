@@ -4,8 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 
 class LectureRoomTest {
 
@@ -15,8 +20,10 @@ class LectureRoomTest {
      * Test for the different LectureRoom class.
      */
     @BeforeEach
-    public void setup() {
-        lectureRoom = new LectureRoom("Stefan", 2);
+    public void setup() throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        String date = "2021-04-01 12:34";
+        lectureRoom = new LectureRoom("Stefan", 2, format.parse(date));
         lectureRoom.setLecturePin("2802202001Stefan");
     }
 
@@ -63,6 +70,25 @@ class LectureRoomTest {
     void setLectureOpen() {
         lectureRoom.setOpen(false);
         assertEquals(false, lectureRoom.isOpen());
+    }
+
+    @Test
+    void getStartingTime() throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        String dateString = "2021-04-01 12:34";
+        Date date = format.parse(dateString);
+
+        assertEquals(date, lectureRoom.getStartingTime());
+    }
+
+    @Test
+    void setStartingTime() throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        String dateString = "2022-06-09 04:20";
+        Date date = format.parse(dateString);
+        lectureRoom.setStartingTime(date);
+
+        assertEquals(date, lectureRoom.getStartingTime());
     }
 
     @Test

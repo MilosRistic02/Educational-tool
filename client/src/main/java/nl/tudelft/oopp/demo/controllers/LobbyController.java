@@ -1,14 +1,17 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
-import java.sql.Time;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
@@ -42,6 +45,9 @@ public class LobbyController {
     @FXML
     Label wrongId;
 
+    @FXML
+    Label wrongDate;
+
     private Users users;
 
     // TODO
@@ -66,7 +72,7 @@ public class LobbyController {
      * @throws IOException if a room cannot be created.
      */
     @FXML
-    public void createRoomButtonClicked() throws IOException {
+    public void createRoomButtonClicked() throws IOException, ParseException {
         int courseId;
         try {
             courseId = Integer.parseInt(courseIdField.getText());
@@ -84,23 +90,19 @@ public class LobbyController {
      * Creates a new lectureRoom and redirects the lecturer to that room.
      */
     @FXML
-    public void createRoom(int courseId) throws IOException {
+    public void createRoom(int courseId) throws IOException, ParseException {
         LectureRoom lectureRoom = null;
         String scheduleChoice = scheduleChoiceBox.getValue().toString();
 
-        if(scheduleChoice.equals("Now")) {
+        if (scheduleChoice.equals("Now")) {
             lectureRoom = new LectureRoom(users.getUsername(), courseId, new Date());
-        } else if(scheduleChoice.equals("Custom Time")) {
-//            Time lectureStartingTime = new LocalTime();
-//
-//            if(startingDate.getValue().toString().length() == 9){
-//                String time = startingTimeHours + ":" + startingTimeMinutes;
-//                lectureStartingTime.setTime(lectureStartingTime);
-//            } else{
-//                // Fill in a valid date
-//            }
+        } else if (scheduleChoice.equals("Custom Time")) {
+            Date date = checkDate();
+            if (date == null) {
+                return;
+            }
 
-            lectureRoom = new LectureRoom(users.getUsername(), courseId, new Date());
+            lectureRoom = new LectureRoom(users.getUsername(), courseId, date);
         } else {
             lectureRoom = new LectureRoom(users.getUsername(), courseId);
         }
@@ -122,19 +124,37 @@ public class LobbyController {
         }
     }
 
+    private Date checkDate() {
+        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        String time = startingTimeHours.getValue() + ":" + startingTimeMinutes.getValue();
+        Date lectureStartingTime = null;
+
+        try {
+            lectureStartingTime = dateTimeFormat.parse(startingDate.getValue() + " " + time);
+        } catch (Exception e) {
+            wrongDate.setVisible(true);
+            startingDate.setValue(null);
+            startingDate.requestFocus();
+            return null;
+        }
+        wrongDate.setVisible(true);
+        return lectureStartingTime;
+    }
+
     /**
      * Disables the date- and timepickers when the lecture is scheduled for now.
      * Enables the date- and timepickers when the lecture is scheduled for a custom time.
      */
     @FXML
-    public void enableDatePicker(){
+    public void enableDatePicker() {
         String scheduleChoice = scheduleChoiceBox.getValue().toString();
-        if(scheduleChoice.equals("Now")) {
+        if (scheduleChoice.equals("Now")) {
             startingDate.setDisable(true);
+            System.out.println(startingDate.getValue());
             startingDate.setValue(null);
             startingTimeHours.setDisable(true);
             startingTimeMinutes.setDisable(true);
-        } else if(scheduleChoice.equals("Custom Time")) {
+        } else if (scheduleChoice.equals("Custom Time")) {
             startingDate.setDisable(false);
             startingTimeHours.setDisable(false);
             startingTimeMinutes.setDisable(false);

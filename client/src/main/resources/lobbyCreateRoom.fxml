@@ -83,5 +83,15 @@
             </FXCollections>
          </items>
       </ComboBox>
+      <Label fx:id="wrongDate" layoutX="425.0" layoutY="218.0" prefHeight="26.0" prefWidth="82.0" text="invalid date" textFill="#d34343" visible="false">
+         <font>
+            <Font name="Cantarell Extra Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="288.0" layoutY="238.0" prefHeight="40.0" prefWidth="11.0" text=":" textAlignment="CENTER">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

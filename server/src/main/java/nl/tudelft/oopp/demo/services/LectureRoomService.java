@@ -120,7 +120,7 @@ public class LectureRoomService {
     }
 
     /**
-     * Method to get all lecturePins from closed rooms of a specific lecturer
+     * Method to get all lecturePins from closed rooms of a specific lecturer.
      * @param lectureHost the lecturer to search by
      * @return list of lecturePins
      */

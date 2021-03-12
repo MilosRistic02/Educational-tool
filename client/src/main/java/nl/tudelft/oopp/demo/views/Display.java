@@ -114,7 +114,11 @@ public class Display extends Application {
         primaryStage.show();
     }
 
-
+    /**
+     * Redirects the lecturer to the archive page.
+     * @param users User who is currently logged in
+     * @throws IOException if the fxml page cannot be loaded
+     */
     public static void showArchiveList(Users users) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         URL xmlUrl = Display.class.getResource("/archiveList.fxml");
@@ -129,7 +133,11 @@ public class Display extends Application {
         primaryStage.show();
     }
 
-
+    /**
+     * Redirects the lecturer to the archived view of a lectureRoom.
+     * @param lecturePin - Pin of the lecture that is currently open
+     * @throws IOException if the fxml page cannot be loaded
+     */
     public static void showArchive(String lecturePin) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         URL xmlUrl = Display.class.getResource("/archiveList.fxml");

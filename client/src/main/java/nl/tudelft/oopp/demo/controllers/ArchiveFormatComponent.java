@@ -44,7 +44,8 @@ public class ArchiveFormatComponent extends Pane {
      */
     public ArchiveFormatComponent() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/archiveListFormat.fxml"));
+            FXMLLoader fxmlLoader =
+                    new FXMLLoader(getClass().getResource("/archiveListFormat.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
