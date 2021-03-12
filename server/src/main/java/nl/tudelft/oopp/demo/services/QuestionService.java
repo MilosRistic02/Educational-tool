@@ -32,6 +32,22 @@ public class QuestionService {
         return "Updated score of Question";
     }
 
+    public String updateAnswerQuestion(Question question) {
+        if (!questionRepository.existsByIdAndAndLecturePin(
+                question.getId(), question.getLecturePin())) {
+            return "Question does not yet exists";
+        }
+        Question old = questionRepository.getByIdAndLecturePin(
+                question.getId(), question.getLecturePin());
+
+        old.setAnswered(question.isAnswered());
+        old.setAnswer(question.getAnswer());
+        questionRepository.save(old);
+        return "Updated score of Question";
+    }
+
+
+
     /**
      * Update the answered status of a question, given that the question exists in
      * the database.

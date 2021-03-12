@@ -3,6 +3,7 @@ package nl.tudelft.oopp.demo.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
@@ -82,13 +83,27 @@ public class QuestionFormatLecturerComponent extends VBox {
 
     @FXML
     public void makeAnswer() {
-        TextInputDialog textInputDialog = new TextInputDialog("create your answer here");
-
-        Optional<String> result = textInputDialog.showAndWait();
-        if (result.isPresent()) {
-            System.out.println(result);
+        // display the last answer.
+        String oldAnswer = "your answer";
+        if (currentQuestion.isAnswered()) {
+            oldAnswer = currentQuestion.getAnswer();
         }
 
+        // Dialog to input the answer.
+        TextInputDialog textInputDialog = new TextInputDialog(oldAnswer);
+        textInputDialog.setGraphic(null);
+        textInputDialog.setHeaderText(null);
+        textInputDialog.setTitle("Answer");
+        textInputDialog.setContentText("Enter an answer for the question:");
+
+        Optional<String> result = textInputDialog.showAndWait();
+        String input = textInputDialog.getEditor().getText();
+        // Update only if there is a change and the answer is non blank.
+        if (result.isPresent() && !input.isEmpty() && !input.equals(oldAnswer)) {
+            currentQuestion.setAnswer(result.get());
+            currentQuestion.setAnswered(true);
+            ServerCommunication.updateAnswerQuestion(currentQuestion);
+        }
     }
 
     @FXML

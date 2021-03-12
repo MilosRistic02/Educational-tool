@@ -8,6 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.image.Image?>
 <fx:root fx:id="qanda" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="161.0" prefWidth="616.0" style="-fx-border-color: #00A6D6; -fx-border-width: 4; -fx-border-radius: 18;" type="VBox" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Question:" translateX="20.0" wrappingWidth="404.0">
@@ -47,8 +48,8 @@
          <Button fx:id="delete" layoutX="549.0" layoutY="4.0" mnemonicParsing="false" onAction="#delete" prefHeight="41.0" prefWidth="43.0" style="-fx-background-color: #FFFFFF;">
             <graphic>
                <ImageView fitHeight="22.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
-<!--             <Image url="images/delete-bin.png"></Image>-->
-         </ImageView>
+                   <Image url="images/delete-bin.png"></Image>
+               </ImageView>
             </graphic>
          </Button>
          <Text fx:id="isAnswered" fill="#99d28c" layoutX="262.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Answered" visible="false">

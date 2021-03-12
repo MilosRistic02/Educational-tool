@@ -90,4 +90,8 @@ public class ServerCommunication extends Request {
     public static String deleteQuestion(String id) {
         return delete("http://localhost:8080/question", id);
     }
+
+    public static String updateAnswerQuestion(Question question) {
+        return put("http://localhost:8080/question/update-answer", question);
+    }
 }
