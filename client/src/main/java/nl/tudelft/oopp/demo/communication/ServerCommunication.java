@@ -94,4 +94,8 @@ public class ServerCommunication extends Request {
     public static String closeRoom(LectureRoom lectureRoom) {
         return put("http://localhost:8080/lecture/", lectureRoom);
     }
+
+    public static List<LectureRoom> getClosedLecturePins(String lecturerId) {
+        return getClosedPins("http://localhost:8080/lecture/getClosed/" + lecturerId);
+    }
 }

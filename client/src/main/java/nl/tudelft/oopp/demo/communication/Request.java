@@ -32,15 +32,32 @@ public class Request {
         return responseBody;
     }
 
-    /** Method to get questions.
+    /** Method to get lectureroom with a pin.
      *
      * @param url   the url
-     * @return      returns a list of questions
+     * @return      returns a lectureroom
      */
     public static LectureRoom getPin(String url) {
         GenericType<LectureRoom> responseBodyType = new GenericType<LectureRoom>(){};
 
         LectureRoom responseBody = ClientBuilder.newClient()
+                .target(url)
+                .request(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .get(responseBodyType);
+
+        return responseBody;
+    }
+
+    /** Method to get all pins of closed lectures of a lecturer.
+     *
+     * @param url   the url
+     * @return      returns a list with pins
+     */
+    public static List<LectureRoom> getClosedPins(String url) {
+        GenericType<List<LectureRoom>> responseBodyType = new GenericType<List<LectureRoom>>(){};
+
+        List<LectureRoom> responseBody = ClientBuilder.newClient()
                 .target(url)
                 .request(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)

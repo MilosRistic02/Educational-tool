@@ -1,10 +1,9 @@
 package nl.tudelft.oopp.demo.services;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
-import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.repositories.LectureRoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -118,5 +117,21 @@ public class LectureRoomService {
         prev.setOpen(lectureRoom.isOpen());
         lectureRoomRepository.save(prev);
         return "Updated room";
+    }
+
+    /**
+     * Method to get all lecturePins from closed rooms of a specific lecturer
+     * @param lectureHost the lecturer to search by
+     * @return list of lecturePins
+     */
+    public List<LectureRoom> getClosedLecturePins(String lectureHost) {
+        List<LectureRoom> allClosedRooms = lectureRoomRepository.getClosed();
+        List<LectureRoom> result = new ArrayList<>();
+        for (LectureRoom room:allClosedRooms) {
+            if (room.getLecturerID().equals(lectureHost)) {
+                result.add(room);
+            }
+        }
+        return result;
     }
 }

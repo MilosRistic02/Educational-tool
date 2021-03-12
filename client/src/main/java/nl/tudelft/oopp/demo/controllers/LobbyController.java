@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -191,5 +192,9 @@ public class LobbyController {
      */
     public void setUsers(Users users) {
         this.users = users;
+    }
+
+    public void showArchiveList() throws IOException {
+        Display.showArchiveList(users);
     }
 }
