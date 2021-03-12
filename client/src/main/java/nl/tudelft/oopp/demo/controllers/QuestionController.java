@@ -12,6 +12,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
@@ -75,10 +76,15 @@ public class QuestionController {
             questionFormatComponent.author.setText("By " + q.getAuthor());
 
             if(q.isAnswered()){
+                // Make answer visible and update its content.
+                questionFormatComponent.answerHeading.setVisible(true);
+                questionFormatComponent.answer.setVisible(true);
                 questionFormatComponent.answer.setText(q.getAnswer());
+                // change border of the question to green.
                 questionFormatComponent.qanda.setStyle("-fx-border-color: #99d28c ; -fx-border-width: 4; -fx-border-radius: 18");
-                questionFormatComponent.isAnswered.setVisible(true);
-//                questionFormatComponent.qanda.setStyle("-fx-border-color: #99d28c ");
+                // change status to "Answered" and its color to green.
+                questionFormatComponent.isAnswered.setText("Answered");
+                questionFormatComponent.isAnswered.setFill(Color.valueOf("#99d28c"));
             }
 
             // Set current question.

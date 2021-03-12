@@ -45,6 +45,9 @@ public class QuestionFormatComponent extends VBox {
     public Text answer;
 
     @FXML
+    public Text answerHeading;
+
+    @FXML
     public Pane pane;
 
     @FXML
@@ -64,15 +67,6 @@ public class QuestionFormatComponent extends VBox {
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
-//            qanda.setMaxHeight(like.getMaxHeight() * 2);
-//            VBox.setVgrow(qanda, Priority.ALWAYS);
-//            qanda.setVgrow(answer, Priority.ALWAYS);
-//            qanda.setMaxHeight(answer.getmaxHeight());
-//            qanda.maxHeightProperty().bind(qanda.heightProperty());
-            pane.maxHeightProperty().bind(pane.heightProperty());
-
-
-//            qanda.setMaxHeight(like.getMaxHeight() + answer.maxHeight() * 2);
         } catch (IOException exception) {
             System.out.println("could not create instance");
             System.out.println(exception);

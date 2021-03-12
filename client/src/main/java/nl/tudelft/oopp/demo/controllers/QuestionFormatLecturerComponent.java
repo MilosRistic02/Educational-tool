@@ -47,6 +47,9 @@ public class QuestionFormatLecturerComponent extends VBox {
     public Text answer;
 
     @FXML
+    public Text answerHeading;
+
+    @FXML
     public Pane pane;
 
     @FXML

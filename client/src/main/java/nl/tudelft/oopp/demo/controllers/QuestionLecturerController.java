@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
@@ -73,9 +74,15 @@ public class QuestionLecturerController {
             questionFormatLecturerComponent.author.setText("By " + q.getAuthor());
 
             if(q.isAnswered()){
+                // Make answer visible and update its content.
+                questionFormatLecturerComponent.answerHeading.setVisible(true);
+                questionFormatLecturerComponent.answer.setVisible(true);
                 questionFormatLecturerComponent.answer.setText(q.getAnswer());
+                // change border of the question to green.
                 questionFormatLecturerComponent.qanda.setStyle("-fx-border-color: #99d28c ; -fx-border-width: 4; -fx-border-radius: 18");
-                questionFormatLecturerComponent.isAnswered.setVisible(true);
+                // change status to "Answered" and its color to green.
+                questionFormatLecturerComponent.isAnswered.setText("Answered");
+                questionFormatLecturerComponent.isAnswered.setFill(Color.valueOf("#99d28c"));
             }
 
             // Set current question.

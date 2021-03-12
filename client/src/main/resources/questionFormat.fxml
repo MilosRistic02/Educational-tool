@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.scene.image.Image?>
-<fx:root fx:id="qanda" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="161.0" prefWidth="616.0" style="-fx-border-color: #00A6D6; -fx-border-width: 4; -fx-border-radius: 18;" type="VBox" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="qanda" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="161.0" prefWidth="616.0" style="-fx-border-color: #00A6D6; -fx-border-width: 4; -fx-border-radius: 18;" type="VBox" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Question:" translateX="20.0" wrappingWidth="404.0">
          <VBox.margin>
@@ -25,14 +21,14 @@
             <Insets bottom="20.0" />
          </VBox.margin>
       </Text>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Answer:" translateX="40.0" wrappingWidth="396.13671875">
+      <Text fx:id="answerHeading" strokeType="OUTSIDE" strokeWidth="0.0" text="Answer:" translateX="40.0" visible="false" wrappingWidth="396.13671875">
          <VBox.margin>
             <Insets bottom="5.0" />
          </VBox.margin>
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Text>
-      <Text fx:id="answer" strokeType="OUTSIDE" strokeWidth="0.0" text="Not answered yet." textAlignment="JUSTIFY" translateX="40.0" wrappingWidth="548.13671875">
+      <Text fx:id="answer" strokeType="OUTSIDE" strokeWidth="0.0" text="Not answered yet." textAlignment="JUSTIFY" translateX="40.0" visible="false" wrappingWidth="548.13671875">
          <VBox.margin>
             <Insets bottom="20.0" />
          </VBox.margin>
@@ -49,25 +45,25 @@
          <ToggleButton fx:id="like" layoutX="14.0" layoutY="1.0" mnemonicParsing="false" onAction="#upvote" opacity="0.4" prefHeight="41.0" prefWidth="39.0">
             <graphic>
                <ImageView fitHeight="17.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
-             <Image url="images/thumb-up.png"></Image>
+<!--             <Image url="images/thumb-up.png"></Image>-->
          </ImageView>
             </graphic>
          </ToggleButton>
          <ToggleButton fx:id="dislike" layoutX="99.0" layoutY="1.0" mnemonicParsing="false" onAction="#downvote" opacity="0.4" prefHeight="41.0" prefWidth="41.0">
             <graphic>
                 <ImageView fitHeight="17.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-              <Image url="images/thumb-down.png"></Image>
+<!--              <Image url="images/thumb-down.png"></Image>-->
           </ImageView>
             </graphic>
          </ToggleButton>
          <Button fx:id="delete" disable="true" layoutX="550.0" layoutY="4.0" mnemonicParsing="false" onAction="#delete" prefHeight="41.0" prefWidth="43.0" style="-fx-background-color: #FFFFFF;" visible="false">
             <graphic>
                <ImageView disable="true" fitHeight="22.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
-             <Image url="images/delete-bin.png"></Image>
+<!--             <Image url="images/delete-bin.png"></Image>-->
          </ImageView>
             </graphic>
          </Button>
-         <Text fx:id="isAnswered" fill="#99d28c" layoutX="262.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Answered" visible="false">
+         <Text fx:id="isAnswered" fill="#00a6d6" layoutX="243.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Not Answered" textAlignment="CENTER" wrappingWidth="121.02929687500011">
             <font>
                <Font name="System Bold" size="18.0" />
             </font>
