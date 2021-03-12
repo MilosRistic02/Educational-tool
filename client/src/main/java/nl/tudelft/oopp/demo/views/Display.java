@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nl.tudelft.oopp.demo.controllers.LobbyController;
 import nl.tudelft.oopp.demo.controllers.QuestionController;
+import nl.tudelft.oopp.demo.controllers.QuestionLecturerController;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Users;
 
@@ -51,6 +52,20 @@ public class Display extends Application {
         QuestionController questionController = loader.getController();
         questionController.setLectureRoom(lectureRoom);
         questionController.setUsers(users);
+
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+    }
+
+    public static void showQuestionLecturer(Users users, LectureRoom lectureRoom) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        URL xmlUrl = Display.class.getResource("/questionLecturer.fxml");
+        loader.setLocation(xmlUrl);
+        Parent root = loader.load();
+
+        QuestionLecturerController questionLecturerController = loader.getController();
+        questionLecturerController.setLectureRoom(lectureRoom);
+        questionLecturerController.setUsers(users);
 
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

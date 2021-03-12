@@ -62,7 +62,7 @@ public class LobbyController {
             alert.setHeaderText(null);
             alert.setContentText("Your lecture pin is: " + response);
             alert.showAndWait();
-            Display.showQuestion(users, lectureRoom);
+            Display.showQuestionLecturer(users, lectureRoom);
         }
     }
 
@@ -86,7 +86,11 @@ public class LobbyController {
         String pin = pinText.getText();
         LectureRoom response = ServerCommunication.getLectureRoom(pin);
         if (response != null) {
-            Display.showQuestion(users, response);
+            if (users.getRole().equals("lecturer")) {
+                Display.showQuestionLecturer(users, response);
+            } else {
+                Display.showQuestion(users, response);
+            }
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Incorrect pin");
