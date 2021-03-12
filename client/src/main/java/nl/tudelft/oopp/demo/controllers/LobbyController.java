@@ -1,12 +1,13 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Date;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
@@ -26,6 +27,18 @@ public class LobbyController {
     TextField courseIdField;
 
     @FXML
+    ChoiceBox scheduleChoiceBox;
+
+    @FXML
+    DatePicker startingDate;
+
+    @FXML
+    ComboBox startingTimeHours;
+
+    @FXML
+    ComboBox startingTimeMinutes;
+
+    @FXML
     Label wrongId;
 
     private Users users;
@@ -43,6 +56,7 @@ public class LobbyController {
      */
     @FXML
     public void showLobbyCreateRoom() throws IOException {
+        System.out.println(new Date());
         Display.showLobbyCreateRoom(users);
     }
 
@@ -70,8 +84,25 @@ public class LobbyController {
      */
     @FXML
     public void createRoom(int courseId) throws IOException {
+        LectureRoom lectureRoom = null;
+        String scheduleChoice = scheduleChoiceBox.getValue().toString();
 
-        LectureRoom lectureRoom = new LectureRoom(users.getUsername(), courseId);
+        if(scheduleChoice.equals("Now")) {
+            lectureRoom = new LectureRoom(users.getUsername(), courseId, new Date());
+        } else if(scheduleChoice.equals("Custom Time")) {
+//            Time lectureStartingTime = new LocalTime();
+//
+//            if(startingDate.getValue().toString().length() == 9){
+//                String time = startingTimeHours + ":" + startingTimeMinutes;
+//                lectureStartingTime.setTime(lectureStartingTime);
+//            } else{
+//                // Fill in a valid date
+//            }
+
+            lectureRoom = new LectureRoom(users.getUsername(), courseId, new Date());
+        } else {
+            lectureRoom = new LectureRoom(users.getUsername(), courseId);
+        }
 
         String response = ServerCommunication.addLectureRoom(lectureRoom);
         if (response.equals("Too many rooms created under this host")) {
@@ -87,6 +118,25 @@ public class LobbyController {
             alert.setContentText("Your lecture pin is: " + response);
             alert.showAndWait();
             Display.showQuestion(users, lectureRoom);
+        }
+    }
+
+    /**
+     * Disables the date- and timepickers when the lecture is scheduled for now.
+     * Enables the date- and timepickers when the lecture is scheduled for a custom time.
+     */
+    @FXML
+    public void enableDatePicker(){
+        String scheduleChoice = scheduleChoiceBox.getValue().toString();
+        if(scheduleChoice.equals("Now")) {
+            startingDate.setDisable(true);
+            startingDate.setValue(null);
+            startingTimeHours.setDisable(true);
+            startingTimeMinutes.setDisable(true);
+        } else if(scheduleChoice.equals("Custom Time")) {
+            startingDate.setDisable(false);
+            startingTimeHours.setDisable(false);
+            startingTimeMinutes.setDisable(false);
         }
     }
 
@@ -109,6 +159,7 @@ public class LobbyController {
     private void checkPin() throws IOException {
         String pin = pinText.getText();
         LectureRoom response = ServerCommunication.getLectureRoom(pin);
+        Date currentDate = new Date();
         if (response == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Incorrect pin");
@@ -120,6 +171,13 @@ public class LobbyController {
             alert.setTitle("Closed room");
             alert.setHeaderText(null);
             alert.setContentText("This lecture room is closed");
+            alert.showAndWait();
+            pinText.requestFocus();
+        } else if (response.getStartingTime().compareTo(currentDate) > 0) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Room not open");
+            alert.setHeaderText(null);
+            alert.setContentText("This lecture room has not yet started");
             alert.showAndWait();
             pinText.requestFocus();
         } else {

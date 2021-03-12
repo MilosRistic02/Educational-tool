@@ -16,10 +16,5 @@
             <Font size="26.0" />
          </font>
       </Button>
-<!--      <Label layoutX="105.0" layoutY="37.0" text="Create a new lecture or join a lecture">-->
-<!--         <font>-->
-<!--            <Font size="24.0" />-->
-<!--         </font>-->
-<!--      </Label>-->
    </children>
 </AnchorPane>

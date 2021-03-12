@@ -22,6 +22,7 @@ public class LectureRoom {
 
     @CreationTimestamp
     private Date creationDate;
+    private Date startingTime;
 
     private boolean isOpen;
 
@@ -42,6 +43,20 @@ public class LectureRoom {
         this.lecturerID = lecturerID;
         this.courseId = courseId;
         this.isOpen = true;
+    }
+
+    /**
+     * Constructs a new LectureRoom.
+     *
+     * @param lecturerID - Identifier of the lecturer that created the LectureRoom
+     * @param courseId - Identifier of the course
+     * @param startingTime - The date and time when the lecture will open
+     */
+    public LectureRoom(String lecturerID, int courseId, Date startingTime) {
+        this.lecturerID = lecturerID;
+        this.courseId = courseId;
+        this.isOpen = true;
+        this.startingTime = startingTime;
     }
 
     /** Getter for the lecturerID.
@@ -109,6 +124,14 @@ public class LectureRoom {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public Date getStartingTime() {
+        return startingTime;
+    }
+
+    public void setStartingTime(Date startingTime) {
+        this.startingTime = startingTime;
     }
 
     @Override
