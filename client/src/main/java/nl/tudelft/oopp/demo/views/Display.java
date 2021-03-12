@@ -57,7 +57,16 @@ public class Display extends Application {
         primaryStage.show();
     }
 
-    public static void showQuestionLecturer(Users users, LectureRoom lectureRoom) throws IOException {
+    /**
+     * If the current logged user is a lecturer and he/she wants
+     * to join a existing room, then show the room with the lecturer
+     * view.
+     * @param users - current logged user.
+     * @param lectureRoom - lecture room the lecturer wants to join.
+     * @throws IOException - can throw an error.
+     */
+    public static void showQuestionLecturer(
+            Users users, LectureRoom lectureRoom) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         URL xmlUrl = Display.class.getResource("/questionLecturer.fxml");
         loader.setLocation(xmlUrl);

@@ -1,5 +1,12 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -11,13 +18,6 @@ import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
 import nl.tudelft.oopp.demo.entities.Users;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class QuestionLecturerController {
 
@@ -68,21 +68,29 @@ public class QuestionLecturerController {
         for (Question q: qs) {
             // Create a new generic question format and fill it with
             // the specific information of the current question.
-            QuestionFormatLecturerComponent questionFormatLecturerComponent =new QuestionFormatLecturerComponent();
+            QuestionFormatLecturerComponent questionFormatLecturerComponent =
+                    new QuestionFormatLecturerComponent();
             questionFormatLecturerComponent.question.setText(q.getQuestion());
             questionFormatLecturerComponent.score.setText(Integer.toString(q.getScore()));
             questionFormatLecturerComponent.author.setText("By " + q.getAuthor());
 
-            if(q.isAnswered()){
+            if (q.isAnswered()) {
                 // Make answer visible and update its content.
                 questionFormatLecturerComponent.answerHeading.setVisible(true);
                 questionFormatLecturerComponent.answer.setVisible(true);
                 questionFormatLecturerComponent.answer.setText(q.getAnswer());
                 // change border of the question to green.
-                questionFormatLecturerComponent.qanda.setStyle("-fx-border-color: #99d28c ; -fx-border-width: 4; -fx-border-radius: 18");
+                questionFormatLecturerComponent.qanda
+                        .setStyle("-fx-border-color: #99d28c ; "
+                                + "-fx-border-width: 4; -fx-border-radius: 18");
                 // change status to "Answered" and its color to green.
-                questionFormatLecturerComponent.isAnswered.setText("Answered by " + users.getUsername());
+                questionFormatLecturerComponent.isAnswered.setText("Answered");
                 questionFormatLecturerComponent.isAnswered.setFill(Color.valueOf("#99d28c"));
+
+                // Change answer button
+                questionFormatLecturerComponent.makeAnswer.setText("Change Answer");
+                questionFormatLecturerComponent.makeAnswer
+                        .setStyle("-fx-background-color: #99d28c");
             }
 
             // Set current question.

@@ -36,26 +36,31 @@
             <Font name="System Italic" size="12.0" />
          </font></Text>
       <javafx.scene.layout.Pane fx:id="pane" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="607.0">
-            <Text fx:id="score" layoutX="213.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="88" textAlignment="CENTER" wrappingWidth="49.0">
+            <Text fx:id="score" layoutX="112.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="88" textAlignment="CENTER" wrappingWidth="49.0">
             <font>
                <Font size="18.0" />
             </font></Text>
-            <Text fx:id="author" layoutX="428.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Author" textAlignment="RIGHT" wrappingWidth="121.029296875" />
-         <Text fx:id="creationDate" layoutX="428.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Creation Date" textAlignment="RIGHT" wrappingWidth="121.029296875" />
-         <Button fx:id="delete" layoutX="549.0" layoutY="4.0" mnemonicParsing="false" onAction="#delete" prefHeight="41.0" prefWidth="43.0" style="-fx-background-color: #FFFFFF;">
+            <Text fx:id="author" layoutX="351.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Author" textAlignment="RIGHT" wrappingWidth="121.029296875" />
+         <Text fx:id="creationDate" layoutX="351.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Creation Date" textAlignment="RIGHT" wrappingWidth="121.029296875" />
+         <Button fx:id="delete" layoutX="491.0" layoutY="3.0" mnemonicParsing="false" onAction="#delete" prefHeight="41.0" prefWidth="43.0" style="-fx-background-color: #FFFFFF;">
             <graphic>
                <ImageView fitHeight="22.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
-<!--                   <Image url="images/delete-bin.png"></Image>-->
+                   <Image url="images/delete-bin.png"></Image>
                </ImageView>
             </graphic>
          </Button>
-         <Text fx:id="isAnswered" fill="#00a6d6" layoutX="262.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Not Answered" textAlignment="CENTER" wrappingWidth="121.02929687500011">
+         <Text fx:id="isAnswered" fill="#00a6d6" layoutX="161.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Not Answered" textAlignment="CENTER" wrappingWidth="179.0292968750001">
             <font>
                <Font name="System Bold" size="18.0" />
             </font>
          </Text>
-         <Button fx:id="makeAnswer" layoutX="14.0" layoutY="9.0" mnemonicParsing="false" onAction="#makeAnswer" text="Answer" />
-         <Button fx:id="editQuestion" layoutX="83.0" layoutY="9.0" mnemonicParsing="false" onAction="#editQuestion" text="Edit Question" />
+         <Button fx:id="makeAnswer" layoutX="14.0" layoutY="9.0" mnemonicParsing="false" onAction="#makeAnswer" style="-fx-background-color: #00A6D6;" text="Answer" />
+         <Button fx:id="editQuestion" layoutX="548.0" layoutY="2.0" mnemonicParsing="false" onAction="#editQuestion" prefHeight="41.0" prefWidth="43.0" style="-fx-background-color: #FFFFFF;">
+            <graphic>
+                <ImageView fitHeight="24.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="images/pencil.png"></Image>
+                </ImageView>
+            </graphic></Button>
          <VBox.margin>
             <Insets bottom="10.0" />
          </VBox.margin>

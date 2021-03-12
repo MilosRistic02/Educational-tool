@@ -1,21 +1,17 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import java.io.IOException;
+import java.util.Optional;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Question;
-import nl.tudelft.oopp.demo.entities.ScoringLog;
 import nl.tudelft.oopp.demo.entities.Users;
-
-import java.io.IOException;
-import java.util.Optional;
 
 public class QuestionFormatLecturerComponent extends VBox {
 
@@ -65,7 +61,8 @@ public class QuestionFormatLecturerComponent extends VBox {
      */
     public QuestionFormatLecturerComponent() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/questionFormatLecturer.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass()
+                    .getResource("/questionFormatLecturer.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
@@ -84,6 +81,12 @@ public class QuestionFormatLecturerComponent extends VBox {
         this.loggedUser = loggedUser;
     }
 
+    /**
+     * When clicking the "answer" button of a particular question,
+     * a dialog allows the lecturer/moderator to type the desired answer to
+     * the question. The current question is updated in the database with the
+     * provided answer.
+     */
     @FXML
     public void makeAnswer() {
         // display the last answer.
@@ -109,6 +112,12 @@ public class QuestionFormatLecturerComponent extends VBox {
         }
     }
 
+    /**
+     * When clicking the "pencil" button of a particular question, a
+     * dialog allows the lecturer/moderator to edit the content of the
+     * question. The changes made to the question are updated in the
+     * database.
+     */
     @FXML
     public void editQuestion() {
         String oldQuestion = currentQuestion.getQuestion();

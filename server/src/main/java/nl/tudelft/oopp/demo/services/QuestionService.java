@@ -32,6 +32,12 @@ public class QuestionService {
         return "Updated score of Question";
     }
 
+    /**
+     * Update the answer and answered status of a question, iff
+     * it already exists in the database.
+     * @param question - question with the updated answer and answered status.
+     * @return - String informing about the result of the operation.
+     */
     public String updateAnswerQuestion(Question question) {
         if (!questionRepository.existsByIdAndAndLecturePin(
                 question.getId(), question.getLecturePin())) {
@@ -46,6 +52,12 @@ public class QuestionService {
         return "Updated score of Question";
     }
 
+    /**
+     * Update the content of a question, iff the question
+     * exists in the database.
+     * @param question - question with the updated content.
+     * @return String informing about the result of the operation.
+     */
     public String updateContentQuestion(Question question) {
         if (!questionRepository.existsByIdAndAndLecturePin(
                 question.getId(), question.getLecturePin())) {
