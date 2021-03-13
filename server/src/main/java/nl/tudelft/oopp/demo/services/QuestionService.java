@@ -33,6 +33,46 @@ public class QuestionService {
     }
 
     /**
+     * Update the answer and answered status of a question, iff
+     * it already exists in the database.
+     * @param question - question with the updated answer and answered status.
+     * @return - String informing about the result of the operation.
+     */
+    public String updateAnswerQuestion(Question question) {
+        if (!questionRepository.existsByIdAndAndLecturePin(
+                question.getId(), question.getLecturePin())) {
+            return "Question does not yet exists";
+        }
+        Question old = questionRepository.getByIdAndLecturePin(
+                question.getId(), question.getLecturePin());
+
+        old.setAnswered(question.isAnswered());
+        old.setAnswer(question.getAnswer());
+        questionRepository.save(old);
+        return "Updated score of Question";
+    }
+
+    /**
+     * Update the content of a question, iff the question
+     * exists in the database.
+     * @param question - question with the updated content.
+     * @return String informing about the result of the operation.
+     */
+    public String updateContentQuestion(Question question) {
+        if (!questionRepository.existsByIdAndAndLecturePin(
+                question.getId(), question.getLecturePin())) {
+            return "Question does not yet exists";
+        }
+        Question old = questionRepository.getByIdAndLecturePin(
+                question.getId(), question.getLecturePin());
+
+        old.setQuestion(question.getQuestion());
+        questionRepository.save(old);
+        return "Updated score of Question";
+    }
+
+
+    /**
      * Update the answered status of a question, given that the question exists in
      * the database.
      * @param question with the updated answered status.

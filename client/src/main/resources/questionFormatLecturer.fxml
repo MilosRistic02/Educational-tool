@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<fx:root fx:id="qanda" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="161.0" prefWidth="616.0" style="-fx-border-color: #00A6D6; -fx-border-width: 4; -fx-border-radius: 18;" type="VBox" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Question:" translateX="20.0" wrappingWidth="404.0">
+         <VBox.margin>
+            <Insets bottom="5.0" top="10.0" />
+         </VBox.margin>
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Text>
+         <Text fx:id="question" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis," textAlignment="JUSTIFY" translateX="20.0" wrappingWidth="569.0">
+         <VBox.margin>
+            <Insets bottom="20.0" />
+         </VBox.margin>
+      </Text>
+      <Text fx:id="answerHeading" strokeType="OUTSIDE" strokeWidth="0.0" text="Answer:" translateX="40.0" visible="false" wrappingWidth="396.13671875">
+         <VBox.margin>
+            <Insets bottom="5.0" />
+         </VBox.margin>
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font></Text>
+      <Text fx:id="answer" strokeType="OUTSIDE" strokeWidth="0.0" text="Not answered yet." textAlignment="JUSTIFY" translateX="40.0" visible="false" wrappingWidth="548.13671875">
+         <VBox.margin>
+            <Insets bottom="20.0" />
+         </VBox.margin>
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font></Text>
+      <javafx.scene.layout.Pane fx:id="pane" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="607.0">
+            <Text fx:id="score" layoutX="112.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="88" textAlignment="CENTER" wrappingWidth="49.0">
+            <font>
+               <Font size="18.0" />
+            </font></Text>
+            <Text fx:id="author" layoutX="351.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Author" textAlignment="RIGHT" wrappingWidth="121.029296875" />
+         <Text fx:id="creationDate" layoutX="351.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Creation Date" textAlignment="RIGHT" wrappingWidth="121.029296875" />
+         <Button fx:id="delete" layoutX="491.0" layoutY="3.0" mnemonicParsing="false" onAction="#delete" prefHeight="41.0" prefWidth="43.0" style="-fx-background-color: #FFFFFF;">
+            <graphic>
+               <ImageView fitHeight="22.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                   <Image url="images/delete-bin.png"></Image>
+               </ImageView>
+            </graphic>
+         </Button>
+         <Text fx:id="isAnswered" fill="#00a6d6" layoutX="161.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Not Answered" textAlignment="CENTER" wrappingWidth="179.0292968750001">
+            <font>
+               <Font name="System Bold" size="18.0" />
+            </font>
+         </Text>
+         <Button fx:id="makeAnswer" layoutX="14.0" layoutY="9.0" mnemonicParsing="false" onAction="#makeAnswer" style="-fx-background-color: #00A6D6;" text="Answer" />
+         <Button fx:id="editQuestion" layoutX="548.0" layoutY="2.0" mnemonicParsing="false" onAction="#editQuestion" prefHeight="41.0" prefWidth="43.0" style="-fx-background-color: #FFFFFF;">
+            <graphic>
+                <ImageView fitHeight="24.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="images/pencil.png"></Image>
+                </ImageView>
+            </graphic></Button>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      <!--   </children>-->
+      </javafx.scene.layout.Pane>
+   </children>
+</fx:root>

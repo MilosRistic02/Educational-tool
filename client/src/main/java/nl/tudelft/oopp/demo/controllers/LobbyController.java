@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import nl.tudelft.oopp.demo.alerts.Alerts;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Users;
@@ -51,18 +52,10 @@ public class LobbyController {
 
         String response = ServerCommunication.addLectureRoom(lectureRoom);
         if (response.equals("Too many rooms created under this host")) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Too many rooms");
-            alert.setHeaderText(null);
-            alert.setContentText(response);
-            alert.showAndWait();
+            Alerts.alertInfo("Too many rooms", response);
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("lecture pin");
-            alert.setHeaderText(null);
-            alert.setContentText("Your lecture pin is: " + response);
-            alert.showAndWait();
-            Display.showQuestion(users, lectureRoom);
+            Alerts.alertInfo("Lecture pin", "Your lecture pin is: " + response);
+            Display.showQuestionLecturer(users, lectureRoom);
         }
     }
 
@@ -86,13 +79,14 @@ public class LobbyController {
         String pin = pinText.getText();
         LectureRoom response = ServerCommunication.getLectureRoom(pin);
         if (response != null) {
-            Display.showQuestion(users, response);
+            if (users.getRole().equals("lecturer")
+                    || users.getRole().equals("moderator")) {
+                Display.showQuestionLecturer(users, response);
+            } else {
+                Display.showQuestion(users, response);
+            }
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Incorrect pin");
-            alert.setHeaderText(null);
-            alert.setContentText("This lecture pin is not valid");
-            alert.showAndWait();
+            Alerts.alertInfo("Incorrect pin", "This lecture pin is not valid");
         }
     }
 

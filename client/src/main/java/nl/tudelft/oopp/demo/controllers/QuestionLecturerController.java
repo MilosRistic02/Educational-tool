@@ -1,25 +1,25 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javafx.application.Platform;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import nl.tudelft.oopp.demo.alerts.Alerts;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
 import nl.tudelft.oopp.demo.entities.Users;
 
-public class QuestionController {
+public class QuestionLecturerController {
 
     @FXML
     private VBox stack;
@@ -37,21 +37,11 @@ public class QuestionController {
 
     @FXML
     private void displayQuestion() {
-        if (questionText.getText().isEmpty()) {
-            Alerts.alertInfo("Question is empty",
-                    "Please fill out the field before pressing send");
-        } else if (questionText.getText().length() > 255) {
-            Alerts.alertInfo("Question too long",
-                    "Question too long, can only be 255 characters");
-        } else {
-            Question q = new Question(questionText.getText(),
-                    lectureRoom.getLecturePin(),
-                    users.getUsername());
-
-            ServerCommunication.saveQuestion(q);
-            questionText.clear();
-            displayAllQuestion();
-        }
+        Question q = new Question(questionText.getText(),
+                lectureRoom.getLecturePin(),
+                users.getUsername());
+        ServerCommunication.saveQuestion(q);
+        displayAllQuestion();
     }
 
     @FXML
@@ -77,23 +67,11 @@ public class QuestionController {
         for (Question q: qs) {
             // Create a new generic question format and fill it with
             // the specific information of the current question.
-            QuestionFormatComponent questionFormatComponent =
-                    new QuestionFormatComponent(q, users);
-
-            Optional<ScoringLog> scoringLog = votes.stream()
-                    .filter(x -> x.getQuestion().equals(q) && x.getUsers().equals(users))
-                    .findFirst();
-
-            if (!scoringLog.isEmpty()) {
-                if (scoringLog.get().getScore() == 1) {
-                    questionFormatComponent.setLiked();
-                } else if (scoringLog.get().getScore() == -1) {
-                    questionFormatComponent.setDisliked();
-                }
-            }
+            QuestionFormatLecturerComponent questionFormatLecturerComponent =
+                    new QuestionFormatLecturerComponent(q, users);
 
             // Add the updated question to the VBox (i.e. the main questions view).
-            stack.getChildren().add(questionFormatComponent);
+            stack.getChildren().add(questionFormatLecturerComponent);
         }
     }
 

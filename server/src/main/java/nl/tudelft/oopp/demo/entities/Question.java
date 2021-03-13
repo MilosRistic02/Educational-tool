@@ -4,12 +4,12 @@ import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotBlank;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.lang.NonNull;
 
@@ -23,6 +23,7 @@ public class Question {
     @NonNull
     private String question;
 
+    @Column(length = 512)
     private String answer;
 
     private int score;

@@ -29,6 +29,18 @@ public class QuestionController {
         return questionService.updateScoreQuestion(question);
     }
 
+    @PutMapping("update-answer")
+    @ResponseBody
+    public String updateAnswerQuestion(@RequestBody Question question) {
+        return questionService.updateAnswerQuestion(question);
+    }
+
+    @PutMapping("update-content")
+    @ResponseBody
+    public String updateContentQuestion(@RequestBody Question question) {
+        return questionService.updateContentQuestion(question);
+    }
+
 
     @GetMapping("/get-all/{id}")
     @ResponseBody
