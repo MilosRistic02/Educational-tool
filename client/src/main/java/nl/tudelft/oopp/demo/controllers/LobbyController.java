@@ -114,7 +114,7 @@ public class LobbyController {
             lectureRoom.setLecturePin(response);
             Alerts.alertInfo("Lecture pin", "Your lecture pin is: " + response);
             if (scheduleChoice.equals("Now")) {
-                Display.showQuestion(users, lectureRoom);
+                Display.showQuestionLecturer(users, lectureRoom);
             }
         }
     }

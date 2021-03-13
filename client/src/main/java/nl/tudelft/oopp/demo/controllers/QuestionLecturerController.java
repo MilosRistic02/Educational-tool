@@ -1,5 +1,6 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -18,6 +19,7 @@ import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
 import nl.tudelft.oopp.demo.entities.Users;
+import nl.tudelft.oopp.demo.views.Display;
 
 public class QuestionLecturerController {
 
@@ -72,6 +74,22 @@ public class QuestionLecturerController {
 
             // Add the updated question to the VBox (i.e. the main questions view).
             stack.getChildren().add(questionFormatLecturerComponent);
+        }
+    }
+
+    /**
+     * Closes the lecture room.
+     * @throws IOException if server communication fails.
+     */
+    @FXML
+    public void closeRoom() throws IOException {
+        this.lectureRoom.setOpen(false);
+        String response = ServerCommunication.closeRoom(this.lectureRoom);
+
+        if (this.users.getRole().equals("lecturer")) {
+            Display.showLecturer(this.users);
+        } else {
+            Display.showStudent(this.users);
         }
     }
 

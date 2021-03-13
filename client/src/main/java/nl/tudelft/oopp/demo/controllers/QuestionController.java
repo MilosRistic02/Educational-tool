@@ -77,7 +77,7 @@ public class QuestionController {
         // Sort questions first by their score, then by their creation date.
         Collections.sort(qs, new QuestionComparator());
 
-        for (Question q: qs) {
+        for (Question q : qs) {
             // Create a new generic question format and fill it with
             // the specific information of the current question.
             QuestionFormatComponent questionFormatComponent =
@@ -97,22 +97,6 @@ public class QuestionController {
 
             // Add the updated question to the VBox (i.e. the main questions view).
             stack.getChildren().add(questionFormatComponent);
-        }
-    }
-
-    /**
-     * Closes the lecture room.
-     * @throws IOException if server communication fails.
-     */
-    @FXML
-    public void closeRoom() throws IOException {
-        this.lectureRoom.setOpen(false);
-        String response = ServerCommunication.closeRoom(this.lectureRoom);
-
-        if (this.users.getRole().equals("lecturer")) {
-            Display.showLecturer(this.users);
-        } else {
-            Display.showStudent(this.users);
         }
     }
 
