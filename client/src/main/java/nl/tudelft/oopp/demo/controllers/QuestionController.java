@@ -1,15 +1,16 @@
 package nl.tudelft.oopp.demo.controllers;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javafx.application.Platform;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.alerts.Alerts;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
@@ -36,7 +37,7 @@ public class QuestionController {
 
     @FXML
     private void displayQuestion() {
-        if(questionText.getText().isEmpty()) {
+        if (questionText.getText().isEmpty()) {
             Alerts.alertInfo("Question is empty",
                     "Please fill out the field before pressing send");
         } else if (questionText.getText().length() > 255) {
@@ -61,7 +62,6 @@ public class QuestionController {
         stack.getChildren().clear();
         stack.setSpacing(20);   // Space between questions.
 
-
         // Update the scores for each question.
         for (Question q : qs) {
             for (ScoringLog scoringLog : votes) {
@@ -74,56 +74,22 @@ public class QuestionController {
         // Sort questions first by their score, then by their creation date.
         Collections.sort(qs, new QuestionComparator());
 
-
         for (Question q: qs) {
             // Create a new generic question format and fill it with
             // the specific information of the current question.
-            QuestionFormatComponent questionFormatComponent = new QuestionFormatComponent();
-            questionFormatComponent.question.setText(q.getQuestion());
-            questionFormatComponent.score.setText(Integer.toString(q.getScore()));
-            questionFormatComponent.author.setText("By " + q.getAuthor());
-
-            if (q.isAnswered()) {
-                // Make answer visible and update its content.
-                questionFormatComponent.answerHeading.setVisible(true);
-                questionFormatComponent.answer.setVisible(true);
-                questionFormatComponent.answer.setText(q.getAnswer());
-                // change border of the question to green.
-                questionFormatComponent.qanda
-                        .setStyle("-fx-border-color: #99d28c ; "
-                                + "-fx-border-width: 4; -fx-border-radius: 18");
-                // change status to "Answered" and its color to green.
-                questionFormatComponent.isAnswered.setText("Answered");
-                questionFormatComponent.isAnswered.setFill(Color.valueOf("#99d28c"));
-            }
-
-            // Set current question.
-            questionFormatComponent.setCurrentQuestion(q);
-            // Set current logged user.
-            questionFormatComponent.setLoggedUser(users);
-
-            // Date format to be displayed.
-            String pattern = "HH:mm:ss";
-            DateFormat df = new SimpleDateFormat(pattern);
-            String date = df.format(q.getCreationDate());
-            questionFormatComponent.creationDate.setText(date);
+            QuestionFormatComponent questionFormatComponent =
+                    new QuestionFormatComponent(q, users);
 
             Optional<ScoringLog> scoringLog = votes.stream()
                     .filter(x -> x.getQuestion().equals(q) && x.getUsers().equals(users))
                     .findFirst();
 
-            if(!scoringLog.isEmpty()) {
+            if (!scoringLog.isEmpty()) {
                 if (scoringLog.get().getScore() == 1) {
                     questionFormatComponent.setLiked();
                 } else if (scoringLog.get().getScore() == -1) {
                     questionFormatComponent.setDisliked();
                 }
-            }
-
-            // Enable the delete button, only for the questions made by the current logged user.
-            if (q.getAuthor().equals(users.getUsername())) {
-                questionFormatComponent.delete.setDisable(false);
-                questionFormatComponent.delete.setVisible(true);
             }
 
             // Add the updated question to the VBox (i.e. the main questions view).

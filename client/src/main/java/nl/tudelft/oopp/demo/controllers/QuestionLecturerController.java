@@ -52,7 +52,6 @@ public class QuestionLecturerController {
         stack.getChildren().clear();
         stack.setSpacing(20);   // Space between questions.
 
-
         // Update the scores for each question.
         for (Question q : qs) {
             for (ScoringLog scoringLog : votes) {
@@ -69,41 +68,7 @@ public class QuestionLecturerController {
             // Create a new generic question format and fill it with
             // the specific information of the current question.
             QuestionFormatLecturerComponent questionFormatLecturerComponent =
-                    new QuestionFormatLecturerComponent();
-            questionFormatLecturerComponent.question.setText(q.getQuestion());
-            questionFormatLecturerComponent.score.setText(Integer.toString(q.getScore()));
-            questionFormatLecturerComponent.author.setText("By " + q.getAuthor());
-
-            if (q.isAnswered()) {
-                // Make answer visible and update its content.
-                questionFormatLecturerComponent.answerHeading.setVisible(true);
-                questionFormatLecturerComponent.answer.setVisible(true);
-                questionFormatLecturerComponent.answer.setText(q.getAnswer());
-                // change border of the question to green.
-                questionFormatLecturerComponent.qanda
-                        .setStyle("-fx-border-color: #99d28c ; "
-                                + "-fx-border-width: 4; -fx-border-radius: 18");
-                // change status to "Answered" and its color to green.
-                questionFormatLecturerComponent.isAnswered.setText("Answered");
-                questionFormatLecturerComponent.isAnswered.setFill(Color.valueOf("#99d28c"));
-
-                // Change answer button
-                questionFormatLecturerComponent.makeAnswer.setText("Change Answer");
-                questionFormatLecturerComponent.makeAnswer
-                        .setStyle("-fx-background-color: #99d28c");
-            }
-
-            // Set current question.
-            questionFormatLecturerComponent.setCurrentQuestion(q);
-            // Set current logged user.
-            questionFormatLecturerComponent.setLoggedUser(users);
-
-            // Date format to be displayed.
-            String pattern = "HH:mm:ss";
-            DateFormat df = new SimpleDateFormat(pattern);
-            String date = df.format(q.getCreationDate());
-            questionFormatLecturerComponent.creationDate.setText(date);
-
+                    new QuestionFormatLecturerComponent(q, users);
 
             // Add the updated question to the VBox (i.e. the main questions view).
             stack.getChildren().add(questionFormatLecturerComponent);

@@ -8,7 +8,9 @@ public class QuestionComparator implements Comparator<Question> {
     @Override
     public int compare(Question o1, Question o2) {
         int isAnsweredComparison = compare(o2.isAnswered(), o1.isAnswered());
-        if (isAnsweredComparison != 0) return isAnsweredComparison;
+        if (isAnsweredComparison != 0) {
+            return isAnsweredComparison;
+        }
 
         int scoreComparison = compare(o2.getScore(), o1.getScore());
         // If scores are not the same, return the higher one first.

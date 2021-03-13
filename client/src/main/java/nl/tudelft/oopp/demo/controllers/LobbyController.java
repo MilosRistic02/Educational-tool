@@ -79,8 +79,8 @@ public class LobbyController {
         String pin = pinText.getText();
         LectureRoom response = ServerCommunication.getLectureRoom(pin);
         if (response != null) {
-            if (users.getRole().equals("lecturer") ||
-                users.getRole().equals("moderator")) {
+            if (users.getRole().equals("lecturer")
+                    || users.getRole().equals("moderator")) {
                 Display.showQuestionLecturer(users, response);
             } else {
                 Display.showQuestion(users, response);

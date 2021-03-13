@@ -1,13 +1,15 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Optional;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.alerts.Alerts;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
@@ -60,7 +62,7 @@ public class QuestionFormatLecturerComponent extends VBox {
      *  This method loads an instance of question format and sets the controller to be this file.
      *
      */
-    public QuestionFormatLecturerComponent() {
+    public QuestionFormatLecturerComponent(Question currentQuestion, Users loggedUser) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass()
                     .getResource("/questionFormatLecturer.fxml"));
@@ -72,15 +74,12 @@ public class QuestionFormatLecturerComponent extends VBox {
             System.out.println("could not create instance");
             System.out.println(exception);
         }
-    }
 
-    public void setCurrentQuestion(Question currentQuestion) {
         this.currentQuestion = currentQuestion;
+        this.loggedUser = loggedUser;
+        loadQuestion();
     }
 
-    public void setLoggedUser(Users loggedUser) {
-        this.loggedUser = loggedUser;
-    }
 
     /**
      * When clicking the "answer" button of a particular question,
@@ -102,7 +101,7 @@ public class QuestionFormatLecturerComponent extends VBox {
 
         // Update only if there is a change and the answer is non blank.
         if (!result.isEmpty() && !result.get().equals(oldAnswer)) {
-            if(result.get().length() > 512) {
+            if (result.get().length() > 512) {
                 Alerts.alertInfo("Answer too long",
                         "Answer too long, can only be 512 characters");
             } else {
@@ -137,6 +136,45 @@ public class QuestionFormatLecturerComponent extends VBox {
                 ServerCommunication.updateContentQuestion(currentQuestion);
             }
         }
+    }
+
+    /**
+     * Make the answer visible and update its content. It also changes the
+     * border of the question to green and the status to "Answered". Once a
+     * question has been answered, the "answer" button changes to "update
+     * answer".
+     */
+    public void setAnswered() {
+        answerHeading.setVisible(true);
+        answer.setVisible(true);
+        answer.setText(currentQuestion.getAnswer());
+        qanda.setStyle("-fx-border-color: #99d28c ; "
+                        + "-fx-border-width: 4; -fx-border-radius: 18");
+        isAnswered.setText("Answered");
+        isAnswered.setFill(Color.valueOf("#99d28c"));
+        makeAnswer.setText("Change Answer");
+        makeAnswer.setStyle("-fx-background-color: #99d28c");
+    }
+
+    /**
+     * Loads the current question with its corresponding information
+     * such as question content, score, author and date. It also
+     * loads the answer if it is available.
+     */
+    public void loadQuestion() {
+        if (currentQuestion.isAnswered()) {
+            setAnswered();
+        }
+
+        question.setText(currentQuestion.getQuestion());
+        score.setText(Integer.toString(currentQuestion.getScore()));
+        author.setText("By " + currentQuestion.getAuthor());
+
+        // Date format to be displayed.
+        String pattern = "HH:mm:ss";
+        DateFormat df = new SimpleDateFormat(pattern);
+        String date = df.format(currentQuestion.getCreationDate());
+        creationDate.setText(date);
     }
 
     @FXML
