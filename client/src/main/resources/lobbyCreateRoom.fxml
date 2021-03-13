@@ -6,6 +6,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <AnchorPane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.LobbyController">
    <children>
       <Pane prefHeight="400.0" prefWidth="192.0" style="-fx-background-color: #00A6D6;" />
@@ -93,5 +95,10 @@
             <Font size="22.0" />
          </font>
       </Label>
+      <ImageView fitHeight="45.0" fitWidth="54.0" layoutX="10.0" layoutY="12.0" onMouseClicked="#loadLobbyLecturer" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/back_button_white.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

@@ -138,13 +138,14 @@ public class Display extends Application {
      * @param lecturePin - Pin of the lecture that is currently open
      * @throws IOException if the fxml page cannot be loaded
      */
-    public static void showArchive(String lecturePin) throws IOException {
+    public static void showArchive(String lecturePin, Users users) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         URL xmlUrl = Display.class.getResource("/archiveList.fxml");
         loader.setLocation(xmlUrl);
         Parent root = loader.load();
 
         ArchiveController archiveController = loader.getController();
+        archiveController.setUsers(users);
         archiveController.showArchive(lecturePin);
 
         primaryStage.setScene(new Scene(root));

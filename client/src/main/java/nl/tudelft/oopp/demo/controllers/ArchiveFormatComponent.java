@@ -32,10 +32,11 @@ public class ArchiveFormatComponent extends Pane {
     public Button showArchive;
 
     private String lecturePin;
+    private Users user;
 
     @FXML
     public void showArchive() throws IOException {
-        Display.showArchive(this.lecturePin);
+        Display.showArchive(this.lecturePin, this.user);
     }
 
     /** constructor for Archive Format component.
@@ -57,5 +58,9 @@ public class ArchiveFormatComponent extends Pane {
 
     public void setCurrentPin(String lecturePin) {
         this.lecturePin = lecturePin;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
     }
 }

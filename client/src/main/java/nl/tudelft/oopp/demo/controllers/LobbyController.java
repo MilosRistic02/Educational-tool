@@ -12,6 +12,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
@@ -101,7 +102,6 @@ public class LobbyController {
             if (date == null) {
                 return;
             }
-
             lectureRoom = new LectureRoom(users.getUsername(), courseId, date);
         } else {
             lectureRoom = new LectureRoom(users.getUsername(), courseId);
@@ -115,12 +115,15 @@ public class LobbyController {
             alert.setContentText(response);
             alert.showAndWait();
         } else {
+            lectureRoom.setLecturePin(response);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("lecture pin");
             alert.setHeaderText(null);
             alert.setContentText("Your lecture pin is: " + response);
             alert.showAndWait();
-            Display.showQuestion(users, lectureRoom);
+            if (scheduleChoice.equals("Now")) {
+                Display.showQuestion(users, lectureRoom);
+            }
         }
     }
 
@@ -150,7 +153,6 @@ public class LobbyController {
         String scheduleChoice = scheduleChoiceBox.getValue().toString();
         if (scheduleChoice.equals("Now")) {
             startingDate.setDisable(true);
-            System.out.println(startingDate.getValue());
             startingDate.setValue(null);
             startingTimeHours.setDisable(true);
             startingTimeMinutes.setDisable(true);
@@ -181,6 +183,7 @@ public class LobbyController {
         String pin = pinText.getText();
         LectureRoom response = ServerCommunication.getLectureRoom(pin);
         Date currentDate = new Date();
+
         if (response == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Incorrect pin");
@@ -194,15 +197,17 @@ public class LobbyController {
             alert.setContentText("This lecture room is closed");
             alert.showAndWait();
             pinText.requestFocus();
-        } else if (response.getStartingTime().compareTo(currentDate) > 0) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Room not open");
-            alert.setHeaderText(null);
-            alert.setContentText("This lecture room has not yet started");
-            alert.showAndWait();
-            pinText.requestFocus();
         } else {
-            Display.showQuestion(users, response);
+            Date startingTime = response.getStartingTime();
+            if (startingTime != null && startingTime.compareTo(currentDate) > 0) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Room not open");
+                alert.setHeaderText(null);
+                alert.setContentText("This lecture room has not yet started");
+                alert.showAndWait();
+            } else {
+                Display.showQuestion(users, response);
+            }
         }
     }
 
@@ -215,6 +220,10 @@ public class LobbyController {
     }
 
     public void showArchiveList() throws IOException {
-        Display.showArchiveList(users);
+        Display.showArchiveList(this.users);
+    }
+
+    public void loadLobbyLecturer() throws IOException {
+        Display.showLecturer(this.users);
     }
 }
