@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.ArchiveController">
+    <children>
+        <Pane layoutY="20.0" prefHeight="699.0" prefWidth="876.0" style="-fx-background-color: #00A6D6; -fx-background-radius: 18;">
+            <children>
+                <Text fill="WHITE" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Archive" textAlignment="CENTER" wrappingWidth="876.0">
+                    <font>
+                        <Font size="50.0" />
+                    </font>
+                </Text>
+                <ScrollPane hbarPolicy="NEVER" layoutY="75.0">
+                    <content>
+                        <VBox fx:id="stack" alignment="CENTER" prefHeight="607.0" prefWidth="874.0" style="-fx-background-color: #FFFFFF;" />
+                    </content>
+                </ScrollPane>
+                <ImageView fitHeight="45.0" fitWidth="54.0" layoutX="10.0" layoutY="12.0" onMouseClicked="#loadLobbyLecturer" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/back_button_white.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </Pane>
+    </children>
+
+</AnchorPane>

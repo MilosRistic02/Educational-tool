@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import nl.tudelft.oopp.demo.controllers.ArchiveController;
 import javafx.util.Pair;
 import nl.tudelft.oopp.demo.controllers.LobbyController;
 import nl.tudelft.oopp.demo.controllers.QuestionController;
@@ -119,6 +120,45 @@ public class Display extends Application {
         primaryStage.setScene(new Scene(recourse.getValue()));
         primaryStage.show();
     }
+
+    /**
+     * Redirects the lecturer to the archive page.
+     * @param users User who is currently logged in
+     * @throws IOException if the fxml page cannot be loaded
+     */
+    public static void showArchiveList(Users users) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        URL xmlUrl = Display.class.getResource("/archiveList.fxml");
+        loader.setLocation(xmlUrl);
+        Parent root = loader.load();
+
+        ArchiveController archiveController = loader.getController();
+        archiveController.setUsers(users);
+        archiveController.showPins();
+
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+    }
+
+    /**
+     * Redirects the lecturer to the archived view of a lectureRoom.
+     * @param lecturePin - Pin of the lecture that is currently open
+     * @throws IOException if the fxml page cannot be loaded
+     */
+    public static void showArchive(String lecturePin, Users users) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        URL xmlUrl = Display.class.getResource("/archiveList.fxml");
+        loader.setLocation(xmlUrl);
+        Parent root = loader.load();
+
+        ArchiveController archiveController = loader.getController();
+        archiveController.setUsers(users);
+        archiveController.showArchive(lecturePin);
+
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+    }
+
 
     /**
      * Basic loader for the display class.

@@ -1,7 +1,7 @@
 package nl.tudelft.oopp.demo.services;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.repositories.LectureRoomRepository;
@@ -100,5 +100,38 @@ public class LectureRoomService {
      */
     public LectureRoom getLectureRoom(String pin) {
         return lectureRoomRepository.getLectureRoomByLecturePin(pin);
+    }
+
+    /**
+     * Method to change a lectureRoom in the database.
+     * @param lectureRoom the lectureroom to change to
+     * @return whether the room is updated or didn't exist
+     */
+    public String putLectureRoom(LectureRoom lectureRoom) {
+        if (!lectureRoomRepository.existsByLecturePin(
+                lectureRoom.getLecturePin())) {
+            return "Room does not yet exist";
+        }
+        LectureRoom prev = lectureRoomRepository.getByLecturePin(
+                lectureRoom.getLecturePin());
+        prev.setOpen(lectureRoom.isOpen());
+        lectureRoomRepository.save(prev);
+        return "Updated room";
+    }
+
+    /**
+     * Method to get all lecturePins from closed rooms of a specific lecturer.
+     * @param lectureHost the lecturer to search by
+     * @return list of lecturePins
+     */
+    public List<LectureRoom> getClosedLecturePins(String lectureHost) {
+        List<LectureRoom> allClosedRooms = lectureRoomRepository.getClosed();
+        List<LectureRoom> result = new ArrayList<>();
+        for (LectureRoom room:allClosedRooms) {
+            if (room.getLecturerID().equals(lectureHost)) {
+                result.add(room);
+            }
+        }
+        return result;
     }
 }
