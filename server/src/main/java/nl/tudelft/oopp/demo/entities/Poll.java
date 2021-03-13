@@ -2,10 +2,17 @@ package nl.tudelft.oopp.demo.entities;
 
 import java.util.Date;
 import java.util.Objects;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 import nl.tudelft.oopp.demo.converters.IntegerArrayConverter;
 import org.hibernate.annotations.CreationTimestamp;
+
+
 
 
 @Entity
