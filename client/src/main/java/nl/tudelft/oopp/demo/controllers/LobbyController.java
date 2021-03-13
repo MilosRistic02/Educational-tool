@@ -140,7 +140,7 @@ public class LobbyController {
             startingDate.requestFocus();
             return null;
         }
-        wrongDate.setVisible(true);
+        wrongDate.setVisible(false);
         return lectureStartingTime;
     }
 
