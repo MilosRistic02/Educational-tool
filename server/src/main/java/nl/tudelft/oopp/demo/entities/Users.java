@@ -3,6 +3,7 @@ package nl.tudelft.oopp.demo.entities;
 import com.sun.istack.NotNull;
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -19,7 +20,7 @@ public class Users {
     @NotNull
     private String role;
 
-    @OneToMany(mappedBy = "users")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "users")
     Set<ScoringLog> scoringLogs;
 
     public Users(){

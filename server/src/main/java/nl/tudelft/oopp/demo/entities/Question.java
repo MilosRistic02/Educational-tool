@@ -3,12 +3,7 @@ package nl.tudelft.oopp.demo.entities;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.lang.NonNull;
@@ -22,7 +17,8 @@ public class Question {
 
     @NonNull
     private String question;
-    
+
+    @Column(length = 512)
     private String answer;
 
     private int score;
@@ -38,6 +34,8 @@ public class Question {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
     Set<ScoringLog> scoringLogs;
+
+
 
     public Question() {
     }

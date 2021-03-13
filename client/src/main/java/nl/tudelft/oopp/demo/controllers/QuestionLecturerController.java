@@ -125,12 +125,7 @@ public class QuestionLecturerController {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        displayAllQuestion();
-                    }
-                });
+                Platform.runLater(() -> displayAllQuestion());
             }
         }, 0, 2000);
     }
