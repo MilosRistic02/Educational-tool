@@ -55,14 +55,6 @@ public class ArchiveController {
             String date = df.format(q.getCreationDate());
             questionFormatComponent.creationDate.setText(date);
 
-
-
-            // ArchiveFormatComponent archiveFormatComponent = new ArchiveFormatComponent();
-            //
-            // archiveFormatComponent.question.setText(q.getQuestion());
-            // archiveFormatComponent.creationDate.setText(Integer.toString(q.getScore()));
-            // archiveFormatComponent.author.setText("By " + q.getAuthor());
-
             stack.getChildren().add(questionFormatComponent);
         }
     }
@@ -82,11 +74,6 @@ public class ArchiveController {
         stack.setSpacing(20);
 
         for (LectureRoom room : rooms) {
-            // QuestionFormatComponent questionFormatComponent = new QuestionFormatComponent();
-            // questionFormatComponent.question.setText(room.getLecturePin());
-            // questionFormatComponent.creationDate.setText(room.getCreationDate().toString());
-            // questionFormatComponent.author.setText(String.valueOf(room.getCourseId()));
-
             ArchiveFormatComponent archiveFormatComponent = new ArchiveFormatComponent();
 
             archiveFormatComponent.setCurrentPin(room.getLecturePin());
@@ -100,6 +87,11 @@ public class ArchiveController {
         }
     }
 
+    /**
+     * Loads the list with pins if user is currently in archiveView.
+     * Else the lobby for the lecturer will be loaded.
+     * @throws IOException if the fxml page cannot be loaded
+     */
     public void loadLobbyLecturer() throws IOException {
         if (archiveView) {
             showPins();
