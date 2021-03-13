@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 import nl.tudelft.oopp.demo.controllers.LobbyController;
 import nl.tudelft.oopp.demo.controllers.QuestionController;
 import nl.tudelft.oopp.demo.controllers.QuestionLecturerController;
@@ -29,12 +30,9 @@ public class Display extends Application {
      * @throws IOException  can throw an error
      */
     public static void showLogin() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        URL xmlUrl = Display.class.getResource("/login.fxml");
-        loader.setLocation(xmlUrl);
-        Parent root = loader.load();
+        Pair<FXMLLoader, Parent> recourse = load("/login.fxml");
 
-        primaryStage.setScene(new Scene(root));
+        primaryStage.setScene(new Scene(recourse.getValue()));
         primaryStage.show();
     }
 
@@ -44,16 +42,13 @@ public class Display extends Application {
      * @throws IOException  can throw an exception
      */
     public static void showQuestion(Users users, LectureRoom lectureRoom) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        URL xmlUrl = Display.class.getResource("/question.fxml");
-        loader.setLocation(xmlUrl);
-        Parent root = loader.load();
+        Pair<FXMLLoader, Parent> recourse = load("/question.fxml");
 
-        QuestionController questionController = loader.getController();
+        QuestionController questionController = recourse.getKey().getController();
         questionController.setLectureRoom(lectureRoom);
         questionController.setUsers(users);
 
-        primaryStage.setScene(new Scene(root));
+        primaryStage.setScene(new Scene(recourse.getValue()));
         primaryStage.show();
     }
 
@@ -67,16 +62,13 @@ public class Display extends Application {
      */
     public static void showQuestionLecturer(
             Users users, LectureRoom lectureRoom) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        URL xmlUrl = Display.class.getResource("/questionLecturer.fxml");
-        loader.setLocation(xmlUrl);
-        Parent root = loader.load();
+        Pair<FXMLLoader, Parent> recourse = load("/questionLecturer.fxml");
 
-        QuestionLecturerController questionLecturerController = loader.getController();
+        QuestionLecturerController questionLecturerController = recourse.getKey().getController();
         questionLecturerController.setLectureRoom(lectureRoom);
         questionLecturerController.setUsers(users);
 
-        primaryStage.setScene(new Scene(root));
+        primaryStage.setScene(new Scene(recourse.getValue()));
         primaryStage.show();
     }
 
@@ -88,15 +80,12 @@ public class Display extends Application {
      * @throws IOException - can throw an error.
      */
     public static void showLecturer(Users users) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        URL xmlUrl = Display.class.getResource("/lobbyLecturer.fxml");
-        loader.setLocation(xmlUrl);
-        Parent root = loader.load();
+        Pair<FXMLLoader, Parent> recourse = load("/lobbyLecturer.fxml");
 
-        LobbyController lobbyController = loader.getController();
+        LobbyController lobbyController = recourse.getKey().getController();
         lobbyController.setUsers(users);
 
-        primaryStage.setScene(new Scene(root));
+        primaryStage.setScene(new Scene(recourse.getValue()));
         primaryStage.show();
     }
 
@@ -107,15 +96,12 @@ public class Display extends Application {
      * @throws IOException - can throw an error.
      */
     public static void showStudent(Users users) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        URL xmlUrl = Display.class.getResource("/lobbyStudent.fxml");
-        loader.setLocation(xmlUrl);
-        Parent root = loader.load();
+        Pair<FXMLLoader, Parent> recourse = load("/lobbyStudent.fxml");
 
-        LobbyController lobbyController = loader.getController();
+        LobbyController lobbyController = recourse.getKey().getController();
         lobbyController.setUsers(users);
 
-        primaryStage.setScene(new Scene(root));
+        primaryStage.setScene(new Scene(recourse.getValue()));
         primaryStage.show();
     }
 
@@ -125,16 +111,27 @@ public class Display extends Application {
      * @throws IOException Exception thrown when something goes with IO
      */
     public static void showLobbyCreateRoom(Users users) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        URL xmlUrl = Display.class.getResource("/lobbyCreateRoom.fxml");
-        loader.setLocation(xmlUrl);
-        Parent root = loader.load();
+        Pair<FXMLLoader, Parent> recourse = load("/lobbyCreateRoom.fxml");
 
-        LobbyController lobbyController = loader.getController();
+        LobbyController lobbyController = recourse.getKey().getController();
         lobbyController.setUsers(users);
 
-        primaryStage.setScene(new Scene(root));
+        primaryStage.setScene(new Scene(recourse.getValue()));
         primaryStage.show();
+    }
+
+    /**
+     * Basic loader for the display class.
+     * @param path Path to the file we want to load
+     * @return Pair with a FXMLLoader and a Parent root
+     * @throws IOException Thrown when something goes wrong with IO
+     */
+    public static Pair<FXMLLoader, Parent> load(String path) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        URL xmlUrl = Display.class.getResource(path);
+        loader.setLocation(xmlUrl);
+        Parent root = loader.load();
+        return new Pair(loader, root);
     }
 
     public static void main(String[] args) {
