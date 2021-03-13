@@ -1,8 +1,6 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +9,6 @@ import java.util.TimerTask;
 
 import javafx.application.Platform;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -44,10 +41,10 @@ public class QuestionController {
     @FXML
     private void displayQuestion() {
         if (questionText.getText().isEmpty()) {
-            Alerts.alertInfo("Question is empty",
+            Alerts.alertError("Question is empty",
                     "Please fill out the field before pressing send");
         } else if (questionText.getText().length() > 255) {
-            Alerts.alertInfo("Question too long",
+            Alerts.alertError("Question too long",
                     "Question too long, can only be 255 characters");
         } else {
             Question q = new Question(questionText.getText(),
@@ -134,19 +131,16 @@ public class QuestionController {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        displayAllQuestion();
-                        try {
-                            if (checkRoomClosed()) {
-                                timer.cancel();
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                Platform.runLater(() -> {
+                    displayAllQuestion();
+                    try {
+                        if (checkRoomClosed()) {
+                            timer.cancel();
                         }
-                        // one in 10? times, check if room is still open
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
+                    // one in 10? times, check if room is still open
                 });
             }
         }, 0, 5000);
@@ -155,13 +149,10 @@ public class QuestionController {
     private boolean checkRoomClosed() throws IOException {
         boolean closed = false;
         LectureRoom room = ServerCommunication.getLectureRoom(this.lectureRoom.getLecturePin());
+
         if (!room.isOpen()) {
             closed = true;
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Lecture has ended");
-            alert.setHeaderText(null);
-            alert.setContentText("You are redirected to the lobby");
-            alert.show();
+            Alerts.alertInfo("Lecture has ended", "You are redirected to the lobby");
             if (this.users.getRole().equals("lecturer")) {
                 Display.showLecturer(users);
             } else {

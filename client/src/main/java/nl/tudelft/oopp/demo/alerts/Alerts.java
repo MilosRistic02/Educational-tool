@@ -7,13 +7,26 @@ import javafx.scene.control.TextInputDialog;
 public class Alerts {
 
     /**
-     * Generic method to create a new alert.
+     * Generic method to create a new error-alert.
      * @param title - title of the new alert.
      * @param content - content text of the new alert.
      */
-    public static void alertInfo(String title, String content) {
+    public static void alertError(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Too many rooms");
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    /**
+     * Generic method to create a new information-alert.
+     * @param title String with the title of the new alert
+     * @param content String with the content of the new alert
+     */
+    public static void alertInfo(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();

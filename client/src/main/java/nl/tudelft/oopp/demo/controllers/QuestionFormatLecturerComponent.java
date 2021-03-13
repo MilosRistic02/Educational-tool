@@ -102,7 +102,7 @@ public class QuestionFormatLecturerComponent extends VBox {
         // Update only if there is a change and the answer is non blank.
         if (!result.isEmpty() && !result.get().equals(oldAnswer)) {
             if (result.get().length() > 512) {
-                Alerts.alertInfo("Answer too long",
+                Alerts.alertError("Answer too long",
                         "Answer too long, can only be 512 characters");
             } else {
                 currentQuestion.setAnswer(result.get());
@@ -129,7 +129,7 @@ public class QuestionFormatLecturerComponent extends VBox {
         // Update only if there is a change and the question is non blank.
         if (!result.isEmpty() && !result.get().equals(oldQuestion)) {
             if (result.get().length() > 255) {
-                Alerts.alertInfo("Question too long",
+                Alerts.alertError("Question too long",
                         "Question is too long, can only be 255 characters");
             } else {
                 currentQuestion.setQuestion(result.get());

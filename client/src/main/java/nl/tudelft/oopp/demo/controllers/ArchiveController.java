@@ -43,19 +43,10 @@ public class ArchiveController {
         LectureRoom room = ServerCommunication.getLectureRoom(lecturePin);
         List<Question> questions = ServerCommunication.getAllQuestion(lecturePin);
         for (Question q : questions) {
-            QuestionFormatComponent questionFormatComponent = new QuestionFormatComponent(q, user);
-            questionFormatComponent.dislike.setVisible(false);
-            questionFormatComponent.like.setVisible(false);
-            questionFormatComponent.question.setText(q.getQuestion());
-            questionFormatComponent.score.setText(Integer.toString(q.getScore()));
-            questionFormatComponent.author.setText("By " + q.getAuthor());
+            QuestionFormatLecturerComponent questionFormat =
+                    new QuestionFormatLecturerComponent(q, user);
 
-            String pattern = "HH:mm:ss";
-            DateFormat df = new SimpleDateFormat(pattern);
-            String date = df.format(q.getCreationDate());
-            questionFormatComponent.creationDate.setText(date);
-
-            stack.getChildren().add(questionFormatComponent);
+            stack.getChildren().add(questionFormat);
         }
     }
 

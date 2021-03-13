@@ -12,7 +12,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import nl.tudelft.oopp.demo.alerts.Alerts;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
@@ -110,14 +109,10 @@ public class LobbyController {
 
         String response = ServerCommunication.addLectureRoom(lectureRoom);
         if (response.equals("Too many rooms created under this host")) {
-            Alerts.alertInfo("Too many rooms", response);
+            Alerts.alertError("Too many rooms", response);
         } else {
             lectureRoom.setLecturePin(response);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("lecture pin");
-            alert.setHeaderText(null);
-            alert.setContentText("Your lecture pin is: " + response);
-            alert.showAndWait();
+            Alerts.alertInfo("Lecture pin", "Your lecture pin is: " + response);
             if (scheduleChoice.equals("Now")) {
                 Display.showQuestion(users, lectureRoom);
             }
@@ -182,28 +177,21 @@ public class LobbyController {
         Date currentDate = new Date();
 
         if (response == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Incorrect pin");
-            alert.setHeaderText(null);
-            alert.setContentText("This lecture pin is not valid");
-            alert.showAndWait();
+            Alerts.alertError("Incorrect pin", "This lecture pin is not valid");
         } else if (!response.isOpen()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Closed room");
-            alert.setHeaderText(null);
-            alert.setContentText("This lecture room is closed");
-            alert.showAndWait();
+            Alerts.alertError("Closed room", "This lecture room is closed");
             pinText.requestFocus();
         } else {
             Date startingTime = response.getStartingTime();
+
             if (startingTime != null && startingTime.compareTo(currentDate) > 0) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Room not open");
-                alert.setHeaderText(null);
-                alert.setContentText("This lecture room has not yet started");
-                alert.showAndWait();
+                Alerts.alertError("Room is not open", "This lecture room has not yet started");
             } else {
-                Display.showQuestion(users, response);
+                if (users.getRole().equals("student")) {
+                    Display.showQuestion(users, response);
+                } else {
+                    Display.showQuestionLecturer(users, response);
+                }
             }
         }
     }
