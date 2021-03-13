@@ -17,7 +17,12 @@ Main focus:     Explaining what we implemented
 * Explained how FXML works and how it can be linked to the Java code to create (a very basic) GUI.
 
 # Action points for next week (Scrum board)
-* Starting GUI, will update on thursday
+Starting the GUI, this week we will divide into pairs to work on different parts:
+* Questionroom GUI for students - Sérénic and Rodrigo
+* Login and signup page - Miloš and Efe
+* Lobbyroom for students and lecturers - Jos and Marc
+
+Once we finish everything we will connect the different pages with eachother.
 
 
 # Questions for the TA
