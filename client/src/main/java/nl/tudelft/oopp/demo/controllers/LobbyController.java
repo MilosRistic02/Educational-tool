@@ -119,7 +119,7 @@ public class LobbyController {
             alert.setContentText("Your lecture pin is: " + response);
             alert.showAndWait();
             if (scheduleChoice.equals("Now")) {
-                Display.showQuestion(users, lectureRoom);
+                Display.showQuestionLecturer(users, lectureRoom);
             }
         }
     }
@@ -203,7 +203,11 @@ public class LobbyController {
                 alert.setContentText("This lecture room has not yet started");
                 alert.showAndWait();
             } else {
-                Display.showQuestion(users, response);
+                if (this.users.getRole().equals("lecturer")) {
+                    Display.showQuestionLecturer(users, response);
+                } else {
+                    Display.showQuestion(users, response);
+                }
             }
         }
     }
