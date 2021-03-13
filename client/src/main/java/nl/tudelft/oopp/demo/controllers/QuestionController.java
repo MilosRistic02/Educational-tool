@@ -2,10 +2,7 @@ package nl.tudelft.oopp.demo.controllers;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 import javafx.application.Platform;
 
@@ -14,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import nl.tudelft.oopp.demo.alerts.Alerts;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Question;
@@ -38,12 +36,21 @@ public class QuestionController {
 
     @FXML
     private void displayQuestion() {
-        Question q = new Question(questionText.getText(),
-                lectureRoom.getLecturePin(),
-                users.getUsername());
-        ServerCommunication.saveQuestion(q);
-        questionText.clear();
-        displayAllQuestion();
+        if(questionText.getText().isEmpty()) {
+            Alerts.alertInfo("Question is empty",
+                    "Please fill out the field before pressing send");
+        } else if (questionText.getText().length() > 255) {
+            Alerts.alertInfo("Question too long",
+                    "Question too long, can only be 255 characters");
+        } else {
+            Question q = new Question(questionText.getText(),
+                    lectureRoom.getLecturePin(),
+                    users.getUsername());
+
+            ServerCommunication.saveQuestion(q);
+            questionText.clear();
+            displayAllQuestion();
+        }
     }
 
     @FXML
@@ -101,35 +108,16 @@ public class QuestionController {
             String date = df.format(q.getCreationDate());
             questionFormatComponent.creationDate.setText(date);
 
-            // Select the like and dislike buttons that were pressed
-            // for certain questions by the current logged user.
-            for (ScoringLog scoringLog : votes) {
-                if (scoringLog.getQuestion().equals(q)
-                        && scoringLog.getUsers().equals(users)) {
-                    if (scoringLog.getScore() == 1) {
-                        questionFormatComponent.like.setSelected(true);
-                        questionFormatComponent.dislike.setSelected(false);
-                    } else if (scoringLog.getScore() == -1) {
-                        questionFormatComponent.dislike.setSelected(true);
-                        questionFormatComponent.like.setSelected(false);
-                    } else {
-                        questionFormatComponent.like.setSelected(false);
-                        questionFormatComponent.dislike.setSelected(false);
-                    }
-                }
-            }
+            Optional<ScoringLog> scoringLog = votes.stream()
+                    .filter(x -> x.getQuestion().equals(q) && x.getUsers().equals(users))
+                    .findFirst();
 
-            // Show which buttons have been pressed by the current logged user,
-            // by changing their color.
-            if (questionFormatComponent.like.isSelected()) {
-                questionFormatComponent.like.setStyle("-fx-background-color: #f1be3e;");
-                questionFormatComponent.dislike.setStyle("-fx-background-color: #FFFFFF;");
-            } else if (questionFormatComponent.dislike.isSelected()) {
-                questionFormatComponent.dislike.setStyle("-fx-background-color: #c3312f;");
-                questionFormatComponent.like.setStyle("-fx-background-color: #FFFFFF;");
-            } else {
-                questionFormatComponent.like.setStyle("-fx-background-color: #FFFFFF;");
-                questionFormatComponent.dislike.setStyle("-fx-background-color: #FFFFFF;");
+            if(!scoringLog.isEmpty()) {
+                if (scoringLog.get().getScore() == 1) {
+                    questionFormatComponent.setLiked();
+                } else if (scoringLog.get().getScore() == -1) {
+                    questionFormatComponent.setDisliked();
+                }
             }
 
             // Enable the delete button, only for the questions made by the current logged user.

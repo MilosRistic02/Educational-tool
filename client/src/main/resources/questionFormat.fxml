@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<fx:root fx:id="qanda" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="161.0" prefWidth="616.0" style="-fx-border-color: #00A6D6; -fx-border-width: 4; -fx-border-radius: 18;" type="VBox" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="qanda" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="161.0" prefWidth="616.0" style="-fx-border-color: #00A6D6; -fx-border-width: 4; -fx-border-radius: 18;" type="VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Question:" translateX="20.0" wrappingWidth="404.0">
          <VBox.margin>
@@ -42,14 +42,14 @@
             </font></Text>
             <Text fx:id="author" layoutX="428.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Author" textAlignment="RIGHT" wrappingWidth="121.029296875" />
          <Text fx:id="creationDate" layoutX="428.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Creation Date" textAlignment="RIGHT" wrappingWidth="121.029296875" />
-         <ToggleButton fx:id="like" layoutX="14.0" layoutY="1.0" mnemonicParsing="false" onAction="#upvote" opacity="0.4" prefHeight="41.0" prefWidth="39.0">
+         <ToggleButton fx:id="like" layoutX="14.0" layoutY="1.0" mnemonicParsing="false" onAction="#upvote" opacity="0.4" prefHeight="41.0" prefWidth="39.0" style="-fx-background-color: #FFFFFF;">
             <graphic>
-               <ImageView fitHeight="17.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+               <ImageView fitHeight="17.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: #FFFFFF;">
              <Image url="images/thumb-up.png"></Image>
          </ImageView>
             </graphic>
          </ToggleButton>
-         <ToggleButton fx:id="dislike" layoutX="99.0" layoutY="1.0" mnemonicParsing="false" onAction="#downvote" opacity="0.4" prefHeight="41.0" prefWidth="41.0">
+         <ToggleButton fx:id="dislike" layoutX="99.0" layoutY="1.0" mnemonicParsing="false" onAction="#downvote" opacity="0.4" prefHeight="41.0" prefWidth="41.0" style="-fx-background-color: #FFFFFF;">
             <graphic>
                 <ImageView fitHeight="17.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
               <Image url="images/thumb-down.png"></Image>

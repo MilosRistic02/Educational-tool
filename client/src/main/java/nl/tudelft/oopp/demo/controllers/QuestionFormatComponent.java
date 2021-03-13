@@ -113,4 +113,18 @@ public class QuestionFormatComponent extends VBox {
     public void delete() {
         ServerCommunication.deleteQuestion(Integer.toString((int) currentQuestion.getId()));
     }
+
+    public void setLiked() {
+        like.setSelected(true);
+        dislike.setSelected(false);
+        like.setStyle("-fx-background-color: #f1be3e;");
+        dislike.setStyle("-fx-background-color: #FFFFFF;");
+    }
+
+    public void setDisliked() {
+        dislike.setSelected(true);
+        like.setSelected(false);
+        dislike.setStyle("-fx-background-color: #c3312f;");
+        like.setStyle("-fx-background-color: #FFFFFF;");
+    }
 }

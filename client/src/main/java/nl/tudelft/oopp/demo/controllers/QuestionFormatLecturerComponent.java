@@ -9,6 +9,7 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import nl.tudelft.oopp.demo.alerts.Alerts;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.Users;
@@ -94,21 +95,21 @@ public class QuestionFormatLecturerComponent extends VBox {
         if (currentQuestion.isAnswered()) {
             oldAnswer = currentQuestion.getAnswer();
         }
-
         // Dialog to input the answer.
-        TextInputDialog textInputDialog = new TextInputDialog(oldAnswer);
-        textInputDialog.setGraphic(null);
-        textInputDialog.setHeaderText(null);
-        textInputDialog.setTitle("Answer");
-        textInputDialog.setContentText("Enter an answer for the question:");
+        Optional<String> result = Alerts.textInputDialog(oldAnswer,
+                "Answer",
+                "Enter an answer for this question: ");
 
-        Optional<String> result = textInputDialog.showAndWait();
-        String input = textInputDialog.getEditor().getText();
         // Update only if there is a change and the answer is non blank.
-        if (result.isPresent() && !input.isEmpty() && !input.equals(oldAnswer)) {
-            currentQuestion.setAnswer(result.get());
-            currentQuestion.setAnswered(true);
-            ServerCommunication.updateAnswerQuestion(currentQuestion);
+        if (!result.isEmpty() && !result.get().equals(oldAnswer)) {
+            if(result.get().length() > 512) {
+                Alerts.alertInfo("Answer too long",
+                        "Answer too long, can only be 512 characters");
+            } else {
+                currentQuestion.setAnswer(result.get());
+                currentQuestion.setAnswered(true);
+                ServerCommunication.updateAnswerQuestion(currentQuestion);
+            }
         }
     }
 
@@ -121,22 +122,21 @@ public class QuestionFormatLecturerComponent extends VBox {
     @FXML
     public void editQuestion() {
         String oldQuestion = currentQuestion.getQuestion();
-
         // Dialog to input the answer.
-        TextInputDialog textInputDialog = new TextInputDialog(oldQuestion);
-        textInputDialog.setGraphic(null);
-        textInputDialog.setHeaderText(null);
-        textInputDialog.setTitle("Edit question");
-        textInputDialog.setContentText("Enter the updated question:");
+        Optional<String> result = Alerts.textInputDialog(oldQuestion,
+                "Edit question",
+                "Enter updated question:");
 
-        Optional<String> result = textInputDialog.showAndWait();
-        String input = textInputDialog.getEditor().getText();
         // Update only if there is a change and the question is non blank.
-        if (result.isPresent() && !input.isEmpty() && !input.equals(oldQuestion)) {
-            currentQuestion.setQuestion(result.get());
-            ServerCommunication.updateContentQuestion(currentQuestion);
+        if (!result.isEmpty() && !result.get().equals(oldQuestion)) {
+            if (result.get().length() > 255) {
+                Alerts.alertInfo("Question too long",
+                        "Question is too long, can only be 255 characters");
+            } else {
+                currentQuestion.setQuestion(result.get());
+                ServerCommunication.updateContentQuestion(currentQuestion);
+            }
         }
-
     }
 
     @FXML
