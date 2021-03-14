@@ -8,17 +8,19 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import nl.tudelft.oopp.demo.alerts.Alerts;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
-import nl.tudelft.oopp.demo.entities.LectureRoom;
-import nl.tudelft.oopp.demo.entities.Question;
-import nl.tudelft.oopp.demo.entities.ScoringLog;
-import nl.tudelft.oopp.demo.entities.Users;
+import nl.tudelft.oopp.demo.entities.*;
 import nl.tudelft.oopp.demo.views.Display;
 
 public class QuestionLecturerController {
@@ -32,10 +34,23 @@ public class QuestionLecturerController {
     @FXML
     private Text greetings;
 
+    @FXML
+    private TextField pollField;
+
+    @FXML
+    private TextField numOptionsField;
+
+    @FXML
+    private TextField correctAnswer;
+
+    @FXML
+    private BarChart pollChart;
+
     private Users users;
 
     private LectureRoom lectureRoom;
 
+    public Poll currentPoll;
 
     @FXML
     private void displayQuestion() {
@@ -115,5 +130,35 @@ public class QuestionLecturerController {
 
     public void setLectureRoom(LectureRoom lectureRoom) {
         this.lectureRoom = lectureRoom;
+    }
+
+    public void refreshPoll() throws JsonProcessingException {
+        currentPoll = ServerCommunication.getPoll(currentPoll.getId());
+
+        int size = currentPoll.getSize();
+        int results[] = currentPoll.getVotes();
+
+        BarChart.Series set1 = new BarChart.Series<>();
+
+        for(int i = 0; i<size; i++){
+            set1.getData().add(new XYChart.Data(Character.toString((char) (i + 65)), results[i]));
+        }
+        pollChart.getData().addAll(set1);
+
+    }
+
+    public void createPoll() throws JsonProcessingException {
+       String pollQuestion = pollField.getText();
+       int size = Integer.parseInt(numOptionsField.getText());
+       char correctAnswerForTheQuestion = correctAnswer.getText().charAt(0);
+
+       if(size < 2 || size > 10){
+           Alerts.alertError("Incorrect number of options", "The number of options should be within 2 and 10");
+       }
+        Poll poll = new Poll(lectureRoom.getLecturePin(), size, correctAnswerForTheQuestion, pollQuestion);
+       String s = ServerCommunication.createPoll(poll);
+       currentPoll = new ObjectMapper().readValue(s, Poll.class);
+
+
     }
 }

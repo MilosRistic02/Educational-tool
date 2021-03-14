@@ -15,12 +15,23 @@ public class Request {
 
     private static HttpClient client = HttpClient.newBuilder().build();
 
+    public static String get(String url) {
+        GenericType<String> responseBodyType = new GenericType<String>(){};
+
+        String responseBody = ClientBuilder.newClient()
+                .target(url)
+                .request(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .get(responseBodyType);
+
+        return responseBody;
+    }
     /** Method to get questions.
      *
      * @param url   the url
      * @return      returns a list of questions
      */
-    public static List<Question> get(String url) {
+    public static List<Question> getQuestions(String url) {
         GenericType<List<Question>> responseBodyType = new GenericType<List<Question>>(){};
 
         List<Question> responseBody = ClientBuilder.newClient()

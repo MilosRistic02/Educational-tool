@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import javafx.scene.control.Button?>
-<AnchorPane prefHeight="823.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.QuestionLecturerController">
+<AnchorPane prefHeight="823.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.QuestionLecturerController">
    <children>
       <Pane layoutX="13.0" layoutY="25.0" prefHeight="699.0" prefWidth="876.0" style="-fx-background-color: #00A6D6; -fx-background-radius: 18;">
          <children>
@@ -26,9 +31,24 @@
       </Pane>
       <Text fx:id="greetings" layoutX="915.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome, [username], you are hosting: [lectureroom]" textAlignment="CENTER" wrappingWidth="238.0">
          <font>
-            <Font size="36.0" />
+            <Font size="24.0" />
          </font>
       </Text>
-      <Button layoutX="1055.0" layoutY="692.0" mnemonicParsing="false" onAction="#closeRoom" prefHeight="31.0" prefWidth="93.0" style="-fx-background-color: #00A6D6;" text="Close room" textFill="WHITE" />
+      <Button layoutX="1055.0" layoutY="692.0" mnemonicParsing="false" onAction="#closeRoom" prefHeight="31.0" prefWidth="93.0" style="-fx-background-color: #FF0000;" text="Close room" textFill="WHITE" />
+      <Button layoutX="933.0" layoutY="692.0" mnemonicParsing="false" onAction="#createPoll" prefHeight="31.0" prefWidth="93.0" style="-fx-background-color: #00A6D6;" text="Create Poll" textFill="WHITE" />
+      <TextField fx:id="pollField" layoutX="930.0" layoutY="401.0" prefHeight="132.0" prefWidth="208.0" />
+      <Label layoutX="930.0" layoutY="375.0" prefHeight="25.0" prefWidth="121.0" text="Question:" />
+      <Label layoutX="930.0" layoutY="547.0" prefHeight="17.0" prefWidth="121.0" text="Number of options" />
+      <TextField fx:id="numOptionsField" layoutX="930.0" layoutY="565.0" prefHeight="7.0" prefWidth="208.0" />
+      <Label layoutX="930.0" layoutY="603.0" prefHeight="17.0" prefWidth="121.0" text="Correct Answer" />
+      <TextField fx:id="correctAnswer" layoutX="930.0" layoutY="629.0" prefHeight="26.0" prefWidth="34.0" />
+      <BarChart fx:id="pollChart" layoutX="898.0" layoutY="167.0" prefHeight="207.0" prefWidth="267.0">
+        <xAxis>
+          <CategoryAxis label="Votes" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </BarChart>
    </children>
 </AnchorPane>

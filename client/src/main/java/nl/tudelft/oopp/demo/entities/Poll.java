@@ -1,36 +1,21 @@
+
 package nl.tudelft.oopp.demo.entities;
+
 
 import java.util.Date;
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import nl.tudelft.oopp.demo.converters.IntegerArrayConverter;
-import org.hibernate.annotations.CreationTimestamp;
-
-
-
-
-@Entity
 public class Poll {
 
-    @Id
-    @GeneratedValue
+
     long id;
     String lecturePin;
     int size;
     boolean isOpen;
     char rightAnswer;
     String question;
-    @Column
-    @Convert(converter = IntegerArrayConverter.class)
+
     int[] votes;
-    @CreationTimestamp
     private Date creationDate;
 
 
@@ -44,8 +29,8 @@ public class Poll {
      * @param rightAnswer The correct answer of this poll
      * @param question The question for this poll
      */
-    public Poll(@JsonProperty("lecturePin") String lecturePin, @JsonProperty("size") int size,
-                @JsonProperty("rightAnswer") char rightAnswer, @JsonProperty("question") String question) {
+    public Poll( String lecturePin,  int size,
+              char rightAnswer,  String question) {
         this.lecturePin = lecturePin;
         this.size = size;
         this.rightAnswer = rightAnswer;

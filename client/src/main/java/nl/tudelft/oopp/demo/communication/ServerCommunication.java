@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
+import nl.tudelft.oopp.demo.entities.Poll;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
 
@@ -36,7 +37,7 @@ public class ServerCommunication extends Request {
     }
 
     public static List<Question> getAllQuestion(String lectureRoom) {
-        return get("http://localhost:8080/question/get-all/" + lectureRoom);
+        return getQuestions("http://localhost:8080/question/get-all/" + lectureRoom);
     }
 
 
@@ -105,5 +106,13 @@ public class ServerCommunication extends Request {
 
     public static List<LectureRoom> getClosedLecturePins(String lecturerId) {
         return getClosedPins("http://localhost:8080/lecture/getClosed/" + lecturerId);
+    }
+
+    public static String createPoll(Poll poll){
+        return post("http://localhost:8080/poll/create/", poll);
+    }
+    public static Poll getPoll(long id) throws JsonProcessingException {
+        String response = get("http://localhost:8080/poll/" + id);
+        return new ObjectMapper().readValue(response, Poll.class);
     }
 }
