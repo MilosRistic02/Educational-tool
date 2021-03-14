@@ -1,5 +1,6 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
@@ -10,13 +11,15 @@ import java.util.TimerTask;
 import javafx.application.Platform;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.alerts.Alerts;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
+import nl.tudelft.oopp.demo.entities.Poll;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
 import nl.tudelft.oopp.demo.entities.Users;
@@ -32,6 +35,11 @@ public class QuestionController {
 
     @FXML
     private Text greetings;
+
+    @FXML
+    private BarChart pollChart;
+
+    private Poll currentPoll;
 
     private Users users;
 
@@ -128,6 +136,20 @@ public class QuestionController {
                 });
             }
         }, 0, 5000);
+
+        Timer pollTimerStudent = new Timer();
+        pollTimerStudent.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    try {
+                        refreshPoll();
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+        }, 0, 2000);
     }
 
     private boolean checkRoomClosed() throws IOException {
@@ -146,8 +168,54 @@ public class QuestionController {
         return closed;
     }
 
+    /**
+     * Setter for LectureRoom.
+     * @param lectureRoom LectureRoom object
+     */
     public void setLectureRoom(LectureRoom lectureRoom) {
         this.lectureRoom = lectureRoom;
     }
 
+    /**
+     * Requests the a new poll from the server, updates previous poll results.
+     * @throws JsonProcessingException if json is not processed
+     */
+    public void refreshPoll() throws JsonProcessingException {
+        Poll p = ServerCommunication.getPoll(lectureRoom.getLecturePin());
+
+        if (p != null && !p.equals(currentPoll)) {
+            currentPoll = p;
+            askForVote(p);
+        }
+        if (p == null) {
+            return;
+        }
+        currentPoll = p;
+        int size = currentPoll.getSize();
+        int[] results = currentPoll.getVotes();
+
+        XYChart.Series set1 = new XYChart.Series<>();
+
+        for (int i = 0; i < size; i++) {
+            set1.getData().add(new XYChart.Data(Character.toString((char) (i + 65)), results[i]));
+        }
+        if (!currentPoll.isOpen()) {
+            pollChart.getData().clear();
+            pollChart.getData().addAll(set1);
+            pollChart.setAnimated(false);
+        }
+    }
+
+    /**
+     * Creates an alert which contains the poll, sends it to the server.
+     * @param poll Poll object
+     */
+    public void askForVote(Poll poll) {
+        if (poll.isOpen()) {
+            Optional<Character> c = Alerts.createPoll(poll.getQuestion(), poll.getSize());
+            if (!c.isEmpty()) {
+                ServerCommunication.vote(c.get(), poll.getId());
+            }
+        }
+    }
 }

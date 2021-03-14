@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
@@ -28,5 +29,13 @@
             <Font size="36.0" />
          </font>
       </Text>
+      <BarChart fx:id="pollChart" layoutX="895.0" layoutY="427.0" prefHeight="207.0" prefWidth="267.0">
+         <xAxis>
+            <CategoryAxis label="Votes" side="BOTTOM" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis side="LEFT" />
+         </yAxis>
+      </BarChart>
    </children>
 </AnchorPane>

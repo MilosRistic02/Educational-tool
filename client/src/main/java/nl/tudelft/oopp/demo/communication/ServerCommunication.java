@@ -112,10 +112,14 @@ public class ServerCommunication extends Request {
 
     public static Poll getPoll(String lecturePin) throws JsonProcessingException {
         String response = get("http://localhost:8080/poll/" + lecturePin);
-        return new ObjectMapper().readValue(response, Poll.class);
+        return response.length() == 0 ? null : new ObjectMapper().readValue(response, Poll.class);
     }
 
     public static String closePoll(Poll poll) {
         return put("http://localhost:8080/poll/close", poll);
+    }
+
+    public static String vote(Character c, long id) {
+        return put("http://localhost:8080/poll/vote/" + id, c);
     }
 }
