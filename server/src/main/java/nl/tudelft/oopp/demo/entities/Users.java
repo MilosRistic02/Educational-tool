@@ -23,6 +23,9 @@ public class Users {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "users")
     Set<ScoringLog> scoringLogs;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "users")
+    Set<SpeedLog> speedLogs;
+
     public Users(){
     }
 

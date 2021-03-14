@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import java.util.Objects;
 
 @Entity
 public class SpeedLog {
@@ -65,5 +66,21 @@ public class SpeedLog {
 
     public void setSpeed(int score) {
         this.speed = score;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SpeedLog speedLog = (SpeedLog) o;
+        return speed == speedLog.speed &&
+                Objects.equals(id, speedLog.id) &&
+                Objects.equals(users, speedLog.users) &&
+                Objects.equals(lectureRoom, speedLog.lectureRoom);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, users, lectureRoom, speed);
     }
 }

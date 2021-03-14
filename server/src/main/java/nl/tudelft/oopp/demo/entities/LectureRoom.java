@@ -4,8 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
 import java.util.Objects;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -25,6 +28,9 @@ public class LectureRoom {
     private Date startingTime;
 
     private boolean isOpen;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "lectureRoom")
+    Set<SpeedLog> speedLogs;
 
     public LectureRoom() {
     }
