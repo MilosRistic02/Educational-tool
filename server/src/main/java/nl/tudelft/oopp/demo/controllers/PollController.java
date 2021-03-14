@@ -25,10 +25,10 @@ public class PollController {
         this.pollService = pollService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{lecturePin}")
     @ResponseBody
-    public Poll getPollById(@PathVariable long id) {
-        return pollService.getPollById(id);
+    public Poll getPollById(@PathVariable String lecturePin) {
+        return pollService.getMostRecent(lecturePin);
     }
 
     @GetMapping("/lecture-polls/{pin}")
@@ -40,12 +40,18 @@ public class PollController {
     @PostMapping("/create")
     @ResponseBody
     public Poll createPoll(@RequestBody Poll poll) {
-        return pollService.createPoll(poll);
+        return pollService.savePoll(poll);
     }
 
     @PutMapping("/vote/{id}")
     @ResponseBody
     public String voteOnPoll(@RequestBody Character c, @PathVariable long id) {
         return pollService.voteOnPoll(c, id);
+    }
+
+    @PutMapping("/close")
+    @ResponseBody
+    public Poll closePoll(@RequestBody Poll poll) {
+        return pollService.savePoll(poll);
     }
 }

@@ -1,5 +1,6 @@
 package nl.tudelft.oopp.demo.services;
 
+import java.util.Comparator;
 import java.util.List;
 import nl.tudelft.oopp.demo.entities.Poll;
 import nl.tudelft.oopp.demo.repositories.PollRepository;
@@ -36,11 +37,21 @@ public class PollService {
         return message;
     }
 
-    public Poll createPoll(Poll poll) {
+    public Poll savePoll(Poll poll) {
         return pollRepository.save(poll);
     }
 
-    public Poll getPollById(long id) {
-        return pollRepository.getById(id);
+    /**
+     * Method for getting the most recent poll in a lecture.
+     * @param lecturePin String with the lecturePin
+     * @return The most recent poll
+     */
+    public Poll getMostRecent(String lecturePin) {
+        List<Poll> polls = pollRepository.findAllByLecturePin(lecturePin);
+        return polls.size() == 0
+                ? null
+                : polls.stream()
+                .max(Comparator.comparing(Poll::getCreationDate))
+                .get();
     }
 }

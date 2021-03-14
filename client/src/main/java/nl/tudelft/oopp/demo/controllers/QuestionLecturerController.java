@@ -13,6 +13,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -49,11 +50,16 @@ public class QuestionLecturerController {
     @FXML
     private BarChart pollChart;
 
+    @FXML
+    private Button closePollButton;
+
     private Users users;
 
     private LectureRoom lectureRoom;
 
     public Poll currentPoll;
+
+    private Timer pollTimer;
 
     @FXML
     private void displayQuestion() {
@@ -144,7 +150,7 @@ public class QuestionLecturerController {
      * @throws JsonProcessingException Thrown when something goes wrong while processing
      */
     public void refreshPoll() throws JsonProcessingException {
-        currentPoll = ServerCommunication.getPoll(currentPoll.getId());
+        currentPoll = ServerCommunication.getPoll(lectureRoom.getLecturePin());
 
         int size = currentPoll.getSize();
         int[] results = currentPoll.getVotes();
@@ -157,7 +163,6 @@ public class QuestionLecturerController {
         pollChart.getData().clear();
         pollChart.getData().addAll(set1);
         pollChart.setAnimated(false);
-
     }
 
     /**
@@ -178,6 +183,20 @@ public class QuestionLecturerController {
         currentPoll = new ObjectMapper()
                 .readValue(ServerCommunication.createPoll(poll), Poll.class);
 
+        pollTimer = new Timer();
+        pollTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    try {
+                        refreshPoll();
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+        }, 0, 2000);
+
         pollChart.setAnimated(true);
         pollChart.getData().clear();
 
@@ -185,6 +204,7 @@ public class QuestionLecturerController {
         correctAnswer.getItems().clear();
         numOptions.setValue("Choose an option");
         pollField.setText("");
+        closePollButton.setVisible(true);
     }
 
     /**
@@ -203,5 +223,15 @@ public class QuestionLecturerController {
         }
         correctAnswer.setDisable(false);
         correctAnswer.setValue('A');
+    }
+
+    /**
+     * Method for closing a poll.
+     */
+    public void closePoll() {
+        pollTimer.cancel();
+        closePollButton.setVisible(false);
+        currentPoll.setOpen(false);
+        ServerCommunication.closePoll(currentPoll);
     }
 }
