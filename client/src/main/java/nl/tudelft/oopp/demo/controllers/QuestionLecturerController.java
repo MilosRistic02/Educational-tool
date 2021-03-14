@@ -98,14 +98,15 @@ public class QuestionLecturerController {
      */
     @FXML
     public void closeRoom() throws IOException {
-        this.lectureRoom.setOpen(false);
-        String response = ServerCommunication.closeRoom(this.lectureRoom);
-
-        if (this.users.getRole().equals("lecturer")) {
-            Display.showLecturer(this.users);
-        } else {
-            Display.showStudent(this.users);
-        }
+//        this.lectureRoom.setOpen(false);
+//        String response = ServerCommunication.closeRoom(this.lectureRoom);
+//
+//        if (this.users.getRole().equals("lecturer")) {
+//            Display.showLecturer(this.users);
+//        } else {
+//            Display.showStudent(this.users);
+//        }
+        refreshPoll();
     }
 
     /**
@@ -117,7 +118,6 @@ public class QuestionLecturerController {
         this.users = users;
         greetings.setText("Welcome, " + users.getUsername()
                 + " you are in room: " + lectureRoom.getLecturePin());
-
         // Update question list every 2 seconds.
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -138,12 +138,14 @@ public class QuestionLecturerController {
         int size = currentPoll.getSize();
         int results[] = currentPoll.getVotes();
 
-        BarChart.Series set1 = new BarChart.Series<>();
+        XYChart.Series set1 = new XYChart.Series<>();
 
         for(int i = 0; i<size; i++){
             set1.getData().add(new XYChart.Data(Character.toString((char) (i + 65)), results[i]));
         }
+        pollChart.getData().clear();
         pollChart.getData().addAll(set1);
+        pollChart.setAnimated(false);
 
     }
 
@@ -158,7 +160,7 @@ public class QuestionLecturerController {
         Poll poll = new Poll(lectureRoom.getLecturePin(), size, correctAnswerForTheQuestion, pollQuestion);
        String s = ServerCommunication.createPoll(poll);
        currentPoll = new ObjectMapper().readValue(s, Poll.class);
-
-
+       pollChart.setAnimated(true);
+       pollChart.getData().clear();
     }
 }
