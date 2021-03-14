@@ -1,22 +1,28 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Slider;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import nl.tudelft.oopp.demo.alerts.Alerts;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
+import nl.tudelft.oopp.demo.entities.Poll;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
-import nl.tudelft.oopp.demo.entities.SpeedLog;
 import nl.tudelft.oopp.demo.entities.Users;
 import nl.tudelft.oopp.demo.views.Display;
 
@@ -32,12 +38,22 @@ public class QuestionLecturerController {
     private Text greetings;
 
     @FXML
-    private Slider speedSlider;
+    private TextField pollField;
+
+    @FXML
+    private ChoiceBox numOptions;
+
+    @FXML
+    private ChoiceBox correctAnswer;
+
+    @FXML
+    private BarChart pollChart;
 
     private Users users;
 
     private LectureRoom lectureRoom;
 
+    public Poll currentPoll;
 
     @FXML
     private void displayQuestion() {
@@ -100,42 +116,92 @@ public class QuestionLecturerController {
      * every 2 seconds.
      * @param users - the current logged user.
      */
-    public void setUsers(Users users) {
+    public void init(Users users, LectureRoom lectureRoom) {
         this.users = users;
-        greetings.setText("Welcome, " + users.getUsername()
-                + " you are hosting: " + lectureRoom.getLecturePin());
+        this.lectureRoom = lectureRoom;
 
+        greetings.setText("Welcome, " + users.getUsername()
+                + " you are in room: " + lectureRoom.getLecturePin());
         // Update question list every 2 seconds.
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                Platform.runLater(() -> {
-                    displayAllQuestion();
-                    setSlider();
-                });
+                Platform.runLater(() -> displayAllQuestion());
             }
         }, 0, 2000);
-    }
 
-    public void setLectureRoom(LectureRoom lectureRoom) {
-        this.lectureRoom = lectureRoom;
+        numOptions.getItems().add("Choose an option");
+        for (int i = 2; i <= 10; i++) {
+            numOptions.getItems().add(i);
+        }
+        numOptions.setValue("Choose an option");
+        numOptions.setOnAction((EventHandler<ActionEvent>) event -> optionPicked());
     }
 
     /**
-     * Method to set the slider to the average of the scores in the database.
+     * Method that is called when refreshing a poll, refreshes the chart.
+     * @throws JsonProcessingException Thrown when something goes wrong while processing
      */
-    public void setSlider() {
-        List<SpeedLog> speedLogs = ServerCommunication.speedGetVotes();
-        double speedScore = 0;
-        int speedLenght = 0;
-        for (SpeedLog speedLog : speedLogs) {
-            if (speedLog.getLectureRoom().getLecturePin().equals(lectureRoom.getLecturePin())) {
-                speedScore += speedLog.getSpeed();
-                speedLenght++;
-            }
+    public void refreshPoll() throws JsonProcessingException {
+        currentPoll = ServerCommunication.getPoll(currentPoll.getId());
+
+        int size = currentPoll.getSize();
+        int[] results = currentPoll.getVotes();
+
+        XYChart.Series set1 = new XYChart.Series<>();
+
+        for (int i = 0; i < size; i++) {
+            set1.getData().add(new XYChart.Data(Character.toString((char) (i + 65)), results[i]));
         }
-        speedScore = speedScore / speedLenght;
-        speedSlider.setValue(speedScore);
+        pollChart.getData().clear();
+        pollChart.getData().addAll(set1);
+        pollChart.setAnimated(false);
+
+    }
+
+    /**
+     * Method for creating a poll.
+     * @throws JsonProcessingException Thrown when something goes wrong while processing
+     */
+    public void createPoll() throws JsonProcessingException {
+        String pollQuestion = pollField.getText();
+        Object sizeInput = numOptions.getValue();
+        if (!(sizeInput instanceof Integer)) {
+            Alerts.alertError("Poll error", "Please pick a size");
+            return;
+        }
+
+        int size = (int) sizeInput;
+        Character answer = (char) correctAnswer.getValue();
+        Poll poll = new Poll(lectureRoom.getLecturePin(), size, answer, pollQuestion);
+        currentPoll = new ObjectMapper()
+                .readValue(ServerCommunication.createPoll(poll), Poll.class);
+
+        pollChart.setAnimated(true);
+        pollChart.getData().clear();
+
+        correctAnswer.setDisable(true);
+        correctAnswer.getItems().clear();
+        numOptions.setValue("Choose an option");
+        pollField.setText("");
+    }
+
+    /**
+     * Triggered when an option for the number of answers in the poll is picked.
+     */
+    public void optionPicked() {
+        Object input = numOptions.getValue();
+        correctAnswer.getItems().clear();
+        if (!(numOptions.getValue() instanceof Integer)) {
+            correctAnswer.setDisable(true);
+            return;
+        }
+        int n = (int) input;
+        for (int i = 65; i < n + 65; i++) {
+            correctAnswer.getItems().add((char) i);
+        }
+        correctAnswer.setDisable(false);
+        correctAnswer.setValue('A');
     }
 }

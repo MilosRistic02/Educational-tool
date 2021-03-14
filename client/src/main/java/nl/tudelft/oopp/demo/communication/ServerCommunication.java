@@ -7,10 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
+import nl.tudelft.oopp.demo.entities.Poll;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
-import nl.tudelft.oopp.demo.entities.SpeedLog;
-
 
 public class ServerCommunication extends Request {
 
@@ -36,7 +35,7 @@ public class ServerCommunication extends Request {
     }
 
     public static List<Question> getAllQuestion(String lectureRoom) {
-        return get("http://localhost:8080/question/get-all/" + lectureRoom);
+        return getQuestions("http://localhost:8080/question/get-all/" + lectureRoom);
     }
 
 
@@ -107,12 +106,12 @@ public class ServerCommunication extends Request {
         return getClosedPins("http://localhost:8080/lecture/getClosed/" + lecturerId);
     }
 
-    public static String speedVote(SpeedLog speedLog) {
-
-        return post("http://localhost:8080/speedlog/speed-vote", speedLog);
+    public static String createPoll(Poll poll) {
+        return post("http://localhost:8080/poll/create/", poll);
     }
 
-    public static List<SpeedLog> speedGetVotes() {
-        return getSpeedVotes("http://localhost:8080/speedlog/get-speed-votes");
+    public static Poll getPoll(long id) throws JsonProcessingException {
+        String response = get("http://localhost:8080/poll/" + id);
+        return new ObjectMapper().readValue(response, Poll.class);
     }
 }
