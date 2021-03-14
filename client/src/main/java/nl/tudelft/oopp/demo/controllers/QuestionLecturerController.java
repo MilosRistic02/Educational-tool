@@ -145,7 +145,7 @@ public class QuestionLecturerController {
         }
 
         speedScore = speedScore / speedLenght;
-        progress.setProgress(speedScore/100);
+        progress.setProgress(speedScore / 100);
         selectedSpeed.setVisible(true);
         progress.setVisible(true);
 

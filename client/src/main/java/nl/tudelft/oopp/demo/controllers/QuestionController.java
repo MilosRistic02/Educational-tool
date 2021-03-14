@@ -170,6 +170,11 @@ public class QuestionController {
         this.lectureRoom = lectureRoom;
     }
 
+    /**
+     * The value selected by the current logged user for
+     * the pace of the lecture is sent to the database. A
+     * message shows what the value means in words.
+     */
     @FXML
     public void updateSlider() {
         int s = (int) speedSlider.getValue();
