@@ -1,24 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Slider?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
-<?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="823.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.QuestionLecturerController">
+<AnchorPane prefHeight="823.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.QuestionLecturerController">
    <children>
       <Pane layoutX="13.0" layoutY="25.0" prefHeight="699.0" prefWidth="876.0" style="-fx-background-color: #00A6D6; -fx-background-radius: 18;">
          <children>
-            <Text layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Questions" textAlignment="CENTER" wrappingWidth="876.0">
+            <Text fill="WHITE" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Questions" textAlignment="CENTER" wrappingWidth="876.0">
                <font>
                   <Font size="50.0" />
                </font>
@@ -30,46 +21,23 @@
             </ScrollPane>
          </children>
       </Pane>
-      <Text fx:id="greetings" layoutX="915.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome, [username], you are hosting: [lectureroom]" textAlignment="CENTER" wrappingWidth="238.0">
+      <Text fx:id="greetings" layoutX="915.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome, [username]" textAlignment="CENTER" wrappingWidth="238.0">
          <font>
             <Font size="36.0" />
          </font>
       </Text>
       <Button layoutX="1055.0" layoutY="692.0" mnemonicParsing="false" onAction="#closeRoom" prefHeight="31.0" prefWidth="93.0" style="-fx-background-color: #00A6D6;" text="Close room" textFill="WHITE" />
-      <Slider fx:id="speedSlider" blockIncrement="1.0" disable="true" layoutX="915.0" layoutY="330.0" majorTickUnit="1.0" max="10.0" min="-10.0" minorTickCount="0" prefHeight="14.0" prefWidth="238.0" showTickMarks="true" snapToTicks="true" />
-      <Line endX="131.0" layoutX="1016.0" layoutY="325.0" startX="-94.0" strokeWidth="9.0">
-         <stroke>
-            <LinearGradient endX="1.0" endY="1.0">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color green="0.7176470756530762" blue="0.8274509906768799" />
-                     </color>
-                  </Stop>
-                  <Stop offset="0.5">
-                     <color>
-                        <Color red="0.6000000238418579" green="0.8235294222831726" blue="0.5490196347236633" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="0.7647058963775635" green="0.1921568661928177" blue="0.18431372940540314" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </stroke>
-      </Line>
-      <Text layoutX="917.0" layoutY="311.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lecture Speed" textAlignment="CENTER" wrappingWidth="234.0">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Text>
       <ImageView fitHeight="24.0" fitWidth="28.0" layoutX="917.0" layoutY="292.0" pickOnBounds="true" preserveRatio="true">
          <!--         <Image url="images/zzz-sleep-symbol.png"/>-->
       </ImageView>
       <ImageView fitHeight="24.0" fitWidth="28.0" layoutX="1123.0" layoutY="292.0" pickOnBounds="true" preserveRatio="true">
          <!--         <Image url="images/speedometer.png"/>-->
       </ImageView>
+      <ProgressBar fx:id="progress" layoutX="901.0" layoutY="219.0" prefHeight="24.0" prefWidth="264.0" progress="0.0" visible="false" />
+      <Text fx:id="selectedSpeed" layoutX="915.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[selected speed]" textAlignment="CENTER" visible="false" wrappingWidth="238.0">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

@@ -8,9 +8,11 @@ import java.util.TimerTask;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
@@ -33,6 +35,12 @@ public class QuestionLecturerController {
 
     @FXML
     private Slider speedSlider;
+
+    @FXML
+    private ProgressBar progress;
+
+    @FXML
+    private Text selectedSpeed;
 
     private Users users;
 
@@ -102,8 +110,7 @@ public class QuestionLecturerController {
      */
     public void setUsers(Users users) {
         this.users = users;
-        greetings.setText("Welcome, " + users.getUsername()
-                + " you are hosting: " + lectureRoom.getLecturePin());
+        greetings.setText("Welcome, " + users.getUsername());
 
         // Update question list every 2 seconds.
         Timer timer = new Timer();
@@ -112,7 +119,7 @@ public class QuestionLecturerController {
             public void run() {
                 Platform.runLater(() -> {
                     displayAllQuestion();
-                    setSlider();
+                    updateSlider();
                 });
             }
         }, 0, 2000);
@@ -125,8 +132,9 @@ public class QuestionLecturerController {
     /**
      * Method to set the slider to the average of the scores in the database.
      */
-    public void setSlider() {
+    public void updateSlider() {
         List<SpeedLog> speedLogs = ServerCommunication.speedGetVotes();
+
         double speedScore = 0;
         int speedLenght = 0;
         for (SpeedLog speedLog : speedLogs) {
@@ -135,7 +143,32 @@ public class QuestionLecturerController {
                 speedLenght++;
             }
         }
+
         speedScore = speedScore / speedLenght;
-        speedSlider.setValue(speedScore);
+        progress.setProgress(speedScore/100);
+        selectedSpeed.setVisible(true);
+        progress.setVisible(true);
+
+        if (speedScore <= 15) {
+            selectedSpeed.setText("Your pace is very slow");
+            progress.setStyle("-fx-accent: #00b7d3;");
+            selectedSpeed.setFill(Color.valueOf("#00b7d3"));
+        } else if (speedScore <= 35) {
+            selectedSpeed.setText("Your pace is slow");
+            progress.setStyle("-fx-accent: #00a390;");
+            selectedSpeed.setFill(Color.valueOf("#00a390"));
+        } else if (speedScore <= 65) {
+            selectedSpeed.setText("Your pace is okay");
+            progress.setStyle("-fx-accent: #99d28c;");
+            selectedSpeed.setFill(Color.valueOf("#99d28c"));
+        } else if (speedScore <= 85) {
+            selectedSpeed.setText("Your pace is fast");
+            progress.setStyle("-fx-accent: #f1be3e;");
+            selectedSpeed.setFill(Color.valueOf("#f1be3e"));
+        } else {
+            selectedSpeed.setText("Your pace is very fast");
+            progress.setStyle("-fx-accent: #c3312f;");
+            selectedSpeed.setFill(Color.valueOf("#c3312f"));
+        }
     }
 }

@@ -17,9 +17,8 @@
 
 <AnchorPane prefHeight="823.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.QuestionController">
    <children>
-      <Button layoutX="910.0" layoutY="362.0" mnemonicParsing="false" onAction="#displayQuestion" prefHeight="31.0" prefWidth="49.0" style="-fx-background-color: #00A6D6;" text="Send" textFill="WHITE" />
-      <TextField fx:id="questionText" layoutX="910.0" layoutY="277.0" prefHeight="74.0" prefWidth="238.0" promptText="Write your question here." />
-      <Button layoutX="972.0" layoutY="362.0" mnemonicParsing="false" onAction="#displayAllQuestion" prefHeight="31.0" prefWidth="49.0" style="-fx-background-color: #00A6D6;" text="Show" textFill="WHITE" />
+      <Button layoutX="910.0" layoutY="408.0" mnemonicParsing="false" onAction="#displayQuestion" prefHeight="31.0" prefWidth="49.0" style="-fx-background-color: #00A6D6;" text="Send" textFill="WHITE" />
+      <TextField fx:id="questionText" layoutX="911.0" layoutY="324.0" prefHeight="74.0" prefWidth="244.0" promptText="Write your question here." />
       <Pane layoutX="13.0" layoutY="25.0" prefHeight="699.0" prefWidth="876.0" style="-fx-background-color: #00A6D6; -fx-background-radius: 18;">
          <children>
             <Text fill="WHITE" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Questions" textAlignment="CENTER" wrappingWidth="876.0">
@@ -34,13 +33,13 @@
             </ScrollPane>
          </children>
       </Pane>
-      <Text fx:id="greetings" layoutX="910.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome, [username], you are in: [lectureroom]" textAlignment="CENTER" wrappingWidth="238.0">
+      <Text fx:id="greetings" layoutX="910.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome, [username]" textAlignment="CENTER" wrappingWidth="238.0">
          <font>
             <Font size="36.0" />
          </font>
       </Text>
-      <Slider fx:id="speedSlider" blockIncrement="1.0" layoutX="910.0" layoutY="449.0" majorTickUnit="1.0" max="10.0" min="-10.0" minorTickCount="0" prefHeight="14.0" prefWidth="238.0" showTickMarks="true" snapToTicks="true" />
-      <Line endX="131.0" layoutX="1011.0" layoutY="444.0" startX="-94.0" strokeWidth="9.0">
+      <Slider fx:id="speedSlider" blockIncrement="1.0" layoutX="898.0" layoutY="235.0" majorTickUnit="1.0" minorTickCount="0" onDragDone="#updateSlider" prefHeight="37.0" prefWidth="263.0" value="50.0" />
+      <Line endX="140.0" layoutX="1007.0" layoutY="222.0" startX="-96.0" strokeWidth="15.0">
          <stroke>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
@@ -63,9 +62,9 @@
             </LinearGradient>
          </stroke>
       </Line>
-      <Text layoutX="912.0" layoutY="430.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lecture Speed" textAlignment="CENTER" wrappingWidth="234.0">
+      <Text layoutX="899.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lecture Speed" textAlignment="CENTER" wrappingWidth="260.0">
          <font>
-            <Font size="17.0" />
+            <Font size="20.0" />
          </font>
       </Text>
       <ImageView fitHeight="24.0" fitWidth="28.0" layoutX="912.0" layoutY="411.0" pickOnBounds="true" preserveRatio="true">
@@ -74,5 +73,21 @@
       <ImageView fitHeight="24.0" fitWidth="28.0" layoutX="1118.0" layoutY="411.0" pickOnBounds="true" preserveRatio="true">
 <!--         <Image url="images/speedometer.png"/>-->
       </ImageView>
+      <Text fx:id="selectedSpeed" layoutX="959.0" layoutY="291.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[Selected speed]" textAlignment="CENTER" visible="false" wrappingWidth="148.21630859375">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Text>
+      <Text fx:id="currentRoom" layoutX="910.0" layoutY="551.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lecture, [lecturePin]" textAlignment="CENTER" wrappingWidth="238.0">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <Button onAction="#changeLecture" layoutX="940.0" layoutY="688.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="108.0" style="-fx-background-color: #00A6D6#00A6D6;" text="Change lecture" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
+      <Button onAction="#logOut" layoutX="1071.0" layoutY="688.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="77.0" style="-fx-background-color: #c3312f#c3312f;" text="Log out" textFill="WHITE" />
    </children>
 </AnchorPane>

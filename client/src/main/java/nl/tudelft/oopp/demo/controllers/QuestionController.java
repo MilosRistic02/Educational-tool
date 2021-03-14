@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.alerts.Alerts;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
@@ -35,9 +36,15 @@ public class QuestionController {
     private Text greetings;
 
     @FXML
+    private Text currentRoom;
+
+    @FXML
     private Slider speedSlider;
 
-    private Users users;
+    @FXML
+    private Text selectedSpeed;
+
+    private Users loggedUser;
 
     private LectureRoom lectureRoom;
 
@@ -55,7 +62,7 @@ public class QuestionController {
         } else {
             Question q = new Question(questionText.getText(),
                     lectureRoom.getLecturePin(),
-                    users.getUsername());
+                    loggedUser.getUsername());
 
             ServerCommunication.saveQuestion(q);
             questionText.clear();
@@ -87,10 +94,10 @@ public class QuestionController {
             // Create a new generic question format and fill it with
             // the specific information of the current question.
             QuestionFormatComponent questionFormatComponent =
-                    new QuestionFormatComponent(q, users);
+                    new QuestionFormatComponent(q, loggedUser);
 
             Optional<ScoringLog> scoringLog = votes.stream()
-                    .filter(x -> x.getQuestion().equals(q) && x.getUsers().equals(users))
+                    .filter(x -> x.getQuestion().equals(q) && x.getUsers().equals(loggedUser))
                     .findFirst();
 
             if (!scoringLog.isEmpty()) {
@@ -112,11 +119,11 @@ public class QuestionController {
      * @param users - the current logged user.
      */
     public void setUsers(Users users) {
-        this.users = users;
-        greetings.setText("Welcome, " + users.getUsername()
-                + " you are in room: " + lectureRoom.getLecturePin());
+        this.loggedUser = users;
+        greetings.setText("Welcome, " + users.getUsername());
+        currentRoom.setText("You are in lecture " + lectureRoom.getLecturePin());
         // set the speed log to 0
-        this.speedLog = new SpeedLog(this.users, this.lectureRoom, 0);
+        this.speedLog = new SpeedLog(this.loggedUser, this.lectureRoom, 0);
         // send speedlog to the server to reset any old values
         ServerCommunication.speedVote(this.speedLog);
         // change listener added to the slider
@@ -150,10 +157,10 @@ public class QuestionController {
         if (!room.isOpen()) {
             closed = true;
             Alerts.alertInfo("Lecture has ended", "You are redirected to the lobby");
-            if (this.users.getRole().equals("lecturer")) {
-                Display.showLecturer(users);
+            if (this.loggedUser.getRole().equals("lecturer")) {
+                Display.showLecturer(loggedUser);
             } else {
-                Display.showStudent(users);
+                Display.showStudent(loggedUser);
             }
         }
         return closed;
@@ -165,8 +172,37 @@ public class QuestionController {
 
     @FXML
     public void updateSlider() {
-        this.speedLog.setSpeed((int) speedSlider.getValue());
+        int s = (int) speedSlider.getValue();
+        this.speedLog.setSpeed(s);
+        selectedSpeed.setVisible(true);
+
+        if (s <= 15) {
+            selectedSpeed.setText("Very Slow");
+            selectedSpeed.setFill(Color.valueOf("#00b7d3"));
+        } else if (s <= 35) {
+            selectedSpeed.setText("Slow");
+            selectedSpeed.setFill(Color.valueOf("#00a390"));
+        } else if (s <= 65) {
+            selectedSpeed.setText("Okay");
+            selectedSpeed.setFill(Color.valueOf("#99d28c"));
+        } else if (s <= 85) {
+            selectedSpeed.setText("Fast");
+            selectedSpeed.setFill(Color.valueOf("#f1be3e"));
+        } else {
+            selectedSpeed.setText("Very fast");
+            selectedSpeed.setFill(Color.valueOf("#c3312f"));
+        }
         ServerCommunication.speedVote(this.speedLog);
+    }
+
+    @FXML
+    public void logOut() throws IOException {
+        Display.showLogin();
+    }
+
+    @FXML
+    public void changeLecture() throws IOException {
+        Display.showStudent(loggedUser);
     }
 
 }
