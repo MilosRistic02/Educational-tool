@@ -117,6 +117,8 @@ public class QuestionController {
                 + " you are in room: " + lectureRoom.getLecturePin());
         // set the speed log to 0
         this.speedLog = new SpeedLog(this.users, this.lectureRoom, 0);
+        // send speedlog to the server to reset any old values
+        ServerCommunication.speedVote(this.speedLog);
         // change listener added to the slider
         speedSlider.valueProperty()
                 .addListener(((observable, oldValue, newValue) -> updateSlider()));
