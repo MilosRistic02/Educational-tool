@@ -9,7 +9,7 @@ import java.util.Map;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
-
+import nl.tudelft.oopp.demo.entities.SpeedLog;
 
 
 public class ServerCommunication extends Request {
@@ -105,5 +105,14 @@ public class ServerCommunication extends Request {
 
     public static List<LectureRoom> getClosedLecturePins(String lecturerId) {
         return getClosedPins("http://localhost:8080/lecture/getClosed/" + lecturerId);
+    }
+
+    public static String speedVote(SpeedLog speedLog) {
+
+        return post("http://localhost:8080/speedlog/speed-vote", speedLog);
+    }
+
+    public static List<SpeedLog> speedGetVotes() {
+        return getSpeedVotes("http://localhost:8080/speedlog/get-speed-votes");
     }
 }

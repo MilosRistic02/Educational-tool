@@ -1,24 +1,12 @@
 package nl.tudelft.oopp.demo.entities;
 
 import java.util.Objects;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
-@Entity
 public class SpeedLog {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
     private Long id;
-
-    @ManyToOne
     private Users users;
-
-    @ManyToOne
     private LectureRoom lectureRoom;
-
     private int speed;
 
     public SpeedLog() {
@@ -31,6 +19,7 @@ public class SpeedLog {
      * @param speed         the speed
      */
     public SpeedLog(Users users, LectureRoom lectureRoom, int speed) {
+        this.id = -1L;
         this.users = users;
         this.lectureRoom = lectureRoom;
         this.speed = speed;

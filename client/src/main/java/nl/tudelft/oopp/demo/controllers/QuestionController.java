@@ -10,7 +10,7 @@ import java.util.TimerTask;
 import javafx.application.Platform;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -19,6 +19,7 @@ import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
+import nl.tudelft.oopp.demo.entities.SpeedLog;
 import nl.tudelft.oopp.demo.entities.Users;
 import nl.tudelft.oopp.demo.views.Display;
 
@@ -33,9 +34,14 @@ public class QuestionController {
     @FXML
     private Text greetings;
 
+    @FXML
+    private Slider speedSlider;
+
     private Users users;
 
     private LectureRoom lectureRoom;
+
+    private SpeedLog speedLog;
 
 
     @FXML
@@ -109,6 +115,11 @@ public class QuestionController {
         this.users = users;
         greetings.setText("Welcome, " + users.getUsername()
                 + " you are in room: " + lectureRoom.getLecturePin());
+        // set the speed log to 0
+        this.speedLog = new SpeedLog(this.users, this.lectureRoom, 0);
+        // change listener added to the slider
+        speedSlider.valueProperty()
+                .addListener(((observable, oldValue, newValue) -> updateSlider()));
 
         // Update question list every 2 seconds.
         Timer timer = new Timer();
@@ -148,6 +159,12 @@ public class QuestionController {
 
     public void setLectureRoom(LectureRoom lectureRoom) {
         this.lectureRoom = lectureRoom;
+    }
+
+    @FXML
+    public void updateSlider() {
+        this.speedLog.setSpeed((int) speedSlider.getValue());
+        ServerCommunication.speedVote(this.speedLog);
     }
 
 }

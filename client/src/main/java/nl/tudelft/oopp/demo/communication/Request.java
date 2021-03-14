@@ -10,6 +10,7 @@ import java.util.List;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
+import nl.tudelft.oopp.demo.entities.SpeedLog;
 
 public class Request {
 
@@ -75,6 +76,23 @@ public class Request {
         GenericType<List<ScoringLog>> responseBodyType = new GenericType<List<ScoringLog>>(){};
 
         List<ScoringLog> responseBody = ClientBuilder.newClient()
+                .target(url)
+                .request(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .get(responseBodyType);
+
+        return responseBody;
+    }
+
+    /** Method to get all speedLogs.
+     *
+     * @param url   the url
+     * @return      returns a list of speedLogs.
+     */
+    public static List<SpeedLog> getSpeedVotes(String url) {
+        GenericType<List<SpeedLog>> responseBodyType = new GenericType<List<SpeedLog>>(){};
+
+        List<SpeedLog> responseBody = ClientBuilder.newClient()
                 .target(url)
                 .request(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
