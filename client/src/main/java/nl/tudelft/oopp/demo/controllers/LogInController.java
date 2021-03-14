@@ -10,7 +10,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
-import nl.tudelft.oopp.demo.alerts.Alerts;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Users;
 import nl.tudelft.oopp.demo.views.Display;
@@ -105,6 +104,5 @@ public class LogInController {
     public void signupButtonClicked() throws IOException {
         AnchorPane pane = FXMLLoader.load(getClass().getResource("/register.fxml"));
         rootPane.getChildren().setAll(pane);
-        //System.out.println(Alerts.createAlert("this is a question", 10));
     }
 }

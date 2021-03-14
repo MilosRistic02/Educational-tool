@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import nl.tudelft.oopp.demo.converters.IntegerArrayConverter;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -44,8 +43,7 @@ public class Poll {
      * @param rightAnswer The correct answer of this poll
      * @param question The question for this poll
      */
-    public Poll(@JsonProperty("lecturePin") String lecturePin, @JsonProperty("size") int size,
-                @JsonProperty("rightAnswer") char rightAnswer, @JsonProperty("question") String question) {
+    public Poll(String lecturePin, int size, char rightAnswer, String question) {
         this.lecturePin = lecturePin;
         this.size = size;
         this.rightAnswer = rightAnswer;

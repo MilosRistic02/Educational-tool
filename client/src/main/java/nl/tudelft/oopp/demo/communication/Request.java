@@ -10,28 +10,18 @@ import java.util.List;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
+import nl.tudelft.oopp.demo.entities.SpeedLog;
 
 public class Request {
 
     private static HttpClient client = HttpClient.newBuilder().build();
 
-    public static String get(String url) {
-        GenericType<String> responseBodyType = new GenericType<String>(){};
-
-        String responseBody = ClientBuilder.newClient()
-                .target(url)
-                .request(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .get(responseBodyType);
-
-        return responseBody;
-    }
     /** Method to get questions.
      *
      * @param url   the url
      * @return      returns a list of questions
      */
-    public static List<Question> getQuestions(String url) {
+    public static List<Question> get(String url) {
         GenericType<List<Question>> responseBodyType = new GenericType<List<Question>>(){};
 
         List<Question> responseBody = ClientBuilder.newClient()
@@ -86,6 +76,23 @@ public class Request {
         GenericType<List<ScoringLog>> responseBodyType = new GenericType<List<ScoringLog>>(){};
 
         List<ScoringLog> responseBody = ClientBuilder.newClient()
+                .target(url)
+                .request(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .get(responseBodyType);
+
+        return responseBody;
+    }
+
+    /** Method to get all speedLogs.
+     *
+     * @param url   the url
+     * @return      returns a list of speedLogs.
+     */
+    public static List<SpeedLog> getSpeedVotes(String url) {
+        GenericType<List<SpeedLog>> responseBodyType = new GenericType<List<SpeedLog>>(){};
+
+        List<SpeedLog> responseBody = ClientBuilder.newClient()
                 .target(url)
                 .request(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)

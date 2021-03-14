@@ -1,12 +1,8 @@
 package nl.tudelft.oopp.demo.alerts;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-
-import javafx.scene.control.*;
-
-import javax.swing.text.html.Option;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextInputDialog;
 
 public class Alerts {
 
@@ -52,28 +48,5 @@ public class Alerts {
         textInputDialog.setTitle(title);
         textInputDialog.setContentText(content);
         return textInputDialog.showAndWait();
-    }
-
-    public static Optional<Character> createAlert(String question, int size){
-        /*Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Question");
-        alert.setHeaderText(null);
-        alert.setContentText(question);
-
-        List<ButtonType> buttonList = new ArrayList<>();
-        for(int i = 0; i<size; i++){
-            ButtonType button = new ButtonType(Character.toString('A'+i));
-            buttonList.add(button);
-        }
-        alert.getButtonTypes().setAll(buttonList);
-        return alert.showAndWait().get().getText();*/
-        List<Character> choices = new ArrayList<>();
-        for(int i = 65; i < 65 + size; i++)
-            choices.add((char) i);
-        ChoiceDialog<Character> poll = new ChoiceDialog<>('A', choices);
-        poll.setTitle("Poll");
-        poll.setHeaderText("");
-        poll.setContentText(question);
-        return poll.showAndWait();
     }
 }
