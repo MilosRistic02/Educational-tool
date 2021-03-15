@@ -108,7 +108,7 @@ public class QuestionLecturerController {
      * every 2 seconds.
      * @param users - the current logged user.
      */
-    public void setUsers(Users users, LectureRoom lectureRoom) {
+    public void init(Users users, LectureRoom lectureRoom) {
         this.lectureRoom = lectureRoom;
         this.users = users;
         greetings.setText("Welcome, " + users.getUsername());

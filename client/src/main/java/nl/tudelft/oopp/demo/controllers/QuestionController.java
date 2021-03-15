@@ -197,6 +197,10 @@ public class QuestionController {
         ServerCommunication.speedVote(this.speedLog);
     }
 
+    /**
+     * Action on the logout button and sets the speed to the default.
+     * @throws IOException can throw an exception
+     */
     @FXML
     public void logOut() throws IOException {
         this.speedLog.setSpeed(50);
@@ -204,6 +208,10 @@ public class QuestionController {
         Display.showLogin();
     }
 
+    /**
+     * Action on the change lecture button and sets the speed to the default.
+     * @throws IOException can throw an exception
+     */
     @FXML
     public void changeLecture() throws IOException {
         this.speedLog.setSpeed(50);
