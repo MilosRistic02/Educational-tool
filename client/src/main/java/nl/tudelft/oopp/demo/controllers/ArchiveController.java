@@ -3,6 +3,7 @@ package nl.tudelft.oopp.demo.controllers;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.List;
 
 import javafx.fxml.FXML;
@@ -42,6 +43,8 @@ public class ArchiveController {
 
         LectureRoom room = ServerCommunication.getLectureRoom(lecturePin);
         List<Question> questions = ServerCommunication.getAllQuestion(lecturePin);
+
+        Collections.sort(questions, new QuestionComparator());
         for (Question q : questions) {
             QuestionFormatLecturerComponent questionFormat =
                     new QuestionFormatLecturerComponent(q, user);
@@ -64,6 +67,7 @@ public class ArchiveController {
         stack.getChildren().clear();
         stack.setSpacing(20);
 
+        Collections.sort(rooms, new RoomComparator());
         for (LectureRoom room : rooms) {
             ArchiveFormatComponent archiveFormatComponent = new ArchiveFormatComponent();
 
