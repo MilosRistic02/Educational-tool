@@ -133,24 +133,16 @@ public class QuestionController {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    // one in 10? times, check if room is still open
-                });
-            }
-        }, 0, 5000);
-
-        Timer pollTimerStudent = new Timer();
-        pollTimerStudent.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(() -> {
                     try {
                         refreshPoll();
                     } catch (JsonProcessingException e) {
                         e.printStackTrace();
                     }
+
+                    // one in 10? times, check if room is still open
                 });
             }
-        }, 0, 2000);
+        }, 0, 5000);
     }
 
     private boolean checkRoomClosed() throws IOException {

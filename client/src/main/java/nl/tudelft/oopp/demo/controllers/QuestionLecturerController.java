@@ -179,6 +179,8 @@ public class QuestionLecturerController {
 
         int size = (int) sizeInput;
         Character answer = (char) correctAnswer.getValue();
+
+        closePoll();
         Poll poll = new Poll(lectureRoom.getLecturePin(), size, answer, pollQuestion);
         currentPoll = new ObjectMapper()
                 .readValue(ServerCommunication.createPoll(poll), Poll.class);
@@ -229,6 +231,9 @@ public class QuestionLecturerController {
      * Method for closing a poll.
      */
     public void closePoll() {
+        if (currentPoll == null) {
+            return;
+        }
         pollTimer.cancel();
         closePollButton.setVisible(false);
         currentPoll.setOpen(false);
