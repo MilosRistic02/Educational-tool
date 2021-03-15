@@ -11,6 +11,7 @@ import java.util.TimerTask;
 import javafx.application.Platform;
 
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextField;
@@ -202,6 +203,8 @@ public class QuestionController {
         if (!currentPoll.isOpen()) {
             pollChart.getData().clear();
             pollChart.getData().addAll(set1);
+            pollChart.lookup(".data" + (currentPoll.getRightAnswer() - 65)
+                    + ".chart-bar").setStyle("-fx-bar-fill: green");
             pollChart.setAnimated(false);
         }
     }
