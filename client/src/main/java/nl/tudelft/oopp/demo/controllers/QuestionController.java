@@ -1,15 +1,16 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import javafx.application.Platform;
-
 import javafx.fxml.FXML;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -18,6 +19,7 @@ import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.alerts.Alerts;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
+import nl.tudelft.oopp.demo.entities.Poll;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
 import nl.tudelft.oopp.demo.entities.SpeedLog;
@@ -37,6 +39,12 @@ public class QuestionController {
 
     @FXML
     private Text currentRoom;
+    @FXML
+    private BarChart pollChart;
+
+    private Poll currentPoll;
+
+    private Users users;
 
     @FXML
     private Slider speedSlider;
@@ -129,7 +137,13 @@ public class QuestionController {
         ServerCommunication.speedVote(this.speedLog);
         // change listener added to the slider
         speedSlider.valueProperty()
-                .addListener(((observable, oldValue, newValue) -> updateSlider()));
+                .addListener(((observable, oldValue, newValue) -> {
+                    try {
+                        updateSlider();
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
+                }));
 
         // Update question list every 2 seconds.
         Timer timer = new Timer();
@@ -145,6 +159,12 @@ public class QuestionController {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    try {
+                        refreshPoll();
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
+
                     // one in 10? times, check if room is still open
                 });
             }
@@ -173,7 +193,7 @@ public class QuestionController {
      * message shows what the value means in words.
      */
     @FXML
-    public void updateSlider() {
+    public void updateSlider() throws JsonProcessingException {
         int s = (int) speedSlider.getValue();
         this.speedLog.setSpeed(s);
         selectedSpeed.setVisible(true);
@@ -198,6 +218,14 @@ public class QuestionController {
     }
 
     /**
+     * Setter for LectureRoom.
+     * @param lectureRoom LectureRoom object
+     */
+    public void setLectureRoom(LectureRoom lectureRoom) {
+        this.lectureRoom = lectureRoom;
+    }
+
+    /**
      * Action on the logout button and sets the speed to the default.
      * @throws IOException can throw an exception
      */
@@ -219,4 +247,48 @@ public class QuestionController {
         Display.showStudent(loggedUser);
     }
 
+    /**
+     * Requests the a new poll from the server, updates previous poll results.
+     * @throws JsonProcessingException if json is not processed
+     */
+    public void refreshPoll() throws JsonProcessingException {
+        Poll p = ServerCommunication.getPoll(lectureRoom.getLecturePin());
+
+        if (p != null && !p.equals(currentPoll)) {
+            currentPoll = p;
+            askForVote(p);
+        }
+        if (p == null) {
+            return;
+        }
+        currentPoll = p;
+        int size = currentPoll.getSize();
+        int[] results = currentPoll.getVotes();
+
+        XYChart.Series set1 = new XYChart.Series<>();
+
+        for (int i = 0; i < size; i++) {
+            set1.getData().add(new XYChart.Data(Character.toString((char) (i + 65)), results[i]));
+        }
+        if (!currentPoll.isOpen()) {
+            pollChart.getData().clear();
+            pollChart.getData().addAll(set1);
+            pollChart.lookup(".data" + (currentPoll.getRightAnswer() - 65)
+                    + ".chart-bar").setStyle("-fx-bar-fill: green");
+            pollChart.setAnimated(false);
+        }
+    }
+
+    /**
+     * Creates an alert which contains the poll, sends it to the server.
+     * @param poll Poll object
+     */
+    public void askForVote(Poll poll) {
+        if (poll.isOpen()) {
+            Optional<Character> c = Alerts.createPoll(poll.getQuestion(), poll.getSize());
+            if (!c.isEmpty()) {
+                ServerCommunication.vote(c.get(), poll.getId());
+            }
+        }
+    }
 }

@@ -1,21 +1,30 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import nl.tudelft.oopp.demo.alerts.Alerts;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
+import nl.tudelft.oopp.demo.entities.Poll;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
 import nl.tudelft.oopp.demo.entities.SpeedLog;
@@ -42,10 +51,28 @@ public class QuestionLecturerController {
     @FXML
     private Text selectedSpeed;
 
+    @FXML
+    private TextField pollField;
+
+    @FXML
+    private ChoiceBox numOptions;
+
+    @FXML
+    private ChoiceBox correctAnswer;
+
+    @FXML
+    private BarChart pollChart;
+
+    @FXML
+    private Button closePollButton;
+
     private Users users;
 
     private LectureRoom lectureRoom;
 
+    public Poll currentPoll;
+
+    private Timer pollTimer;
 
     @FXML
     private void displayQuestion() {
@@ -120,16 +147,27 @@ public class QuestionLecturerController {
             public void run() {
                 Platform.runLater(() -> {
                     displayAllQuestion();
-                    updateSlider();
+                    try {
+                        updateSlider();
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
                 });
             }
         }, 0, 2000);
+
+        numOptions.getItems().add("Choose an option");
+        for (int i = 2; i <= 10; i++) {
+            numOptions.getItems().add(i);
+        }
+        numOptions.setValue("Choose an option");
+        numOptions.setOnAction((EventHandler<ActionEvent>) event -> optionPicked());
     }
 
     /**
      * Method to set the slider to the average of the scores in the database.
      */
-    public void updateSlider() {
+    public void updateSlider() throws JsonProcessingException {
         List<SpeedLog> speedLogs = ServerCommunication.speedGetVotes();
 
         double speedScore = 0;
@@ -167,5 +205,103 @@ public class QuestionLecturerController {
             progress.setStyle("-fx-accent: #c3312f;");
             selectedSpeed.setFill(Color.valueOf("#c3312f"));
         }
+    }
+
+    /**
+     * Method that is called when refreshing a poll, refreshes the chart.
+     * @throws JsonProcessingException Thrown when something goes wrong while processing
+     */
+    public void refreshPoll() throws JsonProcessingException {
+        currentPoll = ServerCommunication.getPoll(lectureRoom.getLecturePin());
+
+        int size = currentPoll.getSize();
+        int[] results = currentPoll.getVotes();
+
+        XYChart.Series set1 = new XYChart.Series<>();
+
+        for (int i = 0; i < size; i++) {
+            set1.getData().add(new XYChart.Data(Character.toString((char) (i + 65)), results[i]));
+        }
+        pollChart.getData().clear();
+        pollChart.getData().addAll(set1);
+        pollChart.lookup(".data" + (currentPoll.getRightAnswer() - 65)
+                + ".chart-bar").setStyle("-fx-bar-fill: green");
+        pollChart.setAnimated(false);
+    }
+
+    /**
+     * Method for creating a poll.
+     * @throws JsonProcessingException Thrown when something goes wrong while processing
+     */
+    public void createPoll() throws JsonProcessingException {
+
+        String pollQuestion = pollField.getText();
+        Object sizeInput = numOptions.getValue();
+        if (!(sizeInput instanceof Integer)) {
+            Alerts.alertError("Poll error", "Please pick a size");
+            return;
+        }
+
+        int size = (int) sizeInput;
+        Character answer = (char) correctAnswer.getValue();
+
+        closePoll();
+        Poll poll = new Poll(lectureRoom.getLecturePin(), size, answer, pollQuestion);
+        currentPoll = new ObjectMapper()
+                .readValue(ServerCommunication.createPoll(poll), Poll.class);
+
+        pollTimer = new Timer();
+        pollTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    try {
+                        refreshPoll();
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+        }, 0, 2000);
+
+        pollChart.setAnimated(true);
+        pollChart.getData().clear();
+
+        correctAnswer.setDisable(true);
+        correctAnswer.getItems().clear();
+        numOptions.setValue("Choose an option");
+        pollField.setText("");
+        closePollButton.setVisible(true);
+    }
+
+    /**
+     * Triggered when an option for the number of answers in the poll is picked.
+     */
+    public void optionPicked() {
+        Object input = numOptions.getValue();
+        correctAnswer.getItems().clear();
+        if (!(numOptions.getValue() instanceof Integer)) {
+            correctAnswer.setDisable(true);
+            return;
+        }
+        int n = (int) input;
+        for (int i = 65; i < n + 65; i++) {
+            correctAnswer.getItems().add((char) i);
+        }
+        correctAnswer.setDisable(false);
+        correctAnswer.setValue('A');
+    }
+
+    /**
+     * Method for closing a poll.
+     */
+    public void closePoll() {
+        if (currentPoll == null) {
+            return;
+        }
+        pollTimer.cancel();
+        closePollButton.setVisible(false);
+        currentPoll.setOpen(false);
+        ServerCommunication.closePoll(currentPoll);
     }
 }
