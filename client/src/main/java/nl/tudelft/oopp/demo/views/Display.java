@@ -46,8 +46,7 @@ public class Display extends Application {
         Pair<FXMLLoader, Parent> recourse = load("/question.fxml");
 
         QuestionController questionController = recourse.getKey().getController();
-        questionController.setLectureRoom(lectureRoom);
-        questionController.setUsers(users);
+        questionController.init(users, lectureRoom);
 
         primaryStage.setScene(new Scene(recourse.getValue()));
         primaryStage.show();
@@ -66,8 +65,7 @@ public class Display extends Application {
         Pair<FXMLLoader, Parent> recourse = load("/questionLecturer.fxml");
 
         QuestionLecturerController questionLecturerController = recourse.getKey().getController();
-        questionLecturerController.setLectureRoom(lectureRoom);
-        questionLecturerController.setUsers(users);
+        questionLecturerController.init(users, lectureRoom);
 
         primaryStage.setScene(new Scene(recourse.getValue()));
         primaryStage.show();

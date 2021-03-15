@@ -118,12 +118,13 @@ public class QuestionController {
      * every 2 seconds.
      * @param users - the current logged user.
      */
-    public void setUsers(Users users) {
+    public void init(Users users, LectureRoom lectureRoom) {
+        this.lectureRoom = lectureRoom;
         this.loggedUser = users;
         greetings.setText("Welcome, " + users.getUsername());
         currentRoom.setText("You are in lecture " + lectureRoom.getLecturePin());
         // set the speed log to 0
-        this.speedLog = new SpeedLog(this.loggedUser, this.lectureRoom, 0);
+        this.speedLog = new SpeedLog(this.loggedUser, this.lectureRoom, 50);
         // send speedlog to the server to reset any old values
         ServerCommunication.speedVote(this.speedLog);
         // change listener added to the slider
@@ -166,10 +167,6 @@ public class QuestionController {
         return closed;
     }
 
-    public void setLectureRoom(LectureRoom lectureRoom) {
-        this.lectureRoom = lectureRoom;
-    }
-
     /**
      * The value selected by the current logged user for
      * the pace of the lecture is sent to the database. A
@@ -202,11 +199,15 @@ public class QuestionController {
 
     @FXML
     public void logOut() throws IOException {
+        this.speedLog.setSpeed(50);
+        ServerCommunication.speedVote(this.speedLog);
         Display.showLogin();
     }
 
     @FXML
     public void changeLecture() throws IOException {
+        this.speedLog.setSpeed(50);
+        ServerCommunication.speedVote(this.speedLog);
         Display.showStudent(loggedUser);
     }
 
