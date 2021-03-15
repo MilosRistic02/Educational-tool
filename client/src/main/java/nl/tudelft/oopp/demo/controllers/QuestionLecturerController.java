@@ -162,6 +162,8 @@ public class QuestionLecturerController {
         }
         pollChart.getData().clear();
         pollChart.getData().addAll(set1);
+        pollChart.lookup(".data" + (currentPoll.getRightAnswer() - 65)
+                + ".chart-bar").setStyle("-fx-bar-fill: green");
         pollChart.setAnimated(false);
     }
 
@@ -170,6 +172,7 @@ public class QuestionLecturerController {
      * @throws JsonProcessingException Thrown when something goes wrong while processing
      */
     public void createPoll() throws JsonProcessingException {
+
         String pollQuestion = pollField.getText();
         Object sizeInput = numOptions.getValue();
         if (!(sizeInput instanceof Integer)) {
@@ -179,6 +182,7 @@ public class QuestionLecturerController {
 
         int size = (int) sizeInput;
         Character answer = (char) correctAnswer.getValue();
+
         Poll poll = new Poll(lectureRoom.getLecturePin(), size, answer, pollQuestion);
         currentPoll = new ObjectMapper()
                 .readValue(ServerCommunication.createPoll(poll), Poll.class);
