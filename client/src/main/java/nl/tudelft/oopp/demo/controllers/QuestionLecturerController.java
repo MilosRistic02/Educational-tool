@@ -1,8 +1,6 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
@@ -10,6 +8,8 @@ import java.util.TimerTask;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -18,6 +18,7 @@ import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
+import nl.tudelft.oopp.demo.entities.SpeedLog;
 import nl.tudelft.oopp.demo.entities.Users;
 import nl.tudelft.oopp.demo.views.Display;
 
@@ -31,6 +32,15 @@ public class QuestionLecturerController {
 
     @FXML
     private Text greetings;
+
+    @FXML
+    private Slider speedSlider;
+
+    @FXML
+    private ProgressBar progress;
+
+    @FXML
+    private Text selectedSpeed;
 
     private Users users;
 
@@ -98,22 +108,64 @@ public class QuestionLecturerController {
      * every 2 seconds.
      * @param users - the current logged user.
      */
-    public void setUsers(Users users) {
+    public void init(Users users, LectureRoom lectureRoom) {
+        this.lectureRoom = lectureRoom;
         this.users = users;
-        greetings.setText("Welcome, " + users.getUsername()
-                + " you are in room: " + lectureRoom.getLecturePin());
+        greetings.setText("Welcome, " + users.getUsername());
 
         // Update question list every 2 seconds.
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                Platform.runLater(() -> displayAllQuestion());
+                Platform.runLater(() -> {
+                    displayAllQuestion();
+                    updateSlider();
+                });
             }
         }, 0, 2000);
     }
 
-    public void setLectureRoom(LectureRoom lectureRoom) {
-        this.lectureRoom = lectureRoom;
+    /**
+     * Method to set the slider to the average of the scores in the database.
+     */
+    public void updateSlider() {
+        List<SpeedLog> speedLogs = ServerCommunication.speedGetVotes();
+
+        double speedScore = 0;
+        int speedLenght = 0;
+        for (SpeedLog speedLog : speedLogs) {
+            if (speedLog.getLectureRoom().getLecturePin().equals(lectureRoom.getLecturePin())) {
+                speedScore += speedLog.getSpeed();
+                speedLenght++;
+            }
+        }
+
+        speedScore = speedScore / speedLenght;
+        progress.setProgress(speedScore / 100);
+        selectedSpeed.setVisible(true);
+        progress.setVisible(true);
+
+        if (speedScore <= 15) {
+            selectedSpeed.setText("Your pace is very slow");
+            progress.setStyle("-fx-accent: #00b7d3;");
+            selectedSpeed.setFill(Color.valueOf("#00b7d3"));
+        } else if (speedScore <= 35) {
+            selectedSpeed.setText("Your pace is slow");
+            progress.setStyle("-fx-accent: #00a390;");
+            selectedSpeed.setFill(Color.valueOf("#00a390"));
+        } else if (speedScore <= 65) {
+            selectedSpeed.setText("Your pace is okay");
+            progress.setStyle("-fx-accent: #99d28c;");
+            selectedSpeed.setFill(Color.valueOf("#99d28c"));
+        } else if (speedScore <= 85) {
+            selectedSpeed.setText("Your pace is fast");
+            progress.setStyle("-fx-accent: #f1be3e;");
+            selectedSpeed.setFill(Color.valueOf("#f1be3e"));
+        } else {
+            selectedSpeed.setText("Your pace is very fast");
+            progress.setStyle("-fx-accent: #c3312f;");
+            selectedSpeed.setFill(Color.valueOf("#c3312f"));
+        }
     }
 }

@@ -10,15 +10,17 @@ import java.util.TimerTask;
 import javafx.application.Platform;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.alerts.Alerts;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
+import nl.tudelft.oopp.demo.entities.SpeedLog;
 import nl.tudelft.oopp.demo.entities.Users;
 import nl.tudelft.oopp.demo.views.Display;
 
@@ -33,9 +35,20 @@ public class QuestionController {
     @FXML
     private Text greetings;
 
-    private Users users;
+    @FXML
+    private Text currentRoom;
+
+    @FXML
+    private Slider speedSlider;
+
+    @FXML
+    private Text selectedSpeed;
+
+    private Users loggedUser;
 
     private LectureRoom lectureRoom;
+
+    private SpeedLog speedLog;
 
 
     @FXML
@@ -49,7 +62,7 @@ public class QuestionController {
         } else {
             Question q = new Question(questionText.getText(),
                     lectureRoom.getLecturePin(),
-                    users.getUsername());
+                    loggedUser.getUsername());
 
             ServerCommunication.saveQuestion(q);
             questionText.clear();
@@ -81,10 +94,10 @@ public class QuestionController {
             // Create a new generic question format and fill it with
             // the specific information of the current question.
             QuestionFormatComponent questionFormatComponent =
-                    new QuestionFormatComponent(q, users);
+                    new QuestionFormatComponent(q, loggedUser);
 
             Optional<ScoringLog> scoringLog = votes.stream()
-                    .filter(x -> x.getQuestion().equals(q) && x.getUsers().equals(users))
+                    .filter(x -> x.getQuestion().equals(q) && x.getUsers().equals(loggedUser))
                     .findFirst();
 
             if (!scoringLog.isEmpty()) {
@@ -105,10 +118,18 @@ public class QuestionController {
      * every 2 seconds.
      * @param users - the current logged user.
      */
-    public void setUsers(Users users) {
-        this.users = users;
-        greetings.setText("Welcome, " + users.getUsername()
-                + " you are in room: " + lectureRoom.getLecturePin());
+    public void init(Users users, LectureRoom lectureRoom) {
+        this.lectureRoom = lectureRoom;
+        this.loggedUser = users;
+        greetings.setText("Welcome, " + users.getUsername());
+        currentRoom.setText("You are in lecture " + lectureRoom.getLecturePin());
+        // set the speed log to 0
+        this.speedLog = new SpeedLog(this.loggedUser, this.lectureRoom, 50);
+        // send speedlog to the server to reset any old values
+        ServerCommunication.speedVote(this.speedLog);
+        // change listener added to the slider
+        speedSlider.valueProperty()
+                .addListener(((observable, oldValue, newValue) -> updateSlider()));
 
         // Update question list every 2 seconds.
         Timer timer = new Timer();
@@ -137,17 +158,65 @@ public class QuestionController {
         if (!room.isOpen()) {
             closed = true;
             Alerts.alertInfo("Lecture has ended", "You are redirected to the lobby");
-            if (this.users.getRole().equals("lecturer")) {
-                Display.showLecturer(users);
+            if (this.loggedUser.getRole().equals("lecturer")) {
+                Display.showLecturer(loggedUser);
             } else {
-                Display.showStudent(users);
+                Display.showStudent(loggedUser);
             }
         }
         return closed;
     }
 
-    public void setLectureRoom(LectureRoom lectureRoom) {
-        this.lectureRoom = lectureRoom;
+    /**
+     * The value selected by the current logged user for
+     * the pace of the lecture is sent to the database. A
+     * message shows what the value means in words.
+     */
+    @FXML
+    public void updateSlider() {
+        int s = (int) speedSlider.getValue();
+        this.speedLog.setSpeed(s);
+        selectedSpeed.setVisible(true);
+
+        if (s <= 15) {
+            selectedSpeed.setText("Very Slow");
+            selectedSpeed.setFill(Color.valueOf("#00b7d3"));
+        } else if (s <= 35) {
+            selectedSpeed.setText("Slow");
+            selectedSpeed.setFill(Color.valueOf("#00a390"));
+        } else if (s <= 65) {
+            selectedSpeed.setText("Okay");
+            selectedSpeed.setFill(Color.valueOf("#99d28c"));
+        } else if (s <= 85) {
+            selectedSpeed.setText("Fast");
+            selectedSpeed.setFill(Color.valueOf("#f1be3e"));
+        } else {
+            selectedSpeed.setText("Very fast");
+            selectedSpeed.setFill(Color.valueOf("#c3312f"));
+        }
+        ServerCommunication.speedVote(this.speedLog);
+    }
+
+    /**
+     * Action on the logout button and sets the speed to the default.
+     * @throws IOException can throw an exception
+     */
+    @FXML
+    public void logOut() throws IOException {
+        this.speedLog.setSpeed(50);
+        ServerCommunication.speedVote(this.speedLog);
+        Display.showLogin();
+    }
+
+    /**
+     * Action on the change lecture button and sets the speed to the default.
+     * @throws IOException can throw an exception
+     */
+    @FXML
+    public void changeLecture() throws IOException {
+        this.speedLog.setSpeed(50);
+        ServerCommunication.speedVote(this.speedLog);
+        Display.showStudent(loggedUser);
     }
 
 }
