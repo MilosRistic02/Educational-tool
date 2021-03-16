@@ -8,13 +8,13 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="823.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.QuestionController">
+<AnchorPane prefHeight="823.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.QuestionController">
    <children>
       <Button layoutX="911.0" layoutY="317.0" mnemonicParsing="false" onAction="#displayQuestion" prefHeight="31.0" prefWidth="49.0" style="-fx-background-color: #00A6D6;" text="Send" textFill="WHITE" />
       <TextField fx:id="questionText" layoutX="912.0" layoutY="233.0" prefHeight="74.0" prefWidth="244.0" promptText="Write your question here." />
-      <Pane layoutX="13.0" layoutY="25.0" prefHeight="699.0" prefWidth="876.0" style="-fx-background-color: #00A6D6; -fx-background-radius: 18;">
+      <Pane fx:id="list" layoutX="13.0" layoutY="25.0" prefHeight="699.0" prefWidth="876.0" style="-fx-background-color: #00A6D6; -fx-background-radius: 18;">
          <children>
-            <Text fill="WHITE" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Questions" textAlignment="CENTER" wrappingWidth="876.0">
+            <Text fx:id="listTitle" fill="WHITE" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Questions" textAlignment="CENTER" wrappingWidth="876.0">
                <font>
                   <Font size="50.0" />
                </font>
@@ -24,6 +24,10 @@
                   <VBox fx:id="stack" alignment="CENTER" prefHeight="607.0" prefWidth="874.0" style="-fx-background-color: #FFFFFF;" />
                </content>
             </ScrollPane>
+            <ToggleButton fx:id="changeList" layoutX="758.0" layoutY="21.0" mnemonicParsing="false" style="-fx-background-color: #99d28c#99d28c;" text="answers" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font></ToggleButton>
          </children>
       </Pane>
       <Text fx:id="greetings" layoutX="910.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome, [username]" textAlignment="CENTER" wrappingWidth="238.0">
@@ -61,10 +65,10 @@
          </font>
       </Text>
       <ImageView fitHeight="24.0" fitWidth="28.0" layoutX="908.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true">
-         <Image url="images/zzz-sleep-symbol.png"/>
+         <Image url="@images/zzz-sleep-symbol.png" />
       </ImageView>
       <ImageView fitHeight="24.0" fitWidth="28.0" layoutX="1127.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true">
-         <Image url="images/speedometer.png"/>
+         <Image url="@images/speedometer.png" />
       </ImageView>
       <Text fx:id="currentRoom" layoutX="910.0" layoutY="381.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lecture, [lecturePin]" textAlignment="CENTER" wrappingWidth="238.0">
          <font>

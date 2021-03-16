@@ -110,6 +110,14 @@ public class QuestionService {
         return questionRepository.getAllByLecturePin(id);
     }
 
+    public List<Question> getAllAnsweredQuestions(String lecturePin) {
+        return questionRepository.getAllByAnsweredTrueAndLecturePin(lecturePin);
+    }
+
+    public List<Question> getAllNonAnsweredQuestions(String lecturePin) {
+        return questionRepository.getAllByAnsweredFalseAndLecturePin(lecturePin);
+    }
+
     /**
      * Adds a question to the database.
      *

@@ -13,6 +13,8 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -41,6 +43,15 @@ public class QuestionController {
     private Text currentRoom;
     @FXML
     private BarChart pollChart;
+
+    @FXML
+    private ToggleButton changeList;
+
+    @FXML
+    private Pane list;
+
+    @FXML
+    private Text listTitle;
 
     private Poll currentPoll;
 
@@ -80,7 +91,24 @@ public class QuestionController {
 
     @FXML
     private void displayAllQuestion() {
-        List<Question> qs = ServerCommunication.getAllQuestion(lectureRoom.getLecturePin());
+        List<Question> qs = null;
+        if (changeList.isSelected()) {
+            qs = ServerCommunication.getAllAnsweredQuestions(lectureRoom.getLecturePin());
+            changeList.setText("questions");
+            changeList.setStyle("-fx-background-color: #00A6D6;");
+            listTitle.setText("Answers");
+            list.setStyle("-fx-background-color: #99d28c;"
+                            + "-fx-background-radius: 18;");
+
+        } else {
+            qs = ServerCommunication.getAllNonAnsweredQuestions(lectureRoom.getLecturePin());
+            changeList.setText("answers");
+            changeList.setStyle("-fx-background-color: #99d28c");
+            listTitle.setText("Questions");
+            list.setStyle("-fx-background-color: #00A6D6;"
+                    + "-fx-background-radius: 18;");
+        }
+
         List<ScoringLog> votes = ServerCommunication.getVotes();
 
         stack.getChildren().clear();

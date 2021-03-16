@@ -48,6 +48,18 @@ public class QuestionController {
         return questionService.getAllQuestions(id);
     }
 
+    @GetMapping("/get-all/answered/{lecturePin}")
+    @ResponseBody
+    public List<Question> getAllAnsweredQuestions(@PathVariable String lecturePin) {
+        return questionService.getAllAnsweredQuestions(lecturePin);
+    }
+
+    @GetMapping("/get-all/non-answered/{lecturePin}")
+    @ResponseBody
+    public List<Question> getAllNonAnsweredQuestions(@PathVariable String lecturePin) {
+        return questionService.getAllNonAnsweredQuestions(lecturePin);
+    }
+
     /**
      * Controller for saving a question in the database.
      * @param question the question to save

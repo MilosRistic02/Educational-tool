@@ -31,7 +31,7 @@ public class Question {
     @CreationTimestamp
     private Date creationDate;
 
-    private boolean isAnswered;
+    private boolean answered;
 
     private String lecturePin;
 
@@ -99,7 +99,7 @@ public class Question {
      * @return true when the question has an answer, false otherwise
      */
     public boolean isAnswered() {
-        return isAnswered;
+        return answered;
     }
 
     /**
@@ -153,7 +153,7 @@ public class Question {
      * @param answered boolean to indicate if a question is answered
      */
     public void setAnswered(boolean answered) {
-        isAnswered = answered;
+        this.answered = answered;
     }
 
     /**
@@ -163,7 +163,7 @@ public class Question {
      */
     public void setAnswer(String answer) {
         this.answer = answer;
-        this.isAnswered = true;
+        this.answered = true;
     }
 
     /**

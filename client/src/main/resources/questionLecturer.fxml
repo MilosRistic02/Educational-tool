@@ -40,10 +40,10 @@
       </Text>
       <Button layoutX="1055.0" layoutY="692.0" mnemonicParsing="false" onAction="#closeRoom" prefHeight="31.0" prefWidth="93.0" style="-fx-background-color: #00A6D6;" text="Close room" textFill="WHITE" />
       <ImageView fitHeight="24.0" fitWidth="28.0" layoutX="893.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true" visible="true">
-                  <Image url="images/zzz-sleep-symbol.png"/>
+                  <Image url="@images/zzz-sleep-symbol.png"/>
       </ImageView>
       <ImageView fitHeight="24.0" fitWidth="28.0" layoutX="1131.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true" visible="true">
-                  <Image url="images/speedometer.png"/>
+                  <Image url="@images/speedometer.png"/>
       </ImageView>
       <ProgressBar fx:id="progress" layoutX="893.0" layoutY="128.0" prefHeight="24.0" prefWidth="264.0" progress="0.0" visible="false" />
       <Text fx:id="selectedSpeed" layoutX="925.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[selected speed]" textAlignment="CENTER" visible="false" wrappingWidth="202.8056640625">

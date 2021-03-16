@@ -45,21 +45,21 @@
          <ToggleButton fx:id="like" layoutX="14.0" layoutY="1.0" mnemonicParsing="false" onAction="#upvote" opacity="0.4" prefHeight="41.0" prefWidth="39.0" style="-fx-background-color: #FFFFFF;">
             <graphic>
                <ImageView fitHeight="17.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: #FFFFFF;">
-             <Image url="images/thumb-up.png"></Image>
+             <Image url="@images/thumb-up.png"></Image>
          </ImageView>
             </graphic>
          </ToggleButton>
          <ToggleButton fx:id="dislike" layoutX="99.0" layoutY="1.0" mnemonicParsing="false" onAction="#downvote" opacity="0.4" prefHeight="41.0" prefWidth="41.0" style="-fx-background-color: #FFFFFF;">
             <graphic>
                 <ImageView fitHeight="17.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-              <Image url="images/thumb-down.png"></Image>
+              <Image url="@images/thumb-down.png"></Image>
           </ImageView>
             </graphic>
          </ToggleButton>
          <Button fx:id="delete" disable="true" layoutX="550.0" layoutY="4.0" mnemonicParsing="false" onAction="#delete" prefHeight="41.0" prefWidth="43.0" style="-fx-background-color: #FFFFFF;" visible="false">
             <graphic>
                <ImageView disable="true" fitHeight="22.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
-             <Image url="images/delete-bin.png"></Image>
+             <Image url="@images/delete-bin.png"></Image>
          </ImageView>
             </graphic>
          </Button>

@@ -40,6 +40,13 @@ public class ServerCommunication extends Request {
         return getQuestions("http://localhost:8080/question/get-all/" + lectureRoom);
     }
 
+    public static List<Question> getAllAnsweredQuestions(String lecturePin) {
+        return getQuestions("http://localhost:8080/question/get-all/answered/" + lecturePin);
+    }
+
+    public static List<Question> getAllNonAnsweredQuestions(String lecturePin) {
+        return getQuestions("http://localhost:8080/question/get-all/non-answered/" + lecturePin);
+    }
 
     /**
      * Sends the user information to the server via a post request.

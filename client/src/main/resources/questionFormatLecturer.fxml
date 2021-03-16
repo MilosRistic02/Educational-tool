@@ -45,7 +45,7 @@
          <Button fx:id="delete" layoutX="491.0" layoutY="3.0" mnemonicParsing="false" onAction="#delete" prefHeight="41.0" prefWidth="43.0" style="-fx-background-color: #FFFFFF;">
             <graphic>
                <ImageView fitHeight="22.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
-                   <Image url="images/delete-bin.png"></Image>
+                   <Image url="@images/delete-bin.png"></Image>
                </ImageView>
             </graphic>
          </Button>
@@ -58,7 +58,7 @@
          <Button fx:id="editQuestion" layoutX="548.0" layoutY="2.0" mnemonicParsing="false" onAction="#editQuestion" prefHeight="41.0" prefWidth="43.0" style="-fx-background-color: #FFFFFF;">
             <graphic>
                 <ImageView fitHeight="24.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                    <Image url="images/pencil.png"></Image>
+                    <Image url="@images/pencil.png"></Image>
                 </ImageView>
             </graphic></Button>
          <VBox.margin>
