@@ -28,6 +28,7 @@ public class ArchiveController {
     @FXML
     private Label emptyArchive;
 
+
     @FXML
     private Text title;
 
@@ -44,13 +45,13 @@ public class ArchiveController {
      */
     @FXML
     public void showArchive(String lecturePin) {
+        emptyArchive.setVisible(false);
         archiveView = true;
         title.setText("Archive of room " + lecturePin);
         stack.getChildren().clear();
         stack.setSpacing(20);
 
         List<Question> questions = ServerCommunication.getAllQuestion(lecturePin);
-
 
 
         if (questions.isEmpty()) {
@@ -74,7 +75,7 @@ public class ArchiveController {
      * Displays all of the rooms closed by the lecturer in the archive.
      */
     public void showPins() {
-        //emptyArchive.setVisible(false);
+        emptyArchive.setVisible(false);
         archiveView = false;
         title.setText("Archive");
         this.rooms =  ServerCommunication.getClosedLecturePins(this.user.getUsername());

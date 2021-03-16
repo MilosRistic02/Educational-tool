@@ -18,11 +18,6 @@
                     <content>
                         <VBox fx:id="stack" alignment="CENTER" prefHeight="607.0" prefWidth="874.0" style="-fx-background-color: #FFFFFF;">
                      <children>
-                        <Label fx:id="emptyArchive" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="138.0" prefWidth="304.0" text="Archive is empty!" visible="true">
-                           <font>
-                              <Font size="30.0" />
-                           </font>
-                        </Label>
                      </children></VBox>
                     </content>
                 </ScrollPane>
@@ -31,6 +26,11 @@
                         <Image url="@images/back_button_white.png" />
                     </image>
                 </ImageView>
+                <Label fx:id="emptyArchive" alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="286.0" layoutY="-212.0" prefHeight="509.0" prefWidth="304.0" text="Archive is empty!" visible="true">
+                    <font>
+                        <Font size="30.0" />
+                    </font>
+                </Label>
             </children>
         </Pane>
     </children>
