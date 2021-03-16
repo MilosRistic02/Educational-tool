@@ -6,12 +6,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
+
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import nl.tudelft.oopp.demo.alerts.Alerts;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
@@ -49,13 +51,19 @@ public class LobbyController {
     @FXML
     Label wrongDate;
 
-    private Users users;
+    @FXML
+    Label pastDate;
 
-    // TODO
-    // Show archive
-    // close lecture
-    // schedule lecture
-    // validate input everywhere
+    @FXML
+    ImageView backToLobby;
+
+    @FXML
+    Button logOutStudent;
+
+    @FXML
+    Button logOutLecturer;
+
+    private Users users;
 
     /**
      * Redirects the user to the next scene, where they can enter courseID.
@@ -64,7 +72,6 @@ public class LobbyController {
      */
     @FXML
     public void showLobbyCreateRoom() throws IOException {
-        System.out.println(new Date());
         Display.showLobbyCreateRoom(users);
     }
 
@@ -132,6 +139,15 @@ public class LobbyController {
             startingDate.requestFocus();
             return null;
         }
+        Date currentDate = new Date();
+        if (lectureStartingTime.compareTo(currentDate) < 0) {
+            pastDate.setVisible(true);
+            startingDate.setValue(null);
+            startingDate.requestFocus();
+            return null;
+        }
+
+        pastDate.setVisible(false);
         wrongDate.setVisible(false);
         return lectureStartingTime;
     }
@@ -163,6 +179,17 @@ public class LobbyController {
     @FXML
     public void joinLobby() throws IOException {
         Display.showStudent(users);
+    }
+
+    @FXML
+    public void showBackButton() {
+        logOutStudent.setVisible(false);
+        backToLobby.setVisible(true);
+    }
+
+    @FXML
+    public void logOut() throws IOException {
+        Display.showLogin();
     }
 
     /**

@@ -100,6 +100,10 @@ public class Display extends Application {
         LobbyController lobbyController = recourse.getKey().getController();
         lobbyController.setUsers(users);
 
+        if (users.getRole().equals("lecturer")) {
+            lobbyController.showBackButton();
+        }
+
         primaryStage.setScene(new Scene(recourse.getValue()));
         primaryStage.show();
     }

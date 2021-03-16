@@ -21,5 +21,10 @@
             <Font size="26.0" />
          </font>
       </Button>
+      <Button fx:id="logOutLecturer" layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#logOut" prefHeight="34.0" prefWidth="82.0" style="-fx-background-color: #00A6D6;" text="Log out" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
