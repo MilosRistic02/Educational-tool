@@ -7,10 +7,10 @@ import java.util.Collections;
 import java.util.List;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Question;
@@ -25,11 +25,18 @@ public class ArchiveController {
     @FXML
     private VBox stack;
 
+    @FXML
+    private Label emptyArchive;
+
+    @FXML
+    private Text title;
+
     private Users user;
 
     private List<LectureRoom> rooms;
 
     private boolean archiveView;
+
 
     /**
      * Opens a closed lecture in the archive view.
@@ -38,11 +45,17 @@ public class ArchiveController {
     @FXML
     public void showArchive(String lecturePin) {
         archiveView = true;
+        title.setText("Archive of room " + lecturePin);
         stack.getChildren().clear();
         stack.setSpacing(20);
 
-        LectureRoom room = ServerCommunication.getLectureRoom(lecturePin);
         List<Question> questions = ServerCommunication.getAllQuestion(lecturePin);
+
+
+
+        if (questions.isEmpty()) {
+            emptyArchive.setVisible(true);
+        }
 
         Collections.sort(questions, new QuestionComparator());
         for (Question q : questions) {
@@ -61,7 +74,9 @@ public class ArchiveController {
      * Displays all of the rooms closed by the lecturer in the archive.
      */
     public void showPins() {
+        //emptyArchive.setVisible(false);
         archiveView = false;
+        title.setText("Archive");
         this.rooms =  ServerCommunication.getClosedLecturePins(this.user.getUsername());
 
         stack.getChildren().clear();

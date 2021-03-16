@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.GridPane;
 
 public class Alerts {
 
@@ -32,6 +34,28 @@ public class Alerts {
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    /**
+     * Generic method to create a new information-alert with copyable content.
+     * @param title String with the title of the new alert
+     * @param content String with the content of the new alert
+     * @param width int with de width of the content
+     * @param height int with de height of the content
+     */
+    public static void alertInfoCopyAble(String title, String content, int width, int height) {
+        TextArea textArea = new TextArea(content);
+        textArea.setMaxSize(width, height);
+        textArea.setEditable(false);
+        textArea.setWrapText(true);
+        GridPane gridPane = new GridPane();
+        gridPane.setMaxSize(width, height);
+        gridPane.add(textArea, 0, 0);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.getDialogPane().setContent(gridPane);
         alert.showAndWait();
     }
 
@@ -71,4 +95,5 @@ public class Alerts {
         poll.setContentText(question);
         return poll.showAndWait();
     }
+
 }

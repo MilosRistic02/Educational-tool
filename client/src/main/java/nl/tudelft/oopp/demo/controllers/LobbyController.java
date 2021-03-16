@@ -1,13 +1,16 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import javafx.fxml.FXML;
+<<<<<<< HEAD
 
 import javafx.scene.control.Button;
+=======
+>>>>>>> aae5bdc9695cd34a5eb05fd8dac8c46582b0a49f
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -119,9 +122,11 @@ public class LobbyController {
             Alerts.alertError("Too many rooms", response);
         } else {
             lectureRoom.setLecturePin(response);
-            Alerts.alertInfo("Lecture pin", "Your lecture pin is: " + response);
+            Alerts.alertInfoCopyAble("Lecture pin", "Your lecture pin is: " + response, 300, 25);
             if (scheduleChoice.equals("Now")) {
                 Display.showQuestionLecturer(users, lectureRoom);
+            } else {
+                Display.showLecturer(users);
             }
         }
     }
