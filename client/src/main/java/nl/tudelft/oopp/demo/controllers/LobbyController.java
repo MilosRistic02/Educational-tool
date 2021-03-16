@@ -6,11 +6,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javafx.fxml.FXML;
-<<<<<<< HEAD
 
 import javafx.scene.control.Button;
-=======
->>>>>>> aae5bdc9695cd34a5eb05fd8dac8c46582b0a49f
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
