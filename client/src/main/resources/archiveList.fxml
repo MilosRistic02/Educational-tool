@@ -9,14 +9,21 @@
     <children>
         <Pane layoutY="20.0" prefHeight="699.0" prefWidth="876.0" style="-fx-background-color: #00A6D6; -fx-background-radius: 18;">
             <children>
-                <Text fill="WHITE" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Archive" textAlignment="CENTER" wrappingWidth="876.0">
+                <Text fx:id="title" fill="WHITE" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Archive of room [pin]" textAlignment="CENTER" wrappingWidth="876.0">
                     <font>
                         <Font size="50.0" />
                     </font>
                 </Text>
                 <ScrollPane hbarPolicy="NEVER" layoutY="75.0">
                     <content>
-                        <VBox fx:id="stack" alignment="CENTER" prefHeight="607.0" prefWidth="874.0" style="-fx-background-color: #FFFFFF;" />
+                        <VBox fx:id="stack" alignment="CENTER" prefHeight="607.0" prefWidth="874.0" style="-fx-background-color: #FFFFFF;">
+                     <children>
+                        <Label fx:id="emptyArchive" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="138.0" prefWidth="304.0" text="Archive is empty!" visible="true">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Label>
+                     </children></VBox>
                     </content>
                 </ScrollPane>
                 <ImageView fitHeight="45.0" fitWidth="54.0" layoutX="10.0" layoutY="12.0" onMouseClicked="#loadLobbyLecturer" pickOnBounds="true" preserveRatio="true">
