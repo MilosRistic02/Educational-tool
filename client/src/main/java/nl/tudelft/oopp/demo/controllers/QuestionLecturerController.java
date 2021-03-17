@@ -200,10 +200,12 @@ public class QuestionLecturerController {
             selectedSpeed.setText("Your pace is fast");
             progress.setStyle("-fx-accent: #f1be3e;");
             selectedSpeed.setFill(Color.valueOf("#f1be3e"));
-        } else {
+        } else if (speedScore > 85) {
             selectedSpeed.setText("Your pace is very fast");
             progress.setStyle("-fx-accent: #c3312f;");
             selectedSpeed.setFill(Color.valueOf("#c3312f"));
+        } else {
+            progress.setVisible(false);
         }
     }
 
