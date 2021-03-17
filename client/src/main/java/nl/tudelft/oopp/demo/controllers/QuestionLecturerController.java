@@ -152,6 +152,14 @@ public class QuestionLecturerController {
                     } catch (JsonProcessingException e) {
                         e.printStackTrace();
                     }
+                    try {
+                        if (checkRoomClosed()) {
+                            timer.cancel();
+                            Alerts.alertInfo("Lecture has ended", "You are redirected to the lobby");
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 });
             }
         }, 0, 2000);
@@ -207,6 +215,21 @@ public class QuestionLecturerController {
         } else {
             progress.setVisible(false);
         }
+    }
+
+    private boolean checkRoomClosed() throws IOException {
+        boolean closed = false;
+        LectureRoom room = ServerCommunication.getLectureRoom(this.lectureRoom.getLecturePin());
+
+        if (!room.isOpen()) {
+            closed = true;
+            if (this.users.getRole().equals("lecturer")) {
+                Display.showLecturer(users);
+            } else {
+                Display.showStudent(users);
+            }
+        }
+        return closed;
     }
 
     /**

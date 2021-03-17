@@ -183,6 +183,7 @@ public class QuestionController {
                     try {
                         if (checkRoomClosed()) {
                             timer.cancel();
+                            Alerts.alertInfo("Lecture has ended", "You are redirected to the lobby");
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -192,11 +193,9 @@ public class QuestionController {
                     } catch (JsonProcessingException e) {
                         e.printStackTrace();
                     }
-
-                    // one in 10? times, check if room is still open
                 });
             }
-        }, 0, 5000);
+        }, 0, 2000);
     }
 
     private boolean checkRoomClosed() throws IOException {
@@ -205,7 +204,6 @@ public class QuestionController {
 
         if (!room.isOpen()) {
             closed = true;
-            Alerts.alertInfo("Lecture has ended", "You are redirected to the lobby");
             if (this.loggedUser.getRole().equals("lecturer")) {
                 Display.showLecturer(loggedUser);
             } else {
