@@ -155,7 +155,8 @@ public class QuestionLecturerController {
                     try {
                         if (checkRoomClosed()) {
                             timer.cancel();
-                            Alerts.alertInfo("Lecture has ended", "You are redirected to the lobby");
+                            Alerts.alertInfo("Lecture has ended",
+                                    "You are redirected to the lobby");
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
