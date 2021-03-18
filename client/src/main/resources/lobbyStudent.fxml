@@ -5,22 +5,22 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.LobbyController">
+<AnchorPane fx:id="rootPane" prefHeight="823.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.LobbyController">
    <children>
-      <Label layoutX="64.0" layoutY="111.0" prefHeight="64.0" prefWidth="430.0" text="Enter a lecture pin to join a lecture room" textAlignment="CENTER">
+      <Pane layoutY="-3.0" prefHeight="823.0" prefWidth="300.0" style="-fx-background-color: #00A6D6;" />
+      <TextField fx:id="pinText" layoutX="585.0" layoutY="348.0" prefHeight="64.0" prefWidth="415.0" promptText="Your pin here" style="-fx-background-color: #E4EDF2;">
          <font>
             <Font size="24.0" />
          </font>
-      </Label>
-      <TextField fx:id="pinText" layoutX="126.0" layoutY="180.0" prefHeight="40.0" prefWidth="306.0" promptText="Your pin here" />
-      <Button layoutX="213.0" layoutY="247.0" mnemonicParsing="false" onAction="#checkPin" prefHeight="52.0" prefWidth="131.0" style="-fx-background-color: #00A6D6;" text="Join" textFill="WHITE">
+      </TextField>
+      <Button layoutX="727.0" layoutY="447.0" mnemonicParsing="false" onAction="#checkPin" prefHeight="52.0" prefWidth="131.0" style="-fx-background-color: #00A6D6;" text="Join" textFill="WHITE">
          <font>
             <Font size="28.0" />
          </font>
       </Button>
       <ImageView fx:id="backToLobby" fitHeight="40.0" fitWidth="39.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#loadLobbyLecturer" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
-            <Image url="@images/back_button.png" />
+            <Image url="@images/back_button_white.png" />
          </image>
       </ImageView>
       <Button fx:id="logOutStudent" layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#logOut" prefHeight="34.0" prefWidth="82.0" style="-fx-background-color: #00A6D6;" text="Log out" textFill="WHITE">
@@ -28,5 +28,15 @@
             <Font size="14.0" />
          </font>
       </Button>
+      <Label layoutX="577.0" layoutY="255.0" prefHeight="64.0" prefWidth="430.0" text="Enter a lecture pin to join a lecture room" textAlignment="CENTER">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="emptyFields" alignment="CENTER" contentDisplay="CENTER" layoutX="709.0" layoutY="412.0" prefHeight="19.0" prefWidth="166.0" text="Please enter a pin" textAlignment="CENTER" textFill="#d34343" visible="false">
+         <font>
+            <Font name="Cantarell Extra Bold" size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

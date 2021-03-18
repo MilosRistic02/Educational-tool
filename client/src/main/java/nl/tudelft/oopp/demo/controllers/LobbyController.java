@@ -55,6 +55,9 @@ public class LobbyController {
     Label pastDate;
 
     @FXML
+    Label emptyFields;
+
+    @FXML
     ImageView backToLobby;
 
     @FXML
@@ -202,6 +205,12 @@ public class LobbyController {
     @FXML
     private void checkPin() throws IOException {
         String pin = pinText.getText();
+        emptyFields.setVisible(false);
+        if (pinText.getLength() == 0) {
+            emptyFields.setVisible(true);
+            return;
+        }
+
         LectureRoom response = ServerCommunication.getLectureRoom(pin);
         Date currentDate = new Date();
 

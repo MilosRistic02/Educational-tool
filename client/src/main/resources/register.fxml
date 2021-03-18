@@ -37,27 +37,27 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-1.0" maxWidth="-1.0" prefHeight="630.0" prefWidth="937.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.RegisterController">
+<AnchorPane fx:id="rootPane" maxHeight="-1.0" maxWidth="-1.0" prefHeight="823.0" prefWidth="1172.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.RegisterController">
 <children>
-      <Pane prefHeight="630.0" prefWidth="300.0" style="-fx-background-color: #00A6D6;" />
-    <ImageView fitHeight="97.0" fitWidth="207.0" layoutX="691.0">
+      <Pane prefHeight="823.0" prefWidth="300.0" style="-fx-background-color: #00A6D6;" />
+    <ImageView fitHeight="97.0" fitWidth="207.0" layoutX="951.0">
         <image>
             <Image url="@images/TUDELFT.png" />
         </image>
     </ImageView>
-      <TextField fx:id="usernameField" layoutX="582.0" layoutY="175.0" prefHeight="59.0" prefWidth="262.0" style="-fx-background-color: #E4EDF2;">
+      <TextField fx:id="usernameField" layoutX="582.0" layoutY="175.0" prefHeight="66.0" prefWidth="367.0" style="-fx-background-color: #E4EDF2;">
          <font>
             <Font name="Cantarell Light" size="30.0" />
          </font></TextField>
-      <TextField fx:id="emailField" layoutX="582.0" layoutY="250.0" prefHeight="59.0" prefWidth="262.0" style="-fx-background-color: #E4EDF2;">
+      <TextField fx:id="emailField" layoutX="582.0" layoutY="250.0" prefHeight="66.0" prefWidth="367.0" style="-fx-background-color: #E4EDF2;">
          <font>
             <Font name="Cantarell Light" size="30.0" />
          </font></TextField>
-      <PasswordField fx:id="passwordField" layoutX="582.0" layoutY="323.0" prefHeight="59.0" prefWidth="262.0" style="-fx-background-color: #E4EDF2;">
+      <PasswordField fx:id="passwordField" layoutX="582.0" layoutY="323.0" prefHeight="66.0" prefWidth="367.0" style="-fx-background-color: #E4EDF2;">
          <font>
             <Font name="Cantarell Light" size="30.0" />
          </font></PasswordField>
-      <PasswordField fx:id="reEnteredPasswordField" layoutX="582.0" layoutY="397.0" prefHeight="59.0" prefWidth="262.0" style="-fx-background-color: #E4EDF2;">
+      <PasswordField fx:id="reEnteredPasswordField" layoutX="582.0" layoutY="397.0" prefHeight="66.0" prefWidth="367.0" style="-fx-background-color: #E4EDF2;">
          <font>
             <Font name="Cantarell Light" size="30.0" />
          </font></PasswordField>
@@ -81,7 +81,7 @@
             <Font name="Cantarell Light" size="30.0" />
          </font>
       </Label>
-      <Button fx:id="registerButton" layoutX="572.0" layoutY="486.0" mnemonicParsing="false" onAction="#registerButtonClicked" prefHeight="56.0" prefWidth="157.0" style="-fx-background-color: #00A6D6;" text="Register" textFill="WHITE">
+      <Button fx:id="registerButton" layoutX="582.0" layoutY="483.0" mnemonicParsing="false" onAction="#registerButtonClicked" prefHeight="56.0" prefWidth="157.0" style="-fx-background-color: #00A6D6;" text="Register" textFill="WHITE">
          <font>
             <Font name="Cantarell Bold" size="30.0" />
          </font>

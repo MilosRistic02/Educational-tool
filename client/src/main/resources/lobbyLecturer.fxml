@@ -4,24 +4,25 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.LobbyController">
+<AnchorPane fx:id="rootPane" prefHeight="823.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.LobbyController">
    <children>
-      <Button layoutX="174.0" layoutY="73.0" mnemonicParsing="false" onAction="#showLobbyCreateRoom" prefHeight="64.0" prefWidth="251.0" style="-fx-background-color: #00A6D6;" text="Create new room" textFill="WHITE">
+      <Pane layoutY="-3.0" prefHeight="823.0" prefWidth="300.0" style="-fx-background-color: #00A6D6;" />
+      <Button layoutX="585.0" layoutY="300.0" mnemonicParsing="false" onAction="#showLobbyCreateRoom" prefHeight="64.0" prefWidth="251.0" style="-fx-background-color: #00A6D6;" text="Create new room" textFill="WHITE">
          <font>
             <Font size="26.0" />
          </font>
       </Button>
-      <Button layoutX="174.0" layoutY="168.0" mnemonicParsing="false" onAction="#joinLobby" prefHeight="64.0" prefWidth="251.0" style="-fx-background-color: #00A6D6;" text="Join existing room" textFill="WHITE">
+      <Button layoutX="585.0" layoutY="377.0" mnemonicParsing="false" onAction="#joinLobby" prefHeight="64.0" prefWidth="251.0" style="-fx-background-color: #00A6D6;" text="Join existing room" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button layoutX="174.0" layoutY="263.0" mnemonicParsing="false" onAction="#showArchiveList" prefHeight="64.0" prefWidth="251.0" style="-fx-background-color: #00A6D6;" text="Archive" textFill="WHITE">
+      <Button layoutX="585.0" layoutY="454.0" mnemonicParsing="false" onAction="#showArchiveList" prefHeight="64.0" prefWidth="251.0" style="-fx-background-color: #00A6D6;" text="Archive" textFill="WHITE">
          <font>
             <Font size="26.0" />
          </font>
       </Button>
-      <Button fx:id="logOutLecturer" layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#logOut" prefHeight="34.0" prefWidth="82.0" style="-fx-background-color: #00A6D6;" text="Log out" textFill="WHITE">
+      <Button fx:id="logOutLecturer" layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#logOut" prefHeight="34.0" prefWidth="82.0" style="-fx-background-color: #FFFFFF;" text="Log out" textFill="#00A6D6">
          <font>
             <Font size="14.0" />
          </font>
