@@ -59,10 +59,10 @@ public class LogInController {
         }
 
         Users loggedUser = new ObjectMapper().readValue(response, Users.class);
-        if (loggedUser.getRole().equals("lecturer")) {
-            Display.showLecturer(loggedUser);
-        } else {
+        if (loggedUser.getRole().equals("student")) {
             Display.showStudent(loggedUser);
+        } else {
+            Display.showLecturer(loggedUser);
         }
     }
 
