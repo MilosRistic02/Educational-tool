@@ -7,9 +7,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
+import nl.tudelft.oopp.demo.entities.Poll;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
-
+import nl.tudelft.oopp.demo.entities.SpeedLog;
 
 
 public class ServerCommunication extends Request {
@@ -36,9 +37,16 @@ public class ServerCommunication extends Request {
     }
 
     public static List<Question> getAllQuestion(String lectureRoom) {
-        return get("http://localhost:8080/question/get-all/" + lectureRoom);
+        return getQuestions("http://localhost:8080/question/get-all/" + lectureRoom);
     }
 
+    public static List<Question> getAllAnsweredQuestions(String lecturePin) {
+        return getQuestions("http://localhost:8080/question/get-all/answered/" + lecturePin);
+    }
+
+    public static List<Question> getAllNonAnsweredQuestions(String lecturePin) {
+        return getQuestions("http://localhost:8080/question/get-all/non-answered/" + lecturePin);
+    }
 
     /**
      * Sends the user information to the server via a post request.
@@ -89,5 +97,47 @@ public class ServerCommunication extends Request {
 
     public static String deleteQuestion(String id) {
         return delete("http://localhost:8080/question", id);
+    }
+
+    public static String updateAnswerQuestion(Question question) {
+        return put("http://localhost:8080/question/update-answer", question);
+    }
+
+    public static String updateContentQuestion(Question question) {
+        return put("http://localhost:8080/question/update-content", question);
+    }
+
+    public static String closeRoom(LectureRoom lectureRoom) {
+        return put("http://localhost:8080/lecture/", lectureRoom);
+    }
+
+    public static List<LectureRoom> getClosedLecturePins(String lecturerId) {
+        return getClosedPins("http://localhost:8080/lecture/getClosed/" + lecturerId);
+    }
+
+    public static String speedVote(SpeedLog speedLog) {
+
+        return post("http://localhost:8080/speedlog/speed-vote", speedLog);
+    }
+
+    public static List<SpeedLog> speedGetVotes() {
+        return getSpeedVotes("http://localhost:8080/speedlog/get-speed-votes");
+    }
+
+    public static String createPoll(Poll poll) {
+        return post("http://localhost:8080/poll/create/", poll);
+    }
+
+    public static Poll getPoll(String lecturePin) throws JsonProcessingException {
+        String response = get("http://localhost:8080/poll/" + lecturePin);
+        return response.length() == 0 ? null : new ObjectMapper().readValue(response, Poll.class);
+    }
+
+    public static String closePoll(Poll poll) {
+        return put("http://localhost:8080/poll/close", poll);
+    }
+
+    public static String vote(Character c, long id) {
+        return put("http://localhost:8080/poll/vote/" + id, c);
     }
 }

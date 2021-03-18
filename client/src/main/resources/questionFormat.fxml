@@ -1,33 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<fx:root fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="800.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #00A6D6; -fx-border-width: 4; -fx-background-radius: 18; -fx-border-radius: 18;" type="javafx.scene.layout.Pane" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
-      <Text fx:id="score" layoutX="132.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score" wrappingWidth="59.419921875" />
-      <Text fx:id="question" layoutX="191.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Question" wrappingWidth="404.0" />
-      <Text fx:id="author" layoutX="615.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Author" textAlignment="RIGHT" wrappingWidth="121.029296875" />
-   <Text fx:id="creationDate" layoutX="615.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Creation Date" textAlignment="RIGHT" wrappingWidth="121.029296875" />
-   <ToggleButton fx:id="like" layoutX="20.0" layoutY="22.0" mnemonicParsing="false" onAction="#upvote" opacity="0.4" prefHeight="37.0" prefWidth="11.0">
-      <graphic>
-         <ImageView fitHeight="17.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
-             <Image url="images/thumb-up.png"></Image>
+<fx:root fx:id="qanda" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="161.0" prefWidth="616.0" style="-fx-border-color: #00A6D6; -fx-border-width: 4; -fx-border-radius: 18;" type="VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Question:" translateX="20.0" wrappingWidth="404.0">
+         <VBox.margin>
+            <Insets bottom="5.0" top="10.0" />
+         </VBox.margin>
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Text>
+         <Text fx:id="question" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis," textAlignment="JUSTIFY" translateX="20.0" wrappingWidth="569.0">
+         <VBox.margin>
+            <Insets bottom="20.0" />
+         </VBox.margin>
+      </Text>
+      <Text fx:id="answerHeading" strokeType="OUTSIDE" strokeWidth="0.0" text="Answer:" translateX="40.0" visible="false" wrappingWidth="396.13671875">
+         <VBox.margin>
+            <Insets bottom="5.0" />
+         </VBox.margin>
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font></Text>
+      <Text fx:id="answer" strokeType="OUTSIDE" strokeWidth="0.0" text="Not answered yet." textAlignment="JUSTIFY" translateX="40.0" visible="false" wrappingWidth="548.13671875">
+         <VBox.margin>
+            <Insets bottom="20.0" />
+         </VBox.margin>
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font></Text>
+      <javafx.scene.layout.Pane fx:id="pane" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="607.0">
+            <Text fx:id="score" layoutX="53.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="88" textAlignment="CENTER" wrappingWidth="49.0">
+            <font>
+               <Font size="18.0" />
+            </font></Text>
+            <Text fx:id="author" layoutX="428.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Author" textAlignment="RIGHT" wrappingWidth="121.029296875" />
+         <Text fx:id="creationDate" layoutX="428.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Creation Date" textAlignment="RIGHT" wrappingWidth="121.029296875" />
+         <ToggleButton fx:id="like" layoutX="14.0" layoutY="1.0" mnemonicParsing="false" onAction="#upvote" opacity="0.4" prefHeight="41.0" prefWidth="39.0" style="-fx-background-color: #FFFFFF;">
+            <graphic>
+               <ImageView fitHeight="17.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: #FFFFFF;">
+             <Image url="@images/thumb-up.png"></Image>
          </ImageView>
-      </graphic></ToggleButton>
-   <ToggleButton fx:id="dislike" layoutX="73.0" layoutY="22.0" mnemonicParsing="false" onAction="#downvote" opacity="0.4" prefHeight="37.0" prefWidth="25.0">
-      <graphic>
-          <ImageView fitHeight="17.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-              <Image url="images/thumb-down.png"></Image>
+            </graphic>
+         </ToggleButton>
+         <ToggleButton fx:id="dislike" layoutX="99.0" layoutY="1.0" mnemonicParsing="false" onAction="#downvote" opacity="0.4" prefHeight="41.0" prefWidth="41.0" style="-fx-background-color: #FFFFFF;">
+            <graphic>
+                <ImageView fitHeight="17.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+              <Image url="@images/thumb-down.png"></Image>
           </ImageView>
-      </graphic></ToggleButton>
-   <Button fx:id="delete" disable="true" onAction="#delete" layoutX="747.0" layoutY="14.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="43.0" style="-fx-background-color: #FFFFFF;" visible="false">
-      <graphic>
-         <ImageView disable="true" fitHeight="22.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
-             <Image url="images/delete-bin.png"></Image>
+            </graphic>
+         </ToggleButton>
+         <Button fx:id="delete" disable="true" layoutX="550.0" layoutY="4.0" mnemonicParsing="false" onAction="#delete" prefHeight="41.0" prefWidth="43.0" style="-fx-background-color: #FFFFFF;" visible="false">
+            <graphic>
+               <ImageView disable="true" fitHeight="22.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+             <Image url="@images/delete-bin.png"></Image>
          </ImageView>
-      </graphic>
-   </Button>
-<!--   </children>-->
+            </graphic>
+         </Button>
+         <Text fx:id="isAnswered" fill="#00a6d6" layoutX="243.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Not Answered" textAlignment="CENTER" wrappingWidth="121.02929687500011">
+            <font>
+               <Font name="System Bold" size="18.0" />
+            </font>
+         </Text>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      <!--   </children>-->
+      </javafx.scene.layout.Pane>
+   </children>
 </fx:root>

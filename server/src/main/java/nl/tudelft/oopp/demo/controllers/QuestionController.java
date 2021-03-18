@@ -29,11 +29,35 @@ public class QuestionController {
         return questionService.updateScoreQuestion(question);
     }
 
+    @PutMapping("update-answer")
+    @ResponseBody
+    public String updateAnswerQuestion(@RequestBody Question question) {
+        return questionService.updateAnswerQuestion(question);
+    }
+
+    @PutMapping("update-content")
+    @ResponseBody
+    public String updateContentQuestion(@RequestBody Question question) {
+        return questionService.updateContentQuestion(question);
+    }
+
 
     @GetMapping("/get-all/{id}")
     @ResponseBody
     public List<Question> getAllQuestions(@PathVariable String id) {
         return questionService.getAllQuestions(id);
+    }
+
+    @GetMapping("/get-all/answered/{lecturePin}")
+    @ResponseBody
+    public List<Question> getAllAnsweredQuestions(@PathVariable String lecturePin) {
+        return questionService.getAllAnsweredQuestions(lecturePin);
+    }
+
+    @GetMapping("/get-all/non-answered/{lecturePin}")
+    @ResponseBody
+    public List<Question> getAllNonAnsweredQuestions(@PathVariable String lecturePin) {
+        return questionService.getAllNonAnsweredQuestions(lecturePin);
     }
 
     /**

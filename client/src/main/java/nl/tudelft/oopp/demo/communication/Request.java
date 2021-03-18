@@ -4,26 +4,24 @@ import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
-import java.net.http.HttpClient;
 import java.util.List;
-
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
+import nl.tudelft.oopp.demo.entities.SpeedLog;
 
 public class Request {
 
-    private static HttpClient client = HttpClient.newBuilder().build();
 
-    /** Method to get questions.
-     *
-     * @param url   the url
-     * @return      returns a list of questions
+    /**
+     * Generic get method.
+     * @param url String with the url we want to GET
+     * @return String with the responseBody
      */
-    public static List<Question> get(String url) {
-        GenericType<List<Question>> responseBodyType = new GenericType<List<Question>>(){};
+    public static String get(String url) {
+        GenericType<String> responseBodyType = new GenericType<String>(){};
 
-        List<Question> responseBody = ClientBuilder.newClient()
+        String responseBody = ClientBuilder.newClient()
                 .target(url)
                 .request(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
@@ -37,10 +35,44 @@ public class Request {
      * @param url   the url
      * @return      returns a list of questions
      */
+    public static List<Question> getQuestions(String url) {
+        GenericType<List<Question>> responseBodyType = new GenericType<List<Question>>(){};
+
+        List<Question> responseBody = ClientBuilder.newClient()
+                .target(url)
+                .request(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .get(responseBodyType);
+
+        return responseBody;
+    }
+
+    /** Method to get lectureroom with a pin.
+     *
+     * @param url   the url
+     * @return      returns a lectureroom
+     */
     public static LectureRoom getPin(String url) {
         GenericType<LectureRoom> responseBodyType = new GenericType<LectureRoom>(){};
 
         LectureRoom responseBody = ClientBuilder.newClient()
+                .target(url)
+                .request(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .get(responseBodyType);
+
+        return responseBody;
+    }
+
+    /** Method to get all pins of closed lectures of a lecturer.
+     *
+     * @param url   the url
+     * @return      returns a list with pins
+     */
+    public static List<LectureRoom> getClosedPins(String url) {
+        GenericType<List<LectureRoom>> responseBodyType = new GenericType<List<LectureRoom>>(){};
+
+        List<LectureRoom> responseBody = ClientBuilder.newClient()
                 .target(url)
                 .request(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
@@ -58,6 +90,23 @@ public class Request {
         GenericType<List<ScoringLog>> responseBodyType = new GenericType<List<ScoringLog>>(){};
 
         List<ScoringLog> responseBody = ClientBuilder.newClient()
+                .target(url)
+                .request(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .get(responseBodyType);
+
+        return responseBody;
+    }
+
+    /** Method to get all speedLogs.
+     *
+     * @param url   the url
+     * @return      returns a list of speedLogs.
+     */
+    public static List<SpeedLog> getSpeedVotes(String url) {
+        GenericType<List<SpeedLog>> responseBodyType = new GenericType<List<SpeedLog>>(){};
+
+        List<SpeedLog> responseBody = ClientBuilder.newClient()
                 .target(url)
                 .request(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
