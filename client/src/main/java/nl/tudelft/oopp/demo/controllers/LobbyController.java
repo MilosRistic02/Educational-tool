@@ -31,6 +31,9 @@ public class LobbyController {
     TextField pinText;
 
     @FXML
+    TextField lectureNameField;
+
+    @FXML
     TextField courseIdField;
 
     @FXML
@@ -79,42 +82,42 @@ public class LobbyController {
     }
 
     /**
-     * Checks if entered course ID is valid.
+     * Checks if the entered course ID and lectureName are valid.
      * @throws IOException if a room cannot be created.
      */
     @FXML
     public void createRoomButtonClicked() throws IOException, ParseException {
-        int courseId;
-        try {
-            courseId = Integer.parseInt(courseIdField.getText());
-        } catch (NumberFormatException e) {
+        String courseId = courseIdField.getText();
+        String lectureName = lectureNameField.getText();
+
+        if (courseId.length() == 0) {
             wrongId.setVisible(true);
-            courseIdField.setText("");
             courseIdField.requestFocus();
-            return;
+        } else if (lectureName.length() == 0) {
+            wrongId.setVisible(true);
+            lectureNameField.requestFocus();
+        } else {
+            wrongId.setVisible(false);
+            createRoom(lectureName, courseId);
         }
-        wrongId.setVisible(false);
-        createRoom(courseId);
     }
 
     /**
      * Creates a new lectureRoom and redirects the lecturer to that room.
      */
     @FXML
-    public void createRoom(int courseId) throws IOException, ParseException {
+    public void createRoom(String lectureName, String courseId) throws IOException, ParseException {
         LectureRoom lectureRoom = null;
         String scheduleChoice = scheduleChoiceBox.getValue().toString();
 
         if (scheduleChoice.equals("Now")) {
-            lectureRoom = new LectureRoom(users.getUsername(), courseId, new Date());
+            lectureRoom = new LectureRoom(users.getUsername(), lectureName, courseId, new Date());
         } else if (scheduleChoice.equals("Custom Time")) {
             Date date = checkDate();
             if (date == null) {
                 return;
             }
-            lectureRoom = new LectureRoom(users.getUsername(), courseId, date);
-        } else {
-            lectureRoom = new LectureRoom(users.getUsername(), courseId);
+            lectureRoom = new LectureRoom(users.getUsername(),lectureName, courseId, date);
         }
 
         String response = ServerCommunication.addLectureRoom(lectureRoom);

@@ -214,7 +214,9 @@ public class QuestionLecturerController {
             progress.setStyle("-fx-accent: #c3312f;");
             selectedSpeed.setFill(Color.valueOf("#c3312f"));
         } else {
-            progress.setVisible(false);
+            selectedSpeed.setText("Your pace is okay");
+            progress.setStyle("-fx-accent: #99d28c;");
+            selectedSpeed.setFill(Color.valueOf("#99d28c"));
         }
     }
 

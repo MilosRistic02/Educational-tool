@@ -11,7 +11,7 @@
    <children>
       <Pane layoutY="-3.0" prefHeight="823.0" prefWidth="300.0" style="-fx-background-color: #00A6D6;">
          <children>
-            <Label layoutX="175.0" layoutY="201.0" prefHeight="64.0" prefWidth="112.0" text="Course ID" textAlignment="CENTER">
+            <Label layoutX="145.0" layoutY="139.0" prefHeight="64.0" prefWidth="141.0" text="Lecture Name" textAlignment="CENTER">
                <font>
                   <Font size="22.0" />
                </font>
@@ -21,8 +21,13 @@
                   <Font size="22.0" />
                </font>
             </Label>
+            <Label layoutX="188.0" layoutY="203.0" prefHeight="64.0" prefWidth="112.0" text="Course ID" textAlignment="CENTER">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
          </children></Pane>
-      <TextField fx:id="courseIdField" layoutX="327.0" layoutY="215.0" prefHeight="40.0" prefWidth="209.0" promptText="e.g. 1100" style="-fx-background-color: #E4EDF2;"/>
+      <TextField fx:id="courseIdField" layoutX="327.0" layoutY="215.0" prefHeight="40.0" prefWidth="209.0" promptText="e.g. 1100" style="-fx-background-color: #E4EDF2;" />
       <Button layoutX="327.0" layoutY="353.0" mnemonicParsing="false" onAction="#createRoomButtonClicked" prefHeight="60.0" prefWidth="131.0" style="-fx-background-color: #00A6D6;" text="Create" textFill="WHITE">
          <font>
             <Font size="28.0" />
@@ -38,7 +43,7 @@
          <String fx:value="Custom Time" />
       </ChoiceBox>
       <DatePicker fx:id="startingDate" disable="true" editable="false" layoutX="500.0" layoutY="276.0" prefHeight="34.0" prefWidth="174.0" showWeekNumbers="true" />
-      <ComboBox fx:id="startingTimeMinutes" disable="true" layoutX="327.0" layoutY="277.0" prefHeight="34.0" prefWidth="66.0" value="00">
+      <ComboBox fx:id="startingTimeMinutes" disable="true" layoutX="421.0" layoutY="276.0" prefHeight="34.0" prefWidth="66.0" value="00">
          <items>
             <FXCollections fx:factory="observableArrayList">
             <String fx:value="00" />
@@ -66,7 +71,7 @@
             <Font name="Cantarell Extra Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="405.0" layoutY="274.0" prefHeight="40.0" prefWidth="9.0" text=":" textAlignment="CENTER">
+      <Label layoutX="405.0" layoutY="273.0" prefHeight="40.0" prefWidth="9.0" text=":" textAlignment="CENTER">
          <font>
             <Font size="22.0" />
          </font>
@@ -76,7 +81,7 @@
             <Image url="@images/back_button_white.png" />
          </image>
       </ImageView>
-      <ComboBox fx:id="startingTimeHours" disable="true" layoutX="420.0" layoutY="276.0" prefHeight="34.0" prefWidth="66.0" value="00">
+      <ComboBox fx:id="startingTimeHours" disable="true" layoutX="327.0" layoutY="277.0" prefHeight="34.0" prefWidth="66.0" value="00">
          <items>
             <FXCollections fx:factory="observableArrayList">
                <String fx:value="00" />
@@ -106,5 +111,6 @@
             </FXCollections>
          </items>
       </ComboBox>
+      <TextField fx:id="lectureNameField" layoutX="327.0" layoutY="151.0" prefHeight="40.0" prefWidth="209.0" promptText="e.g. Reasoning and Logic: Lecture 3" style="-fx-background-color: #E4EDF2;" />
    </children>
 </AnchorPane>

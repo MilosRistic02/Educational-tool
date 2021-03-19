@@ -23,7 +23,8 @@ class LectureRoomTest {
     public void setup() throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
         String date = "2021-04-01 12:34";
-        lectureRoom = new LectureRoom("Stefan", 2, format.parse(date));
+        lectureRoom = new LectureRoom("Stefan", "Reasoning and Logic",
+                "CSE4200", format.parse(date));
         lectureRoom.setLecturePin("2802202001Stefan");
     }
 
@@ -44,15 +45,25 @@ class LectureRoomTest {
     }
 
     @Test
+    void getLectureName() {
+        assertEquals(lectureRoom.getLectureName(), "Reasoning and Logic");
+    }
+
+    @Test
+    void setLectureName() {
+        lectureRoom.setLectureName("OOPP");
+        assertEquals(lectureRoom.getLectureName(), "OOPP");
+    }
+
+    @Test
     void getCourseId() {
-        lectureRoom.setCourseId(2);
-        assertEquals(lectureRoom.getCourseId(), 2);
+        assertEquals(lectureRoom.getCourseId(), "CSE4200");
     }
 
     @Test
     void setCourseId() {
-        lectureRoom.setCourseId(5);
-        assertEquals(lectureRoom.getCourseId(), 5);
+        lectureRoom.setCourseId("CSE1105");
+        assertEquals(lectureRoom.getCourseId(), "CSE1105");
     }
 
     @Test
@@ -93,7 +104,7 @@ class LectureRoomTest {
 
     @Test
     void testEquals() {
-        LectureRoom room = new LectureRoom("Stefan", 2);
+        LectureRoom room = new LectureRoom("Stefan", "Reasoning and Logic","CSE4200", new Date());
         room.setLecturePin("2802202001Stefan");
         assertEquals(room, lectureRoom);
     }
@@ -105,7 +116,7 @@ class LectureRoomTest {
 
     @Test
     void testNotEquals() {
-        LectureRoom room = new LectureRoom("Andy", 2);
+        LectureRoom room = new LectureRoom("Andy", "Reasoning and Logic", "CSE4200", new Date());
         room.setLecturePin("2020Andy");
         assertNotEquals(room, lectureRoom);
     }
