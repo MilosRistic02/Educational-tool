@@ -9,26 +9,14 @@
 
 <AnchorPane fx:id="rootPane" prefHeight="823.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.LobbyController">
    <children>
-      <Pane layoutY="-3.0" prefHeight="823.0" prefWidth="300.0" style="-fx-background-color: #00A6D6;">
-         <children>
-            <Label layoutX="145.0" layoutY="139.0" prefHeight="64.0" prefWidth="141.0" text="Lecture Name" textAlignment="CENTER">
-               <font>
-                  <Font size="22.0" />
-               </font>
-            </Label>
-            <Label layoutX="145.0" layoutY="266.0" prefHeight="64.0" prefWidth="141.0" text="Scheduled for" textAlignment="CENTER">
-               <font>
-                  <Font size="22.0" />
-               </font>
-            </Label>
-            <Label layoutX="188.0" layoutY="203.0" prefHeight="64.0" prefWidth="112.0" text="Course ID" textAlignment="CENTER">
-               <font>
-                  <Font size="22.0" />
-               </font>
-            </Label>
-         </children></Pane>
-      <TextField fx:id="courseIdField" layoutX="327.0" layoutY="215.0" prefHeight="40.0" prefWidth="209.0" promptText="e.g. 1100" style="-fx-background-color: #E4EDF2;" />
-      <Button layoutX="327.0" layoutY="353.0" mnemonicParsing="false" onAction="#createRoomButtonClicked" prefHeight="60.0" prefWidth="131.0" style="-fx-background-color: #00A6D6;" text="Create" textFill="WHITE">
+      <ImageView fitHeight="97.0" fitWidth="207.0" layoutX="951.0">
+         <image>
+            <Image url="@images/TUDELFT.png" />
+         </image>
+      </ImageView>
+      <Pane layoutY="-3.0" prefHeight="823.0" prefWidth="300.0" style="-fx-background-color: #00A6D6;" />
+      <TextField fx:id="courseIdField" layoutX="544.0" layoutY="291.0" prefHeight="66.0" prefWidth="370.0" promptText="e.g. 1100" style="-fx-background-color: #E4EDF2;" />
+      <Button layoutX="544.0" layoutY="518.0" mnemonicParsing="false" onAction="#createRoomButtonClicked" prefHeight="60.0" prefWidth="131.0" style="-fx-background-color: #00A6D6;" text="Create" textFill="WHITE">
          <font>
             <Font size="28.0" />
          </font>
@@ -38,12 +26,12 @@
             <Font name="Cantarell Extra Bold" size="15.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="scheduleChoiceBox" layoutX="544.0" layoutY="215.0" onAction="#enableDatePicker" prefHeight="40.0" prefWidth="131.0" value="Now">
+      <ChoiceBox fx:id="scheduleChoiceBox" layoutX="544.0" layoutY="374.0" onAction="#enableDatePicker" prefHeight="40.0" prefWidth="131.0" value="Now">
          <String fx:value="Now" />
          <String fx:value="Custom Time" />
       </ChoiceBox>
-      <DatePicker fx:id="startingDate" disable="true" editable="false" layoutX="500.0" layoutY="276.0" prefHeight="34.0" prefWidth="174.0" showWeekNumbers="true" />
-      <ComboBox fx:id="startingTimeMinutes" disable="true" layoutX="421.0" layoutY="276.0" prefHeight="34.0" prefWidth="66.0" value="00">
+      <DatePicker fx:id="startingDate" disable="true" editable="false" layoutX="544.0" layoutY="435.0" prefHeight="53.0" prefWidth="370.0" showWeekNumbers="true" />
+      <ComboBox fx:id="startingTimeMinutes" disable="true" layoutX="818.0" layoutY="376.0" prefHeight="40.0" prefWidth="82.0" value="00">
          <items>
             <FXCollections fx:factory="observableArrayList">
             <String fx:value="00" />
@@ -71,17 +59,17 @@
             <Font name="Cantarell Extra Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="405.0" layoutY="273.0" prefHeight="40.0" prefWidth="9.0" text=":" textAlignment="CENTER">
+      <Label layoutX="796.0" layoutY="374.0" prefHeight="40.0" prefWidth="14.0" text=":" textAlignment="CENTER">
          <font>
-            <Font size="22.0" />
+            <Font size="24.0" />
          </font>
       </Label>
-      <ImageView fitHeight="40.0" fitWidth="39.0" layoutX="10.0" layoutY="12.0" onMouseClicked="#loadLobbyLecturer" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="47.0" fitWidth="53.0" layoutX="314.0" layoutY="14.0" onMouseClicked="#loadLobbyLecturer" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/back_button_white.png" />
+            <Image url="@images/back_button.png" />
          </image>
       </ImageView>
-      <ComboBox fx:id="startingTimeHours" disable="true" layoutX="327.0" layoutY="277.0" prefHeight="34.0" prefWidth="66.0" value="00">
+      <ComboBox fx:id="startingTimeHours" disable="true" layoutX="703.0" layoutY="376.0" prefHeight="40.0" prefWidth="82.0" value="00">
          <items>
             <FXCollections fx:factory="observableArrayList">
                <String fx:value="00" />
@@ -111,6 +99,21 @@
             </FXCollections>
          </items>
       </ComboBox>
-      <TextField fx:id="lectureNameField" layoutX="327.0" layoutY="151.0" prefHeight="40.0" prefWidth="209.0" promptText="e.g. Reasoning and Logic: Lecture 3" style="-fx-background-color: #E4EDF2;" />
+      <TextField fx:id="lectureNameField" layoutX="544.0" layoutY="211.0" prefHeight="66.0" prefWidth="370.0" promptText="e.g. Reasoning and Logic: Lecture 3" style="-fx-background-color: #E4EDF2;" />
+      <Label layoutX="386.0" layoutY="364.0" prefHeight="64.0" prefWidth="141.0" text="Scheduled for" textAlignment="CENTER">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="414.0" layoutY="295.0" prefHeight="64.0" prefWidth="112.0" text="Course ID" textAlignment="CENTER">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="390.0" layoutY="214.0" prefHeight="64.0" prefWidth="141.0" text="Lecture Name" textAlignment="CENTER">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

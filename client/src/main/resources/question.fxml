@@ -8,11 +8,11 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="823.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.QuestionController">
+<AnchorPane prefHeight="820.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.QuestionController">
    <children>
-      <Button layoutX="911.0" layoutY="317.0" mnemonicParsing="false" onAction="#displayQuestion" prefHeight="31.0" prefWidth="49.0" style="-fx-background-color: #00A6D6;" text="Send" textFill="WHITE" />
-      <TextField fx:id="questionText" layoutX="912.0" layoutY="233.0" prefHeight="74.0" prefWidth="244.0" promptText="Write your question here." />
-      <Pane fx:id="list" layoutX="13.0" layoutY="25.0" prefHeight="699.0" prefWidth="876.0" style="-fx-background-color: #00A6D6; -fx-background-radius: 18;">
+      <Button layoutX="912.0" layoutY="431.0" mnemonicParsing="false" onAction="#displayQuestion" prefHeight="31.0" prefWidth="49.0" style="-fx-background-color: #00A6D6;" text="Send" textFill="WHITE" />
+      <TextField fx:id="questionText" layoutX="912.0" layoutY="349.0" prefHeight="74.0" prefWidth="244.0" promptText="Write your question here." />
+      <Pane fx:id="list" layoutX="13.0" layoutY="25.0" prefHeight="742.0" prefWidth="876.0" style="-fx-background-color: #00A6D6; -fx-background-radius: 18;">
          <children>
             <Text fx:id="listTitle" fill="WHITE" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Questions" textAlignment="CENTER" wrappingWidth="876.0">
                <font>
@@ -21,7 +21,7 @@
             </Text>
             <ScrollPane hbarPolicy="NEVER" layoutY="75.0">
                <content>
-                  <VBox fx:id="stack" alignment="CENTER" prefHeight="607.0" prefWidth="874.0" style="-fx-background-color: #FFFFFF;" />
+                  <VBox fx:id="stack" alignment="CENTER" prefHeight="640.0" prefWidth="874.0" style="-fx-background-color: #FFFFFF;" />
                </content>
             </ScrollPane>
             <ToggleButton fx:id="changeList" layoutX="758.0" layoutY="21.0" mnemonicParsing="false" style="-fx-background-color: #99d28c#99d28c;" text="answers" textFill="WHITE">
@@ -35,8 +35,8 @@
             <Font size="36.0" />
          </font>
       </Text>
-      <Slider fx:id="speedSlider" blockIncrement="1.0" layoutX="898.0" layoutY="165.0" majorTickUnit="1.0" minorTickCount="0" onDragDone="#updateSlider" prefHeight="37.0" prefWidth="263.0" value="50.0" />
-      <Line endX="140.0" layoutX="1007.0" layoutY="157.0" startX="-96.0" strokeWidth="15.0">
+      <Slider fx:id="speedSlider" blockIncrement="1.0" layoutX="897.0" layoutY="186.0" majorTickUnit="1.0" minorTickCount="0" onDragDone="#updateSlider" prefHeight="37.0" prefWidth="263.0" value="50.0" />
+      <Line endX="140.0" layoutX="1006.0" layoutY="178.0" startX="-96.0" strokeWidth="15.0">
          <stroke>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
@@ -59,29 +59,29 @@
             </LinearGradient>
          </stroke>
       </Line>
-      <Text layoutX="899.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lecture Speed" textAlignment="CENTER" wrappingWidth="260.0">
+      <Text layoutX="898.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lecture Speed" textAlignment="CENTER" wrappingWidth="260.0">
          <font>
             <Font size="20.0" />
          </font>
       </Text>
-      <ImageView fitHeight="24.0" fitWidth="28.0" layoutX="908.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="24.0" fitWidth="28.0" layoutX="907.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true">
          <Image url="@images/zzz-sleep-symbol.png" />
       </ImageView>
-      <ImageView fitHeight="24.0" fitWidth="28.0" layoutX="1127.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="24.0" fitWidth="28.0" layoutX="1126.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true">
          <Image url="@images/speedometer.png" />
       </ImageView>
-      <Text fx:id="currentRoom" layoutX="910.0" layoutY="381.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lecture, [lecturePin]" textAlignment="CENTER" wrappingWidth="238.0">
+      <Text fx:id="currentRoom" layoutX="909.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You are currently in: [lectureName]" textAlignment="CENTER" wrappingWidth="238.0">
          <font>
-            <Font size="36.0" />
+            <Font size="24.0" />
          </font>
       </Text>
-      <Button layoutX="940.0" layoutY="688.0" mnemonicParsing="false" onAction="#changeLecture" prefHeight="31.0" prefWidth="108.0" style="-fx-background-color: #00A6D6#00A6D6;" text="Change lecture" textFill="WHITE">
+      <Button layoutX="920.0" layoutY="735.0" mnemonicParsing="false" onAction="#changeLecture" prefHeight="31.0" prefWidth="108.0" style="-fx-background-color: #00A6D6#00A6D6;" text="Change room" textFill="WHITE">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Button>
-      <Button layoutX="1071.0" layoutY="688.0" mnemonicParsing="false" onAction="#logOut" prefHeight="31.0" prefWidth="77.0" style="-fx-background-color: #c3312f#c3312f;" text="Log out" textFill="WHITE" />
-      <BarChart fx:id="pollChart" layoutX="900.0" layoutY="449.0" prefHeight="207.0" prefWidth="267.0">
+      <Button layoutX="1061.0" layoutY="735.0" mnemonicParsing="false" onAction="#logOut" prefHeight="31.0" prefWidth="77.0" style="-fx-background-color: #c3312f#c3312f;" text="Log out" textFill="WHITE" />
+      <BarChart fx:id="pollChart" layoutX="889.0" layoutY="505.0" prefHeight="207.0" prefWidth="260.0">
          <xAxis>
             <CategoryAxis label="Votes" side="BOTTOM" />
          </xAxis>
@@ -92,6 +92,11 @@
       <Text fx:id="selectedSpeed" layoutX="955.0" layoutY="214.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[Selected speed]" textAlignment="CENTER" visible="false" wrappingWidth="148.21630859375">
          <font>
             <Font name="System Bold" size="13.0" />
+         </font>
+      </Text>
+      <Text fx:id="currentRoomPin" layoutX="14.0" layoutY="793.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lecture pin: [lecturePin]" wrappingWidth="385.0">
+         <font>
+            <Font size="18.0" />
          </font>
       </Text>
    </children>

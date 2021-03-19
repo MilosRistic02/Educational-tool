@@ -45,43 +45,43 @@
             <Image url="@images/TUDELFT.png" />
         </image>
     </ImageView>
-      <TextField fx:id="usernameField" layoutX="582.0" layoutY="175.0" prefHeight="66.0" prefWidth="367.0" style="-fx-background-color: #E4EDF2;">
+      <TextField fx:id="usernameField" layoutX="578.0" layoutY="217.0" prefHeight="66.0" prefWidth="367.0" style="-fx-background-color: #E4EDF2;">
          <font>
             <Font name="Cantarell Light" size="30.0" />
          </font></TextField>
-      <TextField fx:id="emailField" layoutX="582.0" layoutY="250.0" prefHeight="66.0" prefWidth="367.0" style="-fx-background-color: #E4EDF2;">
+      <TextField fx:id="emailField" layoutX="579.0" layoutY="300.0" prefHeight="66.0" prefWidth="367.0" style="-fx-background-color: #E4EDF2;">
          <font>
             <Font name="Cantarell Light" size="30.0" />
          </font></TextField>
-      <PasswordField fx:id="passwordField" layoutX="582.0" layoutY="323.0" prefHeight="66.0" prefWidth="367.0" style="-fx-background-color: #E4EDF2;">
+      <PasswordField fx:id="passwordField" layoutX="579.0" layoutY="387.0" prefHeight="66.0" prefWidth="367.0" style="-fx-background-color: #E4EDF2;">
          <font>
             <Font name="Cantarell Light" size="30.0" />
          </font></PasswordField>
-      <PasswordField fx:id="reEnteredPasswordField" layoutX="582.0" layoutY="397.0" prefHeight="66.0" prefWidth="367.0" style="-fx-background-color: #E4EDF2;">
+      <PasswordField fx:id="reEnteredPasswordField" layoutX="580.0" layoutY="472.0" prefHeight="66.0" prefWidth="367.0" style="-fx-background-color: #E4EDF2;">
          <font>
             <Font name="Cantarell Light" size="30.0" />
          </font></PasswordField>
-      <Label layoutX="428.0" layoutY="185.0" text="Username">
+      <Label layoutX="424.0" layoutY="227.0" text="Username">
          <font>
             <Font name="Cantarell Light" size="30.0" />
          </font>
       </Label>
-      <Label layoutX="482.0" layoutY="257.0" prefHeight="45.0" prefWidth="76.0" text="Email">
+      <Label layoutX="479.0" layoutY="307.0" prefHeight="45.0" prefWidth="76.0" text="Email">
          <font>
             <Font name="Cantarell Light" size="30.0" />
          </font>
       </Label>
-      <Label layoutX="431.0" layoutY="333.0" text="Password">
+      <Label layoutX="428.0" layoutY="397.0" text="Password">
          <font>
             <Font name="Cantarell Light" size="30.0" />
          </font>
       </Label>
-      <Label layoutX="324.0" layoutY="392.0" prefHeight="70.0" prefWidth="245.0" text="Confirm password" wrapText="true">
+      <Label layoutX="322.0" layoutY="467.0" prefHeight="70.0" prefWidth="245.0" text="Confirm password" wrapText="true">
          <font>
             <Font name="Cantarell Light" size="30.0" />
          </font>
       </Label>
-      <Button fx:id="registerButton" layoutX="582.0" layoutY="483.0" mnemonicParsing="false" onAction="#registerButtonClicked" prefHeight="56.0" prefWidth="157.0" style="-fx-background-color: #00A6D6;" text="Register" textFill="WHITE">
+      <Button fx:id="registerButton" layoutX="582.0" layoutY="583.0" mnemonicParsing="false" onAction="#registerButtonClicked" prefHeight="56.0" prefWidth="157.0" style="-fx-background-color: #00A6D6;" text="Register" textFill="WHITE">
          <font>
             <Font name="Cantarell Bold" size="30.0" />
          </font>
