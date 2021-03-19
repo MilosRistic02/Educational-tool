@@ -126,6 +126,7 @@ public class QuestionLecturerController {
         this.lectureRoom = lectureRoom;
         this.users = users;
         greetings.setText("Welcome, " + users.getUsername());
+        currentRoomPin.setText("Lecture pin: " + lectureRoom.getLecturePin());
 
         // Update question list every 2 seconds.
         Timer timer = new Timer();

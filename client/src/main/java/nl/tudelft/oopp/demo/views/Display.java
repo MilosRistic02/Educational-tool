@@ -156,6 +156,7 @@ public class Display extends Application {
         ArchiveController archiveController = loader.getController();
         archiveController.setUsers(users);
         archiveController.showArchive(lecturePin);
+        archiveController.showButtons(true);
 
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

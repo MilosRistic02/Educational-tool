@@ -66,10 +66,10 @@ public class LectureRoomController {
         return lectureRoomService.putLectureRoom(lectureRoom);
     }
 
-    @GetMapping("/getClosed/{lectureHost}")
+    @GetMapping("/getClosed")
     @ResponseBody
-    public List<LectureRoom> getClosedLecturePins(@PathVariable String lectureHost) {
-        return lectureRoomService.getClosedLecturePins(lectureHost);
+    public List<LectureRoom> getClosedLecturePins() {
+        return lectureRoomService.getClosedLecturePins();
     }
 
 }

@@ -111,8 +111,8 @@ public class ServerCommunication extends Request {
         return put("http://localhost:8080/lecture/", lectureRoom);
     }
 
-    public static List<LectureRoom> getClosedLecturePins(String lecturerId) {
-        return getClosedPins("http://localhost:8080/lecture/getClosed/" + lecturerId);
+    public static List<LectureRoom> getClosedLecturePins() {
+        return getClosedPins("http://localhost:8080/lecture/getClosed/");
     }
 
     public static String speedVote(SpeedLog speedLog) {
