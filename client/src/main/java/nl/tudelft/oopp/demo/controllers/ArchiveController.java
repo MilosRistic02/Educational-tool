@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 import javafx.fxml.FXML;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -14,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
+import nl.tudelft.oopp.demo.entities.Poll;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.Users;
 import nl.tudelft.oopp.demo.views.Display;
@@ -53,8 +56,12 @@ public class ArchiveController {
 
     private String lecturePin;
 
-    private boolean archiveView;
+    private String archiveView;
 
+    /**
+     * Method called when a letter is typed in the search bar or the search icon is clicked.
+     * Adds all found rooms to the Vbox.
+     */
     @FXML
     public void searchCourse() {
         emptyFields.setVisible(false);
@@ -83,11 +90,12 @@ public class ArchiveController {
      */
     @FXML
     public void showArchive(String lecturePin) {
+        showButtons(true);
         this.lecturePin = lecturePin;
         searchBar.setVisible(false);
         glass.setVisible(false);
         emptyArchive.setVisible(false);
-        archiveView = true;
+        archiveView = "questions";
         title.setText("Archive of room " + lecturePin);
         stack.getChildren().clear();
         stack.setSpacing(20);
@@ -111,12 +119,39 @@ public class ArchiveController {
 
     @FXML
     private void showPolls() {
+        showButtons(false);
         searchBar.setVisible(false);
         glass.setVisible(false);
         emptyArchive.setVisible(false);
-        archiveView = true;
+        archiveView = "polls";
         title.setText("Polls of " + lecturePin);
         stack.getChildren().clear();
+        stack.setSpacing(20);
+
+        List<Poll> polls = ServerCommunication.getAllPolls(this.lecturePin);
+        for (Poll poll : polls) {
+            PollFormatComponent pollFormatComponent = new PollFormatComponent();
+            pollFormatComponent.creationDate.setText(String.valueOf(poll.getCreationDate()));
+            pollFormatComponent.question.setText(poll.getQuestion());
+            BarChart pollChart =  pollFormatComponent.pollChart;
+            int size = poll.getSize();
+            int[] results = poll.getVotes();
+
+            XYChart.Series set1 = new XYChart.Series<>();
+
+            for (int i = 0; i < size; i++) {
+                set1.getData().add(
+                        new XYChart.Data(Character.toString((char) (i + 65)), results[i]));
+            }
+            if (!poll.isOpen()) {
+                pollChart.getData().clear();
+                pollChart.getData().addAll(set1);
+                pollChart.lookup(".data" + (poll.getRightAnswer() - 65)
+                        + ".chart-bar").setStyle("-fx-bar-fill: green");
+                pollChart.setAnimated(false);
+            }
+            stack.getChildren().add(pollFormatComponent);
+        }
     }
 
     @FXML
@@ -130,9 +165,9 @@ public class ArchiveController {
         archiveFormatComponent.setCurrentPin(room.getLecturePin());
         archiveFormatComponent.setUser(user);
 
-        archiveFormatComponent.question.setText(room.getLecturePin());
+        archiveFormatComponent.lecturePinText.setText(room.getLecturePin());
         archiveFormatComponent.creationDate.setText(room.getCreationDate().toString());
-        archiveFormatComponent.author.setText(String.valueOf(room.getCourseId()));
+        archiveFormatComponent.courseId.setText(String.valueOf(room.getCourseId()));
 
         stack.getChildren().add(archiveFormatComponent);
     }
@@ -150,7 +185,7 @@ public class ArchiveController {
         searchBar.setVisible(true);
         glass.setVisible(true);
         emptyArchive.setVisible(false);
-        archiveView = false;
+        archiveView = "pins";
         title.setText("Archive");
         this.rooms =  ServerCommunication.getClosedLecturePins();
 
@@ -169,8 +204,10 @@ public class ArchiveController {
      * @throws IOException if the fxml page cannot be loaded
      */
     public void loadLobbyLecturer() throws IOException {
-        if (archiveView) {
+        if (archiveView.equals("questions")) {
             showPins();
+        } else if (archiveView.equals("polls")) {
+            showArchive(this.lecturePin);
         } else {
             Display.showLecturer(this.user);
         }

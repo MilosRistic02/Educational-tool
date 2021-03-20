@@ -133,6 +133,10 @@ public class ServerCommunication extends Request {
         return response.length() == 0 ? null : new ObjectMapper().readValue(response, Poll.class);
     }
 
+    public static List<Poll> getAllPolls(String lecturePin) {
+        return getPolls("http://localhost:8080/poll/lecture-polls/" + lecturePin);
+    }
+
     public static String closePoll(Poll poll) {
         return put("http://localhost:8080/poll/close", poll);
     }

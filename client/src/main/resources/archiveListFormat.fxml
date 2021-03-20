@@ -5,8 +5,8 @@
 <?import javafx.scene.text.*?>
 
 <fx:root fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="800.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #00A6D6; -fx-border-width: 4; -fx-background-radius: 18; -fx-border-radius: 18;" type="javafx.scene.layout.Pane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <Text fx:id="question" layoutX="191.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Question" wrappingWidth="404.0" />
-    <Text fx:id="author" layoutX="615.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Author" textAlignment="RIGHT" wrappingWidth="121.029296875" />
+    <Text fx:id="lecturePinText" layoutX="191.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lecture pin" wrappingWidth="404.0" />
+    <Text fx:id="courseId" layoutX="615.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Course ID" textAlignment="RIGHT" wrappingWidth="121.029296875" />
     <Text fx:id="creationDate" layoutX="615.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Creation Date" textAlignment="RIGHT" wrappingWidth="121.029296875" />
     <Button fx:id="showArchive" layoutX="381.0" layoutY="8.0" mnemonicParsing="false" onAction="#showArchive" prefHeight="48.0" prefWidth="158.0" style="-fx-background-color: #FFFFFF;" text="view room" />
     <!--   </children>-->

@@ -6,6 +6,7 @@ import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import java.util.List;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
+import nl.tudelft.oopp.demo.entities.Poll;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
 import nl.tudelft.oopp.demo.entities.SpeedLog;
@@ -39,6 +40,23 @@ public class Request {
         GenericType<List<Question>> responseBodyType = new GenericType<List<Question>>(){};
 
         List<Question> responseBody = ClientBuilder.newClient()
+                .target(url)
+                .request(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .get(responseBodyType);
+
+        return responseBody;
+    }
+
+    /** Method to get questions.
+     *
+     * @param url   the url
+     * @return      returns a list of questions
+     */
+    public static List<Poll> getPolls(String url) {
+        GenericType<List<Poll>> responseBodyType = new GenericType<List<Poll>>(){};
+
+        List<Poll> responseBody = ClientBuilder.newClient()
                 .target(url)
                 .request(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)

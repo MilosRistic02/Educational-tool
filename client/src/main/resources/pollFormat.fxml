@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<fx:root fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="600.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #00A6D6; -fx-border-width: 4; -fx-background-radius: 18; -fx-border-radius: 18;" type="javafx.scene.layout.Pane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <Text fx:id="question" layoutX="60.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Question" wrappingWidth="404.0" />
+    <Text fx:id="creationDate" layoutX="415.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Creation Date" textAlignment="RIGHT" wrappingWidth="121.029296875" />
+    <BarChart fx:id="pollChart" layoutX="150.0" layoutY="50.0" prefHeight="207.0" prefWidth="300.0">
+        <xAxis>
+            <CategoryAxis label="Votes" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+            <NumberAxis side="LEFT" />
+        </yAxis>
+    </BarChart>
+    <!--   </children>-->
+</fx:root>
+
