@@ -37,7 +37,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"  prefHeight="823.0" prefWidth="1172.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.LogInController">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="823.0" prefWidth="1172.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.LogInController">
    <children>
       <Pane layoutY="-3.0" prefHeight="823.0" prefWidth="300.0" style="-fx-background-color: #00A6D6;" />
       <ImageView fitHeight="97.0" fitWidth="207.0" layoutX="951.0">
@@ -69,19 +69,19 @@
             <Font name="Cantarell Bold" size="30.0" />
          </font>
       </Button>
-      <Label fx:id="invalidUser" layoutX="588.0" layoutY="190.0" prefHeight="19.0" prefWidth="122.0" text="User doesn't exist" textFill="#d34343" visible="false">
+      <Label fx:id="invalidUser" layoutX="652.0" layoutY="212.0" prefHeight="27.0" prefWidth="150.0" text="User doesn't exist" textFill="#d34343" visible="false">
          <font>
-            <Font name="Cantarell Extra Bold" size="15.0" />
+            <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="wrongPassword" layoutX="581.0" layoutY="190.0" prefHeight="19.0" prefWidth="136.0" text="Password is wrong" textFill="#d34343" visible="false">
+      <Label fx:id="wrongPassword" layoutX="652.0" layoutY="212.0" prefHeight="27.0" prefWidth="150.0" text="Password is wrong" textFill="#d34343" visible="false">
          <font>
-            <Font name="Cantarell Extra Bold" size="15.0" />
+            <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="emptyFields" layoutX="567.0" layoutY="190.0" prefHeight="19.0" prefWidth="166.0" text="Please fill out the fields" textFill="#d34343" visible="false">
+      <Label fx:id="emptyFields" layoutX="632.0" layoutY="212.0" prefHeight="27.0" prefWidth="190.0" text="Please fill out the fields" textFill="#d34343" visible="false">
          <font>
-            <Font name="Cantarell Extra Bold" size="15.0" />
+            <Font size="18.0" />
          </font>
       </Label>
       <Button layoutX="517.0" layoutY="505.0" mnemonicParsing="false" onAction="#signupButtonClicked" prefHeight="56.0" prefWidth="157.0" style="-fx-background-color: #00A6D6;" text="Sign up" textFill="WHITE">

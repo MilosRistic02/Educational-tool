@@ -23,14 +23,14 @@
          <font>
             <Font size="22.0" />
          </font></TextField>
-      <Button layoutX="544.0" layoutY="518.0" mnemonicParsing="false" onAction="#createRoomButtonClicked" prefHeight="60.0" prefWidth="131.0" style="-fx-background-color: #00A6D6;" text="Create" textFill="WHITE">
+      <Button layoutX="544.0" layoutY="522.0" mnemonicParsing="false" onAction="#createRoomButtonClicked" prefHeight="60.0" prefWidth="131.0" style="-fx-background-color: #00A6D6;" text="Create" textFill="WHITE">
          <font>
             <Font size="28.0" />
          </font>
       </Button>
-      <Label fx:id="wrongId" layoutX="410.0" layoutY="103.0" prefHeight="26.0" prefWidth="112.0" text="invalid course ID" textFill="#d34343" visible="false">
+      <Label fx:id="emptyRoomFields" layoutX="616.0" layoutY="172.0" prefHeight="27.0" prefWidth="226.0" text="Please fill in all of the fields" textFill="#d34343" visible="false">
          <font>
-            <Font name="Cantarell Extra Bold" size="15.0" />
+            <Font size="18.0" />
          </font>
       </Label>
       <ChoiceBox fx:id="scheduleChoiceBox" layoutX="544.0" layoutY="374.0" onAction="#enableDatePicker" prefHeight="40.0" prefWidth="131.0" value="Now">
@@ -56,14 +56,9 @@
             </FXCollections>
          </items>
       </ComboBox>
-      <Label fx:id="wrongDate" layoutX="413.0" layoutY="218.0" prefHeight="26.0" prefWidth="82.0" text="invalid date" textFill="#d34343" visible="false">
+      <Label fx:id="pastDate" layoutX="638.0" layoutY="172.0" prefHeight="27.0" prefWidth="182.0" text="This date is in the past" textFill="#d34343" visible="false">
          <font>
-            <Font name="Cantarell Extra Bold" size="15.0" />
-         </font>
-      </Label>
-      <Label fx:id="pastDate" layoutX="376.0" layoutY="218.0" prefHeight="26.0" prefWidth="156.0" text="This date is in the past" textFill="#d34343" visible="false">
-         <font>
-            <Font name="Cantarell Extra Bold" size="15.0" />
+            <Font size="18.0" />
          </font>
       </Label>
       <Label layoutX="810.0" layoutY="374.0" prefHeight="40.0" prefWidth="12.0" text=":" textAlignment="CENTER">
@@ -119,6 +114,11 @@
       <Label layoutX="390.0" layoutY="214.0" prefHeight="64.0" prefWidth="141.0" text="Lecture Name" textAlignment="CENTER">
          <font>
             <Font size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="longLectureName" layoutX="544.0" layoutY="172.0" prefHeight="27.0" prefWidth="370.0" text="Lecture name should have max. 30 characters" textFill="#d34343" visible="false">
+         <font>
+            <Font size="18.0" />
          </font>
       </Label>
    </children>

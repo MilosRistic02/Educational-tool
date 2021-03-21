@@ -33,9 +33,9 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Button>
-      <Label fx:id="emptyFields" alignment="CENTER" contentDisplay="CENTER" layoutX="709.0" layoutY="412.0" prefHeight="19.0" prefWidth="166.0" text="Please enter a pin" textAlignment="CENTER" textFill="#d34343" visible="false">
+      <Label fx:id="emptyFields" alignment="CENTER" contentDisplay="CENTER" layoutX="625.0" layoutY="357.0" prefHeight="19.0" prefWidth="166.0" text="Please enter a pin" textAlignment="CENTER" textFill="#d34343" visible="false">
          <font>
-            <Font name="Cantarell Extra Bold" size="15.0" />
+            <Font size="18.0" />
          </font>
       </Label>
       <Text layoutX="439.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter a lecture pin to join a lecture room" textAlignment="CENTER" wrappingWidth="538.2000000000002">

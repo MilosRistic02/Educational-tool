@@ -25,49 +25,49 @@ import nl.tudelft.oopp.demo.views.Display;
 public class LobbyController {
 
     @FXML
-    AnchorPane rootPane;
+    private AnchorPane rootPane;
 
     @FXML
-    TextField pinText;
+    private TextField pinText;
 
     @FXML
-    TextField lectureNameField;
+    private TextField lectureNameField;
 
     @FXML
-    TextField courseIdField;
+    private TextField courseIdField;
 
     @FXML
-    ChoiceBox scheduleChoiceBox;
+    private ChoiceBox scheduleChoiceBox;
 
     @FXML
-    DatePicker startingDate;
+    private DatePicker startingDate;
 
     @FXML
-    ComboBox startingTimeHours;
+    private ComboBox startingTimeHours;
 
     @FXML
-    ComboBox startingTimeMinutes;
+    private ComboBox startingTimeMinutes;
 
     @FXML
-    Label wrongId;
+    private Label longLectureName;
 
     @FXML
-    Label wrongDate;
+    private Label emptyRoomFields;
 
     @FXML
-    Label pastDate;
+    private Label pastDate;
 
     @FXML
-    Label emptyFields;
+    private Label emptyFields;
 
     @FXML
-    ImageView backToLobby;
+    private ImageView backToLobby;
 
     @FXML
-    Button logOutStudent;
+    private Button logOutStudent;
 
     @FXML
-    Button logOutLecturer;
+    private Button logOutLecturer;
 
     private Users users;
 
@@ -90,14 +90,17 @@ public class LobbyController {
         String courseId = courseIdField.getText();
         String lectureName = lectureNameField.getText();
 
-        if (courseId.length() == 0) {
-            wrongId.setVisible(true);
-            courseIdField.requestFocus();
-        } else if (lectureName.length() == 0) {
-            wrongId.setVisible(true);
+        if (lectureName.length() == 0 || courseId.length() == 0) {
+            hideCreationErrors();
+            emptyRoomFields.setVisible(true);
+            lectureNameField.requestFocus();
+        } else if (lectureName.length() > 30) {
+            hideCreationErrors();
+            longLectureName.setVisible(true);
+            lectureNameField.setText("");
             lectureNameField.requestFocus();
         } else {
-            wrongId.setVisible(false);
+            hideCreationErrors();
             createRoom(lectureName, courseId);
         }
     }
@@ -142,10 +145,7 @@ public class LobbyController {
         try {
             lectureStartingTime = dateTimeFormat.parse(startingDate.getValue() + " " + time);
         } catch (Exception e) {
-            wrongDate.setVisible(true);
-            startingDate.setValue(null);
-            startingDate.requestFocus();
-            return null;
+            e.printStackTrace();
         }
         Date currentDate = new Date();
         if (lectureStartingTime.compareTo(currentDate) < 0) {
@@ -156,7 +156,6 @@ public class LobbyController {
         }
 
         pastDate.setVisible(false);
-        wrongDate.setVisible(false);
         return lectureStartingTime;
     }
 
@@ -236,6 +235,15 @@ public class LobbyController {
                 }
             }
         }
+    }
+
+    /**
+     * Hides all error messages that could be encountered when creating a room.
+     */
+    private void hideCreationErrors() {
+        longLectureName.setVisible(false);
+        pastDate.setVisible(false);
+        emptyRoomFields.setVisible(false);
     }
 
     /**

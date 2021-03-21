@@ -70,7 +70,7 @@
       <ImageView fitHeight="24.0" fitWidth="28.0" layoutX="1126.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true">
          <Image url="@images/speedometer.png" />
       </ImageView>
-      <Text fx:id="currentRoom" layoutX="909.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You are currently in: [lectureName]" textAlignment="CENTER" wrappingWidth="238.0">
+      <Text fx:id="currentRoom" layoutX="922.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You are currently in: [LectureName]" textAlignment="CENTER" wrappingWidth="214.0">
          <font>
             <Font size="24.0" />
          </font>

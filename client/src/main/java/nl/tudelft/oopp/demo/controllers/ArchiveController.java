@@ -1,5 +1,7 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
@@ -7,6 +9,7 @@ import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -14,6 +17,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
+import nl.tudelft.oopp.demo.alerts.Alerts;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Poll;
@@ -159,9 +165,39 @@ public class ArchiveController {
         }
     }
 
+    /**
+     * Exports an archived room to a text file.
+     */
     @FXML
     private void writeArchive() {
-        System.out.println("To be implemented");
+        // Create a fileChooser
+        FileChooser fileChooser = new FileChooser();
+        Window stage = rootPane.getScene().getWindow();
+
+        fileChooser.setTitle("Exporting Archived Room");
+        fileChooser.setInitialFileName(lecturePin + "_export");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Word Document", "*.docx"),
+                new FileChooser.ExtensionFilter("Text File", "*.txt")
+        );
+
+        try {
+            // Create the file named by the user.
+            File export = fileChooser.showSaveDialog(stage);
+            fileChooser.setInitialDirectory(export.getParentFile());
+
+            // Write content to the file.
+            FileWriter fileWriter = new FileWriter(export);
+            fileWriter.write("Hallo"); // Does not work for some reason.
+
+            Alerts.alertInfo("Export succesfull",
+                    "Succesfully exported all questions of " + lecturePin);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            //Alerts.alertError("Exporting failed", "Oops. Something went wrong! Try again later.");
+        }
+
     }
 
     private void addRoom(LectureRoom room) {
