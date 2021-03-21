@@ -23,12 +23,12 @@
             <Font size="28.0" />
          </font>
       </Button>
-      <ImageView fx:id="backToLobby" fitHeight="51.0" fitWidth="46.0" layoutX="315.0" layoutY="19.0" onMouseClicked="#loadLobbyLecturer" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="backToLobby" fitHeight="51.0" fitWidth="46.0" layoutX="315.0" layoutY="19.0" onMouseClicked="#loadLobbyLecturer" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@images/back_button.png" />
          </image>
       </ImageView>
-      <Button fx:id="logOutStudent" layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#logOut" prefHeight="51.0" prefWidth="122.0" style="-fx-background-color: #ffffff;" text="Log out" textFill="#00a6d6" visible="false">
+      <Button fx:id="logOutStudent" layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#logOut" prefHeight="51.0" prefWidth="122.0" style="-fx-background-color: #ffffff;" text="Log out" textFill="#00a6d6">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>

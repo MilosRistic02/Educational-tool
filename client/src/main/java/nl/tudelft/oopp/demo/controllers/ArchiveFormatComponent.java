@@ -18,6 +18,9 @@ public class ArchiveFormatComponent extends Pane {
     public Text courseId;
 
     @FXML
+    public Text lectureNameText;
+
+    @FXML
     public Text lecturePinText;
 
     @FXML

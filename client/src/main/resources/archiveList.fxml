@@ -5,18 +5,18 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="rootPane" prefHeight="823.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.ArchiveController">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="819.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.ArchiveController">
     <children>
-        <Pane layoutY="20.0" prefHeight="767.0" prefWidth="1172.0" style="-fx-background-color: #00A6D6; -fx-background-radius: 18;">
+        <Pane layoutY="20.0" prefHeight="740.0" prefWidth="1172.0" style="-fx-background-color: #00A6D6; -fx-background-radius: 18;">
             <children>
-                <Text fx:id="title" fill="WHITE" layoutX="-15.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Archive of room [pin]" textAlignment="CENTER" wrappingWidth="876.0">
+                <Text fx:id="archiveRoomHeader" fill="WHITE" layoutX="140.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Archive of room [pin]" textAlignment="CENTER" visible="false" wrappingWidth="876.0">
                     <font>
                         <Font size="50.0" />
                     </font>
                 </Text>
                 <ScrollPane hbarPolicy="NEVER" layoutY="75.0">
                     <content>
-                        <VBox fx:id="stack" alignment="CENTER" prefHeight="671.0" prefWidth="1171.0" style="-fx-background-color: #FFFFFF;" />
+                        <VBox fx:id="stack" alignment="CENTER" prefHeight="643.0" prefWidth="1171.0" style="-fx-background-color: #FFFFFF;" />
                     </content>
                 </ScrollPane>
                 <ImageView fitHeight="45.0" fitWidth="54.0" layoutX="10.0" layoutY="12.0" onMouseClicked="#loadLobbyLecturer" pickOnBounds="true" preserveRatio="true">
@@ -29,29 +29,29 @@
                         <Font size="30.0" />
                     </font>
                 </Label>
-                <TextField fx:id="searchBar" layoutX="769.0" layoutY="13.0" onKeyReleased="#searchCourse" prefHeight="45.0" prefWidth="312.0" promptText="Search by course ID" style="-fx-background-color: #E4EDF2;">
+                <TextField fx:id="searchBar" layoutX="768.0" layoutY="13.0" onKeyReleased="#searchCourse" prefHeight="45.0" prefWidth="312.0" promptText="Search by course ID" style="-fx-background-color: #E4EDF2;">
                     <font>
                         <Font size="20.0" />
                     </font>
                 </TextField>
-                <ImageView fx:id="glass" fitHeight="45.0" fitWidth="52.0" layoutX="1100.0" layoutY="13.0" onMouseClicked="#searchCourse">
+                <ImageView fx:id="glass" fitHeight="45.0" fitWidth="44.0" layoutX="1090.0" layoutY="13.0" onMouseClicked="#searchCourse">
                     <image>
                         <Image url="@images/search_white.png" />
                     </image>
                 </ImageView>
-                <Label fx:id="emptyFields" layoutX="836.0" layoutY="54.0" prefHeight="19.0" prefWidth="166.0" text="Please enter a course ID" textFill="#d34343" visible="false">
-                    <font>
-                        <Font name="Cantarell Extra Bold" size="15.0" />
-                    </font>
-                </Label>
+            <Text fx:id="archiveHeader" fill="WHITE" layoutX="229.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Archive" textAlignment="CENTER" wrappingWidth="349.0000305175781">
+               <font>
+                  <Font size="50.0" />
+               </font>
+            </Text>
             </children>
         </Pane>
-        <Button fx:id="showPolls" layoutX="333.0" layoutY="813.0" mnemonicParsing="false" onAction="#showPolls" prefHeight="12.0" prefWidth="193.0" style="-fx-background-color: #00A6D6;" text="Show polls" textFill="WHITE" visible="false">
+        <Button fx:id="showPolls" layoutX="519.0" layoutY="765.0" mnemonicParsing="false" onAction="#showPolls" prefHeight="44.0" prefWidth="134.0" style="-fx-background-color: #00A6D6;" text="Show polls" textFill="WHITE">
             <font>
                 <Font size="20.0" />
             </font>
     </Button>
-        <Button fx:id="writeArchive" layoutX="536.0" layoutY="799.0" mnemonicParsing="false" onAction="#writeArchive" prefHeight="21.0" prefWidth="194.0" style="-fx-background-color: #00A6D6;" text="Write to file" textFill="WHITE" visible="false">
+        <Button fx:id="writeArchive" layoutX="963.0" layoutY="765.0" mnemonicParsing="false" onAction="#writeArchive" prefHeight="21.0" prefWidth="194.0" style="-fx-background-color: #00A6D6;" text="Write to file" textFill="WHITE">
             <font>
                 <Font size="20.0" />
             </font>

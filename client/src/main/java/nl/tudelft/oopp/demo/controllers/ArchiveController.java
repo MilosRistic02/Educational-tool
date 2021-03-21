@@ -23,6 +23,7 @@ import nl.tudelft.oopp.demo.views.Display;
 
 
 public class ArchiveController {
+
     @FXML
     private AnchorPane rootPane;
 
@@ -33,10 +34,10 @@ public class ArchiveController {
     private Label emptyArchive;
 
     @FXML
-    private Label emptyFields;
+    private Text archiveHeader;
 
     @FXML
-    private Text title;
+    private Text archiveRoomHeader;
 
     @FXML
     private TextField searchBar;
@@ -51,11 +52,13 @@ public class ArchiveController {
     private Button writeArchive;
 
     private Users user;
-
     private List<LectureRoom> rooms;
-
     private String lecturePin;
 
+    /**
+     * String that displays in which view the user is in the archive.
+     * The default is "pins", later "questions" and "polls" are used.
+     */
     private String archiveView;
 
     /**
@@ -64,11 +67,7 @@ public class ArchiveController {
      */
     @FXML
     public void searchCourse() {
-        emptyFields.setVisible(false);
         String course = searchBar.getText().toLowerCase();
-        if (course.length() == 0) {
-            emptyFields.setVisible(true);
-        }
         stack.getChildren().clear();
         stack.setSpacing(20);
 
@@ -95,13 +94,14 @@ public class ArchiveController {
         searchBar.setVisible(false);
         glass.setVisible(false);
         emptyArchive.setVisible(false);
+        archiveHeader.setVisible(false);
+        archiveRoomHeader.setVisible(true);
         archiveView = "questions";
-        title.setText("Archive of room " + lecturePin);
+        archiveRoomHeader.setText("Archive of room " + lecturePin);
         stack.getChildren().clear();
         stack.setSpacing(20);
 
         List<Question> questions = ServerCommunication.getAllQuestion(lecturePin);
-
 
         if (questions.isEmpty()) {
             emptyArchive.setVisible(true);
@@ -124,39 +124,44 @@ public class ArchiveController {
         glass.setVisible(false);
         emptyArchive.setVisible(false);
         archiveView = "polls";
-        title.setText("Polls of " + lecturePin);
+        archiveRoomHeader.setText("Polls of " + lecturePin);
         stack.getChildren().clear();
         stack.setSpacing(20);
 
         List<Poll> polls = ServerCommunication.getAllPolls(this.lecturePin);
-        for (Poll poll : polls) {
-            PollFormatComponent pollFormatComponent = new PollFormatComponent();
-            pollFormatComponent.creationDate.setText(String.valueOf(poll.getCreationDate()));
-            pollFormatComponent.question.setText(poll.getQuestion());
-            BarChart pollChart =  pollFormatComponent.pollChart;
-            int size = poll.getSize();
-            int[] results = poll.getVotes();
+        if (polls.isEmpty()) {
+            emptyArchive.setText("No polls used in this room");
+            emptyArchive.setVisible(true);
+        } else {
+            for (Poll poll : polls) {
+                PollFormatComponent pollFormatComponent = new PollFormatComponent();
+                pollFormatComponent.creationDate.setText(String.valueOf(poll.getCreationDate()));
+                pollFormatComponent.question.setText(poll.getQuestion());
+                BarChart pollChart = pollFormatComponent.pollChart;
+                int size = poll.getSize();
+                int[] results = poll.getVotes();
 
-            XYChart.Series set1 = new XYChart.Series<>();
+                XYChart.Series set1 = new XYChart.Series<>();
 
-            for (int i = 0; i < size; i++) {
-                set1.getData().add(
-                        new XYChart.Data(Character.toString((char) (i + 65)), results[i]));
+                for (int i = 0; i < size; i++) {
+                    set1.getData().add(
+                            new XYChart.Data(Character.toString((char) (i + 65)), results[i]));
+                }
+                if (!poll.isOpen()) {
+                    pollChart.getData().clear();
+                    pollChart.getData().addAll(set1);
+                    pollChart.lookup(".data" + (poll.getRightAnswer() - 65)
+                            + ".chart-bar").setStyle("-fx-bar-fill: green");
+                    pollChart.setAnimated(false);
+                }
+                stack.getChildren().add(pollFormatComponent);
             }
-            if (!poll.isOpen()) {
-                pollChart.getData().clear();
-                pollChart.getData().addAll(set1);
-                pollChart.lookup(".data" + (poll.getRightAnswer() - 65)
-                        + ".chart-bar").setStyle("-fx-bar-fill: green");
-                pollChart.setAnimated(false);
-            }
-            stack.getChildren().add(pollFormatComponent);
         }
     }
 
     @FXML
     private void writeArchive() {
-
+        System.out.println("To be implemented");
     }
 
     private void addRoom(LectureRoom room) {
@@ -165,7 +170,8 @@ public class ArchiveController {
         archiveFormatComponent.setCurrentPin(room.getLecturePin());
         archiveFormatComponent.setUser(user);
 
-        archiveFormatComponent.lecturePinText.setText(room.getLecturePin());
+        archiveFormatComponent.lectureNameText.setText(room.getLectureName());
+        archiveFormatComponent.lecturePinText.setText("Pin: " + room.getLecturePin());
         archiveFormatComponent.creationDate.setText(room.getCreationDate().toString());
         archiveFormatComponent.courseId.setText(String.valueOf(room.getCourseId()));
 
@@ -186,7 +192,8 @@ public class ArchiveController {
         glass.setVisible(true);
         emptyArchive.setVisible(false);
         archiveView = "pins";
-        title.setText("Archive");
+        archiveHeader.setVisible(true);
+        archiveRoomHeader.setVisible(false);
         this.rooms =  ServerCommunication.getClosedLecturePins();
 
         stack.getChildren().clear();

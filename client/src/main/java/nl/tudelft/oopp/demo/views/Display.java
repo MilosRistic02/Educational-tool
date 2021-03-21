@@ -132,11 +132,12 @@ public class Display extends Application {
         FXMLLoader loader = new FXMLLoader();
         URL xmlUrl = Display.class.getResource("/archiveList.fxml");
         loader.setLocation(xmlUrl);
-        Parent root = loader.load();
+        final Parent root = loader.load();
 
         ArchiveController archiveController = loader.getController();
         archiveController.setUsers(users);
         archiveController.showPins();
+        archiveController.showButtons(false);
 
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
@@ -151,13 +152,13 @@ public class Display extends Application {
         FXMLLoader loader = new FXMLLoader();
         URL xmlUrl = Display.class.getResource("/archiveList.fxml");
         loader.setLocation(xmlUrl);
+        final Parent root = loader.load();
 
         ArchiveController archiveController = loader.getController();
         archiveController.setUsers(users);
         archiveController.showArchive(lecturePin);
         archiveController.showButtons(true);
 
-        Parent root = loader.load();
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
