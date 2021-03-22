@@ -2,6 +2,8 @@ package nl.tudelft.oopp.demo.communication;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.File;
 import java.net.http.HttpClient;
 import java.util.HashMap;
 import java.util.List;
@@ -113,6 +115,10 @@ public class ServerCommunication extends Request {
 
     public static List<LectureRoom> getClosedLecturePins() {
         return getClosedPins("http://localhost:8080/lecture/getClosed/");
+    }
+
+    public static File exportRoom(File file, String lecturePin) {
+        return getFile("http://localhost:8080/lecture/file/" + lecturePin, file);
     }
 
     public static String speedVote(SpeedLog speedLog) {

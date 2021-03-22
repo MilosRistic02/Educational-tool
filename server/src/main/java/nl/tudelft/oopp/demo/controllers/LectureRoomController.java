@@ -1,6 +1,8 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+
+import java.io.File;
 import java.util.List;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Users;
@@ -46,6 +48,10 @@ public class LectureRoomController {
     public boolean deleteAllLectureRooms() {
         return lectureRoomService.deleteAllLectureRooms();
     }
+
+    @GetMapping("/file/{pin}")
+    @ResponseBody
+    public File exportRoom(@RequestBody File file, @PathVariable String pin) { return lectureRoomService.exportRoom(file, pin);}
 
     @GetMapping
     @ResponseBody

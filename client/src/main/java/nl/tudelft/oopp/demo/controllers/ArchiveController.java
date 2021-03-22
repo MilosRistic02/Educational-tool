@@ -176,8 +176,7 @@ public class ArchiveController {
 
         fileChooser.setTitle("Exporting Archived Room");
         fileChooser.setInitialFileName(lecturePin + "_export");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Word Document", "*.docx"),
+        fileChooser.getExtensionFilters().add(
                 new FileChooser.ExtensionFilter("Text File", "*.txt")
         );
 
@@ -187,8 +186,7 @@ public class ArchiveController {
             fileChooser.setInitialDirectory(export.getParentFile());
 
             // Write content to the file.
-            FileWriter fileWriter = new FileWriter(export);
-            fileWriter.write("Hallo"); // Does not work for some reason.
+            export = ServerCommunication.exportRoom(export, lecturePin);
 
             Alerts.alertInfo("Export succesfull",
                     "Succesfully exported all questions of " + lecturePin);

@@ -1,10 +1,15 @@
 package nl.tudelft.oopp.demo.services;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
+import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.repositories.LectureRoomRepository;
+import nl.tudelft.oopp.demo.repositories.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +17,12 @@ import org.springframework.stereotype.Service;
 public class LectureRoomService {
 
     private LectureRoomRepository lectureRoomRepository;
+    private QuestionRepository questionRepository;
 
     @Autowired
-    public LectureRoomService(LectureRoomRepository lectureRoomRepository) {
+    public LectureRoomService(LectureRoomRepository lectureRoomRepository, QuestionRepository questionRepository) {
         this.lectureRoomRepository = lectureRoomRepository;
+        this.questionRepository = questionRepository;
     }
 
     /**
@@ -74,6 +81,32 @@ public class LectureRoomService {
             lectureRoomRepository.delete(lectureRoom);
         }
         return true;
+    }
+
+    public File exportRoom(File file, String lecturePin) {
+        List<Question> questions = questionRepository.getAllByLecturePin(lecturePin);
+
+        try{
+            FileWriter fileWriter = new FileWriter(file);
+            String output = "";
+
+            if(questions.isEmpty()){
+                output = "This archive did not contain any questions, therefore this file is empty.";
+            } else {
+                for(Question question : questions){
+                    output += question.getQuestion() + "\n";
+                    output += question.getAnswer() + "\n\n";
+                }
+            }
+
+            fileWriter.write(output);
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return file;
     }
 
     /**
