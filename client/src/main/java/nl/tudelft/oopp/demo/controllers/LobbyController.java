@@ -128,7 +128,7 @@ public class LobbyController {
             Alerts.alertError("Too many rooms", response);
         } else {
             lectureRoom.setLecturePin(response);
-            Alerts.alertInfoCopyAble("Lecture pin", "Your lecture pin is: " + response, 300, 25);
+            Alerts.alertInfoCopyAble("Lecture pin", "Your lecture pin is: " + response, 400, 25);
             if (scheduleChoice.equals("Now")) {
                 Display.showQuestionLecturer(users, lectureRoom);
             } else {
