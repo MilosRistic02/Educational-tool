@@ -7,7 +7,7 @@ import java.util.Objects;
 public class LectureRoom {
     private String lecturePin;
     private String lecturerID;
-    private int courseId;
+    private String courseId;
     private Date creationDate;
     private Date startingTime;
     private boolean isOpen;
@@ -22,7 +22,7 @@ public class LectureRoom {
      * @param lecturerID - Identifier of the lecturer that created the LectureRoom
      * @param courseId - Identifier of the course
     */
-    public LectureRoom(String lecturerID, int courseId) {
+    public LectureRoom(String lecturerID, String courseId) {
         this.lecturerID = lecturerID;
         this.courseId = courseId;
         this.isOpen = true;
@@ -35,7 +35,7 @@ public class LectureRoom {
      * @param courseId - Identifier of the course
      * @param startingTime - The date and time when the lecture will open
      */
-    public LectureRoom(String lecturerID, int courseId, Date startingTime) {
+    public LectureRoom(String lecturerID, String courseId, Date startingTime) {
         this.lecturerID = lecturerID;
         this.courseId = courseId;
         this.isOpen = true;
@@ -63,7 +63,7 @@ public class LectureRoom {
      *
      * @return the identifier of the course
     */
-    public int getCourseId() {
+    public String getCourseId() {
         return courseId;
     }
 
@@ -71,7 +71,7 @@ public class LectureRoom {
      *
      * @param courseId - the identifier of the course
     */
-    public void setCourseId(int courseId) {
+    public void setCourseId(String courseId) {
         this.courseId = courseId;
     }
 

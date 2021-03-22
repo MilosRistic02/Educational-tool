@@ -81,9 +81,9 @@ public class LobbyController {
      */
     @FXML
     public void createRoomButtonClicked() throws IOException, ParseException {
-        int courseId;
+        String courseId;
         try {
-            courseId = Integer.parseInt(courseIdField.getText());
+            courseId = courseIdField.getText();
         } catch (NumberFormatException e) {
             wrongId.setVisible(true);
             courseIdField.setText("");
@@ -98,7 +98,7 @@ public class LobbyController {
      * Creates a new lectureRoom and redirects the lecturer to that room.
      */
     @FXML
-    public void createRoom(int courseId) throws IOException, ParseException {
+    public void createRoom(String courseId) throws IOException, ParseException {
         LectureRoom lectureRoom = null;
         String scheduleChoice = scheduleChoiceBox.getValue().toString();
 

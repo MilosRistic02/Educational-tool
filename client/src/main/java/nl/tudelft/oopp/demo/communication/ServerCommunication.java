@@ -143,4 +143,8 @@ public class ServerCommunication extends Request {
         String response = get("http://localhost:8080/users/student");
         return new ObjectMapper().readValue(response, new TypeReference<List<Users>>(){});
     }
+
+    public static String banUser(String username) {
+        return put("http://localhost:8080/users/ban", username);
+    }
 }

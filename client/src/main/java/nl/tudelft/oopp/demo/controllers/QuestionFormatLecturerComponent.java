@@ -181,4 +181,9 @@ public class QuestionFormatLecturerComponent extends VBox {
     public void delete() {
         ServerCommunication.deleteQuestion(Integer.toString((int) currentQuestion.getId()));
     }
+
+    public void banUser() {
+        ServerCommunication.banUser(currentQuestion.getAuthor());
+        delete();
+    }
 }
