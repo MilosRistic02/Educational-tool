@@ -1,7 +1,7 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
@@ -9,7 +9,6 @@ import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -19,6 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
+
 import nl.tudelft.oopp.demo.alerts.Alerts;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
@@ -175,7 +175,9 @@ public class ArchiveController {
         Window stage = rootPane.getScene().getWindow();
 
         fileChooser.setTitle("Exporting Archived Room");
-        fileChooser.setInitialFileName(lecturePin + "_export");
+        LectureRoom room = ServerCommunication.getLectureRoom(lecturePin);
+        String lectureName = room.getLectureName().replaceAll(" ", "_");
+        fileChooser.setInitialFileName(lectureName + "_export");
         fileChooser.getExtensionFilters().add(
                 new FileChooser.ExtensionFilter("Text File", "*.txt")
         );
@@ -186,7 +188,8 @@ public class ArchiveController {
             fileChooser.setInitialDirectory(export.getParentFile());
 
             // Write content to the file.
-            export = ServerCommunication.exportRoom(export, lecturePin);
+            String response = ServerCommunication.exportRoom(export, lecturePin);
+            export = new ObjectMapper().readValue(response, File.class);
 
             Alerts.alertInfo("Export succesfull",
                     "Succesfully exported all questions of " + lecturePin);

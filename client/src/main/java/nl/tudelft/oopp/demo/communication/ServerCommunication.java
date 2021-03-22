@@ -117,12 +117,20 @@ public class ServerCommunication extends Request {
         return getClosedPins("http://localhost:8080/lecture/getClosed/");
     }
 
-    public static File exportRoom(File file, String lecturePin) {
-        return getFile("http://localhost:8080/lecture/file/" + lecturePin, file);
+    /**
+     * Method to get a file with questions of a specific room.
+     * @param file the exported file
+     * @param lecturePin the pin of the room
+     * @return a file with question and answers
+     * @throws JsonProcessingException can throw an exception
+     */
+    public static String exportRoom(File file, String lecturePin) throws JsonProcessingException {
+        return post(
+                "http://localhost:8080/lecture/file/" + lecturePin,
+                new ObjectMapper().writeValueAsString(file));
     }
 
     public static String speedVote(SpeedLog speedLog) {
-
         return post("http://localhost:8080/speedlog/speed-vote", speedLog);
     }
 
@@ -133,6 +141,7 @@ public class ServerCommunication extends Request {
     public static String createPoll(Poll poll) {
         return post("http://localhost:8080/poll/create/", poll);
     }
+
 
     public static Poll getPoll(String lecturePin) throws JsonProcessingException {
         String response = get("http://localhost:8080/poll/" + lecturePin);

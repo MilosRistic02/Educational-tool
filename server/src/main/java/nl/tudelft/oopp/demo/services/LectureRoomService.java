@@ -94,8 +94,8 @@ public class LectureRoomService {
                 output = "This archive did not contain any questions, therefore this file is empty.";
             } else {
                 for(Question question : questions){
-                    output += question.getQuestion() + "\n";
-                    output += question.getAnswer() + "\n\n";
+                    output += "Q: " + question.getQuestion() + "\n";
+                    output += "A: " + question.getAnswer() + "\n\n";
                 }
             }
 

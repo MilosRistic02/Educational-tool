@@ -49,7 +49,7 @@ public class LectureRoomController {
         return lectureRoomService.deleteAllLectureRooms();
     }
 
-    @GetMapping("/file/{pin}")
+    @PostMapping("/file/{pin}")
     @ResponseBody
     public File exportRoom(@RequestBody File file, @PathVariable String pin) { return lectureRoomService.exportRoom(file, pin);}
 
