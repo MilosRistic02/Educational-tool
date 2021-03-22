@@ -51,7 +51,7 @@
                 <Font size="20.0" />
             </font>
     </Button>
-        <Button fx:id="writeArchive" layoutX="963.0" layoutY="765.0" mnemonicParsing="false" onAction="#writeArchive" prefHeight="21.0" prefWidth="194.0" style="-fx-background-color: #00A6D6;" text="Write to file" textFill="WHITE">
+        <Button fx:id="writeArchive" layoutX="963.0" layoutY="765.0" mnemonicParsing="false" onAction="#writeArchive" prefHeight="21.0" prefWidth="194.0" style="-fx-background-color: #00A6D6;" text="Export questions" textFill="WHITE">
             <font>
                 <Font size="20.0" />
             </font>
