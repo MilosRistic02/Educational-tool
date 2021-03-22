@@ -188,8 +188,7 @@ public class ArchiveController {
             fileChooser.setInitialDirectory(export.getParentFile());
 
             // Write content to the file.
-            String response = ServerCommunication.exportRoom(export, lecturePin);
-            export = new ObjectMapper().readValue(response, File.class);
+            ServerCommunication.exportRoom(export, lecturePin);
 
             Alerts.alertInfo("Export succesfull",
                     "Succesfully exported all questions of " + lecturePin);

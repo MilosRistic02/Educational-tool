@@ -29,7 +29,7 @@
                         <Font size="30.0" />
                     </font>
                 </Label>
-                <TextField fx:id="searchBar" layoutX="768.0" layoutY="13.0" onKeyReleased="#searchCourse" prefHeight="45.0" prefWidth="312.0" promptText="Search by course ID" style="-fx-background-color: #E4EDF2;">
+                <TextField fx:id="searchBar" layoutX="768.0" layoutY="13.0" onKeyTyped="#searchCourse" prefHeight="45.0" prefWidth="312.0" promptText="Search by course ID" style="-fx-background-color: #E4EDF2;">
                     <font>
                         <Font size="20.0" />
                     </font>

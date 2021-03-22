@@ -51,7 +51,9 @@ public class LectureRoomController {
 
     @PostMapping("/file/{pin}")
     @ResponseBody
-    public File exportRoom(@RequestBody File file, @PathVariable String pin) { return lectureRoomService.exportRoom(file, pin);}
+    public File exportRoom(@RequestBody File file, @PathVariable String pin) {
+        return lectureRoomService.exportRoom(file, pin);
+    }
 
     @GetMapping
     @ResponseBody

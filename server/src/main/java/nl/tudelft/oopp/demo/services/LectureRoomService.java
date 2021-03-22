@@ -20,7 +20,8 @@ public class LectureRoomService {
     private QuestionRepository questionRepository;
 
     @Autowired
-    public LectureRoomService(LectureRoomRepository lectureRoomRepository, QuestionRepository questionRepository) {
+    public LectureRoomService(LectureRoomRepository lectureRoomRepository,
+                              QuestionRepository questionRepository) {
         this.lectureRoomRepository = lectureRoomRepository;
         this.questionRepository = questionRepository;
     }
@@ -83,19 +84,28 @@ public class LectureRoomService {
         return true;
     }
 
+    /**
+     * Writes all questions of a specific lectureRoom to the export file.
+     * @param file - The file that is exported
+     * @param lecturePin - The pin of the archived lectureRoom.
+     * @return the file with all of the questions and corresponding answers.
+     */
     public File exportRoom(File file, String lecturePin) {
         List<Question> questions = questionRepository.getAllByLecturePin(lecturePin);
 
-        try{
+        try {
             FileWriter fileWriter = new FileWriter(file);
             String output = "";
 
-            if(questions.isEmpty()){
-                output = "This archive did not contain any questions, therefore this file is empty.";
+            if (questions.isEmpty()) {
+                output = "This archive did not contain questions, therefore this file is empty.";
             } else {
-                for(Question question : questions){
+                for (Question question : questions) {
                     output += "Q: " + question.getQuestion() + "\n";
-                    output += "A: " + question.getAnswer() + "\n\n";
+
+                    String answer = (question.getAnswer() == null) ? "[Insert answer here]"
+                                    : question.getAnswer();
+                    output += "A: " + answer + "\n\n";
                 }
             }
 
