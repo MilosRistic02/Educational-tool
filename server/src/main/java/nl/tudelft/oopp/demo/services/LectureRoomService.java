@@ -92,6 +92,7 @@ public class LectureRoomService {
      */
     public File exportRoom(File file, String lecturePin) {
         List<Question> questions = questionRepository.getAllByLecturePin(lecturePin);
+        LectureRoom room = lectureRoomRepository.getByLecturePin(lecturePin);
 
         try {
             FileWriter fileWriter = new FileWriter(file);
@@ -100,6 +101,10 @@ public class LectureRoomService {
             if (questions.isEmpty()) {
                 output = "This archive did not contain questions, therefore this file is empty.";
             } else {
+                output += room.getLectureName()
+                        + " ("
+                        + room.getCreationDate().toString().substring(0, 10)
+                        + ")\n\n";
                 for (Question question : questions) {
                     output += "Q: " + question.getQuestion() + "\n";
 
@@ -147,7 +152,7 @@ public class LectureRoomService {
 
     /**
      * Method to change a lectureRoom in the database.
-     * @param lectureRoom the lectureroom to change to
+     * @param lectureRoom the lecture room to change to
      * @return whether the room is updated or didn't exist
      */
     public String putLectureRoom(LectureRoom lectureRoom) {
@@ -167,6 +172,6 @@ public class LectureRoomService {
      * @return list of lecturePins
      */
     public List<LectureRoom> getClosedLecturePins() {
-        return lectureRoomRepository.getClosed();
+        return lectureRoomRepository.getAllByIsOpenIsFalse();
     }
 }
