@@ -78,7 +78,9 @@ public class ArchiveController {
         stack.setSpacing(20);
 
         for (LectureRoom room : this.rooms) {
-            if (room.getCourseId().toLowerCase().contains(course)) {
+            if (room.getCourseId().toLowerCase().contains(course)
+                || room.getLectureName().toLowerCase().contains(course)
+                || room.getLecturePin().toLowerCase().contains(course)) {
                 addRoom(room);
                 emptyArchive.setVisible(false);
             }
