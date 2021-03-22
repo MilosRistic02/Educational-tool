@@ -94,10 +94,10 @@
             <Font name="System Bold" size="13.0" />
          </font>
       </Text>
-      <Text fx:id="currentRoomPin" layoutX="14.0" layoutY="793.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lecture pin: [lecturePin]" wrappingWidth="385.0">
+      <TextField fx:id="currentRoomPin" layoutX="13.0" layoutY="770.0" prefHeight="18.0" prefWidth="224.0" text="Lecture pin: [lecturePin]" style="-fx-background-color: #F4F4F4" editable="false">
          <font>
             <Font size="18.0" />
          </font>
-      </Text>
+      </TextField>
    </children>
 </AnchorPane>

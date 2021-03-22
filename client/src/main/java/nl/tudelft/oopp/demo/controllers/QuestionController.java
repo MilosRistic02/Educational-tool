@@ -43,7 +43,7 @@ public class QuestionController {
     private Text currentRoom;
 
     @FXML
-    private Text currentRoomPin;
+    private TextField currentRoomPin;
 
     @FXML
     private BarChart pollChart;
