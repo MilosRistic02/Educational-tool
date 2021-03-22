@@ -158,11 +158,11 @@ public class Display extends Application {
         primaryStage.show();
     }
 
-    public static void showStudentsBanPage(Users users) throws IOException {
+    public static void showStudentsBanPage(Users user) throws IOException {
         Pair<FXMLLoader, Parent> recourse = load("/usersList.fxml");
 
         UsersListController usersListController = recourse.getKey().getController();
-        usersListController.setUsers(users);
+        usersListController.setUsers(user);
 
         primaryStage.setScene(new Scene(recourse.getValue()));
         primaryStage.show();

@@ -2,6 +2,8 @@ package nl.tudelft.oopp.demo.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import nl.tudelft.oopp.demo.entities.Users;
@@ -211,7 +213,22 @@ public class UsersService {
         return "User unbanned successfully";
     }
 
-    public List<Users> searchStudents(String search) {
-        return usersRepo.findStudents(search);
+    public List<Users> searchStudents(String search, boolean view) {
+        if(search == null || search.length() == 0){
+            return new ArrayList<>();
+        }
+        return usersRepo.findStudents(search, view);
+    }
+
+    public List<Users> getNotBannedStudents() {
+        return usersRepo.getNotBannedStudents();
+    }
+
+    public List<Users> getBannedStudents() {
+        return usersRepo.getBannedStudents();
+    }
+
+    public boolean isUserBanned(String username){
+        return usersRepo.isUserBanned(username);
     }
 }

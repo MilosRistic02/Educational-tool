@@ -10,23 +10,21 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Users;
+import nl.tudelft.oopp.demo.views.Display;
 
 import java.io.IOException;
 
-public class UserFormatController  extends VBox {
+public class UserFormatComponent  extends VBox {
 
     @FXML
     private Text username;
-
-    @FXML
-    private Text email;
 
     @FXML
     private Button banButton;
 
     Users user;
 
-    public UserFormatController(Users user) {
+    public UserFormatComponent(Users user) {
         try {
             FXMLLoader fxmlLoader =
                     new FXMLLoader(getClass().getResource("/userFormat.fxml"));
@@ -48,9 +46,13 @@ public class UserFormatController  extends VBox {
     public void ban() {
         if(user.isBanned()) {
             ServerCommunication.unbanUser(user.getUsername());
+            banButton.setText("Ban");
+            user.setBanned(false);
         }
         else {
             ServerCommunication.banUser(user.getUsername());
+            banButton.setText("Unban");
+            user.setBanned(true);
         }
     }
 

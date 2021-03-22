@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-
 
 @Controller
 @RequestMapping("users")
@@ -99,10 +97,27 @@ public class UsersController {
         return usersService.unbanUser(username);
     }
 
-    @GetMapping("search/{search}")
+    @GetMapping("search/{search}/{view}")
     @ResponseBody
-    public List<Users> searchStudents(@PathVariable String search) {
-        return usersService.searchStudents(search);
+    public List<Users> searchStudents(@PathVariable String search, @PathVariable boolean view) {
+        return usersService.searchStudents(search, view);
     }
 
+    @GetMapping("not-banned")
+    @ResponseBody
+    public List<Users> getNotBannedStudents() {
+        return usersService.getNotBannedStudents();
+    }
+
+    @GetMapping("banned")
+    @ResponseBody
+    public List<Users> getBannedStudents() {
+        return usersService.getBannedStudents();
+    }
+
+    @GetMapping("check-banned/{username}")
+    @ResponseBody
+    public boolean isUserBanned(@PathVariable String username) {
+        return usersService.isUserBanned(username);
+    }
 }

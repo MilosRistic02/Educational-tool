@@ -16,6 +16,7 @@ import nl.tudelft.oopp.demo.entities.Users;
 import nl.tudelft.oopp.demo.views.Display;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UsersListController {
@@ -28,15 +29,17 @@ public class UsersListController {
     private VBox stack;
 
     @FXML
-    private Label emptyArchive;
-
-    @FXML
     private TextField enterUserField;
 
+    @FXML
+    private Label userListEmptyText;
+
+    @FXML
+    private Button switchViewButton;
 
     private Users user;
-    private List<Users> usersList;
-    private String lecturePin;
+
+    private boolean view;
 
     public void setUsers(Users users) {
         user = users;
@@ -60,12 +63,44 @@ public class UsersListController {
     @FXML
     public void searchForUser() throws JsonProcessingException {
         String search = enterUserField.getText().toLowerCase();
+
+        if(search == null || search.length() == 0){
+            if(!view){
+                makeList(ServerCommunication.getAllNotBannedStudents());
+            }else{
+                makeList(ServerCommunication.getAllBannedStudents());
+            }
+        }else{
+            makeList(ServerCommunication.getBySubstring(search, view));
+        }
+
+    }
+
+    public void switchView() throws JsonProcessingException {
+        view = !view;
+        enterUserField.setText("");
+        if(!view){
+            makeList(ServerCommunication.getAllNotBannedStudents());
+        }else{
+            makeList(ServerCommunication.getAllBannedStudents());
+        }
+
+        switchViewButton.setText(view ? "Unbanned Users" : "Banned Users");
+    }
+
+    public void makeList(List<Users> userList){
         stack.getChildren().clear();
         stack.setSpacing(20);
-        List<Users> userList = ServerCommunication.getBySubstring(search);
 
-        for (Users q : userList) {
-            stack.getChildren().add( new UserFormatController(q));
+        if(userList.size()>0) {
+            userListEmptyText.setVisible(false);
+            for (Users u : userList) {
+                stack.getChildren().add(new UserFormatComponent(u));
+            }
+        }else{
+            userListEmptyText.setVisible(true);
         }
+
+
     }
 }

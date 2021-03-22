@@ -148,15 +148,26 @@ public class ServerCommunication extends Request {
         return put("http://localhost:8080/users/ban", username);
     }
 
-    public static List<Users> getBySubstring(String search) throws JsonProcessingException {
-        if (search.length() == 0){
-            search = "e";
-        }
-        String response = get("http://localhost:8080/users/search/" + search);
+    public static List<Users> getBySubstring(String search, boolean view) throws JsonProcessingException {
+        String response = get("http://localhost:8080/users/search/" + search +"/"+view);
         return new ObjectMapper().readValue(response, new TypeReference<>(){});
     }
 
     public static String unbanUser(String username) {
         return put("http://localhost:8080/users/unban", username);
+    }
+
+    public static List<Users> getAllNotBannedStudents() throws JsonProcessingException {
+        String response = get("http://localhost:8080/users/not-banned");
+        return new ObjectMapper().readValue(response, new TypeReference<>(){});
+    }
+
+    public static List<Users> getAllBannedStudents() throws JsonProcessingException {
+        String response = get("http://localhost:8080/users/banned");
+        return new ObjectMapper().readValue(response, new TypeReference<>(){});
+    }
+
+    public static boolean isUserBanned(String username){
+        return Boolean.parseBoolean(get("http://localhost:8080/users/check-banned/"+username));
     }
 }

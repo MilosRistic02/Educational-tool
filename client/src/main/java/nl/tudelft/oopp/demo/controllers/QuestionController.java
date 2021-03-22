@@ -69,6 +69,8 @@ public class QuestionController {
 
     private SpeedLog speedLog;
 
+    public Timer timer;
+
 
     @FXML
     private void displayQuestion() {
@@ -174,7 +176,7 @@ public class QuestionController {
                 }));
 
         // Update question list every 2 seconds.
-        Timer timer = new Timer();
+        timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -194,9 +196,24 @@ public class QuestionController {
                     } catch (JsonProcessingException e) {
                         e.printStackTrace();
                     }
+                    try{
+                        checkBanned();
+                    }catch(Exception e ){
+                        e.printStackTrace();
+                    }
                 });
             }
         }, 0, 2000);
+    }
+
+    private void checkBanned() throws IOException {
+        boolean isUserBanned = ServerCommunication.isUserBanned(loggedUser.getUsername());
+
+        if (isUserBanned) {
+            timer.cancel();
+            Display.showLogin();
+            Alerts.alertError("BAN", "You are banned from this application");
+        }
     }
 
     private boolean checkRoomClosed() throws IOException {

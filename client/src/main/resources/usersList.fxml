@@ -26,13 +26,13 @@
                         <Image url="@images/back_button_white.png" />
                     </image>
                 </ImageView>
-                <Label fx:id="emptyArchive" alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="286.0" layoutY="-212.0" prefHeight="509.0" prefWidth="304.0" text="Users List is Empty!" visible="true">
+                <Label fx:id="userListEmptyText" alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="286.0" layoutY="-212.0" prefHeight="509.0" prefWidth="304.0" text="Users List is Empty!" visible="false">
                     <font>
                         <Font size="30.0" />
                     </font>
                 </Label>
             <TextField fx:id="enterUserField" layoutX="614.0" layoutY="21.0" onKeyTyped="#searchForUser" prefHeight="28.0" prefWidth="190.0" promptText="Search for user..." />
-            <Button layoutX="810.0" layoutY="23.0" mnemonicParsing="false" onAction="#searchForUser" onKeyTyped="#searchForUser" text="Search" />
+            <Button fx:id="switchViewButton" layoutX="121.0" layoutY="23.0" mnemonicParsing="false" onAction="#switchView" text="Banned Users" />
             </children>
         </Pane>
     </children>
