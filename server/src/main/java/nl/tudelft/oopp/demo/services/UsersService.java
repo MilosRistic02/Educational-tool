@@ -155,7 +155,12 @@ public class UsersService {
             return "Wrong password";
         }
         Users user = usersRepo.getByUsernameAndPassword(username, password);
-        return new ObjectMapper().writeValueAsString(user);
+
+        if (!user.isBanned()) {
+            return new ObjectMapper().writeValueAsString(user);
+        }else{
+            return "This user is banned!";
+        }
     }
 
     /**

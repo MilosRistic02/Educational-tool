@@ -89,5 +89,10 @@
             <Font name="Cantarell Bold" size="30.0" />
          </font>
       </Button>
+      <Label fx:id="userBannedLabel" layoutX="558.0" layoutY="188.0" prefHeight="22.0" prefWidth="166.0" text="This user is banned!" textFill="#d34343" visible="false">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -9,6 +9,7 @@ public class Users {
     private String email;
     private String password;
     private String role;
+    private boolean isBanned;
 
     public Users(){
     }
@@ -25,6 +26,15 @@ public class Users {
         this.email = email;
         this.password = password;
         this.role = role;
+        this.isBanned = false;
+    }
+
+    public boolean isBanned() {
+        return isBanned;
+    }
+
+    public void setBanned(boolean banned) {
+        isBanned = banned;
     }
 
     /**
