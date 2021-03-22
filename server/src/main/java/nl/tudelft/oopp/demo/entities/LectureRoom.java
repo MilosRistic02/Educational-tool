@@ -29,6 +29,8 @@ public class LectureRoom {
 
     private boolean isOpen;
 
+    private int frequency;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "lectureRoom")
     Set<SpeedLog> speedLogs;
 
@@ -63,6 +65,7 @@ public class LectureRoom {
         this.courseId = courseId;
         this.isOpen = true;
         this.startingTime = startingTime;
+        this.frequency = 0;
     }
 
     /** Getter for the lecturerID.
@@ -140,6 +143,14 @@ public class LectureRoom {
         this.startingTime = startingTime;
     }
 
+    public int getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(int frequency) {
+        this.frequency = frequency;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -151,6 +162,8 @@ public class LectureRoom {
         LectureRoom that = (LectureRoom) o;
         return Objects.equals(lecturePin, that.lecturePin);
     }
+
+
 
     @Override
     public int hashCode() {

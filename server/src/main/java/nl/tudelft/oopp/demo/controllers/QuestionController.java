@@ -68,8 +68,7 @@ public class QuestionController {
     @PostMapping("/save-question")
     @ResponseBody
     public String addQuestion(@RequestBody Question question) {
-        questionService.addQuestion(question);
-        return question.getQuestion();
+        return questionService.addQuestion(question);
     }
 
     /**

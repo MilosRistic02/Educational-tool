@@ -20,4 +20,6 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 
     List<Question> getAllByAnsweredFalseAndLecturePin(String lecturePin);
 
+    Question findTopByLecturePinAndAuthorOrderByCreationDateDesc(String lecturePin, String author);
+
 }

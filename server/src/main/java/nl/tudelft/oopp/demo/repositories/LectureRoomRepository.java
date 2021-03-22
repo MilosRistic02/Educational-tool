@@ -22,6 +22,7 @@ public interface LectureRoomRepository extends JpaRepository<LectureRoom, String
     @Query(value = "SELECT * FROM lecture_room WHERE is_open = false", nativeQuery = true)
     List<LectureRoom> getClosed();
 
+
     List<LectureRoom> getAllByLecturerID(String lecturerID);
 
     LectureRoom getByLecturePin(String lectureRoomPin);

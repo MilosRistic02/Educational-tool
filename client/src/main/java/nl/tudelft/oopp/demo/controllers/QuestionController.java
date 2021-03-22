@@ -83,7 +83,11 @@ public class QuestionController {
                     lectureRoom.getLecturePin(),
                     loggedUser.getUsername());
 
-            ServerCommunication.saveQuestion(q);
+            String response = ServerCommunication.saveQuestion(q);
+            System.out.println(response);
+            if (!response.equals("Success")) {
+                Alerts.alertInfo("Rate Limit", response);
+            }
             questionText.clear();
             displayAllQuestion();
         }

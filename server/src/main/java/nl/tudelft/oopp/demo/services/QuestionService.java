@@ -1,8 +1,11 @@
 package nl.tudelft.oopp.demo.services;
 
+import java.util.Date;
 import java.util.List;
 
+import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Question;
+import nl.tudelft.oopp.demo.repositories.LectureRoomRepository;
 import nl.tudelft.oopp.demo.repositories.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,9 @@ public class QuestionService {
 
     @Autowired
     private QuestionRepository questionRepository;
+
+    @Autowired
+    private LectureRoomRepository lectureRoomRepository;
 
     /** Update score of a question iff it already exists.
      *
@@ -124,8 +130,25 @@ public class QuestionService {
      * @param question question to add to the database.
      */
     public String addQuestion(Question question) {
-        questionRepository.save(question);
-        return question.getQuestion();
+        Question lastQuestion = questionRepository.
+                findTopByLecturePinAndAuthorOrderByCreationDateDesc(question.getLecturePin(), question.getAuthor());
+
+        if (lastQuestion == null) {
+            questionRepository.save(question);
+            return "Success";
+        }
+
+
+        Long difference = (System.currentTimeMillis() - lastQuestion.getCreationDate().getTime()) / 1000;
+        LectureRoom room = lectureRoomRepository.getLectureRoomByLecturePin(question.getLecturePin());
+
+        if (room.getFrequency() <= difference) {
+            questionRepository.save(question);
+            return "Success";
+        } else {
+            return "Need to wait " + room.getFrequency() + " seconds per question";
+        }
+
     }
 
     /**

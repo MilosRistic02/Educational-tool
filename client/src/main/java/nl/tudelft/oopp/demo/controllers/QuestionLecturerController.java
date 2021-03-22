@@ -3,24 +3,22 @@ package nl.tudelft.oopp.demo.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
+
+import com.sun.jdi.request.ExceptionRequest;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.util.Pair;
 import nl.tudelft.oopp.demo.alerts.Alerts;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
@@ -66,6 +64,8 @@ public class QuestionLecturerController {
     @FXML
     private Button closePollButton;
 
+    @FXML Button adminSettings;
+
     private Users users;
 
     private LectureRoom lectureRoom;
@@ -73,6 +73,21 @@ public class QuestionLecturerController {
     public Poll currentPoll;
 
     private Timer pollTimer;
+
+    @FXML
+    public void adminAction() {
+        Optional<String> frequency =  Alerts.textInputDialog("seconds",
+                "Admin Settings", "Seconds between questions: ");
+
+        int numFrequency;
+        try {
+            numFrequency = Integer.parseInt(frequency.get());
+            System.out.println(numFrequency);
+        } catch (Exception e) {
+            System.out.println("error");
+        }
+    }
+
 
     @FXML
     private void displayQuestion() {
