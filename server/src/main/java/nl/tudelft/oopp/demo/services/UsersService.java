@@ -210,4 +210,8 @@ public class UsersService {
         usersRepo.save(user);
         return "User unbanned successfully";
     }
+
+    public List<Users> searchStudents(String search) {
+        return usersRepo.findStudents(search);
+    }
 }

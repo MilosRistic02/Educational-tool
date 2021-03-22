@@ -9,10 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Pair;
-import nl.tudelft.oopp.demo.controllers.ArchiveController;
-import nl.tudelft.oopp.demo.controllers.LobbyController;
-import nl.tudelft.oopp.demo.controllers.QuestionController;
-import nl.tudelft.oopp.demo.controllers.QuestionLecturerController;
+import nl.tudelft.oopp.demo.controllers.*;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Users;
 
@@ -161,6 +158,17 @@ public class Display extends Application {
         primaryStage.show();
     }
 
+    public static void showStudentsBanPage(Users users) throws IOException {
+        Pair<FXMLLoader, Parent> recourse = load("/usersList.fxml");
+
+        UsersListController usersListController = recourse.getKey().getController();
+        usersListController.setUsers(users);
+
+        primaryStage.setScene(new Scene(recourse.getValue()));
+        primaryStage.show();
+
+        usersListController.searchForUser();
+    }
 
     /**
      * Basic loader for the display class.

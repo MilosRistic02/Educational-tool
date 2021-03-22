@@ -99,4 +99,10 @@ public class UsersController {
         return usersService.unbanUser(username);
     }
 
+    @GetMapping("search/{search}")
+    @ResponseBody
+    public List<Users> searchStudents(@PathVariable String search) {
+        return usersService.searchStudents(search);
+    }
+
 }

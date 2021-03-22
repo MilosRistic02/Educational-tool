@@ -147,4 +147,12 @@ public class ServerCommunication extends Request {
     public static String banUser(String username) {
         return put("http://localhost:8080/users/ban", username);
     }
+
+    public static List<Users> getBySubstring(String search) throws JsonProcessingException {
+        if (search.length() == 0){
+            search = "e";
+        }
+        String response = get("http://localhost:8080/users/search/" + search);
+        return new ObjectMapper().readValue(response, new TypeReference<>(){});
+    }
 }

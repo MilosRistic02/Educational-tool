@@ -5,6 +5,8 @@ import java.util.List;
 import nl.tudelft.oopp.demo.entities.Users;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 
 public interface UsersRepository extends JpaRepository<Users, Long> {
@@ -20,5 +22,6 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
 
     Users getByUsername(String username);
 
-
+    @Query(value = "SELECT * FROM users WHERE role = 'student' AND username ILIKE %?1% ", nativeQuery = true)
+    List<Users> findStudents(String search);
 }
