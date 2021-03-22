@@ -1,6 +1,6 @@
 package nl.tudelft.oopp.demo.controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
@@ -19,7 +19,6 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 
-import nl.tudelft.oopp.demo.alerts.Alerts;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Poll;
@@ -187,17 +186,14 @@ public class ArchiveController {
             File export = fileChooser.showSaveDialog(stage);
             fileChooser.setInitialDirectory(export.getParentFile());
 
-            // Write content to the file.
+            // Write content to the file and open it afterwards.
             ServerCommunication.exportRoom(export, lecturePin);
-
-            Alerts.alertInfo("Export succesfull",
-                    "Succesfully exported all questions of " + lecturePin);
+            Desktop desktop = Desktop.getDesktop();
+            desktop.open(export);
 
         } catch (Exception e) {
             e.printStackTrace();
-            //Alerts.alertError("Exporting failed", "Oops. Something went wrong! Try again later.");
         }
-
     }
 
     private void addRoom(LectureRoom room) {
