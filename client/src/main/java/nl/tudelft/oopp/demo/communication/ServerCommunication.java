@@ -155,4 +155,8 @@ public class ServerCommunication extends Request {
         String response = get("http://localhost:8080/users/search/" + search);
         return new ObjectMapper().readValue(response, new TypeReference<>(){});
     }
+
+    public static String unbanUser(String username) {
+        return put("http://localhost:8080/users/unban", username);
+    }
 }

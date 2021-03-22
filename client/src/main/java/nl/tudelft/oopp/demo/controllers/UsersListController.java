@@ -67,17 +67,5 @@ public class UsersListController {
         for (Users q : userList) {
             stack.getChildren().add( new UserFormatController(q));
         }
-
-        /*
-        for (Users room : usersList) {
-            if (room.getCourseId().toLowerCase().contains(course)) {
-                addRoom(room);
-                emptyArchive.setVisible(false);
-            }
-        }
-        if (stack.getChildren().isEmpty()) {
-            emptyArchive.setVisible(true);
-            emptyArchive.setText("Nothing to show");
-        }*/
     }
 }
