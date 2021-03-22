@@ -21,6 +21,7 @@ public class Users {
     private String role;
     private boolean isBanned;
 
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "users")
     Set<ScoringLog> scoringLogs;
 

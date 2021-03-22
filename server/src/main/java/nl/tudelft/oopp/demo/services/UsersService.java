@@ -181,5 +181,18 @@ public class UsersService {
                 + " has been added successfully";
     }
 
+    public String banUser(String username) {
+        if (!usersRepo.existsByUsername(username)) {
+           return "User doesn't exist";
+        }
+        Users user = usersRepo.getByUsername(username);
+        if(user.isBanned()) {
+            return "User is already banned";
+        }
+        user.setBanned(true);
+        usersRepo.save(user);
+        return "User banned successfully";
+    }
+
 
 }
