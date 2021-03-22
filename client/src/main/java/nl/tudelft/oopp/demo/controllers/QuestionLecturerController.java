@@ -330,4 +330,5 @@ public class QuestionLecturerController {
         currentPoll.setOpen(false);
         ServerCommunication.closePoll(currentPoll);
     }
+
 }

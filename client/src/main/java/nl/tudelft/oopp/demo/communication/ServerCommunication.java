@@ -1,16 +1,14 @@
 package nl.tudelft.oopp.demo.communication;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.net.http.HttpClient;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import nl.tudelft.oopp.demo.entities.LectureRoom;
-import nl.tudelft.oopp.demo.entities.Poll;
-import nl.tudelft.oopp.demo.entities.Question;
-import nl.tudelft.oopp.demo.entities.ScoringLog;
-import nl.tudelft.oopp.demo.entities.SpeedLog;
+
+import nl.tudelft.oopp.demo.entities.*;
 
 
 public class ServerCommunication extends Request {
@@ -139,5 +137,10 @@ public class ServerCommunication extends Request {
 
     public static String vote(Character c, long id) {
         return put("http://localhost:8080/poll/vote/" + id, c);
+    }
+
+    public static List<Users> getAllStudents() throws JsonProcessingException {
+        String response = get("http://localhost:8080/users/student");
+        return new ObjectMapper().readValue(response, new TypeReference<List<Users>>(){});
     }
 }
