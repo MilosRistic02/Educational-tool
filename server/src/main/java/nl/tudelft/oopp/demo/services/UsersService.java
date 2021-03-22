@@ -195,4 +195,19 @@ public class UsersService {
     }
 
 
+    public String unbanUser(String username) {
+        if (!usersRepo.existsByUsername(username)) {
+            return "User doesn't exist";
+        }
+
+        Users user = usersRepo.getByUsername(username);
+
+        if (!user.isBanned()) {
+            return "This user has not been banned";
+        }
+
+        user.setBanned(false);
+        usersRepo.save(user);
+        return "User unbanned successfully";
+    }
 }

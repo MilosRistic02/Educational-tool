@@ -93,4 +93,10 @@ public class UsersController {
         return usersService.banUser(username);
     }
 
+    @PutMapping("unban")
+    @ResponseBody
+    public String unbanUser(@RequestBody String username){
+        return usersService.unbanUser(username);
+    }
+
 }
