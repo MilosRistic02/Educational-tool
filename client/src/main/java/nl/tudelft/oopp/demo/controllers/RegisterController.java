@@ -1,6 +1,7 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -63,7 +64,7 @@ public class RegisterController {
      * @throws IOException if login page cannot be loaded
      */
     public void registerButtonClicked() throws IOException, InterruptedException {
-        String username = usernameField.getText();
+        String username = usernameField.getText().toLowerCase();
         String password = Encryption.encrypt(passwordField.getText());
         String email = emailField.getText();
         String reEnteredPassword = Encryption.encrypt(reEnteredPasswordField.getText());

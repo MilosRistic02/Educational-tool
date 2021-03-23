@@ -10,7 +10,7 @@ public class Question {
     private String answer;
     private int score;
     private Date creationDate;
-    private boolean isAnswered;
+    private int isAnswered;
     private String lecturePin;
     private String author;
 
@@ -28,6 +28,7 @@ public class Question {
         this.question = question;
         this.lecturePin = lecturePin;
         this.author = author;
+        this.isAnswered = 0;
     }
 
     /**
@@ -69,11 +70,11 @@ public class Question {
     }
 
     /**
-     * Boolean whether the question is answered.
-     *
-     * @return true when the question has an answer, false otherwise
+     * Get answered status.
+     * @return: an integer that represents if
+     * the question has been answered or not.
      */
-    public boolean isAnswered() {
+    public int isAnswered() {
         return isAnswered;
     }
 
@@ -127,7 +128,7 @@ public class Question {
      *
      * @param answered boolean to indicate if a question is answered
      */
-    public void setAnswered(boolean answered) {
+    public void setAnswered(int answered) {
         isAnswered = answered;
     }
 
@@ -138,7 +139,6 @@ public class Question {
      */
     public void setAnswer(String answer) {
         this.answer = answer;
-        this.isAnswered = true;
     }
 
     /**

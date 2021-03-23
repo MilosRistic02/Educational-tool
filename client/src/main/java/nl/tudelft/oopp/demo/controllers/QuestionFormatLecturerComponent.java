@@ -91,7 +91,7 @@ public class QuestionFormatLecturerComponent extends VBox {
     public void makeAnswer() {
         // display the last answer.
         String oldAnswer = "your answer";
-        if (currentQuestion.isAnswered()) {
+        if (currentQuestion.isAnswered() >= 1) {
             oldAnswer = currentQuestion.getAnswer();
         }
         // Dialog to input the answer.
@@ -106,7 +106,7 @@ public class QuestionFormatLecturerComponent extends VBox {
                         "Answer too long, can only be 512 characters");
             } else {
                 currentQuestion.setAnswer(result.get());
-                currentQuestion.setAnswered(true);
+                currentQuestion.setAnswered(1);
                 ServerCommunication.updateAnswerQuestion(currentQuestion);
             }
         }
@@ -162,7 +162,7 @@ public class QuestionFormatLecturerComponent extends VBox {
      * loads the answer if it is available.
      */
     public void loadQuestion() {
-        if (currentQuestion.isAnswered()) {
+        if (currentQuestion.isAnswered() >= 1) {
             setAnswered();
         }
 

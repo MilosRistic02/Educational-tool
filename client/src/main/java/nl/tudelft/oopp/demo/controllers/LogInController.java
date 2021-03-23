@@ -3,6 +3,8 @@ package nl.tudelft.oopp.demo.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.util.Locale;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -43,7 +45,7 @@ public class LogInController {
      * @throws JsonProcessingException if the json couldn't be processed
      */
     public void logInButtonClicked() throws JsonProcessingException, IOException {
-        String username = usernameField.getText();
+        String username = usernameField.getText().toLowerCase();
         String password = Encryption.encrypt(passwordField.getText());
         reset();
         if (username.length() == 0 || password.length() == 0) {

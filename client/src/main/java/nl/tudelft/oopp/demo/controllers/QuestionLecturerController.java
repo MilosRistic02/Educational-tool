@@ -15,11 +15,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -70,6 +67,15 @@ public class QuestionLecturerController {
 
     @FXML Button adminSettings;
 
+    @FXML
+    private ToggleButton changeList;
+
+    @FXML
+    private Pane list;
+
+    @FXML
+    private Text listTitle;
+
     private Users users;
 
     private LectureRoom lectureRoom;
@@ -102,7 +108,25 @@ public class QuestionLecturerController {
 
     @FXML
     private void displayAllQuestion() {
-        List<Question> qs = ServerCommunication.getAllQuestion(lectureRoom.getLecturePin());
+        List<Question> qs = null;
+
+        if (changeList.isSelected()) {
+            qs = ServerCommunication.getAllAnsweredQuestions(lectureRoom.getLecturePin());
+            changeList.setText("questions");
+            changeList.setStyle("-fx-background-color: #00A6D6;");
+            listTitle.setText("Answers");
+            list.setStyle("-fx-background-color: #99d28c;"
+                    + "-fx-background-radius: 18;");
+
+        } else {
+            qs = ServerCommunication.getAllNonAnsweredQuestions(lectureRoom.getLecturePin());
+            changeList.setText("answers");
+            changeList.setStyle("-fx-background-color: #99d28c");
+            listTitle.setText("Questions");
+            list.setStyle("-fx-background-color: #00A6D6;"
+                    + "-fx-background-radius: 18;");
+        }
+
         List<ScoringLog> votes = ServerCommunication.getVotes();
 
         stack.getChildren().clear();
@@ -156,6 +180,11 @@ public class QuestionLecturerController {
         this.lectureRoom = lectureRoom;
         this.users = users;
         greetings.setText("Welcome, " + users.getUsername());
+
+        if (users.getRole().equals("admin")) {
+            adminSettings.setVisible(true);
+            adminSettings.setDisable(false);
+        }
 
         // Update question list every 2 seconds.
         Timer timer = new Timer();

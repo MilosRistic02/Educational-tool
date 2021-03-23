@@ -5,7 +5,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class Encryption {
 
-    private static String encryptionKey = "fl;akjp[0cxioslakdmasdkljop[cvi,m.npcvzxca.lk";
+    private static String encryptionKey = "s5u8x/A?D(G+KbPeShVmYq3t6w9y$B&E";
 
     /**
      * Code found on http://www.adeveloperdiary.com/java/how-to-easily-encrypt-and-decrypt-text-in-java/

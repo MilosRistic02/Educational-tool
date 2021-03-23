@@ -1,6 +1,8 @@
 package nl.tudelft.oopp.demo.services;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import nl.tudelft.oopp.demo.entities.LectureRoom;
@@ -101,7 +103,7 @@ public class QuestionService {
      * @param question for which to check the answered status.
      * @return true if the question has been answered, false otherwise.
      */
-    public Boolean isQuestionAnswered(Question question) {
+    public int isQuestionAnswered(Question question) {
         Question q = questionRepository.getByLecturePin(question.getLecturePin());
         return q.isAnswered();
     }
@@ -117,11 +119,15 @@ public class QuestionService {
     }
 
     public List<Question> getAllAnsweredQuestions(String lecturePin) {
-        return questionRepository.getAllByAnsweredTrueAndLecturePin(lecturePin);
+        List<Question> answered = new ArrayList<>();
+        answered.addAll(questionRepository.getAllByAnsweredAndLecturePin(1, lecturePin));
+        answered.addAll(questionRepository.getAllByAnsweredAndLecturePin(2, lecturePin));
+
+        return answered;
     }
 
     public List<Question> getAllNonAnsweredQuestions(String lecturePin) {
-        return questionRepository.getAllByAnsweredFalseAndLecturePin(lecturePin);
+        return questionRepository.getAllByAnsweredAndLecturePin(0, lecturePin);
     }
 
     /**

@@ -160,7 +160,7 @@ public class QuestionFormatComponent extends VBox {
      * author of the current question.
      */
     public void loadQuestion() {
-        if (currentQuestion.isAnswered()) {
+        if (currentQuestion.isAnswered() >= 1) {
             setAnswered();
         }
 
