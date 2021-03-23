@@ -1,6 +1,6 @@
 package nl.tudelft.oopp.demo.controllers;
 
-
+import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -12,7 +12,7 @@ import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Users;
 import nl.tudelft.oopp.demo.views.Display;
 
-import java.io.IOException;
+
 
 public class UserFormatComponent  extends VBox {
 
@@ -23,6 +23,11 @@ public class UserFormatComponent  extends VBox {
     private Button banButton;
 
     Users user;
+
+    /** constructor for UserFormatComponent Format component.
+     *  This method loads an instance of question format and sets the controller to be this file.
+     *
+     */
 
     public UserFormatComponent(Users user) {
         try {
@@ -39,22 +44,21 @@ public class UserFormatComponent  extends VBox {
         this.user = user;
         username.setText(user.getUsername());
         banButton.setText(user.isBanned() ? "Unban" : "Ban");
-
     }
 
+    /**
+     * Bans or unbans a user, triggered when ban/unban button is clicked.
+     */
     @FXML
     public void ban() {
-        if(user.isBanned()) {
+        if (user.isBanned()) {
             ServerCommunication.unbanUser(user.getUsername());
             banButton.setText("Ban");
             user.setBanned(false);
-        }
-        else {
+        } else {
             ServerCommunication.banUser(user.getUsername());
             banButton.setText("Unban");
             user.setBanned(true);
         }
     }
-
-
 }

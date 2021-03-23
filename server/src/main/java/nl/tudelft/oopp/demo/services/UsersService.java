@@ -160,7 +160,7 @@ public class UsersService {
 
         if (!user.isBanned()) {
             return new ObjectMapper().writeValueAsString(user);
-        }else{
+        } else {
             return "This user is banned!";
         }
     }
@@ -183,20 +183,31 @@ public class UsersService {
                 + " has been added successfully";
     }
 
+    /**
+     * Ban user if the user exists and not already banned.
+     * @param username username of the user to be banned.
+     * @return resulting string.
+     */
     public String banUser(String username) {
         if (!usersRepo.existsByUsername(username)) {
-           return "User doesn't exist";
+            return "User doesn't exist";
         }
         Users user = usersRepo.getByUsername(username);
-        if(user.isBanned()) {
+
+        if (user.isBanned()) {
             return "User is already banned";
         }
+
         user.setBanned(true);
         usersRepo.save(user);
         return "User banned successfully";
     }
 
-
+    /**
+     * Unban user if the user exists and not already banned.
+     * @param username username of the user to be banned.
+     * @return resulting string.
+     */
     public String unbanUser(String username) {
         if (!usersRepo.existsByUsername(username)) {
             return "User doesn't exist";
@@ -213,8 +224,16 @@ public class UsersService {
         return "User unbanned successfully";
     }
 
+    /**
+     * Search students that match the view.
+     * if view = false -> show not-banned users
+     * if view = true -> show banned students
+     * @param search Query string
+     * @param view banned students or unbanned students
+     * @return resulting list of students
+     */
     public List<Users> searchStudents(String search, boolean view) {
-        if(search == null || search.length() == 0){
+        if (search == null || search.length() == 0) {
             return new ArrayList<>();
         }
         return usersRepo.findStudents(search, view);
@@ -228,7 +247,7 @@ public class UsersService {
         return usersRepo.getBannedStudents();
     }
 
-    public boolean isUserBanned(String username){
+    public boolean isUserBanned(String username) {
         return usersRepo.isUserBanned(username);
     }
 }

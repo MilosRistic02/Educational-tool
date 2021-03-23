@@ -1,6 +1,9 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,9 +18,7 @@ import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.Users;
 import nl.tudelft.oopp.demo.views.Display;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class UsersListController {
 
@@ -64,40 +65,48 @@ public class UsersListController {
     public void searchForUser() throws JsonProcessingException {
         String search = enterUserField.getText().toLowerCase();
 
-        if(search == null || search.length() == 0){
-            if(!view){
+        if (search == null || search.length() == 0) {
+            if (!view) {
                 makeList(ServerCommunication.getAllNotBannedStudents());
-            }else{
+            } else {
                 makeList(ServerCommunication.getAllBannedStudents());
             }
-        }else{
+        } else {
             makeList(ServerCommunication.getBySubstring(search, view));
         }
 
     }
 
+    /**
+     * When Banned Users/Not-Banned Users button is clicked, loads the view.
+     * @throws JsonProcessingException when json is not processed correctly
+     */
     public void switchView() throws JsonProcessingException {
         view = !view;
         enterUserField.setText("");
-        if(!view){
+        if (!view) {
             makeList(ServerCommunication.getAllNotBannedStudents());
-        }else{
+        } else {
             makeList(ServerCommunication.getAllBannedStudents());
         }
 
         switchViewButton.setText(view ? "Unbanned Users" : "Banned Users");
     }
 
-    public void makeList(List<Users> userList){
+    /**
+     * Creates a list of students from UserFormatComponent using the provided list.
+     * @param userList List of users
+     */
+    public void makeList(List<Users> userList) {
         stack.getChildren().clear();
         stack.setSpacing(20);
 
-        if(userList.size()>0) {
+        if (userList.size() > 0) {
             userListEmptyText.setVisible(false);
             for (Users u : userList) {
                 stack.getChildren().add(new UserFormatComponent(u));
             }
-        }else{
+        } else {
             userListEmptyText.setVisible(true);
         }
 

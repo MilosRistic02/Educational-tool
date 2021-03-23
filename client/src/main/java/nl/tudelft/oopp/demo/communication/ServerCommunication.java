@@ -7,8 +7,12 @@ import java.net.http.HttpClient;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import nl.tudelft.oopp.demo.entities.*;
+import nl.tudelft.oopp.demo.entities.LectureRoom;
+import nl.tudelft.oopp.demo.entities.Poll;
+import nl.tudelft.oopp.demo.entities.Question;
+import nl.tudelft.oopp.demo.entities.ScoringLog;
+import nl.tudelft.oopp.demo.entities.SpeedLog;
+import nl.tudelft.oopp.demo.entities.Users;
 
 
 public class ServerCommunication extends Request {
@@ -148,8 +152,9 @@ public class ServerCommunication extends Request {
         return put("http://localhost:8080/users/ban", username);
     }
 
-    public static List<Users> getBySubstring(String search, boolean view) throws JsonProcessingException {
-        String response = get("http://localhost:8080/users/search/" + search +"/"+view);
+    public static List<Users> getBySubstring(String search,
+                                             boolean view) throws JsonProcessingException {
+        String response = get("http://localhost:8080/users/search/" + search + "/" + view);
         return new ObjectMapper().readValue(response, new TypeReference<>(){});
     }
 
@@ -167,7 +172,7 @@ public class ServerCommunication extends Request {
         return new ObjectMapper().readValue(response, new TypeReference<>(){});
     }
 
-    public static boolean isUserBanned(String username){
-        return Boolean.parseBoolean(get("http://localhost:8080/users/check-banned/"+username));
+    public static boolean isUserBanned(String username) {
+        return Boolean.parseBoolean(get("http://localhost:8080/users/check-banned/" + username));
     }
 }

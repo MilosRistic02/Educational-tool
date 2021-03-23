@@ -96,7 +96,7 @@ public class LogInController {
             return false;
         }
 
-        if (response.equals("This user is banned!")){
+        if (response.equals("This user is banned!")) {
             userBannedLabel.setVisible(true);
             usernameField.setText("");
             usernameField.requestFocus();

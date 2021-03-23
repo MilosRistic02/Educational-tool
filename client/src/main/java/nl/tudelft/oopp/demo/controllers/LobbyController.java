@@ -242,7 +242,7 @@ public class LobbyController {
         Display.showLecturer(this.users);
     }
 
-    public void showStudents() throws IOException{
+    public void showStudents() throws IOException {
         Display.showStudentsBanPage(this.users);
     }
 }

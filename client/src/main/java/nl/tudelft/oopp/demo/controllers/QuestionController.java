@@ -196,9 +196,9 @@ public class QuestionController {
                     } catch (JsonProcessingException e) {
                         e.printStackTrace();
                     }
-                    try{
+                    try {
                         checkBanned();
-                    }catch(Exception e ){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 });

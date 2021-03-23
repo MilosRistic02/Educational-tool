@@ -22,13 +22,16 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
 
     Users getByUsername(String username);
 
-    @Query(value = "SELECT * FROM users WHERE role = 'student' AND username ILIKE %?1% AND is_banned = ?2 " , nativeQuery = true)
+    @Query(value = "SELECT * FROM users WHERE role = 'student' AND username ILIKE %?1% "
+            + "AND is_banned = ?2 ", nativeQuery = true)
     List<Users> findStudents(String search, boolean view);
 
-    @Query(value = "SELECT * FROM users WHERE role = 'student' and is_banned = false", nativeQuery = true)
+    @Query(value = "SELECT * FROM users WHERE role = 'student' "
+            + "AND is_banned = false", nativeQuery = true)
     List<Users> getNotBannedStudents();
 
-    @Query(value = "SELECT * FROM users WHERE role = 'student' and is_banned = true",  nativeQuery = true)
+    @Query(value = "SELECT * FROM users WHERE role = 'student' "
+           + "AND is_banned = true",  nativeQuery = true)
     List<Users> getBannedStudents();
 
     @Query(value = "SELECT is_banned FROM users WHERE username = ?1 ", nativeQuery = true)
