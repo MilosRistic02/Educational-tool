@@ -134,4 +134,11 @@ public class LectureRoomService {
         }
         return result;
     }
+    public String updateFrequency(LectureRoom lectureRoom){
+        LectureRoom oldLectureRoom = lectureRoomRepository.getLectureRoomByLecturePin(lectureRoom.getLecturePin());
+        oldLectureRoom.setFrequency(lectureRoom.getFrequency());
+        lectureRoomRepository.save(oldLectureRoom);
+        return "success";
+    }
+
 }

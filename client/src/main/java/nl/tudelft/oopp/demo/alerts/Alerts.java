@@ -3,11 +3,10 @@ package nl.tudelft.oopp.demo.alerts;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ChoiceDialog;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextInputDialog;
+
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 
 public class Alerts {
 
@@ -75,6 +74,48 @@ public class Alerts {
         textInputDialog.setTitle(title);
         textInputDialog.setContentText(content);
         return textInputDialog.showAndWait();
+    }
+
+    public static Optional<Integer> numberInputDialog(
+            String defaultValue, String title, String content, String errorText) {
+        Dialog<Integer> dialog = new Dialog<>();
+        dialog.setTitle(title);
+        ButtonType submit = new ButtonType("Set frequency", ButtonBar.ButtonData.APPLY);
+        dialog.getDialogPane().getButtonTypes().add(submit);
+        Label contentLabel = new Label(content);
+        Text error = new Text();
+        error.setText(errorText);
+        error.setStyle("-fx-fill: red");
+        error.setVisible(false);
+        TextField inputSeconds = new TextField(defaultValue);
+        GridPane gridPane = new GridPane();
+        gridPane.setVgap(20);
+        gridPane.add(error, 0, 0, 2, 1);
+        gridPane.add(inputSeconds, 1, 1);
+        gridPane.add(contentLabel, 0, 1);
+        dialog.getDialogPane().setContent(gridPane);
+        inputSeconds.textProperty().addListener(((observable, oldValue, newValue)->{
+            try {
+                int value = Integer.parseInt(newValue);
+                if (value < 0) {
+                    throw new Exception();
+                } else {
+                    error.setVisible(false);
+                    dialog.getDialogPane().lookupButton(submit).setDisable(false);
+                }
+            } catch (Exception e) {
+                error.setVisible(true);
+                dialog.getDialogPane().lookupButton(submit).setDisable(true);
+            }
+        }));
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == submit){
+                return Integer.parseInt(inputSeconds.getText());
+            } else {
+                return null;
+            }
+        });
+        return  dialog.showAndWait();
     }
 
     /**

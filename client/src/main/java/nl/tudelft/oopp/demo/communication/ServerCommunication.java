@@ -140,4 +140,8 @@ public class ServerCommunication extends Request {
     public static String vote(Character c, long id) {
         return put("http://localhost:8080/poll/vote/" + id, c);
     }
+
+    public static String updateFrequency(LectureRoom lectureRoom) {
+        return put("http://localhost:8080/lecture/update-frequency", lectureRoom);
+    }
 }

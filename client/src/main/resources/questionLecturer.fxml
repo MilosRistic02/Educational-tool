@@ -15,13 +15,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-
-<<<<<<< Updated upstream
 <?import javafx.scene.image.Image?>
+
 <AnchorPane prefHeight="823.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.QuestionLecturerController">
-=======
-<AnchorPane prefHeight="823.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.QuestionLecturerController">
->>>>>>> Stashed changes
+
    <children>
       <Pane layoutX="13.0" layoutY="25.0" prefHeight="699.0" prefWidth="876.0" style="-fx-background-color: #00A6D6; -fx-background-radius: 18;">
          <children>
@@ -72,14 +69,12 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </BarChart>
-<<<<<<< Updated upstream
-=======
       <Text fx:id="currentRoomPin" layoutX="14.0" layoutY="793.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lecture pin: [lecturePin]" wrappingWidth="385.0">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
       <Button fx:id="adminSettings" layoutX="980.0" layoutY="97.0" mnemonicParsing="false" onAction="#adminAction" prefHeight="31.0" prefWidth="108.0" text="Admin Settings" />
->>>>>>> Stashed changes
+
    </children>
 </AnchorPane>

@@ -76,16 +76,10 @@ public class QuestionLecturerController {
 
     @FXML
     public void adminAction() {
-        Optional<String> frequency =  Alerts.textInputDialog("seconds",
-                "Admin Settings", "Seconds between questions: ");
-
-        int numFrequency;
-        try {
-            numFrequency = Integer.parseInt(frequency.get());
-            System.out.println(numFrequency);
-        } catch (Exception e) {
-            System.out.println("error");
-        }
+        Optional<Integer> frequency =  Alerts.numberInputDialog("0",
+                "Admin Settings", "Seconds between questions: ", "The frequency should be a positive integer");
+        lectureRoom.setFrequency(frequency.get());
+        ServerCommunication.updateFrequency(lectureRoom);
     }
 
 
