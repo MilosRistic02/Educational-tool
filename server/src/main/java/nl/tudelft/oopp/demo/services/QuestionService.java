@@ -130,8 +130,9 @@ public class QuestionService {
      * @param question question to add to the database.
      */
     public String addQuestion(Question question) {
-        Question lastQuestion = questionRepository.
-                findTopByLecturePinAndAuthorOrderByCreationDateDesc(question.getLecturePin(), question.getAuthor());
+        Question lastQuestion = questionRepository
+                .findTopByLecturePinAndAuthorOrderByCreationDateDesc(
+                        question.getLecturePin(), question.getAuthor());
 
         if (lastQuestion == null) {
             questionRepository.save(question);
@@ -139,8 +140,10 @@ public class QuestionService {
         }
 
 
-        Long difference = (System.currentTimeMillis() - lastQuestion.getCreationDate().getTime()) / 1000;
-        LectureRoom room = lectureRoomRepository.getLectureRoomByLecturePin(question.getLecturePin());
+        Long difference = (System.currentTimeMillis()
+                - lastQuestion.getCreationDate().getTime()) / 1000;
+        LectureRoom room = lectureRoomRepository
+                .getLectureRoomByLecturePin(question.getLecturePin());
 
         if (room.getFrequency() <= difference) {
             questionRepository.save(question);

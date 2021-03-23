@@ -1,7 +1,5 @@
 package nl.tudelft.oopp.demo.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -16,10 +14,8 @@ import javafx.scene.control.TextField;
 
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
-import nl.tudelft.oopp.demo.Encryption.Encryption;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
-
-
+import nl.tudelft.oopp.demo.encryption.Encryption;
 
 public class RegisterController {
 
