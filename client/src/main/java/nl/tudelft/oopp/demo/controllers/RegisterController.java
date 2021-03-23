@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import nl.tudelft.oopp.demo.Encryption.Encryption;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 
 
@@ -67,9 +68,9 @@ public class RegisterController {
      */
     public void registerButtonClicked() throws IOException, InterruptedException {
         String username = usernameField.getText();
-        String password = passwordField.getText();
+        String password = Encryption.encrypt(passwordField.getText());
         String email = emailField.getText();
-        String reEnteredPassword = reEnteredPasswordField.getText();
+        String reEnteredPassword = Encryption.encrypt(reEnteredPasswordField.getText());
 
         reset();
         if (!checkRequest(username, password, email, reEnteredPassword)) {
