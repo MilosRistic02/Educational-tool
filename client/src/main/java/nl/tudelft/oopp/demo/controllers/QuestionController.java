@@ -317,8 +317,10 @@ public class QuestionController {
         if (!currentPoll.isOpen()) {
             pollChart.getData().clear();
             pollChart.getData().addAll(set1);
-            pollChart.lookup(".data" + (currentPoll.getRightAnswer() - 65)
-                    + ".chart-bar").setStyle("-fx-bar-fill: green");
+            for(Character c : currentPoll.getRightAnswer()) {
+                pollChart.lookup(".data" + (c - 65)
+                        + ".chart-bar").setStyle("-fx-bar-fill: green");
+            }
             pollChart.setAnimated(false);
         }
     }
