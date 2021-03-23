@@ -115,6 +115,11 @@ public class QuestionService {
         return questionRepository.getAllByLecturePin(id);
     }
 
+    /**
+     * Get all answered (either written or verbally) questions.
+     * @param lecturePin of the desired room.
+     * @return a list of all the answered questions.
+     */
     public List<Question> getAllAnsweredQuestions(String lecturePin) {
         List<Question> answered = new ArrayList<>();
         answered.addAll(questionRepository.getAllByAnsweredAndLecturePin(1, lecturePin));

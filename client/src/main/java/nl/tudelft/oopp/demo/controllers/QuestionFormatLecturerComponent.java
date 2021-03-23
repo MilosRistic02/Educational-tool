@@ -110,7 +110,6 @@ public class QuestionFormatLecturerComponent extends VBox {
             } else {
                 currentQuestion.setAnswer(result.get());
                 currentQuestion.setAnswered(1);
-//                currentQuestion.setAnswered(1);
                 ServerCommunication.updateAnswerQuestion(currentQuestion);
             }
         }
@@ -157,7 +156,7 @@ public class QuestionFormatLecturerComponent extends VBox {
         isAnswered.setText(text);
         isAnswered.setFill(Color.valueOf(colour));
         makeAnswer.setText("Change Answer");
-        makeAnswer.setStyle("-fx-background-color: "+ colour);
+        makeAnswer.setStyle("-fx-background-color: " + colour);
         verbal.setVisible(false);
         verbal.setDisable(true);
     }

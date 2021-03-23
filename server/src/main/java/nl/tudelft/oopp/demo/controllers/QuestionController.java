@@ -1,10 +1,6 @@
 package nl.tudelft.oopp.demo.controllers;
 
-import java.util.HashMap;
 import java.util.List;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.services.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;

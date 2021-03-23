@@ -81,8 +81,7 @@ public class Question {
 
     /**
      * Get answered status.
-     * @return: an integer that represents if
-     * the question has been answered or not.
+     * @return: integer representing whether question has been answered.
      */
     public int getAnswered() {
         return answered;
@@ -149,9 +148,6 @@ public class Question {
      */
     public void setAnswer(String answer) {
         this.answer = answer;
-//        if (answer!=null) {
-//            this.isAnswered=1;
-//        }
     }
 
     /**
@@ -198,15 +194,15 @@ public class Question {
 
     @Override
     public String toString() {
-        return "Question{" +
-                "id=" + id +
-                ", question='" + question + '\'' +
-                ", answer='" + answer + '\'' +
-                ", score=" + score +
-                ", creationDate=" + creationDate +
-                ", answered=" + answered +
-                ", lecturePin='" + lecturePin + '\'' +
-                ", author='" + author + '\'' +
-                '}';
+        return "Question{"
+                + "id=" + id
+                + ", question='" + question + '\''
+                + ", answer='" + answer + '\''
+                + ", score=" + score
+                + ", creationDate=" + creationDate
+                + ", answered=" + answered
+                + ", lecturePin='" + lecturePin + '\''
+                + ", author='" + author + '\''
+                + '}';
     }
 }
