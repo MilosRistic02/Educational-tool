@@ -56,7 +56,6 @@ public class Question {
         this.question = question;
         this.lecturePin = lecturePin;
         this.author = author;
-        this.answered = 0;
     }
 
     /**
@@ -101,7 +100,7 @@ public class Question {
      * @return an integer that represents if the question has been
      * answered or not.
      */
-    public int isAnswered() {
+    public int getAnswered() {
         return answered;
     }
 
@@ -164,7 +163,9 @@ public class Question {
      *
      * @param answer the answer String
      */
-    public void setAnswer(String answer) { this.answer = answer; }
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
 
     /**
      * Sets lecture pin.
@@ -206,5 +207,20 @@ public class Question {
     @Override
     public int hashCode() {
         return (int) (id ^ (id >>> 32));
+    }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "id=" + id +
+                ", question='" + question + '\'' +
+                ", answer='" + answer + '\'' +
+                ", score=" + score +
+                ", creationDate=" + creationDate +
+                ", answered=" + answered +
+                ", lecturePin='" + lecturePin + '\'' +
+                ", author='" + author + '\'' +
+                ", scoringLogs=" + scoringLogs +
+                '}';
     }
 }

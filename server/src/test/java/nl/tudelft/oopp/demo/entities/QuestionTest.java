@@ -57,7 +57,7 @@ class QuestionTest {
 
     @Test
     void isAnswered() {
-        assertEquals(0, question1.isAnswered());
+        assertEquals(0, question1.getAnswered());
     }
 
     @Test
@@ -91,7 +91,7 @@ class QuestionTest {
     @Test
     void setAnswered() {
         question.setAnswered(1);
-        assertEquals(1, question.isAnswered());
+        assertEquals(1, question.getAnswered());
     }
 
     @Test

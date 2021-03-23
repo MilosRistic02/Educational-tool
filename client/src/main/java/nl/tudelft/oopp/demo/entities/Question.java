@@ -1,18 +1,29 @@
 package nl.tudelft.oopp.demo.entities;
 
-import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Set;
 
 public class Question {
 
     private long id;
+
     private String question;
+
     private String answer;
+
     private int score;
+
     private Date creationDate;
-    private int isAnswered;
+
+    // 0 means unanswered, 1 answered by text and
+    // 2 answered verbally during the lecture.
+    private int answered;
+
     private String lecturePin;
+
     private String author;
+
+    Set<ScoringLog> scoringLogs;
 
     public Question() {
     }
@@ -28,7 +39,6 @@ public class Question {
         this.question = question;
         this.lecturePin = lecturePin;
         this.author = author;
-        this.isAnswered = 0;
     }
 
     /**
@@ -74,8 +84,8 @@ public class Question {
      * @return: an integer that represents if
      * the question has been answered or not.
      */
-    public int isAnswered() {
-        return isAnswered;
+    public int getAnswered() {
+        return answered;
     }
 
     /**
@@ -124,12 +134,12 @@ public class Question {
     }
 
     /**
-     * Sets the boolean whether the question is answered.
+     * Sets the int whether the question is answered.
      *
-     * @param answered boolean to indicate if a question is answered
+     * @param answered int to indicate if a question is answered
      */
     public void setAnswered(int answered) {
-        isAnswered = answered;
+        this.answered = answered;
     }
 
     /**
@@ -139,6 +149,9 @@ public class Question {
      */
     public void setAnswer(String answer) {
         this.answer = answer;
+//        if (answer!=null) {
+//            this.isAnswered=1;
+//        }
     }
 
     /**
@@ -183,5 +196,17 @@ public class Question {
         return (int) (id ^ (id >>> 32));
     }
 
-
+    @Override
+    public String toString() {
+        return "Question{" +
+                "id=" + id +
+                ", question='" + question + '\'' +
+                ", answer='" + answer + '\'' +
+                ", score=" + score +
+                ", creationDate=" + creationDate +
+                ", answered=" + answered +
+                ", lecturePin='" + lecturePin + '\'' +
+                ", author='" + author + '\'' +
+                '}';
+    }
 }

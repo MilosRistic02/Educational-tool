@@ -54,6 +54,9 @@ public class QuestionFormatLecturerComponent extends VBox {
     @FXML
     public Text isAnswered;
 
+    @FXML
+    public Button verbal;
+
 
     private Question currentQuestion;
     private Users loggedUser;
@@ -91,7 +94,7 @@ public class QuestionFormatLecturerComponent extends VBox {
     public void makeAnswer() {
         // display the last answer.
         String oldAnswer = "your answer";
-        if (currentQuestion.isAnswered() >= 1) {
+        if (currentQuestion.getAnswered() >= 1) {
             oldAnswer = currentQuestion.getAnswer();
         }
         // Dialog to input the answer.
@@ -107,6 +110,7 @@ public class QuestionFormatLecturerComponent extends VBox {
             } else {
                 currentQuestion.setAnswer(result.get());
                 currentQuestion.setAnswered(1);
+//                currentQuestion.setAnswered(1);
                 ServerCommunication.updateAnswerQuestion(currentQuestion);
             }
         }
@@ -144,16 +148,18 @@ public class QuestionFormatLecturerComponent extends VBox {
      * question has been answered, the "answer" button changes to "update
      * answer".
      */
-    public void setAnswered() {
+    public void setAnswered(String colour, String text) {
         answerHeading.setVisible(true);
         answer.setVisible(true);
         answer.setText(currentQuestion.getAnswer());
-        qanda.setStyle("-fx-border-color: #99d28c ; "
+        qanda.setStyle("-fx-border-color:  " + colour + ";"
                         + "-fx-border-width: 4; -fx-border-radius: 18");
-        isAnswered.setText("Answered");
-        isAnswered.setFill(Color.valueOf("#99d28c"));
+        isAnswered.setText(text);
+        isAnswered.setFill(Color.valueOf(colour));
         makeAnswer.setText("Change Answer");
-        makeAnswer.setStyle("-fx-background-color: #99d28c");
+        makeAnswer.setStyle("-fx-background-color: "+ colour);
+        verbal.setVisible(false);
+        verbal.setDisable(true);
     }
 
     /**
@@ -162,8 +168,11 @@ public class QuestionFormatLecturerComponent extends VBox {
      * loads the answer if it is available.
      */
     public void loadQuestion() {
-        if (currentQuestion.isAnswered() >= 1) {
-            setAnswered();
+        if (currentQuestion.getAnswered() == 1) {
+            setAnswered("#99d28c", "Answered");
+        }
+        if (currentQuestion.getAnswered() == 2) {
+            setAnswered("#f1be3e", "Answered verbally");
         }
 
         question.setText(currentQuestion.getQuestion());
@@ -180,5 +189,11 @@ public class QuestionFormatLecturerComponent extends VBox {
     @FXML
     public void delete() {
         ServerCommunication.deleteQuestion(Integer.toString((int) currentQuestion.getId()));
+    }
+
+    @FXML
+    public void answeredVerbal() {
+        currentQuestion.setAnswered(2);
+        ServerCommunication.updateAnswerQuestion(currentQuestion);
     }
 }

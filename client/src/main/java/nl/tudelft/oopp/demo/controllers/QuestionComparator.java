@@ -7,7 +7,7 @@ import nl.tudelft.oopp.demo.entities.Question;
 public class QuestionComparator implements Comparator<Question> {
     @Override
     public int compare(Question o1, Question o2) {
-        int isAnsweredComparison = compare(o2.isAnswered(), o1.isAnswered());
+        int isAnsweredComparison = compare(o2.getAnswered(), o1.getAnswered());
         if (isAnsweredComparison != 0) {
             return isAnsweredComparison;
         }

@@ -82,7 +82,7 @@ public class QuestionController {
             Question q = new Question(questionText.getText(),
                     lectureRoom.getLecturePin(),
                     loggedUser.getUsername());
-
+            q.setAnswered(0);
 
             String response = ServerCommunication.saveQuestion(q);
             if (!response.equals("Success")) {

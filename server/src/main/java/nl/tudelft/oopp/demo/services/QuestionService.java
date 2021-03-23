@@ -1,8 +1,6 @@
 package nl.tudelft.oopp.demo.services;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
 import nl.tudelft.oopp.demo.entities.LectureRoom;
@@ -53,8 +51,7 @@ public class QuestionService {
         }
         Question old = questionRepository.getByIdAndLecturePin(
                 question.getId(), question.getLecturePin());
-
-        old.setAnswered(question.isAnswered());
+        old.setAnswered(question.getAnswered());
         old.setAnswer(question.getAnswer());
         questionRepository.save(old);
         return "Updated score of Question";
@@ -91,7 +88,7 @@ public class QuestionService {
             return "The question is not in the database.";
         }
         Question q = questionRepository.getByLecturePin(question.getLecturePin());
-        q.setAnswered(question.isAnswered());
+        q.setAnswered(question.getAnswered());
         questionRepository.save(q);
         return "The answered status of the question has been updated.";
 
@@ -105,7 +102,7 @@ public class QuestionService {
      */
     public int isQuestionAnswered(Question question) {
         Question q = questionRepository.getByLecturePin(question.getLecturePin());
-        return q.isAnswered();
+        return q.getAnswered();
     }
 
 
