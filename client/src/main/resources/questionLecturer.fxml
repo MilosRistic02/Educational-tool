@@ -62,7 +62,7 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </BarChart>
-      <TextField fx:id="currentRoomPin" editable="false" layoutX="13.0" layoutY="755.0" prefHeight="18.0" prefWidth="224.0" style="-fx-background-color: #F4F4F4" text="Lecture pin: [lecturePin]">
+      <TextField fx:id="currentRoomPin" editable="false" layoutX="13.0" layoutY="755.0" prefHeight="39.0" prefWidth="371.0" style="-fx-background-color: #F4F4F4" text="Lecture pin: [lecturePin]">
          <font>
             <Font size="18.0" />
          </font>
