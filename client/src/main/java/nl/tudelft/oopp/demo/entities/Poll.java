@@ -1,6 +1,7 @@
 package nl.tudelft.oopp.demo.entities;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class Poll {
@@ -10,7 +11,7 @@ public class Poll {
     String lecturePin;
     int size;
     boolean isOpen;
-    char rightAnswer;
+    List<Character> correctAnswers;
     String question;
     int[] votes;
     private Date creationDate;
@@ -23,14 +24,14 @@ public class Poll {
      * Constrcutor for the Poll class.
      * @param lecturePin LecturePin this Poll is associated with
      * @param size Size of this Poll
-     * @param rightAnswer The correct answer of this poll
+     * @param correctAnswers The correct answer of this poll
      * @param question The question for this poll
      */
     public Poll(String lecturePin,  int size,
-              char rightAnswer,  String question) {
+              List<Character> correctAnswers,  String question) {
         this.lecturePin = lecturePin;
         this.size = size;
-        this.rightAnswer = rightAnswer;
+        this.correctAnswers = correctAnswers;
         this.question = question;
         this.votes = new int[10];
         this.isOpen = true;
@@ -52,8 +53,8 @@ public class Poll {
         isOpen = open;
     }
 
-    public void setRightAnswer(char rightAnswer) {
-        this.rightAnswer = rightAnswer;
+    public void setRightAnswer(List<Character> correctAnswers) {
+        this.correctAnswers = correctAnswers;
     }
 
     public void setQuestion(String question) {
@@ -84,8 +85,8 @@ public class Poll {
         return isOpen;
     }
 
-    public char getRightAnswer() {
-        return rightAnswer;
+    public List<Character> getRightAnswer() {
+        return correctAnswers;
     }
 
     public String getQuestion() {
