@@ -5,7 +5,6 @@ import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 
-import java.io.File;
 import java.util.List;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Poll;
@@ -50,28 +49,10 @@ public class Request {
         return responseBody;
     }
 
-    /** Method to get questions.
+    /** Method to get polls.
      *
      * @param url   the url
-     * @return      returns a list of questions
-     */
-    public static File getFile(String url, File file) {
-        GenericType<File> responseBodyType = new GenericType<File>(){};
-        Entity<File> requestBody = Entity.entity(file, MediaType.APPLICATION_JSON);
-
-        File responseBody = ClientBuilder.newClient()
-                .target(url)
-                .request(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .post(requestBody, responseBodyType);
-
-        return responseBody;
-    }
-
-    /** Method to get questions.
-     *
-     * @param url   the url
-     * @return      returns a list of questions
+     * @return      returns a list of polls
      */
     public static List<Poll> getPolls(String url) {
         GenericType<List<Poll>> responseBodyType = new GenericType<List<Poll>>(){};
