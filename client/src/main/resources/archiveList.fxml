@@ -34,7 +34,7 @@
                         <Font size="20.0" />
                     </font>
                 </TextField>
-                <ImageView fx:id="glass" fitHeight="45.0" fitWidth="44.0" layoutX="1090.0" layoutY="13.0" onMouseClicked="#searchCourse">
+                <ImageView fx:id="glass" fitHeight="45.0" fitWidth="44.0" layoutX="1090.0" layoutY="13.0">
                     <image>
                         <Image url="@images/search_white.png" />
                     </image>

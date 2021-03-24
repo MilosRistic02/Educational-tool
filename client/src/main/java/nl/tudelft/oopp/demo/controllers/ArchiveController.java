@@ -233,9 +233,16 @@ public class ArchiveController {
         stack.getChildren().clear();
         stack.setSpacing(20);
 
-        Collections.sort(rooms, new RoomComparator());
-        for (LectureRoom room : rooms) {
-            addRoom(room);
+        if (rooms.isEmpty()) {
+            emptyArchive.setText("No lecture rooms found!");
+            emptyArchive.setVisible(true);
+            searchBar.setDisable(true);
+        } else {
+            searchBar.setDisable(false);
+            Collections.sort(rooms, new RoomComparator());
+            for (LectureRoom room : rooms) {
+                addRoom(room);
+            }
         }
     }
 
