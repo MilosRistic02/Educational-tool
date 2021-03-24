@@ -100,7 +100,7 @@ public class Display extends Application {
         LobbyController lobbyController = recourse.getKey().getController();
         lobbyController.setUsers(users);
 
-        if (users.getRole().equals("lecturer")) {
+        if (users.getRole().equals("lecturer") || users.getRole().equals("moderator")) {
             lobbyController.showBackButton();
         }
 
@@ -132,11 +132,12 @@ public class Display extends Application {
         FXMLLoader loader = new FXMLLoader();
         URL xmlUrl = Display.class.getResource("/archiveList.fxml");
         loader.setLocation(xmlUrl);
-        Parent root = loader.load();
+        final Parent root = loader.load();
 
         ArchiveController archiveController = loader.getController();
         archiveController.setUsers(users);
         archiveController.showPins();
+        archiveController.showButtons(false);
 
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
@@ -151,11 +152,12 @@ public class Display extends Application {
         FXMLLoader loader = new FXMLLoader();
         URL xmlUrl = Display.class.getResource("/archiveList.fxml");
         loader.setLocation(xmlUrl);
-        Parent root = loader.load();
+        final Parent root = loader.load();
 
         ArchiveController archiveController = loader.getController();
         archiveController.setUsers(users);
         archiveController.showArchive(lecturePin);
+        archiveController.showButtons(true);
 
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

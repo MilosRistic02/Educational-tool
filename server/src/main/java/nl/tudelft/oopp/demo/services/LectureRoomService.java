@@ -1,10 +1,15 @@
 package nl.tudelft.oopp.demo.services;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
+import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.repositories.LectureRoomRepository;
+import nl.tudelft.oopp.demo.repositories.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +17,13 @@ import org.springframework.stereotype.Service;
 public class LectureRoomService {
 
     private LectureRoomRepository lectureRoomRepository;
+    private QuestionRepository questionRepository;
 
     @Autowired
-    public LectureRoomService(LectureRoomRepository lectureRoomRepository) {
+    public LectureRoomService(LectureRoomRepository lectureRoomRepository,
+                              QuestionRepository questionRepository) {
         this.lectureRoomRepository = lectureRoomRepository;
+        this.questionRepository = questionRepository;
     }
 
     /**
@@ -77,6 +85,46 @@ public class LectureRoomService {
     }
 
     /**
+     * Writes all questions of a specific lectureRoom to the export file.
+     * @param file - The file that is exported
+     * @param lecturePin - The pin of the archived lectureRoom.
+     * @return the file with all of the questions and corresponding answers.
+     */
+    public File exportRoom(File file, String lecturePin) {
+        List<Question> questions = questionRepository.getAllByLecturePin(lecturePin);
+        LectureRoom room = lectureRoomRepository.getByLecturePin(lecturePin);
+
+        try {
+            FileWriter fileWriter = new FileWriter(file);
+            String output = "";
+
+            if (questions.isEmpty()) {
+                output = "This archive did not contain questions, therefore this file is empty.";
+            } else {
+                output += room.getLectureName()
+                        + " ("
+                        + room.getCreationDate().toString().substring(0, 10)
+                        + ")\n\n";
+                for (Question question : questions) {
+                    output += "Q: " + question.getQuestion() + "\n";
+
+                    String answer = (question.getAnswer() == null) ? "[Insert answer here]"
+                                    : question.getAnswer();
+                    output += "A: " + answer + "\n\n";
+                }
+            }
+
+            fileWriter.write(output);
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return file;
+    }
+
+    /**
      * Method for getting all the lecture rooms.
      * @return List containing all the lecture rooms.
      */
@@ -104,7 +152,7 @@ public class LectureRoomService {
 
     /**
      * Method to change a lectureRoom in the database.
-     * @param lectureRoom the lectureroom to change to
+     * @param lectureRoom the lecture room to change to
      * @return whether the room is updated or didn't exist
      */
     public String putLectureRoom(LectureRoom lectureRoom) {
@@ -121,17 +169,9 @@ public class LectureRoomService {
 
     /**
      * Method to get all lecturePins from closed rooms of a specific lecturer.
-     * @param lectureHost the lecturer to search by
      * @return list of lecturePins
      */
-    public List<LectureRoom> getClosedLecturePins(String lectureHost) {
-        List<LectureRoom> allClosedRooms = lectureRoomRepository.getClosed();
-        List<LectureRoom> result = new ArrayList<>();
-        for (LectureRoom room:allClosedRooms) {
-            if (room.getLecturerID().equals(lectureHost)) {
-                result.add(room);
-            }
-        }
-        return result;
+    public List<LectureRoom> getClosedLecturePins() {
+        return lectureRoomRepository.getAllByIsOpenIsFalse();
     }
 }

@@ -41,6 +41,10 @@ public class QuestionController {
 
     @FXML
     private Text currentRoom;
+
+    @FXML
+    private TextField currentRoomPin;
+
     @FXML
     private BarChart pollChart;
 
@@ -158,7 +162,8 @@ public class QuestionController {
         this.lectureRoom = lectureRoom;
         this.loggedUser = users;
         greetings.setText("Welcome, " + users.getUsername());
-        currentRoom.setText("You are in lecture " + lectureRoom.getLecturePin());
+        currentRoom.setText("You are currently in:\n" + lectureRoom.getLectureName());
+        currentRoomPin.setText("Lecture pin: " + lectureRoom.getLecturePin());
         // set the speed log to 0
         this.speedLog = new SpeedLog(this.loggedUser, this.lectureRoom, 50);
         // send speedlog to the server to reset any old values

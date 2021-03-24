@@ -43,6 +43,9 @@ public class QuestionLecturerController {
     private Text greetings;
 
     @FXML
+    private TextField currentRoomPin;
+
+    @FXML
     private Slider speedSlider;
 
     @FXML
@@ -115,22 +118,6 @@ public class QuestionLecturerController {
     }
 
     /**
-     * Closes the lecture room.
-     * @throws IOException if server communication fails.
-     */
-    @FXML
-    public void closeRoom() throws IOException {
-        this.lectureRoom.setOpen(false);
-        String response = ServerCommunication.closeRoom(this.lectureRoom);
-
-        if (this.users.getRole().equals("lecturer")) {
-            Display.showLecturer(this.users);
-        } else {
-            Display.showStudent(this.users);
-        }
-    }
-
-    /**
      * Set a new user for the view and update the question list
      * every 2 seconds.
      * @param users - the current logged user.
@@ -139,6 +126,7 @@ public class QuestionLecturerController {
         this.lectureRoom = lectureRoom;
         this.users = users;
         greetings.setText("Welcome, " + users.getUsername());
+        currentRoomPin.setText("Lecture pin: " + lectureRoom.getLecturePin());
 
         // Update question list every 2 seconds.
         Timer timer = new Timer();
@@ -171,6 +159,22 @@ public class QuestionLecturerController {
         }
         numOptions.setValue("Choose an option");
         numOptions.setOnAction((EventHandler<ActionEvent>) event -> optionPicked());
+    }
+
+    /**
+     * Closes the lecture room.
+     * @throws IOException if server communication fails.
+     */
+    @FXML
+    public void closeRoom() throws IOException {
+        this.lectureRoom.setOpen(false);
+        String response = ServerCommunication.closeRoom(this.lectureRoom);
+
+        if (this.users.getRole().equals("lecturer")) {
+            Display.showLecturer(this.users);
+        } else {
+            Display.showStudent(this.users);
+        }
     }
 
     /**
@@ -214,7 +218,9 @@ public class QuestionLecturerController {
             progress.setStyle("-fx-accent: #c3312f;");
             selectedSpeed.setFill(Color.valueOf("#c3312f"));
         } else {
-            progress.setVisible(false);
+            selectedSpeed.setText("Your pace is okay");
+            progress.setStyle("-fx-accent: #99d28c;");
+            selectedSpeed.setFill(Color.valueOf("#99d28c"));
         }
     }
 

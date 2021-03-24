@@ -6,7 +6,9 @@ import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 
 public class Alerts {
@@ -45,13 +47,14 @@ public class Alerts {
      * @param height int with de height of the content
      */
     public static void alertInfoCopyAble(String title, String content, int width, int height) {
-        TextArea textArea = new TextArea(content);
-        textArea.setMaxSize(width, height);
-        textArea.setEditable(false);
-        textArea.setWrapText(true);
+        TextField textField = new TextField(content);
+        textField.setMinSize(width, height);
+        textField.setEditable(false);
+
+        textField.setStyle("-fx-background-color: #F4F4F4");
         GridPane gridPane = new GridPane();
-        gridPane.setMaxSize(width, height);
-        gridPane.add(textArea, 0, 0);
+        gridPane.setMinSize(width, height);
+        gridPane.add(textField, 0, 0);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);
