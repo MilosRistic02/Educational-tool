@@ -9,9 +9,9 @@
     <children>
         <Pane layoutY="20.0" prefHeight="699.0" prefWidth="876.0" style="-fx-background-color: #00A6D6; -fx-background-radius: 18;">
             <children>
-                <Text fx:id="title" fill="WHITE" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Users" textAlignment="CENTER" wrappingWidth="876.0">
+                <Text fx:id="title" fill="WHITE" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unbanned users" textAlignment="CENTER" wrappingWidth="876.0">
                     <font>
-                        <Font size="50.0" />
+                        <Font size="40.0" />
                     </font>
                 </Text>
                 <ScrollPane hbarPolicy="NEVER" layoutY="75.0">
@@ -33,6 +33,7 @@
                 </Label>
             <TextField fx:id="enterUserField" layoutX="614.0" layoutY="21.0" onKeyTyped="#searchForUser" prefHeight="28.0" prefWidth="190.0" promptText="Search for user..." />
             <Button fx:id="switchViewButton" layoutX="121.0" layoutY="23.0" mnemonicParsing="false" onAction="#switchView" text="Banned Users" />
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="704.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true" />
             </children>
         </Pane>
     </children>

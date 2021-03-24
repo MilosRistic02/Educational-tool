@@ -30,6 +30,9 @@ public class UsersListController {
     private VBox stack;
 
     @FXML
+    private Text title;
+
+    @FXML
     private TextField enterUserField;
 
     @FXML
@@ -86,8 +89,10 @@ public class UsersListController {
         enterUserField.setText("");
         if (!view) {
             makeList(ServerCommunication.getAllNotBannedStudents());
+            title.setText("Unbanned users");
         } else {
             makeList(ServerCommunication.getAllBannedStudents());
+            title.setText("Banned users");
         }
 
         switchViewButton.setText(view ? "Unbanned Users" : "Banned Users");
@@ -108,6 +113,7 @@ public class UsersListController {
             }
         } else {
             userListEmptyText.setVisible(true);
+            userListEmptyText.setText(!view ? "No unbanned users" : "No banned users");
         }
 
 

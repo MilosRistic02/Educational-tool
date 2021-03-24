@@ -69,7 +69,7 @@ public class QuestionController {
 
     private SpeedLog speedLog;
 
-    public Timer timer;
+    private Timer timer;
 
 
     @FXML
