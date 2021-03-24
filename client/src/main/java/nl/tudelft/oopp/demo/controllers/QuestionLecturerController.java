@@ -47,7 +47,7 @@ public class QuestionLecturerController {
     private Text greetings;
 
     @FXML
-    private TextField currentRoomPin;
+    private Text currentRoomPin;
 
     @FXML
     private Slider speedSlider;
@@ -83,6 +83,7 @@ public class QuestionLecturerController {
 
     @FXML
     private Text listTitle;
+
 
     private Users users;
 
