@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<fx:root maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="595.0" style="-fx-border-color: #00A6D6; -fx-border-width: 4; -fx-border-radius: 18;" type="VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="169.0" prefWidth="608.0">
+         <children>
+            <Button fx:id="banButton" alignment="TOP_CENTER" layoutX="32.0" layoutY="42.0" mnemonicParsing="false" onAction="#ban" prefHeight="33.0" prefWidth="91.0" style="-fx-background-color: #FF0000;" text="Ban" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font></Button>
+            <Text fx:id="username" layoutX="150.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="username" wrappingWidth="313.0">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </children>
+</fx:root>

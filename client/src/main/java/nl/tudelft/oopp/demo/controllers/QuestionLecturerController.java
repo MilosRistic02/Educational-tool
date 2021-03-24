@@ -19,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
@@ -34,6 +35,7 @@ import nl.tudelft.oopp.demo.entities.ScoringLog;
 import nl.tudelft.oopp.demo.entities.SpeedLog;
 import nl.tudelft.oopp.demo.entities.Users;
 import nl.tudelft.oopp.demo.views.Display;
+import org.controlsfx.control.CheckComboBox;
 
 public class QuestionLecturerController {
 
@@ -59,13 +61,13 @@ public class QuestionLecturerController {
     private Text selectedSpeed;
 
     @FXML
-    private TextField pollField;
+    private TextArea pollField;
 
     @FXML
     private ChoiceBox numOptions;
 
     @FXML
-    private ChoiceBox correctAnswer;
+    private CheckComboBox correctAnswers;
 
     @FXML
     private BarChart pollChart;
@@ -314,8 +316,10 @@ public class QuestionLecturerController {
         }
         pollChart.getData().clear();
         pollChart.getData().addAll(set1);
-        pollChart.lookup(".data" + (currentPoll.getRightAnswer() - 65)
-                + ".chart-bar").setStyle("-fx-bar-fill: green");
+        for (Character c : currentPoll.getRightAnswer()) {
+            pollChart.lookup(".data" + (c - 65)
+                    + ".chart-bar").setStyle("-fx-bar-fill: green");
+        }
         pollChart.setAnimated(false);
     }
 
@@ -333,10 +337,10 @@ public class QuestionLecturerController {
         }
 
         int size = (int) sizeInput;
-        Character answer = (char) correctAnswer.getValue();
+        List<Character> answers = correctAnswers.getCheckModel().getCheckedItems();
 
         closePoll();
-        Poll poll = new Poll(lectureRoom.getLecturePin(), size, answer, pollQuestion);
+        Poll poll = new Poll(lectureRoom.getLecturePin(), size, answers, pollQuestion);
         currentPoll = new ObjectMapper()
                 .readValue(ServerCommunication.createPoll(poll), Poll.class);
 
@@ -357,8 +361,8 @@ public class QuestionLecturerController {
         pollChart.setAnimated(true);
         pollChart.getData().clear();
 
-        correctAnswer.setDisable(true);
-        correctAnswer.getItems().clear();
+        correctAnswers.setDisable(true);
+        correctAnswers.getItems().clear();
         numOptions.setValue("Choose an option");
         pollField.setText("");
         closePollButton.setVisible(true);
@@ -369,17 +373,19 @@ public class QuestionLecturerController {
      */
     public void optionPicked() {
         Object input = numOptions.getValue();
-        correctAnswer.getItems().clear();
+        correctAnswers.getItems().clear();
         if (!(numOptions.getValue() instanceof Integer)) {
-            correctAnswer.setDisable(true);
+            correctAnswers.setDisable(true);
+            correctAnswers.setTitle("Pick answers");
             return;
         }
+
         int n = (int) input;
+        correctAnswers.getItems().clear();
         for (int i = 65; i < n + 65; i++) {
-            correctAnswer.getItems().add((char) i);
+            correctAnswers.getItems().add((char) i);
         }
-        correctAnswer.setDisable(false);
-        correctAnswer.setValue('A');
+        correctAnswers.setDisable(false);
     }
 
     /**
@@ -394,4 +400,5 @@ public class QuestionLecturerController {
         currentPoll.setOpen(false);
         ServerCommunication.closePoll(currentPoll);
     }
+
 }

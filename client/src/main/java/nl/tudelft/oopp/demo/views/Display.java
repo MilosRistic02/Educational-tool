@@ -13,6 +13,7 @@ import nl.tudelft.oopp.demo.controllers.ArchiveController;
 import nl.tudelft.oopp.demo.controllers.LobbyController;
 import nl.tudelft.oopp.demo.controllers.QuestionController;
 import nl.tudelft.oopp.demo.controllers.QuestionLecturerController;
+import nl.tudelft.oopp.demo.controllers.UsersListController;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Users;
 
@@ -163,6 +164,22 @@ public class Display extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Shows the list of users who are not banned with an option to switch to banned users.
+     * @param user A user
+     * @throws IOException Input output exception
+     */
+    public static void showStudentsBanPage(Users user) throws IOException {
+        Pair<FXMLLoader, Parent> recourse = load("/usersList.fxml");
+
+        UsersListController usersListController = recourse.getKey().getController();
+        usersListController.setUsers(user);
+
+        primaryStage.setScene(new Scene(recourse.getValue()));
+        primaryStage.show();
+
+        usersListController.searchForUser();
+    }
 
     /**
      * Basic loader for the display class.

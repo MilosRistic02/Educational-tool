@@ -2,12 +2,15 @@ package nl.tudelft.oopp.demo.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
+import nl.tudelft.oopp.demo.converters.CharacterListConverter;
 import nl.tudelft.oopp.demo.converters.IntegerArrayConverter;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -20,7 +23,8 @@ public class Poll {
     String lecturePin;
     int size;
     boolean isOpen;
-    char rightAnswer;
+    @Convert(converter = CharacterListConverter.class)
+    List<Character> correctAnswers;
     String question;
     @Column
     @Convert(converter = IntegerArrayConverter.class)
@@ -36,16 +40,16 @@ public class Poll {
      * Constrcutor for the Poll class.
      * @param lecturePin LecturePin this Poll is associated with
      * @param size Size of this Poll
-     * @param rightAnswer The correct answer of this poll
+     * @param correctAnswers The correct answer of this poll
      * @param question The question for this poll
      */
     public Poll(@JsonProperty("lecturePin") String lecturePin,
                 @JsonProperty("size") int size,
-                @JsonProperty("rightAnswer") char rightAnswer,
+                @JsonProperty("correctAnswers") List<Character> correctAnswers,
                 @JsonProperty("question") String question) {
         this.lecturePin = lecturePin;
         this.size = size;
-        this.rightAnswer = rightAnswer;
+        this.correctAnswers = correctAnswers;
         this.question = question;
         this.votes = new int[10];
         this.isOpen = true;
@@ -67,8 +71,8 @@ public class Poll {
         isOpen = open;
     }
 
-    public void setRightAnswer(char rightAnswer) {
-        this.rightAnswer = rightAnswer;
+    public void setRightAnswer(List<Character> correctAnswers) {
+        this.correctAnswers = correctAnswers;
     }
 
     public void setQuestion(String question) {
@@ -99,8 +103,8 @@ public class Poll {
         return isOpen;
     }
 
-    public char getRightAnswer() {
-        return rightAnswer;
+    public List<Character> getRightAnswer() {
+        return correctAnswers;
     }
 
     public String getQuestion() {

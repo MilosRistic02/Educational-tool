@@ -37,6 +37,9 @@ public class LogInController {
     @FXML
     Label invalidUser;
 
+    @FXML
+    Label userBannedLabel;
+
     /**
      * Activated upon a click on the login button.
      * Throws error messages if:
@@ -92,6 +95,13 @@ public class LogInController {
 
         if (response.equals("User doesn't exist")) {
             invalidUser.setVisible(true);
+            usernameField.setText("");
+            usernameField.requestFocus();
+            return false;
+        }
+
+        if (response.equals("This user is banned!")) {
+            userBannedLabel.setVisible(true);
             usernameField.setText("");
             usernameField.requestFocus();
             return false;

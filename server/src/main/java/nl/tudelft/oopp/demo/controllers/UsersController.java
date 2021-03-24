@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -90,4 +92,39 @@ public class UsersController {
         return usersService.addUser(user);
     }
 
+    @PutMapping("ban")
+    @ResponseBody
+    public String banUser(@RequestBody String username) {
+        return usersService.banUser(username);
+    }
+
+    @PutMapping("unban")
+    @ResponseBody
+    public String unbanUser(@RequestBody String username) {
+        return usersService.unbanUser(username);
+    }
+
+    @GetMapping("search/{search}/{view}")
+    @ResponseBody
+    public List<Users> searchStudents(@PathVariable String search, @PathVariable boolean view) {
+        return usersService.searchStudents(search, view);
+    }
+
+    @GetMapping("not-banned")
+    @ResponseBody
+    public List<Users> getNotBannedStudents() {
+        return usersService.getNotBannedStudents();
+    }
+
+    @GetMapping("banned")
+    @ResponseBody
+    public List<Users> getBannedStudents() {
+        return usersService.getBannedStudents();
+    }
+
+    @GetMapping("check-banned/{username}")
+    @ResponseBody
+    public boolean isUserBanned(@PathVariable String username) {
+        return usersService.isUserBanned(username);
+    }
 }

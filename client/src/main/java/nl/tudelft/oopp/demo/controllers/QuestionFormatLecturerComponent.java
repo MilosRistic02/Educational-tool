@@ -195,4 +195,9 @@ public class QuestionFormatLecturerComponent extends VBox {
         currentQuestion.setAnswered(2);
         ServerCommunication.updateAnswerQuestion(currentQuestion);
     }
+
+    public void banUser() {
+        ServerCommunication.banUser(currentQuestion.getAuthor());
+        delete();
+    }
 }

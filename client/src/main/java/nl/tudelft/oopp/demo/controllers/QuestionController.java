@@ -73,6 +73,8 @@ public class QuestionController {
 
     private SpeedLog speedLog;
 
+    private Timer timer;
+
 
     @FXML
     private void displayQuestion() {
@@ -183,7 +185,7 @@ public class QuestionController {
                 }));
 
         // Update question list every 2 seconds.
-        Timer timer = new Timer();
+        timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -203,9 +205,24 @@ public class QuestionController {
                     } catch (JsonProcessingException e) {
                         e.printStackTrace();
                     }
+                    try {
+                        checkBanned();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 });
             }
         }, 0, 2000);
+    }
+
+    private void checkBanned() throws IOException {
+        boolean isUserBanned = ServerCommunication.isUserBanned(loggedUser.getUsername());
+
+        if (isUserBanned) {
+            timer.cancel();
+            Display.showLogin();
+            Alerts.alertError("BAN", "You are banned from this application");
+        }
     }
 
     private boolean checkRoomClosed() throws IOException {
@@ -309,8 +326,10 @@ public class QuestionController {
         if (!currentPoll.isOpen()) {
             pollChart.getData().clear();
             pollChart.getData().addAll(set1);
-            pollChart.lookup(".data" + (currentPoll.getRightAnswer() - 65)
-                    + ".chart-bar").setStyle("-fx-bar-fill: green");
+            for (Character c : currentPoll.getRightAnswer()) {
+                pollChart.lookup(".data" + (c - 65)
+                        + ".chart-bar").setStyle("-fx-bar-fill: green");
+            }
             pollChart.setAnimated(false);
         }
     }
