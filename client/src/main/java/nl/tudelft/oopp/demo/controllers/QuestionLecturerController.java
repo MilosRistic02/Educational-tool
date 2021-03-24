@@ -94,11 +94,13 @@ public class QuestionLecturerController {
      */
     @FXML
     public void adminAction() {
-        Optional<Integer> frequency =  Alerts.numberInputDialog("0",
+        Optional<Integer> questionFrequency =  Alerts.numberInputDialog("0",
                 "Admin Settings", "Seconds between questions: ",
                 "The frequency should be a positive integer");
-        lectureRoom.setQuestionFrequency(frequency.get());
-        ServerCommunication.updateFrequency(lectureRoom);
+        if (questionFrequency.isPresent()) {
+            lectureRoom.setQuestionFrequency(questionFrequency.get());
+            ServerCommunication.updateFrequency(lectureRoom);
+        }
     }
 
 
