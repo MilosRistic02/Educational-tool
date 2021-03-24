@@ -31,7 +31,9 @@ public class Question {
     @CreationTimestamp
     private Date creationDate;
 
-    private boolean answered;
+    // 0 means unanswered, 1 answered by text and
+    // 2 answered verbally during the lecture.
+    private int answered;
 
     private String lecturePin;
 
@@ -94,11 +96,10 @@ public class Question {
     }
 
     /**
-     * Boolean whether the question is answered.
-     *
-     * @return true when the question has an answer, false otherwise
+     * Get answered status.
+     * @return integer representing whether question has been answered.
      */
-    public boolean isAnswered() {
+    public int getAnswered() {
         return answered;
     }
 
@@ -152,7 +153,7 @@ public class Question {
      *
      * @param answered boolean to indicate if a question is answered
      */
-    public void setAnswered(boolean answered) {
+    public void setAnswered(int answered) {
         this.answered = answered;
     }
 
@@ -163,7 +164,6 @@ public class Question {
      */
     public void setAnswer(String answer) {
         this.answer = answer;
-        this.answered = true;
     }
 
     /**
@@ -206,5 +206,20 @@ public class Question {
     @Override
     public int hashCode() {
         return (int) (id ^ (id >>> 32));
+    }
+
+    @Override
+    public String toString() {
+        return "Question{"
+                + "id=" + id
+                + ", question='" + question + '\''
+                + ", answer='" + answer + '\''
+                + ", score=" + score
+                + ", creationDate=" + creationDate
+                + ", answered=" + answered
+                + ", lecturePin='" + lecturePin + '\''
+                + ", author='" + author + '\''
+                + ", scoringLogs=" + scoringLogs
+                + '}';
     }
 }

@@ -1,7 +1,6 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.util.List;
-
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.services.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,7 @@ public class QuestionController {
         return questionService.updateScoreQuestion(question);
     }
 
-    @PutMapping("update-answer")
+    @PutMapping("/update-answer")
     @ResponseBody
     public String updateAnswerQuestion(@RequestBody Question question) {
         return questionService.updateAnswerQuestion(question);
@@ -68,8 +67,7 @@ public class QuestionController {
     @PostMapping("/save-question")
     @ResponseBody
     public String addQuestion(@RequestBody Question question) {
-        questionService.addQuestion(question);
-        return question.getQuestion();
+        return questionService.addQuestion(question);
     }
 
     /**

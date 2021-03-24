@@ -5,8 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,6 +20,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -69,6 +73,17 @@ public class QuestionLecturerController {
     @FXML
     private Button closePollButton;
 
+    @FXML Button adminSettings;
+
+    @FXML
+    private ToggleButton changeList;
+
+    @FXML
+    private Pane list;
+
+    @FXML
+    private Text listTitle;
+
     private Users users;
 
     private LectureRoom lectureRoom;
@@ -76,6 +91,21 @@ public class QuestionLecturerController {
     public Poll currentPoll;
 
     private Timer pollTimer;
+
+    /**
+     * Action when the admin settings button is pressed.
+     */
+    @FXML
+    public void adminAction() {
+        Optional<Integer> questionFrequency =  Alerts.numberInputDialog("0",
+                "Admin Settings", "Seconds between questions: ",
+                "The frequency should be a positive integer");
+        if (questionFrequency.isPresent()) {
+            lectureRoom.setQuestionFrequency(questionFrequency.get());
+            ServerCommunication.updateFrequency(lectureRoom);
+        }
+    }
+
 
     @FXML
     private void displayQuestion() {
@@ -88,7 +118,25 @@ public class QuestionLecturerController {
 
     @FXML
     private void displayAllQuestion() {
-        List<Question> qs = ServerCommunication.getAllQuestion(lectureRoom.getLecturePin());
+        List<Question> qs = null;
+
+        if (changeList.isSelected()) {
+            qs = ServerCommunication.getAllAnsweredQuestions(lectureRoom.getLecturePin());
+            changeList.setText("questions");
+            changeList.setStyle("-fx-background-color: #00A6D6;");
+            listTitle.setText("Answers");
+            list.setStyle("-fx-background-color: #99d28c;"
+                    + "-fx-background-radius: 18;");
+
+        } else {
+            qs = ServerCommunication.getAllNonAnsweredQuestions(lectureRoom.getLecturePin());
+            changeList.setText("answers");
+            changeList.setStyle("-fx-background-color: #99d28c");
+            listTitle.setText("Questions");
+            list.setStyle("-fx-background-color: #00A6D6;"
+                    + "-fx-background-radius: 18;");
+        }
+
         List<ScoringLog> votes = ServerCommunication.getVotes();
 
         stack.getChildren().clear();
@@ -127,6 +175,11 @@ public class QuestionLecturerController {
         this.users = users;
         greetings.setText("Welcome, " + users.getUsername());
         currentRoomPin.setText("Lecture pin: " + lectureRoom.getLecturePin());
+
+        if (users.getRole().equals("admin")) {
+            adminSettings.setVisible(true);
+            adminSettings.setDisable(false);
+        }
 
         // Update question list every 2 seconds.
         Timer timer = new Timer();

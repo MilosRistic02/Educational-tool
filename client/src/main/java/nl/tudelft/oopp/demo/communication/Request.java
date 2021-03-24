@@ -181,13 +181,11 @@ public class Request {
     public static <T> String put(String url, T t) {
         Entity<T> requestBody = Entity.entity(t, MediaType.APPLICATION_JSON);
         GenericType<String> responseBodyType = new GenericType<String>(){};
-
         String responseBody = ClientBuilder.newClient()
                 .target(url)
                 .request(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .put(requestBody, responseBodyType);
-
         return responseBody;
     }
 

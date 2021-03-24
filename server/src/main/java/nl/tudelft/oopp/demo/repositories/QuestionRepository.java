@@ -16,8 +16,8 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 
     List<Question> getAllByLecturePin(String lecturePin);
 
-    List<Question> getAllByAnsweredTrueAndLecturePin(String lecturePin);
+    List<Question> getAllByAnsweredAndLecturePin(int answered, String lecturePin);
 
-    List<Question> getAllByAnsweredFalseAndLecturePin(String lecturePin);
+    Question findTopByLecturePinAndAuthorOrderByCreationDateDesc(String lecturePin, String author);
 
 }

@@ -74,6 +74,13 @@ public class LectureRoomController {
         return lectureRoomService.putLectureRoom(lectureRoom);
     }
 
+    @PutMapping("/update-frequency")
+    @ResponseBody
+    public String updateFrequency(@RequestBody LectureRoom lectureRoom)
+            throws JsonProcessingException {
+        return lectureRoomService.updateFrequency(lectureRoom);
+    }
+
     @GetMapping("/getClosed")
     @ResponseBody
     public List<LectureRoom> getClosedLecturePins() {

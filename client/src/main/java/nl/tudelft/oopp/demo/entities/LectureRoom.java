@@ -12,6 +12,7 @@ public class LectureRoom {
     private Date creationDate;
     private Date startingTime;
     private boolean isOpen;
+    private int questionFrequency;
 
     public LectureRoom() {
     }
@@ -28,6 +29,7 @@ public class LectureRoom {
         this.lectureName = lectureName;
         this.courseId = courseId;
         this.isOpen = true;
+        this.questionFrequency = 0;
     }
 
     /**
@@ -43,6 +45,7 @@ public class LectureRoom {
         this.courseId = courseId;
         this.isOpen = true;
         this.startingTime = startingTime;
+        this.questionFrequency = 0;
     }
 
     /**
@@ -144,6 +147,14 @@ public class LectureRoom {
      */
     public void setStartingTime(Date startingTime) {
         this.startingTime = startingTime;
+    }
+
+    public int getQuestionFrequency() {
+        return questionFrequency;
+    }
+
+    public void setQuestionFrequency(int questionFrequency) {
+        this.questionFrequency = questionFrequency;
     }
 
     @Override

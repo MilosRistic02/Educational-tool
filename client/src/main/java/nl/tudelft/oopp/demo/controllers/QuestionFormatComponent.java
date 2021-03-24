@@ -7,10 +7,8 @@ import java.text.SimpleDateFormat;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -162,7 +160,7 @@ public class QuestionFormatComponent extends VBox {
      * author of the current question.
      */
     public void loadQuestion() {
-        if (currentQuestion.isAnswered()) {
+        if (currentQuestion.getAnswered() >= 1) {
             setAnswered();
         }
 

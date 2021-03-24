@@ -24,7 +24,7 @@
                   <VBox fx:id="stack" alignment="CENTER" prefHeight="640.0" prefWidth="874.0" style="-fx-background-color: #FFFFFF;" />
                </content>
             </ScrollPane>
-            <ToggleButton fx:id="changeList" layoutX="758.0" layoutY="21.0" mnemonicParsing="false" style="-fx-background-color: #99d28c#99d28c;" text="answers" textFill="WHITE">
+            <ToggleButton fx:id="changeList" layoutX="758.0" layoutY="21.0" mnemonicParsing="false" style="-fx-background-color: #99d28c;" text="answers" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font></ToggleButton>

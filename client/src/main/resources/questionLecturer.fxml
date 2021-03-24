@@ -6,11 +6,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="823.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.QuestionLecturerController">
+<AnchorPane prefHeight="823.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.QuestionLecturerController">
+
    <children>
-      <Pane layoutX="13.0" layoutY="25.0" prefHeight="742.0" prefWidth="876.0" style="-fx-background-color: #00A6D6; -fx-background-radius: 18;">
+      <Pane fx:id="list" layoutX="13.0" layoutY="25.0" prefHeight="699.0" prefWidth="876.0" style="-fx-background-color: #00A6D6; -fx-background-radius: 18;">
          <children>
-            <Text fill="WHITE" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Questions" textAlignment="CENTER" wrappingWidth="876.0">
+            <Text fx:id="listTitle" fill="WHITE" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Questions" textAlignment="CENTER" wrappingWidth="876.0">
                <font>
                   <Font size="50.0" />
                </font>
@@ -20,9 +21,14 @@
                   <VBox fx:id="stack" alignment="CENTER" prefHeight="640.0" prefWidth="874.0" style="-fx-background-color: #FFFFFF;" />
                </content>
             </ScrollPane>
+            <ToggleButton fx:id="changeList" layoutX="751.0" layoutY="25.0" mnemonicParsing="false" style="-fx-background-color: #99d28c;" text="answers" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </ToggleButton>
          </children>
       </Pane>
-      <Text fx:id="greetings" layoutX="915.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome, [username]" textAlignment="CENTER" wrappingWidth="238.0">
+      <Text fx:id="greetings" layoutX="915.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome, [username]" textAlignment="CENTER" wrappingWidth="238.0">
          <font>
             <Font size="24.0" />
          </font>
@@ -56,10 +62,12 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </BarChart>
-      <TextField fx:id="currentRoomPin" layoutX="13.0" layoutY="770.0" prefHeight="18.0" prefWidth="224.0" text="Lecture pin: [lecturePin]" style="-fx-background-color: #F4F4F4" editable="false">
+      <Text fx:id="currentRoomPin" layoutX="14.0" layoutY="793.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lecture pin: [lecturePin]" wrappingWidth="385.0">
          <font>
             <Font size="18.0" />
          </font>
-      </TextField>
+      </Text>
+      <Button fx:id="adminSettings" disable="true" layoutX="980.0" layoutY="97.0" mnemonicParsing="false" onAction="#adminAction" prefHeight="31.0" prefWidth="108.0" style="-fx-background-color: #00A6D6;" text="Admin Settings" textFill="WHITE" visible="false" />
+
    </children>
 </AnchorPane>

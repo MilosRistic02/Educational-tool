@@ -174,4 +174,18 @@ public class LectureRoomService {
     public List<LectureRoom> getClosedLecturePins() {
         return lectureRoomRepository.getAllByIsOpenIsFalse();
     }
+
+    /**
+     * Method to update the frequency of a lecture room.
+     * @param lectureRoom   The lecture room to update
+     * @return  Returns success
+     */
+    public String updateFrequency(LectureRoom lectureRoom) {
+        LectureRoom oldLectureRoom = lectureRoomRepository
+                .getLectureRoomByLecturePin(lectureRoom.getLecturePin());
+        oldLectureRoom.setQuestionFrequency(lectureRoom.getQuestionFrequency());
+        lectureRoomRepository.save(oldLectureRoom);
+        return "success";
+    }
+
 }
