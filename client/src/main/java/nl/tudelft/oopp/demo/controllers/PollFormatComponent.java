@@ -1,6 +1,8 @@
 package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
+import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.BarChart;
@@ -49,8 +51,10 @@ public class PollFormatComponent extends Pane {
         if (!poll.isOpen()) {
             pollChart.getData().clear();
             pollChart.getData().addAll(set1);
-            pollChart.lookup(".data" + (poll.getRightAnswer() - 65)
-                    + ".chart-bar").setStyle("-fx-bar-fill: green");
+            for (Character c : poll.getRightAnswer()) {
+                pollChart.lookup(".data" + (c - 65)
+                        + ".chart-bar").setStyle("-fx-bar-fill: green");
+            }
             pollChart.setAnimated(false);
         }
     }
