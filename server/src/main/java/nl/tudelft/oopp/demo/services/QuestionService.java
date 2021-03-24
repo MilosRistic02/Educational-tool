@@ -153,11 +153,11 @@ public class QuestionService {
         LectureRoom room = lectureRoomRepository
                 .getLectureRoomByLecturePin(question.getLecturePin());
 
-        if (room.getFrequency() <= difference) {
+        if (room.getQuestionFrequency() <= difference) {
             questionRepository.save(question);
             return "Success";
         } else {
-            return "Need to wait " + room.getFrequency() + " seconds per question";
+            return "Need to wait " + room.getQuestionFrequency() + " seconds per question";
         }
 
     }

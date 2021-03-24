@@ -11,7 +11,7 @@ public class LectureRoom {
     private Date creationDate;
     private Date startingTime;
     private boolean isOpen;
-    private int frequency;
+    private int questionFrequency;
 
 
     public LectureRoom() {
@@ -27,7 +27,7 @@ public class LectureRoom {
         this.lecturerID = lecturerID;
         this.courseId = courseId;
         this.isOpen = true;
-        this.frequency = 0;
+        this.questionFrequency = 0;
     }
 
     /**
@@ -42,7 +42,7 @@ public class LectureRoom {
         this.courseId = courseId;
         this.isOpen = true;
         this.startingTime = startingTime;
-        this.frequency = 0;
+        this.questionFrequency = 0;
     }
 
     /** Getter for the lecturerID.
@@ -122,12 +122,12 @@ public class LectureRoom {
         this.startingTime = startingTime;
     }
 
-    public int getFrequency() {
-        return frequency;
+    public int getQuestionFrequency() {
+        return questionFrequency;
     }
 
-    public void setFrequency(int frequency) {
-        this.frequency = frequency;
+    public void setQuestionFrequency(int questionFrequency) {
+        this.questionFrequency = questionFrequency;
     }
 
     @Override

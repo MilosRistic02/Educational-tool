@@ -97,7 +97,7 @@ public class QuestionLecturerController {
         Optional<Integer> frequency =  Alerts.numberInputDialog("0",
                 "Admin Settings", "Seconds between questions: ",
                 "The frequency should be a positive integer");
-        lectureRoom.setFrequency(frequency.get());
+        lectureRoom.setQuestionFrequency(frequency.get());
         ServerCommunication.updateFrequency(lectureRoom);
     }
 

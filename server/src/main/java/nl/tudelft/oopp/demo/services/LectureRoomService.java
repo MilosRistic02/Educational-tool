@@ -143,7 +143,7 @@ public class LectureRoomService {
     public String updateFrequency(LectureRoom lectureRoom) {
         LectureRoom oldLectureRoom = lectureRoomRepository
                 .getLectureRoomByLecturePin(lectureRoom.getLecturePin());
-        oldLectureRoom.setFrequency(lectureRoom.getFrequency());
+        oldLectureRoom.setQuestionFrequency(lectureRoom.getQuestionFrequency());
         lectureRoomRepository.save(oldLectureRoom);
         return "success";
     }
