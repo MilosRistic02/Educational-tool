@@ -317,7 +317,7 @@ public class QuestionController {
         if (!currentPoll.isOpen()) {
             pollChart.getData().clear();
             pollChart.getData().addAll(set1);
-            for(Character c : currentPoll.getRightAnswer()) {
+            for (Character c : currentPoll.getRightAnswer()) {
                 pollChart.lookup(".data" + (c - 65)
                         + ".chart-bar").setStyle("-fx-bar-fill: green");
             }
