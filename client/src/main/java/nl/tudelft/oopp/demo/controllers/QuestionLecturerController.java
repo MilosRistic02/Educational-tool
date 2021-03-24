@@ -47,7 +47,7 @@ public class QuestionLecturerController {
     private Text greetings;
 
     @FXML
-    private Text currentRoomPin;
+    private TextField currentRoomPin;
 
     @FXML
     private Slider speedSlider;
@@ -107,6 +107,10 @@ public class QuestionLecturerController {
         }
     }
 
+    @FXML
+    public void backToLobby() throws IOException {
+        Display.showLecturer(users);
+    }
 
     @FXML
     private void displayQuestion() {
