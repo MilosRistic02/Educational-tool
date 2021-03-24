@@ -141,26 +141,8 @@ public class ArchiveController {
             emptyArchive.setVisible(true);
         } else {
             for (Poll poll : polls) {
-                PollFormatComponent pollFormatComponent = new PollFormatComponent();
-                pollFormatComponent.creationDate.setText(String.valueOf(poll.getCreationDate()));
-                pollFormatComponent.question.setText(poll.getQuestion());
-                BarChart pollChart = pollFormatComponent.pollChart;
-                int size = poll.getSize();
-                int[] results = poll.getVotes();
+                PollFormatComponent pollFormatComponent = new PollFormatComponent(poll);
 
-                XYChart.Series set1 = new XYChart.Series<>();
-
-                for (int i = 0; i < size; i++) {
-                    set1.getData().add(
-                            new XYChart.Data(Character.toString((char) (i + 65)), results[i]));
-                }
-                if (!poll.isOpen()) {
-                    pollChart.getData().clear();
-                    pollChart.getData().addAll(set1);
-                    pollChart.lookup(".data" + (poll.getRightAnswer() - 65)
-                            + ".chart-bar").setStyle("-fx-bar-fill: green");
-                    pollChart.setAnimated(false);
-                }
                 stack.getChildren().add(pollFormatComponent);
             }
         }
@@ -199,16 +181,7 @@ public class ArchiveController {
     }
 
     private void addRoom(LectureRoom room) {
-        ArchiveFormatComponent archiveFormatComponent = new ArchiveFormatComponent();
-
-        archiveFormatComponent.setCurrentPin(room.getLecturePin());
-        archiveFormatComponent.setUser(user);
-
-        archiveFormatComponent.lectureNameText.setText(room.getLectureName());
-        archiveFormatComponent.lecturePinText.setText("Pin: " + room.getLecturePin());
-        archiveFormatComponent.creationDate.setText(room.getCreationDate().toString());
-        archiveFormatComponent.courseId.setText(String.valueOf(room.getCourseId()));
-
+        ArchiveFormatComponent archiveFormatComponent = new ArchiveFormatComponent(room, user);
         stack.getChildren().add(archiveFormatComponent);
     }
 
