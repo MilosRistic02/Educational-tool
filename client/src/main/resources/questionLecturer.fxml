@@ -18,7 +18,7 @@
             </Text>
             <ScrollPane hbarPolicy="NEVER" layoutY="75.0">
                <content>
-                  <VBox fx:id="stack" alignment="CENTER" prefHeight="607.0" prefWidth="874.0" style="-fx-background-color: #FFFFFF;" />
+                  <VBox fx:id="stack" alignment="CENTER" prefHeight="640.0" prefWidth="874.0" style="-fx-background-color: #FFFFFF;" />
                </content>
             </ScrollPane>
             <ToggleButton fx:id="changeList" layoutX="751.0" layoutY="25.0" mnemonicParsing="false" style="-fx-background-color: #99d28c;" text="answers" textFill="WHITE">
@@ -33,7 +33,6 @@
             <Font size="24.0" />
          </font>
       </Text>
-      <Button layoutX="1055.0" layoutY="692.0" mnemonicParsing="false" onAction="#closeRoom" prefHeight="31.0" prefWidth="93.0" style="-fx-background-color: #00A6D6;" text="Close room" textFill="WHITE" />
       <ImageView fitHeight="24.0" fitWidth="28.0" layoutX="893.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true" visible="true">
                   <Image url="@images/zzz-sleep-symbol.png" />
       </ImageView>
@@ -46,16 +45,16 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Text>
-      <Button layoutX="1055.0" layoutY="692.0" mnemonicParsing="false" onAction="#closeRoom" prefHeight="31.0" prefWidth="93.0" style="-fx-background-color: #FF0000;" text="Close room" textFill="WHITE" />
-      <Button layoutX="933.0" layoutY="692.0" mnemonicParsing="false" onAction="#createPoll" prefHeight="31.0" prefWidth="93.0" style="-fx-background-color: #00A6D6;" text="Create Poll" textFill="WHITE" />
-      <TextField fx:id="pollField" layoutX="930.0" layoutY="401.0" prefHeight="132.0" prefWidth="208.0" />
-      <Label layoutX="930.0" layoutY="375.0" prefHeight="25.0" prefWidth="121.0" text="Question:" />
-      <Label layoutX="930.0" layoutY="547.0" prefHeight="17.0" prefWidth="121.0" text="Number of options" />
-      <Label layoutX="930.0" layoutY="603.0" prefHeight="17.0" prefWidth="121.0" text="Correct Answer" />
-      <ChoiceBox fx:id="numOptions" layoutX="930.0" layoutY="565.0" prefWidth="150.0" />
-      <ChoiceBox fx:id="correctAnswer" disable="true" layoutX="930.0" layoutY="630.0" prefWidth="150.0" />
+      <Button layoutX="1055.0" layoutY="739.0" mnemonicParsing="false" onAction="#closeRoom" prefHeight="31.0" prefWidth="93.0" style="-fx-background-color: #FF0000;" text="Close room" textFill="WHITE" />
+      <Button layoutX="933.0" layoutY="739.0" mnemonicParsing="false" onAction="#createPoll" prefHeight="31.0" prefWidth="93.0" style="-fx-background-color: #00A6D6;" text="Create Poll" textFill="WHITE" />
+      <TextField fx:id="pollField" layoutX="930.0" layoutY="456.0" prefHeight="132.0" prefWidth="208.0" />
+      <Label layoutX="932.0" layoutY="425.0" prefHeight="25.0" prefWidth="121.0" text="Question:" />
+      <Label layoutX="932.0" layoutY="599.0" prefHeight="17.0" prefWidth="121.0" text="Number of options" />
+      <Label layoutX="932.0" layoutY="655.0" prefHeight="17.0" prefWidth="121.0" text="Correct Answer" />
+      <ChoiceBox fx:id="numOptions" layoutX="932.0" layoutY="617.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="correctAnswer" disable="true" layoutX="932.0" layoutY="682.0" prefWidth="150.0" />
       <Button fx:id="closePollButton" layoutX="933.0" layoutY="739.0" mnemonicParsing="false" onAction="#closePoll" prefHeight="31.0" prefWidth="93.0" style="-fx-background-color: #00A6D6;" text="Close Poll" textFill="WHITE" visible="false" />
-      <BarChart fx:id="pollChart" layoutX="889.0" layoutY="194.0" prefHeight="207.0" prefWidth="267.0">
+      <BarChart fx:id="pollChart" layoutX="891.0" layoutY="218.0" prefHeight="207.0" prefWidth="267.0">
         <xAxis>
           <CategoryAxis label="Votes" side="BOTTOM" />
         </xAxis>

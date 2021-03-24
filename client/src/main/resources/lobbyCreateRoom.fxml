@@ -7,36 +7,71 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.LobbyController">
+<AnchorPane fx:id="rootPane" prefHeight="823.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.LobbyController">
    <children>
-      <Pane prefHeight="400.0" prefWidth="192.0" style="-fx-background-color: #00A6D6;" />
-      <Label layoutX="264.0" layoutY="116.0" prefHeight="64.0" prefWidth="112.0" text="Course ID" textAlignment="CENTER">
+      <ImageView fitHeight="97.0" fitWidth="207.0" layoutX="951.0">
+         <image>
+            <Image url="@images/TUDELFT.png" />
+         </image>
+      </ImageView>
+      <Pane layoutY="-3.0" prefHeight="830.0" prefWidth="300.0" style="-fx-background-color: #00A6D6;" />
+      <TextField fx:id="lectureNameField" layoutX="544.0" layoutY="211.0" prefHeight="66.0" prefWidth="370.0" promptText="e.g. Reasoning and Logic: Lecture 3" style="-fx-background-color: #E4EDF2;">
          <font>
             <Font size="22.0" />
-         </font>
-      </Label>
-      <TextField fx:id="courseIdField" layoutX="376.0" layoutY="128.0" prefHeight="40.0" prefWidth="180.0" promptText="e.g. 1100" />
-      <Button layoutX="376.0" layoutY="304.0" mnemonicParsing="false" onAction="#createRoomButtonClicked" prefHeight="52.0" prefWidth="131.0" style="-fx-background-color: #00A6D6;" text="Create" textFill="WHITE">
+         </font></TextField>
+      <TextField fx:id="courseIdField" layoutX="544.0" layoutY="291.0" prefHeight="66.0" prefWidth="370.0" promptText="e.g. 1100" style="-fx-background-color: #E4EDF2;">
+         <font>
+            <Font size="22.0" />
+         </font></TextField>
+      <Button layoutX="544.0" layoutY="522.0" mnemonicParsing="false" onAction="#createRoomButtonClicked" prefHeight="60.0" prefWidth="131.0" style="-fx-background-color: #00A6D6;" text="Create" textFill="WHITE">
          <font>
             <Font size="28.0" />
          </font>
       </Button>
-      <Label fx:id="wrongId" layoutX="410.0" layoutY="103.0" prefHeight="26.0" prefWidth="112.0" text="invalid course ID" textFill="#d34343" visible="false">
+      <Label fx:id="emptyRoomFields" layoutX="616.0" layoutY="172.0" prefHeight="27.0" prefWidth="226.0" text="Please fill in all of the fields" textFill="#d34343" visible="false">
          <font>
-            <Font name="Cantarell Extra Bold" size="15.0" />
+            <Font size="18.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="scheduleChoiceBox" layoutX="376.0" layoutY="187.0" onAction="#enableDatePicker" prefHeight="26.0" prefWidth="180.0" value="Now">
+      <ChoiceBox fx:id="scheduleChoiceBox" layoutX="544.0" layoutY="374.0" onAction="#enableDatePicker" prefHeight="40.0" prefWidth="131.0" value="Now">
          <String fx:value="Now" />
          <String fx:value="Custom Time" />
       </ChoiceBox>
-      <Label layoutX="225.0" layoutY="168.0" prefHeight="64.0" prefWidth="141.0" text="Scheduled for" textAlignment="CENTER">
+      <DatePicker fx:id="startingDate" disable="true" editable="false" layoutX="544.0" layoutY="435.0" prefHeight="53.0" prefWidth="370.0" showWeekNumbers="true" />
+      <ComboBox fx:id="startingTimeMinutes" disable="true" layoutX="832.0" layoutY="374.0" prefHeight="40.0" prefWidth="82.0" value="00">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+            <String fx:value="00" />
+            <String fx:value="05" />
+            <String fx:value="10" />
+            <String fx:value="15" />
+            <String fx:value="20" />
+            <String fx:value="25" />
+            <String fx:value="30" />
+            <String fx:value="35" />
+            <String fx:value="40" />
+            <String fx:value="45" />
+            <String fx:value="50" />
+            <String fx:value="55" />
+            </FXCollections>
+         </items>
+      </ComboBox>
+      <Label fx:id="pastDate" layoutX="638.0" layoutY="172.0" prefHeight="27.0" prefWidth="182.0" text="This date is in the past" textFill="#d34343" visible="false">
          <font>
-            <Font size="22.0" />
+            <Font size="18.0" />
          </font>
       </Label>
-      <DatePicker fx:id="startingDate" disable="true" editable="false" layoutX="376.0" layoutY="245.0" prefHeight="26.0" prefWidth="180.0" showWeekNumbers="true" />
-      <ComboBox fx:id="startingTimeHours" disable="true" layoutX="225.0" layoutY="245.0" prefHeight="26.0" prefWidth="57.0" value="00">
+      <Label layoutX="810.0" layoutY="374.0" prefHeight="40.0" prefWidth="12.0" text=":" textAlignment="CENTER">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="47.0" fitWidth="53.0" layoutX="314.0" layoutY="14.0" onMouseClicked="#loadLobbyLecturer" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/back_button.png" />
+         </image>
+      </ImageView>
+      <ComboBox fx:id="startingTimeHours" disable="true" layoutX="708.0" layoutY="374.0" prefHeight="40.0" prefWidth="82.0" value="00">
          <items>
             <FXCollections fx:factory="observableArrayList">
                <String fx:value="00" />
@@ -66,43 +101,25 @@
             </FXCollections>
          </items>
       </ComboBox>
-      <ComboBox fx:id="startingTimeMinutes" disable="true" layoutX="300.0" layoutY="245.0" prefHeight="26.0" prefWidth="58.0" value="00">
-         <items>
-            <FXCollections fx:factory="observableArrayList">
-            <String fx:value="00" />
-            <String fx:value="05" />
-            <String fx:value="10" />
-            <String fx:value="15" />
-            <String fx:value="20" />
-            <String fx:value="25" />
-            <String fx:value="30" />
-            <String fx:value="35" />
-            <String fx:value="40" />
-            <String fx:value="45" />
-            <String fx:value="50" />
-            <String fx:value="55" />
-            </FXCollections>
-         </items>
-      </ComboBox>
-      <Label fx:id="wrongDate" layoutX="413.0" layoutY="218.0" prefHeight="26.0" prefWidth="82.0" text="invalid date" textFill="#d34343" visible="false">
-         <font>
-            <Font name="Cantarell Extra Bold" size="15.0" />
-         </font>
-      </Label>
-      <Label fx:id="pastDate" layoutX="376.0" layoutY="218.0" prefHeight="26.0" prefWidth="156.0" text="This date is in the past" textFill="#d34343" visible="false">
-         <font>
-            <Font name="Cantarell Extra Bold" size="15.0" />
-         </font>
-      </Label>
-      <Label layoutX="288.0" layoutY="238.0" prefHeight="40.0" prefWidth="11.0" text=":" textAlignment="CENTER">
+      <Label layoutX="386.0" layoutY="364.0" prefHeight="64.0" prefWidth="141.0" text="Scheduled for" textAlignment="CENTER">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <ImageView fitHeight="40.0" fitWidth="39.0" layoutX="10.0" layoutY="12.0" onMouseClicked="#loadLobbyLecturer" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/back_button_white.png" />
-         </image>
-      </ImageView>
+      <Label layoutX="414.0" layoutY="295.0" prefHeight="64.0" prefWidth="112.0" text="Course ID" textAlignment="CENTER">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="390.0" layoutY="214.0" prefHeight="64.0" prefWidth="141.0" text="Lecture Name" textAlignment="CENTER">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="longLectureName" layoutX="544.0" layoutY="172.0" prefHeight="27.0" prefWidth="370.0" text="Lecture name should have max. 30 characters" textFill="#d34343" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

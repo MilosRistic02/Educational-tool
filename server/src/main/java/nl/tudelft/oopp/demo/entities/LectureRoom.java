@@ -19,9 +19,11 @@ public class LectureRoom {
     @Id
     private String lecturePin;
 
+    private String lectureName;
+
     @NotNull
     private String lecturerID;
-    private int courseId;
+    private String courseId;
 
     @CreationTimestamp
     private Date creationDate;
@@ -45,10 +47,12 @@ public class LectureRoom {
      * Constructs a new LectureRoom.
      *
      * @param lecturerID - Identifier of the lecturer that created the LectureRoom
+     * @param lectureName - Name of the lectureRoom
      * @param courseId - Identifier of the course
      */
-    public LectureRoom(String lecturerID, int courseId) {
+    public LectureRoom(String lecturerID, String lectureName, String courseId) {
         this.lecturerID = lecturerID;
+        this.lectureName = lectureName;
         this.courseId = courseId;
         this.isOpen = true;
     }
@@ -60,16 +64,17 @@ public class LectureRoom {
      * @param courseId - Identifier of the course
      * @param startingTime - The date and time when the lecture will open
      */
-    public LectureRoom(String lecturerID, int courseId, Date startingTime) {
+    public LectureRoom(String lecturerID, String lectureName, String courseId, Date startingTime) {
         this.lecturerID = lecturerID;
+        this.lectureName = lectureName;
         this.courseId = courseId;
         this.isOpen = true;
         this.startingTime = startingTime;
         this.questionFrequency = 0;
     }
 
-    /** Getter for the lecturerID.
-     *
+    /**
+     * Getter for the lecturerID.
      * @return the identifier of the responsible lecturer
      */
     public String getLecturerID() {
@@ -84,24 +89,36 @@ public class LectureRoom {
         this.lecturerID = lecturerID;
     }
 
-    /**Getter for the courseID.
-     *
+    /**
+     * Getter for the lectureName.
+     * @return the name of the lectureRoom
+     */
+    public String getLectureName() {
+        return lectureName;
+    }
+
+    public void setLectureName(String lectureName) {
+        this.lectureName = lectureName;
+    }
+
+    /**
+     * Getter for the courseID.
      * @return the identifier of the course
      */
-    public int getCourseId() {
+    public String getCourseId() {
         return courseId;
     }
 
-    /**Setter for the courseID.
-     *
+    /**
+     * Setter for the courseID.
      * @param courseId - the identifier of the course
      */
-    public void setCourseId(int courseId) {
+    public void setCourseId(String courseId) {
         this.courseId = courseId;
     }
 
-    /**Getter for the lecture pin.
-     *
+    /**
+     * Getter for the lecture pin.
      * @return the uniquely generated pin of the LectureRoom
      */
     public String getLecturePin() {
@@ -110,7 +127,6 @@ public class LectureRoom {
 
     /**
      * Used whenever the pin needs to be reset for a LectureRoom.
-     *
      * @param lecturePin - the uniquely generated pin of the LectureRoom,
      *      constructed of a timestamp, courseID and LecturerID
      */
@@ -118,13 +134,20 @@ public class LectureRoom {
         this.lecturePin = lecturePin;
     }
 
-
+    /**
+     * Getter for isOpen.
+     * @return if the lectureRoom is opened.
+     */
     public boolean isOpen() {
         return isOpen;
     }
 
-    public void setOpen(boolean open) {
-        isOpen = open;
+    /**
+     * Setter for isOpen.
+     * @param isOpen - boolean that shows if a lectureRoom is open or not.
+     */
+    public void setOpen(boolean isOpen) {
+        this.isOpen = isOpen;
     }
 
     public Date getCreationDate() {
@@ -135,10 +158,18 @@ public class LectureRoom {
         this.creationDate = creationDate;
     }
 
+    /**
+     * Getter for the startingTime.
+     * @return the starting date and time of the lectureRoom.
+     */
     public Date getStartingTime() {
         return startingTime;
     }
 
+    /**
+     * Setter for the startingTime.
+     * @param startingTime - the date and time at which a lectureRoom can be entered.
+     */
     public void setStartingTime(Date startingTime) {
         this.startingTime = startingTime;
     }

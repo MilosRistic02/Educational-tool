@@ -15,10 +15,13 @@ public class ArchiveFormatComponent extends Pane {
     public Text score;
 
     @FXML
-    public Text question;
+    public Text courseId;
 
     @FXML
-    public Text author;
+    public Text lectureNameText;
+
+    @FXML
+    public Text lecturePinText;
 
     @FXML
     public Text creationDate;
