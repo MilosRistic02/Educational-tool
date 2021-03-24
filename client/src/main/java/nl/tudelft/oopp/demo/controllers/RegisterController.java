@@ -2,6 +2,7 @@ package nl.tudelft.oopp.demo.controllers;
 
 import java.io.IOException;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -65,9 +66,11 @@ public class RegisterController {
      */
     public void registerButtonClicked() throws IOException, InterruptedException {
         String username = usernameField.getText().toLowerCase();
-        String password = Encryption.encrypt(passwordField.getText());
+        int passwordHash = Objects.hash(passwordField.getText());
+        String password = String.valueOf(passwordHash);
         String email = emailField.getText();
-        String reEnteredPassword = Encryption.encrypt(reEnteredPasswordField.getText());
+        int reEnteredPasswordHash = Objects.hash(passwordField.getText());
+        String reEnteredPassword = String.valueOf(reEnteredPasswordHash);
 
         reset();
         if (!checkRequest(username, password, email, reEnteredPassword)) {

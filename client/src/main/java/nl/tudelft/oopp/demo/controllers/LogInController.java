@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.Locale;
+import java.util.Objects;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,7 +47,9 @@ public class LogInController {
      */
     public void logInButtonClicked() throws JsonProcessingException, IOException {
         String username = usernameField.getText().toLowerCase();
-        String password = Encryption.encrypt(passwordField.getText());
+        int passwordHash = Objects.hash(passwordField.getText());
+        String password = String.valueOf(passwordHash);
+
         reset();
         if (username.length() == 0 || password.length() == 0) {
             emptyFields.setVisible(true);
