@@ -57,7 +57,7 @@ class QuestionTest {
 
     @Test
     void isAnswered() {
-        assertFalse(question1.isAnswered());
+        assertEquals(0, question1.getAnswered());
     }
 
     @Test
@@ -90,8 +90,8 @@ class QuestionTest {
 
     @Test
     void setAnswered() {
-        question.setAnswered(true);
-        assertTrue(question.isAnswered());
+        question.setAnswered(1);
+        assertEquals(1, question.getAnswered());
     }
 
     @Test

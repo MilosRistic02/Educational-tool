@@ -5,8 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,7 +19,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -30,6 +35,7 @@ import nl.tudelft.oopp.demo.entities.ScoringLog;
 import nl.tudelft.oopp.demo.entities.SpeedLog;
 import nl.tudelft.oopp.demo.entities.Users;
 import nl.tudelft.oopp.demo.views.Display;
+import org.controlsfx.control.CheckComboBox;
 
 public class QuestionLecturerController {
 
@@ -43,6 +49,9 @@ public class QuestionLecturerController {
     private Text greetings;
 
     @FXML
+    private TextField currentRoomPin;
+
+    @FXML
     private Slider speedSlider;
 
     @FXML
@@ -52,19 +61,31 @@ public class QuestionLecturerController {
     private Text selectedSpeed;
 
     @FXML
-    private TextField pollField;
+    private TextArea pollField;
 
     @FXML
     private ChoiceBox numOptions;
 
     @FXML
-    private ChoiceBox correctAnswer;
+    private CheckComboBox correctAnswers;
 
     @FXML
     private BarChart pollChart;
 
     @FXML
     private Button closePollButton;
+
+    @FXML Button adminSettings;
+
+    @FXML
+    private ToggleButton changeList;
+
+    @FXML
+    private Pane list;
+
+    @FXML
+    private Text listTitle;
+
 
     private Users users;
 
@@ -73,6 +94,25 @@ public class QuestionLecturerController {
     public Poll currentPoll;
 
     private Timer pollTimer;
+
+    /**
+     * Action when the admin settings button is pressed.
+     */
+    @FXML
+    public void adminAction() {
+        Optional<Integer> questionFrequency =  Alerts.numberInputDialog("0",
+                "Admin Settings", "Seconds between questions: ",
+                "The frequency should be a positive integer");
+        if (questionFrequency.isPresent()) {
+            lectureRoom.setQuestionFrequency(questionFrequency.get());
+            ServerCommunication.updateFrequency(lectureRoom);
+        }
+    }
+
+    @FXML
+    public void backToLobby() throws IOException {
+        Display.showLecturer(users);
+    }
 
     @FXML
     private void displayQuestion() {
@@ -85,7 +125,25 @@ public class QuestionLecturerController {
 
     @FXML
     private void displayAllQuestion() {
-        List<Question> qs = ServerCommunication.getAllQuestion(lectureRoom.getLecturePin());
+        List<Question> qs = null;
+
+        if (changeList.isSelected()) {
+            qs = ServerCommunication.getAllAnsweredQuestions(lectureRoom.getLecturePin());
+            changeList.setText("questions");
+            changeList.setStyle("-fx-background-color: #00A6D6;");
+            listTitle.setText("Answers");
+            list.setStyle("-fx-background-color: #99d28c;"
+                    + "-fx-background-radius: 18;");
+
+        } else {
+            qs = ServerCommunication.getAllNonAnsweredQuestions(lectureRoom.getLecturePin());
+            changeList.setText("answers");
+            changeList.setStyle("-fx-background-color: #99d28c");
+            listTitle.setText("Questions");
+            list.setStyle("-fx-background-color: #00A6D6;"
+                    + "-fx-background-radius: 18;");
+        }
+
         List<ScoringLog> votes = ServerCommunication.getVotes();
 
         stack.getChildren().clear();
@@ -115,22 +173,6 @@ public class QuestionLecturerController {
     }
 
     /**
-     * Closes the lecture room.
-     * @throws IOException if server communication fails.
-     */
-    @FXML
-    public void closeRoom() throws IOException {
-        this.lectureRoom.setOpen(false);
-        String response = ServerCommunication.closeRoom(this.lectureRoom);
-
-        if (this.users.getRole().equals("lecturer")) {
-            Display.showLecturer(this.users);
-        } else {
-            Display.showStudent(this.users);
-        }
-    }
-
-    /**
      * Set a new user for the view and update the question list
      * every 2 seconds.
      * @param users - the current logged user.
@@ -139,6 +181,12 @@ public class QuestionLecturerController {
         this.lectureRoom = lectureRoom;
         this.users = users;
         greetings.setText("Welcome, " + users.getUsername());
+        currentRoomPin.setText("Lecture pin: " + lectureRoom.getLecturePin());
+
+        if (users.getRole().equals("admin")) {
+            adminSettings.setVisible(true);
+            adminSettings.setDisable(false);
+        }
 
         // Update question list every 2 seconds.
         Timer timer = new Timer();
@@ -171,6 +219,22 @@ public class QuestionLecturerController {
         }
         numOptions.setValue("Choose an option");
         numOptions.setOnAction((EventHandler<ActionEvent>) event -> optionPicked());
+    }
+
+    /**
+     * Closes the lecture room.
+     * @throws IOException if server communication fails.
+     */
+    @FXML
+    public void closeRoom() throws IOException {
+        this.lectureRoom.setOpen(false);
+        String response = ServerCommunication.closeRoom(this.lectureRoom);
+
+        if (this.users.getRole().equals("lecturer")) {
+            Display.showLecturer(this.users);
+        } else {
+            Display.showStudent(this.users);
+        }
     }
 
     /**
@@ -214,7 +278,9 @@ public class QuestionLecturerController {
             progress.setStyle("-fx-accent: #c3312f;");
             selectedSpeed.setFill(Color.valueOf("#c3312f"));
         } else {
-            progress.setVisible(false);
+            selectedSpeed.setText("Your pace is okay");
+            progress.setStyle("-fx-accent: #99d28c;");
+            selectedSpeed.setFill(Color.valueOf("#99d28c"));
         }
     }
 
@@ -250,8 +316,10 @@ public class QuestionLecturerController {
         }
         pollChart.getData().clear();
         pollChart.getData().addAll(set1);
-        pollChart.lookup(".data" + (currentPoll.getRightAnswer() - 65)
-                + ".chart-bar").setStyle("-fx-bar-fill: green");
+        for (Character c : currentPoll.getRightAnswer()) {
+            pollChart.lookup(".data" + (c - 65)
+                    + ".chart-bar").setStyle("-fx-bar-fill: green");
+        }
         pollChart.setAnimated(false);
     }
 
@@ -269,10 +337,10 @@ public class QuestionLecturerController {
         }
 
         int size = (int) sizeInput;
-        Character answer = (char) correctAnswer.getValue();
+        List<Character> answers = correctAnswers.getCheckModel().getCheckedItems();
 
         closePoll();
-        Poll poll = new Poll(lectureRoom.getLecturePin(), size, answer, pollQuestion);
+        Poll poll = new Poll(lectureRoom.getLecturePin(), size, answers, pollQuestion);
         currentPoll = new ObjectMapper()
                 .readValue(ServerCommunication.createPoll(poll), Poll.class);
 
@@ -293,8 +361,8 @@ public class QuestionLecturerController {
         pollChart.setAnimated(true);
         pollChart.getData().clear();
 
-        correctAnswer.setDisable(true);
-        correctAnswer.getItems().clear();
+        correctAnswers.setDisable(true);
+        correctAnswers.getItems().clear();
         numOptions.setValue("Choose an option");
         pollField.setText("");
         closePollButton.setVisible(true);
@@ -305,17 +373,19 @@ public class QuestionLecturerController {
      */
     public void optionPicked() {
         Object input = numOptions.getValue();
-        correctAnswer.getItems().clear();
+        correctAnswers.getItems().clear();
         if (!(numOptions.getValue() instanceof Integer)) {
-            correctAnswer.setDisable(true);
+            correctAnswers.setDisable(true);
+            correctAnswers.setTitle("Pick answers");
             return;
         }
+
         int n = (int) input;
+        correctAnswers.getItems().clear();
         for (int i = 65; i < n + 65; i++) {
-            correctAnswer.getItems().add((char) i);
+            correctAnswers.getItems().add((char) i);
         }
-        correctAnswer.setDisable(false);
-        correctAnswer.setValue('A');
+        correctAnswers.setDisable(false);
     }
 
     /**
@@ -330,4 +400,5 @@ public class QuestionLecturerController {
         currentPoll.setOpen(false);
         ServerCommunication.closePoll(currentPoll);
     }
+
 }

@@ -2,6 +2,8 @@ package nl.tudelft.oopp.demo.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import nl.tudelft.oopp.demo.entities.Users;
@@ -155,7 +157,12 @@ public class UsersService {
             return "Wrong password";
         }
         Users user = usersRepo.getByUsernameAndPassword(username, password);
-        return new ObjectMapper().writeValueAsString(user);
+
+        if (!user.isBanned()) {
+            return new ObjectMapper().writeValueAsString(user);
+        } else {
+            return "This user is banned!";
+        }
     }
 
     /**
@@ -176,5 +183,71 @@ public class UsersService {
                 + " has been added successfully";
     }
 
+    /**
+     * Ban user if the user exists and not already banned.
+     * @param username username of the user to be banned.
+     * @return resulting string.
+     */
+    public String banUser(String username) {
+        if (!usersRepo.existsByUsername(username)) {
+            return "User doesn't exist";
+        }
+        Users user = usersRepo.getByUsername(username);
 
+        if (user.isBanned()) {
+            return "User is already banned";
+        }
+
+        user.setBanned(true);
+        usersRepo.save(user);
+        return "User banned successfully";
+    }
+
+    /**
+     * Unban user if the user exists and not already banned.
+     * @param username username of the user to be banned.
+     * @return resulting string.
+     */
+    public String unbanUser(String username) {
+        if (!usersRepo.existsByUsername(username)) {
+            return "User doesn't exist";
+        }
+
+        Users user = usersRepo.getByUsername(username);
+
+        if (!user.isBanned()) {
+            return "This user has not been banned";
+        }
+
+        user.setBanned(false);
+        usersRepo.save(user);
+        return "User unbanned successfully";
+    }
+
+    /**
+     * Search students that match the view.
+     * if view = false -> show not-banned users
+     * if view = true -> show banned students
+     * @param search Query string
+     * @param view banned students or unbanned students
+     * @return resulting list of students
+     */
+    public List<Users> searchStudents(String search, boolean view) {
+        if (search == null || search.length() == 0) {
+            return new ArrayList<>();
+        }
+        return usersRepo.findStudents(search, view);
+    }
+
+    public List<Users> getNotBannedStudents() {
+        return usersRepo.getNotBannedStudents();
+    }
+
+    public List<Users> getBannedStudents() {
+        return usersRepo.getBannedStudents();
+    }
+
+    public boolean isUserBanned(String username) {
+        return usersRepo.isUserBanned(username);
+    }
 }

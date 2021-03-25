@@ -19,6 +19,8 @@ public class Users {
     private String password;
     @NotNull
     private String role;
+    private boolean isBanned;
+
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "users")
     Set<ScoringLog> scoringLogs;
@@ -41,6 +43,15 @@ public class Users {
         this.email = email;
         this.password = password;
         this.role = role;
+        this.isBanned = false;
+    }
+
+    public boolean isBanned() {
+        return isBanned;
+    }
+
+    public void setBanned(boolean banned) {
+        isBanned = banned;
     }
 
     /**

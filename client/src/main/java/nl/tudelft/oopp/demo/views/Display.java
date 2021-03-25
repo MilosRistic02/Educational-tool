@@ -13,6 +13,7 @@ import nl.tudelft.oopp.demo.controllers.ArchiveController;
 import nl.tudelft.oopp.demo.controllers.LobbyController;
 import nl.tudelft.oopp.demo.controllers.QuestionController;
 import nl.tudelft.oopp.demo.controllers.QuestionLecturerController;
+import nl.tudelft.oopp.demo.controllers.UsersListController;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Users;
 
@@ -100,7 +101,7 @@ public class Display extends Application {
         LobbyController lobbyController = recourse.getKey().getController();
         lobbyController.setUsers(users);
 
-        if (users.getRole().equals("lecturer")) {
+        if (!users.getRole().equals("student")) {
             lobbyController.showBackButton();
         }
 
@@ -132,11 +133,12 @@ public class Display extends Application {
         FXMLLoader loader = new FXMLLoader();
         URL xmlUrl = Display.class.getResource("/archiveList.fxml");
         loader.setLocation(xmlUrl);
-        Parent root = loader.load();
+        final Parent root = loader.load();
 
         ArchiveController archiveController = loader.getController();
         archiveController.setUsers(users);
         archiveController.showPins();
+        archiveController.showButtons(false);
 
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
@@ -151,16 +153,33 @@ public class Display extends Application {
         FXMLLoader loader = new FXMLLoader();
         URL xmlUrl = Display.class.getResource("/archiveList.fxml");
         loader.setLocation(xmlUrl);
-        Parent root = loader.load();
+        final Parent root = loader.load();
 
         ArchiveController archiveController = loader.getController();
         archiveController.setUsers(users);
         archiveController.showArchive(lecturePin);
+        archiveController.showButtons(true);
 
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 
+    /**
+     * Shows the list of users who are not banned with an option to switch to banned users.
+     * @param user A user
+     * @throws IOException Input output exception
+     */
+    public static void showStudentsBanPage(Users user) throws IOException {
+        Pair<FXMLLoader, Parent> recourse = load("/usersList.fxml");
+
+        UsersListController usersListController = recourse.getKey().getController();
+        usersListController.setUsers(user);
+
+        primaryStage.setScene(new Scene(recourse.getValue()));
+        primaryStage.show();
+
+        usersListController.searchForUser();
+    }
 
     /**
      * Basic loader for the display class.

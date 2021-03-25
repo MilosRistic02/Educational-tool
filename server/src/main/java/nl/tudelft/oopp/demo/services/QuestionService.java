@@ -1,8 +1,11 @@
 package nl.tudelft.oopp.demo.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Question;
+import nl.tudelft.oopp.demo.repositories.LectureRoomRepository;
 import nl.tudelft.oopp.demo.repositories.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,9 @@ public class QuestionService {
 
     @Autowired
     private QuestionRepository questionRepository;
+
+    @Autowired
+    private LectureRoomRepository lectureRoomRepository;
 
     /** Update score of a question iff it already exists.
      *
@@ -45,8 +51,7 @@ public class QuestionService {
         }
         Question old = questionRepository.getByIdAndLecturePin(
                 question.getId(), question.getLecturePin());
-
-        old.setAnswered(question.isAnswered());
+        old.setAnswered(question.getAnswered());
         old.setAnswer(question.getAnswer());
         questionRepository.save(old);
         return "Updated score of Question";
@@ -83,7 +88,7 @@ public class QuestionService {
             return "The question is not in the database.";
         }
         Question q = questionRepository.getByLecturePin(question.getLecturePin());
-        q.setAnswered(question.isAnswered());
+        q.setAnswered(question.getAnswered());
         questionRepository.save(q);
         return "The answered status of the question has been updated.";
 
@@ -95,9 +100,9 @@ public class QuestionService {
      * @param question for which to check the answered status.
      * @return true if the question has been answered, false otherwise.
      */
-    public Boolean isQuestionAnswered(Question question) {
+    public int isQuestionAnswered(Question question) {
         Question q = questionRepository.getByLecturePin(question.getLecturePin());
-        return q.isAnswered();
+        return q.getAnswered();
     }
 
 
@@ -110,12 +115,21 @@ public class QuestionService {
         return questionRepository.getAllByLecturePin(id);
     }
 
+    /**
+     * Get all answered (either written or verbally) questions.
+     * @param lecturePin of the desired room.
+     * @return a list of all the answered questions.
+     */
     public List<Question> getAllAnsweredQuestions(String lecturePin) {
-        return questionRepository.getAllByAnsweredTrueAndLecturePin(lecturePin);
+        List<Question> answered = new ArrayList<>();
+        answered.addAll(questionRepository.getAllByAnsweredAndLecturePin(1, lecturePin));
+        answered.addAll(questionRepository.getAllByAnsweredAndLecturePin(2, lecturePin));
+
+        return answered;
     }
 
     public List<Question> getAllNonAnsweredQuestions(String lecturePin) {
-        return questionRepository.getAllByAnsweredFalseAndLecturePin(lecturePin);
+        return questionRepository.getAllByAnsweredAndLecturePin(0, lecturePin);
     }
 
     /**
@@ -124,8 +138,28 @@ public class QuestionService {
      * @param question question to add to the database.
      */
     public String addQuestion(Question question) {
-        questionRepository.save(question);
-        return question.getQuestion();
+        Question lastQuestion = questionRepository
+                .findTopByLecturePinAndAuthorOrderByCreationDateDesc(
+                        question.getLecturePin(), question.getAuthor());
+
+        if (lastQuestion == null) {
+            questionRepository.save(question);
+            return "Success";
+        }
+
+
+        Long difference = (System.currentTimeMillis()
+                - lastQuestion.getCreationDate().getTime()) / 1000;
+        LectureRoom room = lectureRoomRepository
+                .getLectureRoomByLecturePin(question.getLecturePin());
+
+        if (room.getQuestionFrequency() <= difference) {
+            questionRepository.save(question);
+            return "Success";
+        } else {
+            return "Need to wait " + room.getQuestionFrequency() + " seconds per question";
+        }
+
     }
 
     /**

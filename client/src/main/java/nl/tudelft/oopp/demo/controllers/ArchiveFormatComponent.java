@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Users;
 import nl.tudelft.oopp.demo.views.Display;
 
@@ -15,10 +16,13 @@ public class ArchiveFormatComponent extends Pane {
     public Text score;
 
     @FXML
-    public Text question;
+    public Text courseId;
 
     @FXML
-    public Text author;
+    public Text lectureNameText;
+
+    @FXML
+    public Text lecturePinText;
 
     @FXML
     public Text creationDate;
@@ -38,7 +42,7 @@ public class ArchiveFormatComponent extends Pane {
      *  This method loads an instance of archive format and sets the controller to be this file.
      *
      */
-    public ArchiveFormatComponent() {
+    public ArchiveFormatComponent(LectureRoom room, Users user) {
         try {
             FXMLLoader fxmlLoader =
                     new FXMLLoader(getClass().getResource("/archiveListFormat.fxml"));
@@ -49,6 +53,13 @@ public class ArchiveFormatComponent extends Pane {
             System.out.println("could not create instance");
             System.out.println(exception);
         }
+
+        setCurrentPin(room.getLecturePin());
+        setUser(user);
+        lectureNameText.setText(room.getLectureName());
+        lecturePinText.setText("Pin: " + room.getLecturePin());
+        creationDate.setText(room.getCreationDate().toString());
+        courseId.setText(String.valueOf(room.getCourseId()));
     }
 
     public void setCurrentPin(String lecturePin) {

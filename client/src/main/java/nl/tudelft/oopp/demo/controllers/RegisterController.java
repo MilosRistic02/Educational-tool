@@ -1,8 +1,8 @@
 package nl.tudelft.oopp.demo.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 import java.io.IOException;
+import java.util.Locale;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,8 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
-
-
+import nl.tudelft.oopp.demo.encryption.Encryption;
 
 public class RegisterController {
 
@@ -66,10 +65,12 @@ public class RegisterController {
      * @throws IOException if login page cannot be loaded
      */
     public void registerButtonClicked() throws IOException, InterruptedException {
-        String username = usernameField.getText();
-        String password = passwordField.getText();
+        String username = usernameField.getText().toLowerCase();
+        int passwordHash = Objects.hash(passwordField.getText());
+        String password = String.valueOf(passwordHash);
         String email = emailField.getText();
-        String reEnteredPassword = reEnteredPasswordField.getText();
+        int reEnteredPasswordHash = Objects.hash(passwordField.getText());
+        String reEnteredPassword = String.valueOf(reEnteredPasswordHash);
 
         reset();
         if (!checkRequest(username, password, email, reEnteredPassword)) {

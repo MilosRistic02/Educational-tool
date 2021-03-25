@@ -25,43 +25,49 @@ import nl.tudelft.oopp.demo.views.Display;
 public class LobbyController {
 
     @FXML
-    AnchorPane rootPane;
+    private AnchorPane rootPane;
 
     @FXML
-    TextField pinText;
+    private TextField pinText;
 
     @FXML
-    TextField courseIdField;
+    private TextField lectureNameField;
 
     @FXML
-    ChoiceBox scheduleChoiceBox;
+    private TextField courseIdField;
 
     @FXML
-    DatePicker startingDate;
+    private ChoiceBox scheduleChoiceBox;
 
     @FXML
-    ComboBox startingTimeHours;
+    private DatePicker startingDate;
 
     @FXML
-    ComboBox startingTimeMinutes;
+    private ComboBox startingTimeHours;
 
     @FXML
-    Label wrongId;
+    private ComboBox startingTimeMinutes;
 
     @FXML
-    Label wrongDate;
+    private Label longLectureName;
 
     @FXML
-    Label pastDate;
+    private Label emptyRoomFields;
 
     @FXML
-    ImageView backToLobby;
+    private Label pastDate;
 
     @FXML
-    Button logOutStudent;
+    private Label emptyFields;
 
     @FXML
-    Button logOutLecturer;
+    private ImageView backToLobby;
+
+    @FXML
+    private Button logOutStudent;
+
+    @FXML
+    private Button logOutLecturer;
 
     private Users users;
 
@@ -76,42 +82,45 @@ public class LobbyController {
     }
 
     /**
-     * Checks if entered course ID is valid.
+     * Checks if the entered course ID and lectureName are valid.
      * @throws IOException if a room cannot be created.
      */
     @FXML
     public void createRoomButtonClicked() throws IOException, ParseException {
-        int courseId;
-        try {
-            courseId = Integer.parseInt(courseIdField.getText());
-        } catch (NumberFormatException e) {
-            wrongId.setVisible(true);
-            courseIdField.setText("");
-            courseIdField.requestFocus();
-            return;
+        String courseId = courseIdField.getText();
+        String lectureName = lectureNameField.getText();
+
+        if (lectureName.length() == 0 || courseId.length() == 0) {
+            hideCreationErrors();
+            emptyRoomFields.setVisible(true);
+            lectureNameField.requestFocus();
+        } else if (lectureName.length() > 30) {
+            hideCreationErrors();
+            longLectureName.setVisible(true);
+            lectureNameField.setText("");
+            lectureNameField.requestFocus();
+        } else {
+            hideCreationErrors();
+            createRoom(lectureName, courseId);
         }
-        wrongId.setVisible(false);
-        createRoom(courseId);
     }
 
     /**
      * Creates a new lectureRoom and redirects the lecturer to that room.
      */
     @FXML
-    public void createRoom(int courseId) throws IOException, ParseException {
+    public void createRoom(String lectureName, String courseId) throws IOException, ParseException {
         LectureRoom lectureRoom = null;
         String scheduleChoice = scheduleChoiceBox.getValue().toString();
 
         if (scheduleChoice.equals("Now")) {
-            lectureRoom = new LectureRoom(users.getUsername(), courseId, new Date());
+            lectureRoom = new LectureRoom(users.getUsername(), lectureName, courseId, new Date());
         } else if (scheduleChoice.equals("Custom Time")) {
             Date date = checkDate();
             if (date == null) {
                 return;
             }
-            lectureRoom = new LectureRoom(users.getUsername(), courseId, date);
-        } else {
-            lectureRoom = new LectureRoom(users.getUsername(), courseId);
+            lectureRoom = new LectureRoom(users.getUsername(),lectureName, courseId, date);
         }
 
         String response = ServerCommunication.addLectureRoom(lectureRoom);
@@ -119,7 +128,7 @@ public class LobbyController {
             Alerts.alertError("Too many rooms", response);
         } else {
             lectureRoom.setLecturePin(response);
-            Alerts.alertInfoCopyAble("Lecture pin", "Your lecture pin is: " + response, 300, 25);
+            Alerts.alertInfoCopyAble("Lecture pin", "Your lecture pin is: " + response, 400, 25);
             if (scheduleChoice.equals("Now")) {
                 Display.showQuestionLecturer(users, lectureRoom);
             } else {
@@ -136,10 +145,7 @@ public class LobbyController {
         try {
             lectureStartingTime = dateTimeFormat.parse(startingDate.getValue() + " " + time);
         } catch (Exception e) {
-            wrongDate.setVisible(true);
-            startingDate.setValue(null);
-            startingDate.requestFocus();
-            return null;
+            e.printStackTrace();
         }
         Date currentDate = new Date();
         if (lectureStartingTime.compareTo(currentDate) < 0) {
@@ -150,7 +156,6 @@ public class LobbyController {
         }
 
         pastDate.setVisible(false);
-        wrongDate.setVisible(false);
         return lectureStartingTime;
     }
 
@@ -202,6 +207,12 @@ public class LobbyController {
     @FXML
     private void checkPin() throws IOException {
         String pin = pinText.getText();
+        emptyFields.setVisible(false);
+        if (pinText.getLength() == 0) {
+            emptyFields.setVisible(true);
+            return;
+        }
+
         LectureRoom response = ServerCommunication.getLectureRoom(pin);
         Date currentDate = new Date();
 
@@ -227,6 +238,15 @@ public class LobbyController {
     }
 
     /**
+     * Hides all error messages that could be encountered when creating a room.
+     */
+    private void hideCreationErrors() {
+        longLectureName.setVisible(false);
+        pastDate.setVisible(false);
+        emptyRoomFields.setVisible(false);
+    }
+
+    /**
      * Setter for the users of this controller.
      * @param users Users we want to set it to.
      */
@@ -240,5 +260,9 @@ public class LobbyController {
 
     public void loadLobbyLecturer() throws IOException {
         Display.showLecturer(this.users);
+    }
+
+    public void showStudents() throws IOException {
+        Display.showStudentsBanPage(this.users);
     }
 }

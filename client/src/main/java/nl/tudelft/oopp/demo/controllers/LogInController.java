@@ -3,15 +3,17 @@ package nl.tudelft.oopp.demo.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.util.Locale;
+import java.util.Objects;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-
-import nl.tudelft.oopp.demo.alerts.Alerts;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.encryption.Encryption;
 import nl.tudelft.oopp.demo.entities.Users;
 import nl.tudelft.oopp.demo.views.Display;
 
@@ -35,6 +37,9 @@ public class LogInController {
     @FXML
     Label invalidUser;
 
+    @FXML
+    Label userBannedLabel;
+
     /**
      * Activated upon a click on the login button.
      * Throws error messages if:
@@ -44,8 +49,10 @@ public class LogInController {
      * @throws JsonProcessingException if the json couldn't be processed
      */
     public void logInButtonClicked() throws JsonProcessingException, IOException {
-        String username = usernameField.getText();
-        String password = passwordField.getText();
+        String username = usernameField.getText().toLowerCase();
+        int passwordHash = Objects.hash(passwordField.getText());
+        String password = String.valueOf(passwordHash);
+
         reset();
         if (username.length() == 0 || password.length() == 0) {
             emptyFields.setVisible(true);
@@ -59,10 +66,10 @@ public class LogInController {
         }
 
         Users loggedUser = new ObjectMapper().readValue(response, Users.class);
-        if (loggedUser.getRole().equals("lecturer")) {
-            Display.showLecturer(loggedUser);
-        } else {
+        if (loggedUser.getRole().equals("student")) {
             Display.showStudent(loggedUser);
+        } else {
+            Display.showLecturer(loggedUser);
         }
     }
 
@@ -88,6 +95,13 @@ public class LogInController {
 
         if (response.equals("User doesn't exist")) {
             invalidUser.setVisible(true);
+            usernameField.setText("");
+            usernameField.requestFocus();
+            return false;
+        }
+
+        if (response.equals("This user is banned!")) {
+            userBannedLabel.setVisible(true);
             usernameField.setText("");
             usernameField.requestFocus();
             return false;
