@@ -1,5 +1,7 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
@@ -7,8 +9,6 @@ import java.util.Collections;
 import java.util.List;
 
 import javafx.fxml.FXML;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -125,7 +125,7 @@ public class ArchiveController {
     }
 
     @FXML
-    private void showPolls() {
+    private void showPolls() throws JsonProcessingException {
         showButtons(false);
         searchBar.setVisible(false);
         glass.setVisible(false);

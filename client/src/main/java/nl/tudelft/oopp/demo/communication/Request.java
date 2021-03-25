@@ -49,23 +49,6 @@ public class Request {
         return responseBody;
     }
 
-    /** Method to get polls.
-     *
-     * @param url   the url
-     * @return      returns a list of polls
-     */
-    public static List<Poll> getPolls(String url) {
-        GenericType<List<Poll>> responseBodyType = new GenericType<List<Poll>>(){};
-
-        List<Poll> responseBody = ClientBuilder.newClient()
-                .target(url)
-                .request(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .get(responseBodyType);
-
-        return responseBody;
-    }
-
     /** Method to get lectureroom with a pin.
      *
      * @param url   the url

@@ -150,8 +150,9 @@ public class ServerCommunication extends Request {
         return response.length() == 0 ? null : new ObjectMapper().readValue(response, Poll.class);
     }
 
-    public static List<Poll> getAllPolls(String lecturePin) {
-        return getPolls("http://localhost:8080/poll/lecture-polls/" + lecturePin);
+    public static List<Poll> getAllPolls(String lecturePin) throws JsonProcessingException {
+        String response = get("http://localhost:8080/poll/lecture-polls/" + lecturePin);
+        return new ObjectMapper().readValue(response, new TypeReference<List<Poll>>() {});
     }
 
     public static String closePoll(Poll poll) {
