@@ -28,11 +28,6 @@ class QuestionControllerTest {
     private Question question1 = new Question("question", "4812421dristic", "me");
     private Question question2 = new Question("question2", "1889221jsloof", "myself");
 
-    @Test
-    void changeUpvote() {
-        Mockito.when(questionService.updateScoreQuestion(question1)).thenReturn("Updated score of Question");
-        assertEquals("Updated score of Question", questionController.changeUpvote(question1));
-    }
 
     @Test
     void getAllQuestions() {
