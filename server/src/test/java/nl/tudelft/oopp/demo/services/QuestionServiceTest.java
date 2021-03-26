@@ -40,15 +40,15 @@ class QuestionServiceTest {
     @Test
     void updateScoreQuestionNeg() {
         Mockito.when(questionRepository.existsByLecturePin("4812421dristic")).thenReturn(false);
-        assertEquals(questionService.updateScoreQuestion(question1), "Question does not yet exists");
+        assertEquals(questionService.updateScoreQuestion(question1), "Question does not yet exist");
     }
 
     @Test
     void updateQuestionAnsweredStatus() {
-        question1.setAnswered(true);
+        question1.setAnswered(1);
         Mockito.when(questionRepository.existsByLecturePin("4812421dristic")).thenReturn(true);
         Mockito.when(questionRepository.getByLecturePin("4812421dristic")).thenReturn(question1);
-        assertTrue(question1.isAnswered());
+        assertEquals(question1.getAnswered(), 1);
         Mockito.when(questionRepository.save(question1)).thenReturn(question1);
         assertEquals(questionService.updateQuestionAnsweredStatus(question1)
                 , "The answered status of the question has been updated.");
@@ -63,21 +63,21 @@ class QuestionServiceTest {
 
     @Test
     void isQuestionAnswered() {
-        question1.setAnswered(true);
+        question1.setAnswered(1);
         Mockito.when(questionRepository.getByLecturePin("4812421dristic")).thenReturn(question1);
-        assertTrue(questionService.isQuestionAnswered(question1));
+        assertEquals(1, questionService.isQuestionAnswered(question1));
     }
 
     @Test
     void getAllQuestions() {
-        Mockito.when(questionRepository.findAll()).thenReturn(Arrays.asList(question1, question2));
-        assertArrayEquals(Arrays.asList(question1, question2).toArray(), questionService.getAllQuestions().toArray());
+        Mockito.when(questionRepository.getAllByLecturePin("4812421dristic")).thenReturn(Arrays.asList(question1, question2));
+        assertArrayEquals(Arrays.asList(question1, question2).toArray(), questionService.getAllQuestions("4812421dristic").toArray());
     }
 
     @Test
     void addQuestion() {
         Mockito.when(questionRepository.save(question1)).thenReturn(question1);
-        assertEquals(question1.getQuestion(), questionService.addQuestion(question1));
+        assertEquals("Success", questionService.addQuestion(question1));
     }
 
     @Test

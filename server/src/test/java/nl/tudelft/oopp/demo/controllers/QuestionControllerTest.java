@@ -36,8 +36,8 @@ class QuestionControllerTest {
 
     @Test
     void getAllQuestions() {
-        Mockito.when(questionService.getAllQuestions()).thenReturn(Arrays.asList(question1, question2));
-        assertArrayEquals(Arrays.asList(question1, question2).toArray(), questionService.getAllQuestions().toArray());
+        Mockito.when(questionService.getAllQuestions("4812421dristic")).thenReturn(Arrays.asList(question1, question2));
+        assertArrayEquals(Arrays.asList(question1, question2).toArray(), questionController.getAllQuestions("4812421dristic").toArray());
     }
 
     @Test
