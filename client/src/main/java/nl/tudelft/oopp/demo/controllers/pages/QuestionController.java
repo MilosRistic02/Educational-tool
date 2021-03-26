@@ -2,7 +2,6 @@ package nl.tudelft.oopp.demo.controllers.pages;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Timer;
@@ -20,7 +19,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.alerts.Alerts;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
-import nl.tudelft.oopp.demo.controllers.QuestionComparator;
 import nl.tudelft.oopp.demo.controllers.components.QuestionFormatComponent;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Poll;
@@ -162,22 +160,10 @@ public class QuestionController {
                     + "-fx-background-radius: 18;");
         }
 
-        List<ScoringLog> votes = ServerCommunication.getVotes();
+        List<ScoringLog> votes = ServerCommunication.getVotes(loggedUser);
 
         stack.getChildren().clear();
         stack.setSpacing(20);   // Space between questions.
-
-        // Update the scores for each question.
-        for (Question q : qs) {
-            for (ScoringLog scoringLog : votes) {
-                if (scoringLog.getQuestion().equals(q)) {
-                    q.setScore(q.getScore() + scoringLog.getScore());
-                }
-            }
-        }
-
-        // Sort questions first by their score, then by their creation date.
-        Collections.sort(qs, new QuestionComparator());
 
         for (Question q : qs) {
             // Create a new generic question format and fill it with
@@ -186,7 +172,7 @@ public class QuestionController {
                     new QuestionFormatComponent(q, loggedUser);
 
             Optional<ScoringLog> scoringLog = votes.stream()
-                    .filter(x -> x.getQuestion().equals(q) && x.getUsers().equals(loggedUser))
+                    .filter(x -> x.getQuestion().equals(q))
                     .findFirst();
 
             if (!scoringLog.isEmpty()) {

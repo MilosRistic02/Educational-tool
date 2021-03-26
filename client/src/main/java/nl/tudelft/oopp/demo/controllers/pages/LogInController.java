@@ -3,7 +3,6 @@ package nl.tudelft.oopp.demo.controllers.pages;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
-import java.util.Locale;
 import java.util.Objects;
 
 import javafx.fxml.FXML;
@@ -116,7 +115,7 @@ public class LogInController {
      * @throws IOException Thrown when something goes wrong with IO
      */
     public void signupButtonClicked() throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("/register.fxml"));
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("/FXML/register.fxml"));
         rootPane.getChildren().setAll(pane);
         //System.out.println(Alerts.createAlert("this is a question", 10));
     }

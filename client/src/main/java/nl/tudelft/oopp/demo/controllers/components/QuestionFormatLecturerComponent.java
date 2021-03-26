@@ -68,7 +68,7 @@ public class QuestionFormatLecturerComponent extends VBox {
     public QuestionFormatLecturerComponent(Question currentQuestion, Users loggedUser) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass()
-                    .getResource("/questionFormatLecturer.fxml"));
+                    .getResource("/FXML/questionFormatLecturer.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();

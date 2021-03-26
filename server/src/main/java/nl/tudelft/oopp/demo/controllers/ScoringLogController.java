@@ -2,6 +2,7 @@ package nl.tudelft.oopp.demo.controllers;
 
 import java.util.List;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
+import nl.tudelft.oopp.demo.entities.Users;
 import nl.tudelft.oopp.demo.services.ScoringLogService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,10 +27,10 @@ public class ScoringLogController {
         return scoringLogService.vote(scoringLog);
     }
 
-    @GetMapping("/get-votes")
+    @PostMapping("/get-votes")
     @ResponseBody
-    public List<ScoringLog> getVotes() {
-        return scoringLogService.getVotes();
+    public List<ScoringLog> getVotes(@RequestBody Users users) {
+        return scoringLogService.getVotes(users);
     }
 
 }

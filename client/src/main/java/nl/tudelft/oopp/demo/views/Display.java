@@ -31,7 +31,7 @@ public class Display extends Application {
      * @throws IOException  can throw an error
      */
     public static void showLogin() throws IOException {
-        load("/login.fxml");
+        load("/FXML/login.fxml");
     }
 
     /** This functions sets the main screen to the login screen.
@@ -40,7 +40,7 @@ public class Display extends Application {
      * @throws IOException  can throw an exception
      */
     public static void showQuestion(Users users, LectureRoom lectureRoom) throws IOException {
-        QuestionController questionController = load("/question.fxml").getController();
+        QuestionController questionController = load("/FXML/question.fxml").getController();
         questionController.init(users, lectureRoom);
     }
 
@@ -54,7 +54,8 @@ public class Display extends Application {
      */
     public static void showQuestionLecturer(
             Users users, LectureRoom lectureRoom) throws IOException {
-        QuestionLecturerController questionLecturerController = load("/questionLecturer.fxml").getController();
+        QuestionLecturerController questionLecturerController
+                = load("/FXML/questionLecturer.fxml").getController();
         questionLecturerController.init(users, lectureRoom);
     }
 
@@ -66,7 +67,7 @@ public class Display extends Application {
      * @throws IOException - can throw an error.
      */
     public static void showLecturer(Users users) throws IOException {
-        LobbyController lobbyController = load("/lobbyLecturer.fxml").getController();
+        LobbyController lobbyController = load("/FXML/lobbyLecturer.fxml").getController();
         lobbyController.setUsers(users);
     }
 
@@ -77,7 +78,7 @@ public class Display extends Application {
      * @throws IOException - can throw an error.
      */
     public static void showStudent(Users users) throws IOException {
-        LobbyController lobbyController = load("/lobbyStudent.fxml").getController();
+        LobbyController lobbyController = load("/FXML/lobbyStudent.fxml").getController();
         lobbyController.setUsers(users);
 
         if (!users.getRole().equals("student")) {
@@ -91,7 +92,7 @@ public class Display extends Application {
      * @throws IOException Exception thrown when something goes with IO
      */
     public static void showLobbyCreateRoom(Users users) throws IOException {
-        LobbyController lobbyController = load("/lobbyCreateRoom.fxml").getController();
+        LobbyController lobbyController = load("/FXML/lobbyCreateRoom.fxml").getController();
         lobbyController.setUsers(users);
     }
 
@@ -101,7 +102,7 @@ public class Display extends Application {
      * @throws IOException if the fxml page cannot be loaded
      */
     public static void showArchiveList(Users users) throws IOException {
-        ArchiveController archiveController = load("/archiveList.fxml").getController();
+        ArchiveController archiveController = load("/FXML/archiveList.fxml").getController();
         archiveController.setUsers(users);
         archiveController.showPins();
         archiveController.showButtons(false);
@@ -113,7 +114,7 @@ public class Display extends Application {
      * @throws IOException if the fxml page cannot be loaded
      */
     public static void showArchive(String lecturePin, Users users) throws IOException {
-        ArchiveController archiveController = load("/archiveList.fxml").getController();
+        ArchiveController archiveController = load("/FXML/archiveList.fxml").getController();
         archiveController.setUsers(users);
         archiveController.showArchive(lecturePin);
         archiveController.showButtons(true);
@@ -125,7 +126,7 @@ public class Display extends Application {
      * @throws IOException Input output exception
      */
     public static void showStudentsBanPage(Users user) throws IOException {
-        UsersListController usersListController = load("/usersList.fxml").getController();
+        UsersListController usersListController = load("/FXML/usersList.fxml").getController();
         usersListController.setUsers(user);
 
         usersListController.searchForUser();

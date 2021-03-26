@@ -10,7 +10,7 @@
       <Pane layoutY="-3.0" prefHeight="823.0" prefWidth="300.0" style="-fx-background-color: #00A6D6;" />
       <ImageView fitHeight="97.0" fitWidth="207.0" layoutX="951.0">
          <image>
-            <Image url="@images/TUDELFT.png" />
+            <Image url="@../images/TUDELFT.png" />
          </image>
       </ImageView>
       <TextField fx:id="pinText" layoutX="501.0" layoutY="391.0" prefHeight="64.0" prefWidth="415.0" promptText="Your pin here" style="-fx-background-color: #E4EDF2;">
@@ -25,7 +25,7 @@
       </Button>
       <ImageView fx:id="backToLobby" fitHeight="51.0" fitWidth="46.0" layoutX="315.0" layoutY="19.0" onMouseClicked="#loadLobbyLecturer" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
-            <Image url="@images/back_button.png" />
+            <Image url="@../images/back_button.png" />
          </image>
       </ImageView>
       <Button fx:id="logOutStudent" layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#logOut" prefHeight="51.0" prefWidth="122.0" style="-fx-background-color: #ffffff;" text="Log out" textFill="#00a6d6">

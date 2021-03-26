@@ -28,7 +28,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.alerts.Alerts;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
-import nl.tudelft.oopp.demo.controllers.QuestionComparator;
 import nl.tudelft.oopp.demo.controllers.components.QuestionFormatLecturerComponent;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Poll;
@@ -194,22 +193,8 @@ public class QuestionLecturerController {
                     + "-fx-background-radius: 18;");
         }
 
-        List<ScoringLog> votes = ServerCommunication.getVotes();
-
         stack.getChildren().clear();
         stack.setSpacing(20);   // Space between questions.
-
-        // Update the scores for each question.
-        for (Question q : qs) {
-            for (ScoringLog scoringLog : votes) {
-                if (scoringLog.getQuestion().equals(q)) {
-                    q.setScore(q.getScore() + scoringLog.getScore());
-                }
-            }
-        }
-
-        // Sort questions first by their score, then by their creation date.
-        Collections.sort(qs, new QuestionComparator());
 
         for (Question q: qs) {
             // Create a new generic question format and fill it with

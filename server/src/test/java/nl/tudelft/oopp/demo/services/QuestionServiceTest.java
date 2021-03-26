@@ -70,7 +70,7 @@ class QuestionServiceTest {
 
     @Test
     void getAllQuestions() {
-        Mockito.when(questionRepository.getAllByLecturePin("4812421dristic")).thenReturn(Arrays.asList(question1, question2));
+        Mockito.when(questionRepository.getAllByLecturePinOrderByScoreDescCreationDateDesc("4812421dristic")).thenReturn(Arrays.asList(question1, question2));
         assertArrayEquals(Arrays.asList(question1, question2).toArray(), questionService.getAllQuestions("4812421dristic").toArray());
     }
 

@@ -44,12 +44,14 @@ public class ServerCommunication extends Request {
         return new ObjectMapper().readValue(response, new TypeReference<>() {});
     }
 
-    public static List<Question> getAllAnsweredQuestions(String lecturePin) throws JsonProcessingException {
+    public static List<Question> getAllAnsweredQuestions(String lecturePin)
+            throws JsonProcessingException {
         String response = get("http://localhost:8080/question/get-all/answered/" + lecturePin);
         return new ObjectMapper().readValue(response, new TypeReference<>() {});
     }
 
-    public static List<Question> getAllNonAnsweredQuestions(String lecturePin) throws JsonProcessingException {
+    public static List<Question> getAllNonAnsweredQuestions(String lecturePin)
+            throws JsonProcessingException {
         String response = get("http://localhost:8080/question/get-all/non-answered/" + lecturePin);
         return new ObjectMapper().readValue(response, new TypeReference<>() {});
     }
@@ -97,8 +99,8 @@ public class ServerCommunication extends Request {
         return post("http://localhost:8080/scoringlog/vote", scoringLog);
     }
 
-    public static List<ScoringLog> getVotes() throws JsonProcessingException {
-        String response = get("http://localhost:8080/scoringlog/get-votes");
+    public static List<ScoringLog> getVotes(Users users) throws JsonProcessingException {
+        String response = post("http://localhost:8080/scoringlog/get-votes", users);
         return new ObjectMapper().readValue(response, new TypeReference<>() {});
     }
 

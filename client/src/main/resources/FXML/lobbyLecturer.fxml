@@ -12,7 +12,7 @@
       <Pane prefHeight="823.0" prefWidth="300.0" style="-fx-background-color: #00A6D6;" />
       <ImageView fitHeight="97.0" fitWidth="207.0" layoutX="951.0">
          <image>
-            <Image url="@images/TUDELFT.png" />
+            <Image url="@../images/TUDELFT.png" />
          </image>
       </ImageView>
       <Button layoutX="587.0" layoutY="149.0" mnemonicParsing="false" onAction="#showLobbyCreateRoom" prefHeight="100.0" prefWidth="300.0" style="-fx-background-color: #00A6D6;" text="Create new room" textFill="WHITE">

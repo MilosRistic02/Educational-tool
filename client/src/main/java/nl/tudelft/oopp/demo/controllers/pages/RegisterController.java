@@ -1,7 +1,6 @@
 package nl.tudelft.oopp.demo.controllers.pages;
 
 import java.io.IOException;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -96,7 +95,7 @@ public class RegisterController {
      * @throws IOException Thrown when something goes wrong with IO
      */
     public void loadLoginPage() throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("/login.fxml"));
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("/FXML/login.fxml"));
         rootPane.getChildren().setAll(pane);
     }
 

@@ -17,7 +17,7 @@ public interface LectureRoomRepository extends JpaRepository<LectureRoom, String
 
     boolean existsByLecturePin(String lecturePin);
 
-    List<LectureRoom> getAllByIsOpenIsFalse();
+    List<LectureRoom> getAllByIsOpenIsFalseOrderByCreationDateDesc();
 
     @Query(value = "SELECT * FROM lecture_room", nativeQuery = true)
     List<LectureRoom> getAll();

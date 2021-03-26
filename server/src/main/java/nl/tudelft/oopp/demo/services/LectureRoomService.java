@@ -91,7 +91,8 @@ public class LectureRoomService {
      * @return the file with all of the questions and corresponding answers.
      */
     public File exportRoom(File file, String lecturePin) {
-        List<Question> questions = questionRepository.getAllByLecturePin(lecturePin);
+        List<Question> questions = questionRepository
+                .getAllByLecturePinOrderByScoreDescCreationDateDesc(lecturePin);
         LectureRoom room = lectureRoomRepository.getByLecturePin(lecturePin);
 
         try {
@@ -172,7 +173,7 @@ public class LectureRoomService {
      * @return list of lecturePins
      */
     public List<LectureRoom> getClosedLecturePins() {
-        return lectureRoomRepository.getAllByIsOpenIsFalse();
+        return lectureRoomRepository.getAllByIsOpenIsFalseOrderByCreationDateDesc();
     }
 
     /**

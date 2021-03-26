@@ -42,7 +42,7 @@
       <Pane layoutY="-3.0" prefHeight="823.0" prefWidth="300.0" style="-fx-background-color: #00A6D6;" />
       <ImageView fitHeight="97.0" fitWidth="207.0" layoutX="951.0">
          <image>
-            <Image url="@images/TUDELFT.png" />
+            <Image url="@../images/TUDELFT.png" />
          </image>
       </ImageView>
       <TextField fx:id="usernameField" layoutX="517.0" layoutY="252.0" prefHeight="66.0" prefWidth="421.0" style="-fx-background-color: #E4EDF2;">
