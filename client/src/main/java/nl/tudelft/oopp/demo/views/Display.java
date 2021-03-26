@@ -9,11 +9,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Pair;
-import nl.tudelft.oopp.demo.controllers.ArchiveController;
-import nl.tudelft.oopp.demo.controllers.LobbyController;
-import nl.tudelft.oopp.demo.controllers.QuestionController;
-import nl.tudelft.oopp.demo.controllers.QuestionLecturerController;
-import nl.tudelft.oopp.demo.controllers.UsersListController;
+import nl.tudelft.oopp.demo.controllers.pages.ArchiveController;
+import nl.tudelft.oopp.demo.controllers.pages.LobbyController;
+import nl.tudelft.oopp.demo.controllers.pages.QuestionController;
+import nl.tudelft.oopp.demo.controllers.pages.QuestionLecturerController;
+import nl.tudelft.oopp.demo.controllers.pages.UsersListController;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Users;
 

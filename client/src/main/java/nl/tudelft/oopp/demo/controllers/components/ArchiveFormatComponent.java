@@ -1,4 +1,4 @@
-package nl.tudelft.oopp.demo.controllers;
+package nl.tudelft.oopp.demo.controllers.components;
 
 import java.io.IOException;
 import javafx.fxml.FXML;

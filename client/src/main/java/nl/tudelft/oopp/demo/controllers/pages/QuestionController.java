@@ -1,4 +1,4 @@
-package nl.tudelft.oopp.demo.controllers;
+package nl.tudelft.oopp.demo.controllers.pages;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import java.io.IOException;
@@ -20,6 +20,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.alerts.Alerts;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.controllers.QuestionComparator;
+import nl.tudelft.oopp.demo.controllers.components.QuestionFormatComponent;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Poll;
 import nl.tudelft.oopp.demo.entities.Question;
@@ -77,7 +79,7 @@ public class QuestionController {
 
 
     @FXML
-    private void displayQuestion() {
+    private void displayQuestion() throws JsonProcessingException {
         if (questionText.getText().isEmpty()) {
             Alerts.alertError("Question is empty",
                     "Please fill out the field before pressing send");
@@ -100,7 +102,7 @@ public class QuestionController {
     }
 
     @FXML
-    private void displayAllQuestion() {
+    private void displayAllQuestion() throws JsonProcessingException {
         List<Question> qs = null;
         if (changeList.isSelected()) {
             qs = ServerCommunication.getAllAnsweredQuestions(lectureRoom.getLecturePin());
@@ -190,7 +192,11 @@ public class QuestionController {
             @Override
             public void run() {
                 Platform.runLater(() -> {
-                    displayAllQuestion();
+                    try {
+                        displayAllQuestion();
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
                     try {
                         if (checkRoomClosed()) {
                             timer.cancel();

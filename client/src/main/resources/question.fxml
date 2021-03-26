@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="823.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.QuestionController">
+<AnchorPane prefHeight="823.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.pages.QuestionController">
    <children>
       <Button layoutX="912.0" layoutY="431.0" mnemonicParsing="false" onAction="#displayQuestion" prefHeight="31.0" prefWidth="49.0" style="-fx-background-color: #00A6D6;" text="Send" textFill="WHITE" />
       <TextField fx:id="questionText" layoutX="912.0" layoutY="349.0" prefHeight="74.0" prefWidth="244.0" promptText="Write your question here." />

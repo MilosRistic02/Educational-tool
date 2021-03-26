@@ -1,4 +1,4 @@
-package nl.tudelft.oopp.demo.controllers;
+package nl.tudelft.oopp.demo.controllers.pages;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -20,6 +20,10 @@ import javafx.stage.FileChooser;
 import javafx.stage.Window;
 
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.controllers.*;
+import nl.tudelft.oopp.demo.controllers.components.ArchiveFormatComponent;
+import nl.tudelft.oopp.demo.controllers.components.PollFormatComponent;
+import nl.tudelft.oopp.demo.controllers.components.QuestionFormatLecturerComponent;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Poll;
 import nl.tudelft.oopp.demo.entities.Question;
@@ -95,7 +99,7 @@ public class ArchiveController {
      * @param lecturePin - Pin of the lecture that is displayed in archive view
      */
     @FXML
-    public void showArchive(String lecturePin) {
+    public void showArchive(String lecturePin) throws JsonProcessingException {
         showButtons(true);
         this.lecturePin = lecturePin;
         searchBar.setVisible(false);
@@ -152,7 +156,7 @@ public class ArchiveController {
      * Exports an archived room to a text file.
      */
     @FXML
-    private void writeArchive() {
+    private void writeArchive() throws JsonProcessingException {
         // Create a fileChooser
         FileChooser fileChooser = new FileChooser();
         Window stage = rootPane.getScene().getWindow();
@@ -193,7 +197,7 @@ public class ArchiveController {
     /**
      * Displays all of the rooms closed by the lecturer in the archive.
      */
-    public void showPins() {
+    public void showPins() throws JsonProcessingException {
         showButtons(false);
         searchBar.setVisible(true);
         glass.setVisible(true);

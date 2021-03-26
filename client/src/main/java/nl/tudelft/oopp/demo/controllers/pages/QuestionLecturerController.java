@@ -1,4 +1,4 @@
-package nl.tudelft.oopp.demo.controllers;
+package nl.tudelft.oopp.demo.controllers.pages;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,6 +28,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.alerts.Alerts;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.controllers.QuestionComparator;
+import nl.tudelft.oopp.demo.controllers.components.QuestionFormatLecturerComponent;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Poll;
 import nl.tudelft.oopp.demo.entities.Question;
@@ -115,7 +117,7 @@ public class QuestionLecturerController {
     }
 
     @FXML
-    private void displayQuestion() {
+    private void displayQuestion() throws JsonProcessingException {
         Question q = new Question(questionText.getText(),
                 lectureRoom.getLecturePin(),
                 users.getUsername());
@@ -124,7 +126,7 @@ public class QuestionLecturerController {
     }
 
     @FXML
-    private void displayAllQuestion() {
+    private void displayAllQuestion() throws JsonProcessingException {
         List<Question> qs = null;
 
         if (changeList.isSelected()) {
@@ -194,7 +196,11 @@ public class QuestionLecturerController {
             @Override
             public void run() {
                 Platform.runLater(() -> {
-                    displayAllQuestion();
+                    try {
+                        displayAllQuestion();
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
                     try {
                         updateSlider();
                     } catch (JsonProcessingException e) {

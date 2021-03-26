@@ -7,7 +7,7 @@
 <?import javafx.scene.text.*?>
 <?import org.controlsfx.control.*?>
 
-<AnchorPane prefHeight="798.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.QuestionLecturerController">
+<AnchorPane prefHeight="798.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.pages.QuestionLecturerController">
 
    <children>
       <Pane fx:id="list" layoutX="13.0" layoutY="25.0" prefHeight="723.0" prefWidth="876.0" style="-fx-background-color: #00A6D6; -fx-background-radius: 18;">
