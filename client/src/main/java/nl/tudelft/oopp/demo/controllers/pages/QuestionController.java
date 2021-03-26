@@ -77,6 +77,47 @@ public class QuestionController {
 
     private Timer timer;
 
+    /**
+     * Set a new user for the view and update the question list
+     * every 2 seconds.
+     * @param users - the current logged user.
+     */
+    public void init(Users users, LectureRoom lectureRoom) {
+        this.lectureRoom = lectureRoom;
+        this.loggedUser = users;
+        greetings.setText("Welcome, " + users.getUsername());
+        currentRoom.setText("You are currently in:\n" + lectureRoom.getLectureName());
+        currentRoomPin.setText("Lecture pin: " + lectureRoom.getLecturePin());
+        // set the speed log to 0
+        this.speedLog = new SpeedLog(this.loggedUser, this.lectureRoom, 50);
+        // send speedlog to the server to reset any old values
+        ServerCommunication.speedVote(this.speedLog);
+        // change listener added to the slider
+        speedSlider.valueProperty()
+                .addListener(((observable, oldValue, newValue) -> updateSlider()));
+
+        // Update question list every 2 seconds.
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    try {
+                        checkBanned();
+                        if (checkRoomClosed()) {
+                            timer.cancel();
+                            Alerts.alertInfo("Lecture has ended",
+                                    "You are redirected to the lobby");
+                        }
+                        displayAllQuestion();
+                        refreshPoll();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+        }, 0, 2000);
+    }
 
     @FXML
     private void displayQuestion() throws JsonProcessingException {
@@ -161,66 +202,6 @@ public class QuestionController {
         }
     }
 
-    /**
-     * Set a new user for the view and update the question list
-     * every 2 seconds.
-     * @param users - the current logged user.
-     */
-    public void init(Users users, LectureRoom lectureRoom) {
-        this.lectureRoom = lectureRoom;
-        this.loggedUser = users;
-        greetings.setText("Welcome, " + users.getUsername());
-        currentRoom.setText("You are currently in:\n" + lectureRoom.getLectureName());
-        currentRoomPin.setText("Lecture pin: " + lectureRoom.getLecturePin());
-        // set the speed log to 0
-        this.speedLog = new SpeedLog(this.loggedUser, this.lectureRoom, 50);
-        // send speedlog to the server to reset any old values
-        ServerCommunication.speedVote(this.speedLog);
-        // change listener added to the slider
-        speedSlider.valueProperty()
-                .addListener(((observable, oldValue, newValue) -> {
-                    try {
-                        updateSlider();
-                    } catch (JsonProcessingException e) {
-                        e.printStackTrace();
-                    }
-                }));
-
-        // Update question list every 2 seconds.
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(() -> {
-                    try {
-                        displayAllQuestion();
-                    } catch (JsonProcessingException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        if (checkRoomClosed()) {
-                            timer.cancel();
-                            Alerts.alertInfo("Lecture has ended",
-                                    "You are redirected to the lobby");
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        refreshPoll();
-                    } catch (JsonProcessingException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        checkBanned();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                });
-            }
-        }, 0, 2000);
-    }
-
     private void checkBanned() throws IOException {
         boolean isUserBanned = ServerCommunication.isUserBanned(loggedUser.getUsername());
 
@@ -252,7 +233,7 @@ public class QuestionController {
      * message shows what the value means in words.
      */
     @FXML
-    public void updateSlider() throws JsonProcessingException {
+    public void updateSlider() {
         int s = (int) speedSlider.getValue();
         this.speedLog.setSpeed(s);
         selectedSpeed.setVisible(true);

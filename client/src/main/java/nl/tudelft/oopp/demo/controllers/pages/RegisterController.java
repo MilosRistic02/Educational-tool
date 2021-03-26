@@ -17,7 +17,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
-import nl.tudelft.oopp.demo.encryption.Encryption;
 
 public class RegisterController {
 

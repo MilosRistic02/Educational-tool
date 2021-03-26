@@ -8,7 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 import nl.tudelft.oopp.demo.controllers.pages.ArchiveController;
 import nl.tudelft.oopp.demo.controllers.pages.LobbyController;
 import nl.tudelft.oopp.demo.controllers.pages.QuestionController;
@@ -32,10 +31,7 @@ public class Display extends Application {
      * @throws IOException  can throw an error
      */
     public static void showLogin() throws IOException {
-        Pair<FXMLLoader, Parent> recourse = load("/login.fxml");
-
-        primaryStage.setScene(new Scene(recourse.getValue()));
-        primaryStage.show();
+        load("/login.fxml");
     }
 
     /** This functions sets the main screen to the login screen.
@@ -44,13 +40,8 @@ public class Display extends Application {
      * @throws IOException  can throw an exception
      */
     public static void showQuestion(Users users, LectureRoom lectureRoom) throws IOException {
-        Pair<FXMLLoader, Parent> recourse = load("/question.fxml");
-
-        QuestionController questionController = recourse.getKey().getController();
+        QuestionController questionController = load("/question.fxml").getController();
         questionController.init(users, lectureRoom);
-
-        primaryStage.setScene(new Scene(recourse.getValue()));
-        primaryStage.show();
     }
 
     /**
@@ -63,13 +54,8 @@ public class Display extends Application {
      */
     public static void showQuestionLecturer(
             Users users, LectureRoom lectureRoom) throws IOException {
-        Pair<FXMLLoader, Parent> recourse = load("/questionLecturer.fxml");
-
-        QuestionLecturerController questionLecturerController = recourse.getKey().getController();
+        QuestionLecturerController questionLecturerController = load("/questionLecturer.fxml").getController();
         questionLecturerController.init(users, lectureRoom);
-
-        primaryStage.setScene(new Scene(recourse.getValue()));
-        primaryStage.show();
     }
 
 
@@ -80,13 +66,8 @@ public class Display extends Application {
      * @throws IOException - can throw an error.
      */
     public static void showLecturer(Users users) throws IOException {
-        Pair<FXMLLoader, Parent> recourse = load("/lobbyLecturer.fxml");
-
-        LobbyController lobbyController = recourse.getKey().getController();
+        LobbyController lobbyController = load("/lobbyLecturer.fxml").getController();
         lobbyController.setUsers(users);
-
-        primaryStage.setScene(new Scene(recourse.getValue()));
-        primaryStage.show();
     }
 
     /**
@@ -96,17 +77,12 @@ public class Display extends Application {
      * @throws IOException - can throw an error.
      */
     public static void showStudent(Users users) throws IOException {
-        Pair<FXMLLoader, Parent> recourse = load("/lobbyStudent.fxml");
-
-        LobbyController lobbyController = recourse.getKey().getController();
+        LobbyController lobbyController = load("/lobbyStudent.fxml").getController();
         lobbyController.setUsers(users);
 
         if (!users.getRole().equals("student")) {
             lobbyController.showBackButton();
         }
-
-        primaryStage.setScene(new Scene(recourse.getValue()));
-        primaryStage.show();
     }
 
     /**
@@ -115,13 +91,8 @@ public class Display extends Application {
      * @throws IOException Exception thrown when something goes with IO
      */
     public static void showLobbyCreateRoom(Users users) throws IOException {
-        Pair<FXMLLoader, Parent> recourse = load("/lobbyCreateRoom.fxml");
-
-        LobbyController lobbyController = recourse.getKey().getController();
+        LobbyController lobbyController = load("/lobbyCreateRoom.fxml").getController();
         lobbyController.setUsers(users);
-
-        primaryStage.setScene(new Scene(recourse.getValue()));
-        primaryStage.show();
     }
 
     /**
@@ -130,18 +101,10 @@ public class Display extends Application {
      * @throws IOException if the fxml page cannot be loaded
      */
     public static void showArchiveList(Users users) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        URL xmlUrl = Display.class.getResource("/archiveList.fxml");
-        loader.setLocation(xmlUrl);
-        final Parent root = loader.load();
-
-        ArchiveController archiveController = loader.getController();
+        ArchiveController archiveController = load("/archiveList.fxml").getController();
         archiveController.setUsers(users);
         archiveController.showPins();
         archiveController.showButtons(false);
-
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
     }
 
     /**
@@ -150,18 +113,10 @@ public class Display extends Application {
      * @throws IOException if the fxml page cannot be loaded
      */
     public static void showArchive(String lecturePin, Users users) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        URL xmlUrl = Display.class.getResource("/archiveList.fxml");
-        loader.setLocation(xmlUrl);
-        final Parent root = loader.load();
-
-        ArchiveController archiveController = loader.getController();
+        ArchiveController archiveController = load("/archiveList.fxml").getController();
         archiveController.setUsers(users);
         archiveController.showArchive(lecturePin);
         archiveController.showButtons(true);
-
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
     }
 
     /**
@@ -170,13 +125,8 @@ public class Display extends Application {
      * @throws IOException Input output exception
      */
     public static void showStudentsBanPage(Users user) throws IOException {
-        Pair<FXMLLoader, Parent> recourse = load("/usersList.fxml");
-
-        UsersListController usersListController = recourse.getKey().getController();
+        UsersListController usersListController = load("/usersList.fxml").getController();
         usersListController.setUsers(user);
-
-        primaryStage.setScene(new Scene(recourse.getValue()));
-        primaryStage.show();
 
         usersListController.searchForUser();
     }
@@ -187,12 +137,16 @@ public class Display extends Application {
      * @return Pair with a FXMLLoader and a Parent root
      * @throws IOException Thrown when something goes wrong with IO
      */
-    public static Pair<FXMLLoader, Parent> load(String path) throws IOException {
+    public static FXMLLoader load(String path) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         URL xmlUrl = Display.class.getResource(path);
         loader.setLocation(xmlUrl);
         Parent root = loader.load();
-        return new Pair(loader, root);
+
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+
+        return loader;
     }
 
     public static void main(String[] args) {
