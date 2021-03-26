@@ -142,8 +142,8 @@ public class ServerCommunication extends Request {
         return post("http://localhost:8080/speedlog/speed-vote", speedLog);
     }
 
-    public static List<SpeedLog> speedGetVotes() throws JsonProcessingException {
-        String response = get("http://localhost:8080/speedlog/get-speed-votes");
+    public static double speedGetVotes(String lecturePin) throws JsonProcessingException {
+        String response = get("http://localhost:8080/speedlog/get-speed-votes/" + lecturePin);
         return new ObjectMapper().readValue(response, new TypeReference<>() {});
     }
 

@@ -227,18 +227,8 @@ public class QuestionLecturerController {
      * Method to set the slider to the average of the scores in the database.
      */
     public void updateSlider() throws JsonProcessingException {
-        List<SpeedLog> speedLogs = ServerCommunication.speedGetVotes();
+        double speedScore = ServerCommunication.speedGetVotes(lectureRoom.getLecturePin());
 
-        double speedScore = 0;
-        int speedLength = 0;
-        for (SpeedLog speedLog : speedLogs) {
-            if (speedLog.getLectureRoom().getLecturePin().equals(lectureRoom.getLecturePin())) {
-                speedScore += speedLog.getSpeed();
-                speedLength++;
-            }
-        }
-
-        speedScore = speedScore / speedLength;
         progress.setProgress(speedScore / 100);
         selectedSpeed.setVisible(true);
         progress.setVisible(true);

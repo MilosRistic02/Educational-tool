@@ -54,7 +54,6 @@ public class PollFormatComponent extends Pane {
                 pollChart.lookup(".data" + (c - 65)
                         + ".chart-bar").setStyle("-fx-bar-fill: green");
             }
-            pollChart.setAnimated(false);
         }
     }
 }

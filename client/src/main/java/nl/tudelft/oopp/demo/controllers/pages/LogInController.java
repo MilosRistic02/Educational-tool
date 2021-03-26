@@ -46,7 +46,7 @@ public class LogInController {
      * password is wrong
      * @throws JsonProcessingException if the json couldn't be processed
      */
-    public void logInButtonClicked() throws JsonProcessingException, IOException {
+    public void logInButtonClicked() throws IOException {
         String username = usernameField.getText().toLowerCase();
         int passwordHash = Objects.hash(passwordField.getText());
         String password = String.valueOf(passwordHash);

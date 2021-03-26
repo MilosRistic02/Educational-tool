@@ -55,7 +55,7 @@ public class QuestionFormatComponent extends VBox {
     @FXML
     public Text isAnswered;
 
-
+    private DateFormat df;
     private Question currentQuestion;
     private Users loggedUser;
 
@@ -171,7 +171,7 @@ public class QuestionFormatComponent extends VBox {
 
         // Date format to be displayed.
         String pattern = "HH:mm:ss";
-        DateFormat df = new SimpleDateFormat(pattern);
+        df = new SimpleDateFormat(pattern);
         String date = df.format(currentQuestion.getCreationDate());
         creationDate.setText(date);
 
