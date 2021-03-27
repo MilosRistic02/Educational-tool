@@ -1,17 +1,13 @@
-package nl.tudelft.oopp.demo.controllers;
+package nl.tudelft.oopp.demo.controllers.components;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.entities.Users;
-import nl.tudelft.oopp.demo.views.Display;
-
 
 
 public class UserFormatComponent  extends VBox {
@@ -32,7 +28,7 @@ public class UserFormatComponent  extends VBox {
     public UserFormatComponent(Users user) {
         try {
             FXMLLoader fxmlLoader =
-                    new FXMLLoader(getClass().getResource("/userFormat.fxml"));
+                    new FXMLLoader(getClass().getResource("/FXML/userFormat.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();

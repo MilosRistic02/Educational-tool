@@ -57,32 +57,6 @@ public class LectureRoomService {
         return pin;
     }
 
-    /**
-     * Method for removing a LectureRoom from the database iff the LectureRoom exists.
-     * @param lectureRoomPin Pin that uniquely identifies each LectureRoom.
-     * @return Boolean that is true iff a LectureRoom was deleted.
-     */
-    public boolean deleteLectureRoom(String lectureRoomPin) {
-        if (!lectureRoomRepository.existsByLecturePin(lectureRoomPin)) {
-            return false;
-        }
-
-        LectureRoom room = lectureRoomRepository.getLectureRoomByLecturePin(lectureRoomPin);
-        lectureRoomRepository.delete(room);
-        return true;
-    }
-
-    /**
-     * Method for deleting all the lecture rooms.
-     * @return Boolean that is true iff all rooms were deleted
-     */
-    public boolean deleteAllLectureRooms() {
-        List<LectureRoom> lectureRooms = lectureRoomRepository.getAll();
-        for (LectureRoom lectureRoom : lectureRooms) {
-            lectureRoomRepository.delete(lectureRoom);
-        }
-        return true;
-    }
 
     /**
      * Writes all questions of a specific lectureRoom to the export file.
@@ -91,7 +65,8 @@ public class LectureRoomService {
      * @return the file with all of the questions and corresponding answers.
      */
     public File exportRoom(File file, String lecturePin) {
-        List<Question> questions = questionRepository.getAllByLecturePin(lecturePin);
+        List<Question> questions = questionRepository
+                .getAllByLecturePinOrderByScoreDescCreationDateDesc(lecturePin);
         LectureRoom room = lectureRoomRepository.getByLecturePin(lecturePin);
 
         try {
@@ -125,23 +100,6 @@ public class LectureRoomService {
     }
 
     /**
-     * Method for getting all the lecture rooms.
-     * @return List containing all the lecture rooms.
-     */
-    public List<LectureRoom> getAllLectureRooms() {
-        return lectureRoomRepository.getAll();
-    }
-
-    /**
-     * Method for checking if a room exists.
-     * @param pin the pin to check for.
-     * @return true if the room exists, false otherwise.
-     */
-    public boolean existsByPin(String pin) {
-        return lectureRoomRepository.existsByLecturePin(pin);
-    }
-
-    /**
      * Getter for the LectureRoom class.
      * @param pin String of the pin that we want to identify the LectureRoom with
      * @return A LectureRoom that is associated with the pin
@@ -172,7 +130,7 @@ public class LectureRoomService {
      * @return list of lecturePins
      */
     public List<LectureRoom> getClosedLecturePins() {
-        return lectureRoomRepository.getAllByIsOpenIsFalse();
+        return lectureRoomRepository.getAllByIsOpenIsFalseOrderByCreationDateDesc();
     }
 
     /**

@@ -112,7 +112,7 @@ public class QuestionService {
      * @return all questions found in the database.
      */
     public List<Question> getAllQuestions(String id) {
-        return questionRepository.getAllByLecturePin(id);
+        return questionRepository.getAllByLecturePinOrderByScoreDescCreationDateDesc(id);
     }
 
     /**
@@ -122,14 +122,17 @@ public class QuestionService {
      */
     public List<Question> getAllAnsweredQuestions(String lecturePin) {
         List<Question> answered = new ArrayList<>();
-        answered.addAll(questionRepository.getAllByAnsweredAndLecturePin(1, lecturePin));
-        answered.addAll(questionRepository.getAllByAnsweredAndLecturePin(2, lecturePin));
+        answered.addAll(questionRepository
+                .getAllByAnsweredAndLecturePinOrderByScoreDescCreationDateDesc(1, lecturePin));
+        answered.addAll(questionRepository
+                .getAllByAnsweredAndLecturePinOrderByScoreDescCreationDateDesc(2, lecturePin));
 
         return answered;
     }
 
     public List<Question> getAllNonAnsweredQuestions(String lecturePin) {
-        return questionRepository.getAllByAnsweredAndLecturePin(0, lecturePin);
+        return questionRepository
+                .getAllByAnsweredAndLecturePinOrderByScoreDescCreationDateDesc(0, lecturePin);
     }
 
     /**

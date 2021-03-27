@@ -1,8 +1,7 @@
-package nl.tudelft.oopp.demo.controllers;
+package nl.tudelft.oopp.demo.controllers.pages;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Timer;
@@ -20,6 +19,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.alerts.Alerts;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.controllers.components.QuestionFormatComponent;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Poll;
 import nl.tudelft.oopp.demo.entities.Question;
@@ -75,9 +75,50 @@ public class QuestionController {
 
     private Timer timer;
 
+    /**
+     * Set a new user for the view and update the question list
+     * every 2 seconds.
+     * @param users - the current logged user.
+     */
+    public void init(Users users, LectureRoom lectureRoom) {
+        this.lectureRoom = lectureRoom;
+        this.loggedUser = users;
+        greetings.setText("Welcome, " + users.getUsername());
+        currentRoom.setText("You are currently in:\n" + lectureRoom.getLectureName());
+        currentRoomPin.setText("Lecture pin: " + lectureRoom.getLecturePin());
+        // set the speed log to 0
+        this.speedLog = new SpeedLog(this.loggedUser, this.lectureRoom, 50);
+        // send speedlog to the server to reset any old values
+        ServerCommunication.speedVote(this.speedLog);
+        // change listener added to the slider
+        speedSlider.valueProperty()
+                .addListener(((observable, oldValue, newValue) -> updateSlider()));
+
+        // Update question list every 2 seconds.
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    try {
+                        checkBanned();
+                        if (checkRoomClosed()) {
+                            timer.cancel();
+                            Alerts.alertInfo("Lecture has ended",
+                                    "You are redirected to the lobby");
+                        }
+                        displayAllQuestion();
+                        refreshPoll();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+        }, 0, 2000);
+    }
 
     @FXML
-    private void displayQuestion() {
+    private void displayQuestion() throws JsonProcessingException {
         if (questionText.getText().isEmpty()) {
             Alerts.alertError("Question is empty",
                     "Please fill out the field before pressing send");
@@ -100,7 +141,7 @@ public class QuestionController {
     }
 
     @FXML
-    private void displayAllQuestion() {
+    private void displayAllQuestion() throws JsonProcessingException {
         List<Question> qs = null;
         if (changeList.isSelected()) {
             qs = ServerCommunication.getAllAnsweredQuestions(lectureRoom.getLecturePin());
@@ -119,22 +160,10 @@ public class QuestionController {
                     + "-fx-background-radius: 18;");
         }
 
-        List<ScoringLog> votes = ServerCommunication.getVotes();
+        List<ScoringLog> votes = ServerCommunication.getVotes(loggedUser);
 
         stack.getChildren().clear();
         stack.setSpacing(20);   // Space between questions.
-
-        // Update the scores for each question.
-        for (Question q : qs) {
-            for (ScoringLog scoringLog : votes) {
-                if (scoringLog.getQuestion().equals(q)) {
-                    q.setScore(q.getScore() + scoringLog.getScore());
-                }
-            }
-        }
-
-        // Sort questions first by their score, then by their creation date.
-        Collections.sort(qs, new QuestionComparator());
 
         for (Question q : qs) {
             // Create a new generic question format and fill it with
@@ -143,7 +172,7 @@ public class QuestionController {
                     new QuestionFormatComponent(q, loggedUser);
 
             Optional<ScoringLog> scoringLog = votes.stream()
-                    .filter(x -> x.getQuestion().equals(q) && x.getUsers().equals(loggedUser))
+                    .filter(x -> x.getQuestion().equals(q))
                     .findFirst();
 
             if (!scoringLog.isEmpty()) {
@@ -157,62 +186,6 @@ public class QuestionController {
             // Add the updated question to the VBox (i.e. the main questions view).
             stack.getChildren().add(questionFormatComponent);
         }
-    }
-
-    /**
-     * Set a new user for the view and update the question list
-     * every 2 seconds.
-     * @param users - the current logged user.
-     */
-    public void init(Users users, LectureRoom lectureRoom) {
-        this.lectureRoom = lectureRoom;
-        this.loggedUser = users;
-        greetings.setText("Welcome, " + users.getUsername());
-        currentRoom.setText("You are currently in:\n" + lectureRoom.getLectureName());
-        currentRoomPin.setText("Lecture pin: " + lectureRoom.getLecturePin());
-        // set the speed log to 0
-        this.speedLog = new SpeedLog(this.loggedUser, this.lectureRoom, 50);
-        // send speedlog to the server to reset any old values
-        ServerCommunication.speedVote(this.speedLog);
-        // change listener added to the slider
-        speedSlider.valueProperty()
-                .addListener(((observable, oldValue, newValue) -> {
-                    try {
-                        updateSlider();
-                    } catch (JsonProcessingException e) {
-                        e.printStackTrace();
-                    }
-                }));
-
-        // Update question list every 2 seconds.
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(() -> {
-                    displayAllQuestion();
-                    try {
-                        if (checkRoomClosed()) {
-                            timer.cancel();
-                            Alerts.alertInfo("Lecture has ended",
-                                    "You are redirected to the lobby");
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        refreshPoll();
-                    } catch (JsonProcessingException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        checkBanned();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                });
-            }
-        }, 0, 2000);
     }
 
     private void checkBanned() throws IOException {
@@ -246,7 +219,7 @@ public class QuestionController {
      * message shows what the value means in words.
      */
     @FXML
-    public void updateSlider() throws JsonProcessingException {
+    public void updateSlider() {
         int s = (int) speedSlider.getValue();
         this.speedLog.setSpeed(s);
         selectedSpeed.setVisible(true);

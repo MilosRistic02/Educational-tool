@@ -1,4 +1,4 @@
-package nl.tudelft.oopp.demo.controllers;
+package nl.tudelft.oopp.demo.controllers.pages;
 
 import java.io.IOException;
 
@@ -208,32 +208,37 @@ public class LobbyController {
     private void checkPin() throws IOException {
         String pin = pinText.getText();
         emptyFields.setVisible(false);
+
         if (pinText.getLength() == 0) {
             emptyFields.setVisible(true);
             return;
         }
 
-        LectureRoom response = ServerCommunication.getLectureRoom(pin);
         Date currentDate = new Date();
 
-        if (response == null) {
-            Alerts.alertError("Incorrect pin", "This lecture pin is not valid");
-        } else if (!response.isOpen()) {
-            Alerts.alertError("Closed room", "This lecture room is closed");
-            pinText.requestFocus();
-        } else {
-            Date startingTime = response.getStartingTime();
+        try {
+            LectureRoom response = ServerCommunication.getLectureRoom(pin);
 
-            if (startingTime != null && startingTime.compareTo(currentDate) > 0) {
-                Alerts.alertError("Room is not open",
-                        "This lecture room has not yet started. It will open at: " + startingTime);
+            if (!response.isOpen()) {
+                Alerts.alertError("Closed room", "This lecture room is closed");
+                pinText.requestFocus();
             } else {
-                if (users.getRole().equals("student")) {
-                    Display.showQuestion(users, response);
+                Date startingTime = response.getStartingTime();
+
+                if (startingTime != null && startingTime.compareTo(currentDate) > 0) {
+                    Alerts.alertError("Room is not open",
+                            "This lecture room has not yet started.\n"
+                                    + "It will open at: " + startingTime);
                 } else {
-                    Display.showQuestionLecturer(users, response);
+                    if (users.getRole().equals("student")) {
+                        Display.showQuestion(users, response);
+                    } else {
+                        Display.showQuestionLecturer(users, response);
+                    }
                 }
             }
+        } catch (Exception e) {
+            Alerts.alertError("Incorrect pin", "This lecture pin is not valid");
         }
     }
 

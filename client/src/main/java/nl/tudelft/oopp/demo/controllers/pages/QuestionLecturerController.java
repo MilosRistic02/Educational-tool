@@ -1,4 +1,4 @@
-package nl.tudelft.oopp.demo.controllers;
+package nl.tudelft.oopp.demo.controllers.pages;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,6 +28,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.alerts.Alerts;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.controllers.components.QuestionFormatLecturerComponent;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Poll;
 import nl.tudelft.oopp.demo.entities.Question;
@@ -95,6 +96,54 @@ public class QuestionLecturerController {
 
     private Timer pollTimer;
 
+    public Timer timer;
+
+    /**
+     * Set a new user for the view and update the question list
+     * every 2 seconds.
+     * @param users - the current logged user.
+     */
+    public void init(Users users, LectureRoom lectureRoom) {
+        this.lectureRoom = lectureRoom;
+        this.users = users;
+        greetings.setText("Welcome, " + users.getUsername());
+        currentRoomPin.setText("Lecture pin: " + lectureRoom.getLecturePin());
+
+        if (users.getRole().equals("admin")) {
+            adminSettings.setVisible(true);
+            adminSettings.setDisable(false);
+        }
+
+        // Update question list every 2 seconds.
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    try {
+                        if (checkRoomClosed()) {
+                            timer.cancel();
+                            Alerts.alertInfo("Lecture has ended",
+                                    "You are redirected to the lobby");
+                        }
+                        updateSlider();
+                        displayAllQuestion();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+        }, 0, 2000);
+
+        numOptions.getItems().add("Choose an option");
+        for (int i = 2; i <= 10; i++) {
+            numOptions.getItems().add(i);
+        }
+        numOptions.setValue("Choose an option");
+        numOptions.setOnAction((EventHandler<ActionEvent>) event -> optionPicked());
+    }
+
     /**
      * Action when the admin settings button is pressed.
      */
@@ -115,7 +164,7 @@ public class QuestionLecturerController {
     }
 
     @FXML
-    private void displayQuestion() {
+    private void displayQuestion() throws JsonProcessingException {
         Question q = new Question(questionText.getText(),
                 lectureRoom.getLecturePin(),
                 users.getUsername());
@@ -124,7 +173,7 @@ public class QuestionLecturerController {
     }
 
     @FXML
-    private void displayAllQuestion() {
+    private void displayAllQuestion() throws JsonProcessingException {
         List<Question> qs = null;
 
         if (changeList.isSelected()) {
@@ -144,22 +193,8 @@ public class QuestionLecturerController {
                     + "-fx-background-radius: 18;");
         }
 
-        List<ScoringLog> votes = ServerCommunication.getVotes();
-
         stack.getChildren().clear();
         stack.setSpacing(20);   // Space between questions.
-
-        // Update the scores for each question.
-        for (Question q : qs) {
-            for (ScoringLog scoringLog : votes) {
-                if (scoringLog.getQuestion().equals(q)) {
-                    q.setScore(q.getScore() + scoringLog.getScore());
-                }
-            }
-        }
-
-        // Sort questions first by their score, then by their creation date.
-        Collections.sort(qs, new QuestionComparator());
 
         for (Question q: qs) {
             // Create a new generic question format and fill it with
@@ -173,62 +208,13 @@ public class QuestionLecturerController {
     }
 
     /**
-     * Set a new user for the view and update the question list
-     * every 2 seconds.
-     * @param users - the current logged user.
-     */
-    public void init(Users users, LectureRoom lectureRoom) {
-        this.lectureRoom = lectureRoom;
-        this.users = users;
-        greetings.setText("Welcome, " + users.getUsername());
-        currentRoomPin.setText("Lecture pin: " + lectureRoom.getLecturePin());
-
-        if (users.getRole().equals("admin")) {
-            adminSettings.setVisible(true);
-            adminSettings.setDisable(false);
-        }
-
-        // Update question list every 2 seconds.
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(() -> {
-                    displayAllQuestion();
-                    try {
-                        updateSlider();
-                    } catch (JsonProcessingException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        if (checkRoomClosed()) {
-                            timer.cancel();
-                            Alerts.alertInfo("Lecture has ended",
-                                    "You are redirected to the lobby");
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
-            }
-        }, 0, 2000);
-
-        numOptions.getItems().add("Choose an option");
-        for (int i = 2; i <= 10; i++) {
-            numOptions.getItems().add(i);
-        }
-        numOptions.setValue("Choose an option");
-        numOptions.setOnAction((EventHandler<ActionEvent>) event -> optionPicked());
-    }
-
-    /**
      * Closes the lecture room.
      * @throws IOException if server communication fails.
      */
     @FXML
     public void closeRoom() throws IOException {
         this.lectureRoom.setOpen(false);
-        String response = ServerCommunication.closeRoom(this.lectureRoom);
+        ServerCommunication.closeRoom(this.lectureRoom);
 
         if (this.users.getRole().equals("lecturer")) {
             Display.showLecturer(this.users);
@@ -241,18 +227,8 @@ public class QuestionLecturerController {
      * Method to set the slider to the average of the scores in the database.
      */
     public void updateSlider() throws JsonProcessingException {
-        List<SpeedLog> speedLogs = ServerCommunication.speedGetVotes();
+        double speedScore = ServerCommunication.speedGetVotes(lectureRoom.getLecturePin());
 
-        double speedScore = 0;
-        int speedLenght = 0;
-        for (SpeedLog speedLog : speedLogs) {
-            if (speedLog.getLectureRoom().getLecturePin().equals(lectureRoom.getLecturePin())) {
-                speedScore += speedLog.getSpeed();
-                speedLenght++;
-            }
-        }
-
-        speedScore = speedScore / speedLenght;
         progress.setProgress(speedScore / 100);
         selectedSpeed.setVisible(true);
         progress.setVisible(true);

@@ -10,7 +10,7 @@
          <Font size="20.0" />
       </font></Text>
     <Text fx:id="creationDate" layoutX="464.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Creation Date" textAlignment="RIGHT" wrappingWidth="121.029296875" />
-    <BarChart fx:id="pollChart" layoutX="14.0" layoutY="70.0" prefHeight="180.0" prefWidth="415.0">
+    <BarChart fx:id="pollChart" animated="false" layoutX="14.0" layoutY="70.0" prefHeight="180.0" prefWidth="415.0">
         <xAxis>
             <CategoryAxis label="Votes" side="BOTTOM" />
         </xAxis>

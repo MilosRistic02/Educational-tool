@@ -19,8 +19,6 @@ import nl.tudelft.oopp.demo.entities.Users;
 
 public class ServerCommunication extends Request {
 
-    private static HttpClient client = HttpClient.newBuilder().build();
-
     /**
      * Retrieves a quote from the server.
      * @return the body of a get request to the server.
@@ -32,24 +30,30 @@ public class ServerCommunication extends Request {
                 question);
     }
 
-    public static LectureRoom getLectureRoom(String pin) {
-        return getPin("http://localhost:8080/lecture/" + pin);
+    public static LectureRoom getLectureRoom(String pin) throws JsonProcessingException {
+        String response = get("http://localhost:8080/lecture/" + pin);
+        return new ObjectMapper().readValue(response, new TypeReference<>() {});
     }
 
     public static String addLectureRoom(LectureRoom lectureRoom) {
         return post("http://localhost:8080/lecture", lectureRoom);
     }
 
-    public static List<Question> getAllQuestion(String lectureRoom) {
-        return getQuestions("http://localhost:8080/question/get-all/" + lectureRoom);
+    public static List<Question> getAllQuestion(String lectureRoom) throws JsonProcessingException {
+        String response = get("http://localhost:8080/question/get-all/" + lectureRoom);
+        return new ObjectMapper().readValue(response, new TypeReference<>() {});
     }
 
-    public static List<Question> getAllAnsweredQuestions(String lecturePin) {
-        return getQuestions("http://localhost:8080/question/get-all/answered/" + lecturePin);
+    public static List<Question> getAllAnsweredQuestions(String lecturePin)
+            throws JsonProcessingException {
+        String response = get("http://localhost:8080/question/get-all/answered/" + lecturePin);
+        return new ObjectMapper().readValue(response, new TypeReference<>() {});
     }
 
-    public static List<Question> getAllNonAnsweredQuestions(String lecturePin) {
-        return getQuestions("http://localhost:8080/question/get-all/non-answered/" + lecturePin);
+    public static List<Question> getAllNonAnsweredQuestions(String lecturePin)
+            throws JsonProcessingException {
+        String response = get("http://localhost:8080/question/get-all/non-answered/" + lecturePin);
+        return new ObjectMapper().readValue(response, new TypeReference<>() {});
     }
 
     /**
@@ -95,8 +99,9 @@ public class ServerCommunication extends Request {
         return post("http://localhost:8080/scoringlog/vote", scoringLog);
     }
 
-    public static List<ScoringLog> getVotes() {
-        return getVotes("http://localhost:8080/scoringlog/get-votes");
+    public static List<ScoringLog> getVotes(Users users) throws JsonProcessingException {
+        String response = post("http://localhost:8080/scoringlog/get-votes", users);
+        return new ObjectMapper().readValue(response, new TypeReference<>() {});
     }
 
     public static String deleteQuestion(String id) {
@@ -115,8 +120,9 @@ public class ServerCommunication extends Request {
         return put("http://localhost:8080/lecture/", lectureRoom);
     }
 
-    public static List<LectureRoom> getClosedLecturePins() {
-        return getClosedPins("http://localhost:8080/lecture/getClosed/");
+    public static List<LectureRoom> getClosedLecturePins() throws JsonProcessingException {
+        String response = get("http://localhost:8080/lecture/getClosed/");
+        return new ObjectMapper().readValue(response, new TypeReference<>() {});
     }
 
     /**
@@ -136,8 +142,9 @@ public class ServerCommunication extends Request {
         return post("http://localhost:8080/speedlog/speed-vote", speedLog);
     }
 
-    public static List<SpeedLog> speedGetVotes() {
-        return getSpeedVotes("http://localhost:8080/speedlog/get-speed-votes");
+    public static double speedGetVotes(String lecturePin) throws JsonProcessingException {
+        String response = get("http://localhost:8080/speedlog/get-speed-votes/" + lecturePin);
+        return new ObjectMapper().readValue(response, new TypeReference<>() {});
     }
 
     public static String createPoll(Poll poll) {

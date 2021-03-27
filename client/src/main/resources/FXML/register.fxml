@@ -37,12 +37,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-1.0" maxWidth="-1.0" prefHeight="823.0" prefWidth="1172.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.RegisterController">
+<AnchorPane fx:id="rootPane" maxHeight="-1.0" maxWidth="-1.0" prefHeight="823.0" prefWidth="1172.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.pages.RegisterController">
 <children>
       <Pane prefHeight="823.0" prefWidth="300.0" style="-fx-background-color: #00A6D6;" />
     <ImageView fitHeight="97.0" fitWidth="207.0" layoutX="951.0">
         <image>
-            <Image url="@images/TUDELFT.png" />
+            <Image url="@../images/TUDELFT.png" />
         </image>
     </ImageView>
       <TextField fx:id="usernameField" layoutX="578.0" layoutY="217.0" prefHeight="66.0" prefWidth="367.0" style="-fx-background-color: #E4EDF2;">
@@ -113,7 +113,7 @@
       </Label>
       <ImageView fitHeight="45.0" fitWidth="54.0" layoutX="324.0" layoutY="26.0" onMouseClicked="#loadLoginPage" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/back_button.png" />
+            <Image url="@../images/back_button.png" />
          </image>
       </ImageView>
       <Label fx:id="userSuccess" layoutX="664.0" layoutY="178.0" prefHeight="27.0" prefWidth="194.0" text="User created succesfully" textFill="#28ab5d" visible="false">

@@ -1,4 +1,4 @@
-package nl.tudelft.oopp.demo.controllers;
+package nl.tudelft.oopp.demo.controllers.components;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
@@ -45,7 +45,7 @@ public class ArchiveFormatComponent extends Pane {
     public ArchiveFormatComponent(LectureRoom room, Users user) {
         try {
             FXMLLoader fxmlLoader =
-                    new FXMLLoader(getClass().getResource("/archiveListFormat.fxml"));
+                    new FXMLLoader(getClass().getResource("/FXML/archiveListFormat.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();

@@ -1,9 +1,8 @@
-package nl.tudelft.oopp.demo.controllers;
+package nl.tudelft.oopp.demo.controllers.pages;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
-import java.util.Locale;
 import java.util.Objects;
 
 import javafx.fxml.FXML;
@@ -13,7 +12,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
-import nl.tudelft.oopp.demo.encryption.Encryption;
 import nl.tudelft.oopp.demo.entities.Users;
 import nl.tudelft.oopp.demo.views.Display;
 
@@ -48,7 +46,7 @@ public class LogInController {
      * password is wrong
      * @throws JsonProcessingException if the json couldn't be processed
      */
-    public void logInButtonClicked() throws JsonProcessingException, IOException {
+    public void logInButtonClicked() throws IOException {
         String username = usernameField.getText().toLowerCase();
         int passwordHash = Objects.hash(passwordField.getText());
         String password = String.valueOf(passwordHash);
@@ -117,7 +115,7 @@ public class LogInController {
      * @throws IOException Thrown when something goes wrong with IO
      */
     public void signupButtonClicked() throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("/register.fxml"));
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("/FXML/register.fxml"));
         rootPane.getChildren().setAll(pane);
         //System.out.println(Alerts.createAlert("this is a question", 10));
     }

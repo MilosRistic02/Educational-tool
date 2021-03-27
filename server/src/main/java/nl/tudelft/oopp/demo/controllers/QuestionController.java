@@ -22,11 +22,6 @@ public class QuestionController {
     @Autowired
     private transient QuestionService questionService;
 
-    @PutMapping("/upvote")
-    @ResponseBody
-    public String changeUpvote(@RequestBody Question question) {
-        return questionService.updateScoreQuestion(question);
-    }
 
     @PutMapping("/update-answer")
     @ResponseBody

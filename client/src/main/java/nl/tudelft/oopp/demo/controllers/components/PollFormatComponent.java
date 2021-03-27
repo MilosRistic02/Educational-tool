@@ -1,7 +1,6 @@
-package nl.tudelft.oopp.demo.controllers;
+package nl.tudelft.oopp.demo.controllers.components;
 
 import java.io.IOException;
-import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,7 +27,7 @@ public class PollFormatComponent extends Pane {
     public PollFormatComponent(Poll poll) {
         try {
             FXMLLoader fxmlLoader =
-                    new FXMLLoader(getClass().getResource("/pollFormat.fxml"));
+                    new FXMLLoader(getClass().getResource("/FXML/pollFormat.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
@@ -55,7 +54,6 @@ public class PollFormatComponent extends Pane {
                 pollChart.lookup(".data" + (c - 65)
                         + ".chart-bar").setStyle("-fx-bar-fill: green");
             }
-            pollChart.setAnimated(false);
         }
     }
 }

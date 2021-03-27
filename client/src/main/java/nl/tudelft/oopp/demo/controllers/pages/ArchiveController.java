@@ -1,4 +1,4 @@
-package nl.tudelft.oopp.demo.controllers;
+package nl.tudelft.oopp.demo.controllers.pages;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -20,6 +20,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.Window;
 
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
+import nl.tudelft.oopp.demo.controllers.components.ArchiveFormatComponent;
+import nl.tudelft.oopp.demo.controllers.components.PollFormatComponent;
+import nl.tudelft.oopp.demo.controllers.components.QuestionFormatLecturerComponent;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Poll;
 import nl.tudelft.oopp.demo.entities.Question;
@@ -67,6 +70,34 @@ public class ArchiveController {
     private String archiveView;
 
     /**
+     * Displays all of the rooms closed by the lecturer in the archive.
+     */
+    public void showPins() throws JsonProcessingException {
+        showButtons(false);
+        searchBar.setVisible(true);
+        glass.setVisible(true);
+        emptyArchive.setVisible(false);
+        archiveView = "pins";
+        archiveHeader.setVisible(true);
+        archiveRoomHeader.setVisible(false);
+        this.rooms =  ServerCommunication.getClosedLecturePins();
+
+        stack.getChildren().clear();
+        stack.setSpacing(20);
+
+        if (rooms.isEmpty()) {
+            emptyArchive.setText("No lecture rooms found!");
+            emptyArchive.setVisible(true);
+            searchBar.setDisable(true);
+        } else {
+            searchBar.setDisable(false);
+            for (LectureRoom room : rooms) {
+                addRoom(room);
+            }
+        }
+    }
+
+    /**
      * Method called when a letter is typed in the search bar or the search icon is clicked.
      * Adds all found rooms to the Vbox.
      */
@@ -95,7 +126,7 @@ public class ArchiveController {
      * @param lecturePin - Pin of the lecture that is displayed in archive view
      */
     @FXML
-    public void showArchive(String lecturePin) {
+    public void showArchive(String lecturePin) throws JsonProcessingException {
         showButtons(true);
         this.lecturePin = lecturePin;
         searchBar.setVisible(false);
@@ -115,7 +146,6 @@ public class ArchiveController {
             emptyArchive.setText("Archive is empty!");
         }
 
-        Collections.sort(questions, new QuestionComparator());
         for (Question q : questions) {
             QuestionFormatLecturerComponent questionFormat =
                     new QuestionFormatLecturerComponent(q, user);
@@ -152,7 +182,7 @@ public class ArchiveController {
      * Exports an archived room to a text file.
      */
     @FXML
-    private void writeArchive() {
+    private void writeArchive() throws JsonProcessingException {
         // Create a fileChooser
         FileChooser fileChooser = new FileChooser();
         Window stage = rootPane.getScene().getWindow();
@@ -190,34 +220,6 @@ public class ArchiveController {
         this.user = user;
     }
 
-    /**
-     * Displays all of the rooms closed by the lecturer in the archive.
-     */
-    public void showPins() {
-        showButtons(false);
-        searchBar.setVisible(true);
-        glass.setVisible(true);
-        emptyArchive.setVisible(false);
-        archiveView = "pins";
-        archiveHeader.setVisible(true);
-        archiveRoomHeader.setVisible(false);
-        this.rooms =  ServerCommunication.getClosedLecturePins();
-
-        stack.getChildren().clear();
-        stack.setSpacing(20);
-
-        if (rooms.isEmpty()) {
-            emptyArchive.setText("No lecture rooms found!");
-            emptyArchive.setVisible(true);
-            searchBar.setDisable(true);
-        } else {
-            searchBar.setDisable(false);
-            Collections.sort(rooms, new RoomComparator());
-            for (LectureRoom room : rooms) {
-                addRoom(room);
-            }
-        }
-    }
 
     /**
      * Loads the list with pins if user is currently in archiveView.

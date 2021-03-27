@@ -35,7 +35,7 @@ public class SpeedLogService {
         return "succes";
     }
 
-    public List<SpeedLog> getSpeedVotes() {
-        return speedLogRepository.findAll();
+    public double getSpeedVotes(String lecturePin) {
+        return speedLogRepository.getSpeedAverageByLecturePin(lecturePin);
     }
 }

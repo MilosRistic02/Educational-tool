@@ -36,18 +36,6 @@ public class LectureRoomController {
         return lectureRoomService.addLectureRoom(lectureRoom);
     }
 
-    @DeleteMapping("{lectureHost}")
-    @ResponseBody
-    public boolean deleteLectureRoom(@PathVariable String lectureHost) {
-        return lectureRoomService.deleteLectureRoom(lectureHost);
-    }
-
-    //Made these for development, may get deleted later on if we think we dont need it
-    @DeleteMapping
-    @ResponseBody
-    public boolean deleteAllLectureRooms() {
-        return lectureRoomService.deleteAllLectureRooms();
-    }
 
     @PostMapping("/file/{pin}")
     @ResponseBody
@@ -55,11 +43,6 @@ public class LectureRoomController {
         return lectureRoomService.exportRoom(file, pin);
     }
 
-    @GetMapping
-    @ResponseBody
-    public List<LectureRoom> getAllLectureRooms() {
-        return lectureRoomService.getAllLectureRooms();
-    }
 
     @GetMapping("/{pin}")
     @ResponseBody

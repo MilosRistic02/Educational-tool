@@ -3,6 +3,7 @@ package nl.tudelft.oopp.demo.repositories;
 import java.util.List;
 import nl.tudelft.oopp.demo.entities.Question;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 public interface QuestionRepository extends JpaRepository<Question, Long> {
 
@@ -14,10 +15,10 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 
     Question getByLecturePin(String lecturePin);
 
-    List<Question> getAllByLecturePin(String lecturePin);
+    List<Question> getAllByLecturePinOrderByScoreDescCreationDateDesc(String lecturePin);
 
-    List<Question> getAllByAnsweredAndLecturePin(int answered, String lecturePin);
+    List<Question> getAllByAnsweredAndLecturePinOrderByScoreDescCreationDateDesc(
+            int answered, String lecturePin);
 
     Question findTopByLecturePinAndAuthorOrderByCreationDateDesc(String lecturePin, String author);
-
 }
