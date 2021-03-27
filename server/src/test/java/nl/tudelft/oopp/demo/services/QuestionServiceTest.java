@@ -1,5 +1,11 @@
 package nl.tudelft.oopp.demo.services;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Arrays;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.repositories.QuestionRepository;
 import org.junit.jupiter.api.Test;
@@ -9,10 +15,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import java.util.Arrays;
-import java.util.Queue;
 
-import static org.junit.jupiter.api.Assertions.*;
+
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -50,15 +54,17 @@ class QuestionServiceTest {
         Mockito.when(questionRepository.getByLecturePin("4812421dristic")).thenReturn(question1);
         assertEquals(question1.getAnswered(), 1);
         Mockito.when(questionRepository.save(question1)).thenReturn(question1);
-        assertEquals(questionService.updateQuestionAnsweredStatus(question1)
-                , "The answered status of the question has been updated.");
+        assertEquals(questionService.updateQuestionAnsweredStatus(question1),
+                "The answered status of the question has been updated.");
     }
 
     @Test
     void updateQuestionAnsweredStatusNeg() {
-        Mockito.when(questionRepository.existsByLecturePin("4812421dristic")).thenReturn(false);
-        assertEquals(questionService.updateQuestionAnsweredStatus(question1)
-                , "The question is not in the database.");
+        Mockito.when(questionRepository.existsByLecturePin("4812421dristic"))
+                .thenReturn(false);
+
+        assertEquals(questionService.updateQuestionAnsweredStatus(question1),
+                "The question is not in the database.");
     }
 
     @Test
@@ -70,8 +76,12 @@ class QuestionServiceTest {
 
     @Test
     void getAllQuestions() {
-        Mockito.when(questionRepository.getAllByLecturePinOrderByScoreDescCreationDateDesc("4812421dristic")).thenReturn(Arrays.asList(question1, question2));
-        assertArrayEquals(Arrays.asList(question1, question2).toArray(), questionService.getAllQuestions("4812421dristic").toArray());
+        Mockito.when(questionRepository
+                        .getAllByLecturePinOrderByScoreDescCreationDateDesc("4812421dristic"))
+                .thenReturn(Arrays.asList(question1, question2));
+
+        assertArrayEquals(Arrays.asList(question1, question2).toArray(),
+                questionService.getAllQuestions("4812421dristic").toArray());
     }
 
     @Test

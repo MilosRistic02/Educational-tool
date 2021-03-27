@@ -1,19 +1,18 @@
 package nl.tudelft.oopp.demo.controllers;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Arrays;
 import nl.tudelft.oopp.demo.entities.Question;
-import nl.tudelft.oopp.demo.repositories.QuestionRepository;
 import nl.tudelft.oopp.demo.services.QuestionService;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-
-import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -31,14 +30,19 @@ class QuestionControllerTest {
 
     @Test
     void getAllQuestions() {
-        Mockito.when(questionService.getAllQuestions("4812421dristic")).thenReturn(Arrays.asList(question1, question2));
-        assertArrayEquals(Arrays.asList(question1, question2).toArray(), questionController.getAllQuestions("4812421dristic").toArray());
+        Mockito.when(questionService.getAllQuestions("4812421dristic"))
+                .thenReturn(Arrays.asList(question1, question2));
+
+        assertArrayEquals(Arrays.asList(question1, question2).toArray(),
+                questionController.getAllQuestions("4812421dristic").toArray());
     }
 
     @Test
     void addQuestion() {
-        Mockito.when(questionService.addQuestion(question1)).thenReturn(question1.getQuestion());
-        assertEquals(question1.getQuestion(), questionController.addQuestion(question1));
+        Mockito.when(questionService.addQuestion(question1))
+                .thenReturn(question1.getQuestion());
+        assertEquals(question1.getQuestion(),
+                questionController.addQuestion(question1));
     }
 
     @Test

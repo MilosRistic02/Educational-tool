@@ -30,23 +30,23 @@ class ScoringLogServiceTest {
     ScoringLog scoringLogUpvote = new ScoringLog(question, users, 1);
     ScoringLog scoringLogDownVote = new ScoringLog(question, users, -1);
 
-//    @Test
-//    void vote() {
-//        Mockito
-//                .when(scoringLogRepository
-//                        .existsByQuestionAndUsers(question, users))
-//                .thenReturn(true);
-//        Mockito
-//                .when(scoringLogRepository
-//                        .getByQuestionAndUsers(question, users))
-//                .thenReturn(scoringLogUpvote);
-//        Mockito
-//                .when(scoringLogRepository
-//                        .save(scoringLogDownVote))
-//                .thenReturn(scoringLogDownVote);
-//
-//        assertEquals(scoringLogService.vote(scoringLogDownVote), "Success");
-//    }
+    //    @Test
+    //    void vote() {
+    //        Mockito
+    //                .when(scoringLogRepository
+    //                        .existsByQuestionAndUsers(question, users))
+    //                .thenReturn(true);
+    //        Mockito
+    //                .when(scoringLogRepository
+    //                        .getByQuestionAndUsers(question, users))
+    //                .thenReturn(scoringLogUpvote);
+    //        Mockito
+    //                .when(scoringLogRepository
+    //                        .save(scoringLogDownVote))
+    //                .thenReturn(scoringLogDownVote);
+    //
+    //        assertEquals(scoringLogService.vote(scoringLogDownVote), "Success");
+    //    }
 
     @Test
     void getVotes() {
