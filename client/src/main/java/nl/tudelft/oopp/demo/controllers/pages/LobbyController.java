@@ -227,7 +227,8 @@ public class LobbyController {
 
                 if (startingTime != null && startingTime.compareTo(currentDate) > 0) {
                     Alerts.alertError("Room is not open",
-                            "This lecture room has not yet started. It will open at: " + startingTime);
+                            "This lecture room has not yet started.\n"
+                                    + "It will open at: " + startingTime);
                 } else {
                     if (users.getRole().equals("student")) {
                         Display.showQuestion(users, response);
