@@ -1,5 +1,9 @@
 package nl.tudelft.oopp.demo.services;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.SpeedLog;
 import nl.tudelft.oopp.demo.entities.Users;
@@ -12,10 +16,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
