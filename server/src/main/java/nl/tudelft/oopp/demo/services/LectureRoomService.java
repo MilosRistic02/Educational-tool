@@ -47,15 +47,10 @@ public class LectureRoomService {
             return "Too many rooms created under this host";
         }
 
-        String pin = createPin(lectureRoom.getLecturerID());
-        if (lectureRoomRepository.existsByLecturePin(pin)) {
-            addLectureRoom(lectureRoom);
+        String pin = null;
+        while (pin == null || lectureRoomRepository.existsByLecturePin(pin)) {
+            pin = createPin(lectureRoom.getLecturerID());
         }
-
-        //        String pin = null;
-        //        while (pin == null || !lectureRoomRepository.existsByLecturePin(pin)) {
-        //            pin = createPin(lectureRoom.getLecturerID());
-        //        }
 
         lectureRoom.setLecturePin(pin);
         lectureRoomRepository.save(lectureRoom);
