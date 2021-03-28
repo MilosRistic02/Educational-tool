@@ -52,6 +52,11 @@ public class LectureRoomService {
             addLectureRoom(lectureRoom);
         }
 
+        //        String pin = null;
+        //        while (pin == null || !lectureRoomRepository.existsByLecturePin(pin)) {
+        //            pin = createPin(lectureRoom.getLecturerID());
+        //        }
+
         lectureRoom.setLecturePin(pin);
         lectureRoomRepository.save(lectureRoom);
         return pin;
