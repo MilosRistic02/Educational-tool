@@ -25,14 +25,14 @@ public class ScoringLogService {
     /** method to store/update vote of user for a certain question.
      *
      * @param scoringLog    the scoringlog to save
-     * @return              returns succes
+     * @return              returns success
      */
     public String vote(ScoringLog scoringLog) {
         ScoringLog newScoringLog = null;
         Question question = null;
 
         if (!questionRepository.existsById(scoringLog.getQuestion().getId())) {
-            return "This question does not exists!";
+            return "This question does not exist!";
         }
 
         if (scoringLogRepository
