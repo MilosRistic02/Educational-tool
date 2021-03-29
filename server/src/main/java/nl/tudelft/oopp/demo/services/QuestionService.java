@@ -54,7 +54,7 @@ public class QuestionService {
         old.setAnswered(question.getAnswered());
         old.setAnswer(question.getAnswer());
         questionRepository.save(old);
-        return "Updated score of Question";
+        return "Updated answer of Question";
     }
 
     /**
@@ -73,7 +73,7 @@ public class QuestionService {
 
         old.setQuestion(question.getQuestion());
         questionRepository.save(old);
-        return "Updated score of Question";
+        return "Updated content of Question";
     }
 
 

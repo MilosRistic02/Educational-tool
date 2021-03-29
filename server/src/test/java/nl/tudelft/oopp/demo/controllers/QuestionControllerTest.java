@@ -27,7 +27,7 @@ class QuestionControllerTest {
     private QuestionService questionService;
 
     private Question question1 = new Question("question", "4812421dristic", "me");
-    private Question question2 = new Question("question2", "1889221jsloof", "myself");
+    private Question question2 = new Question("question2", "4812421dristic", "myself");
 
 
     @Test
@@ -37,6 +37,24 @@ class QuestionControllerTest {
 
         assertArrayEquals(Arrays.asList(question1, question2).toArray(),
                 questionController.getAllQuestions("4812421dristic").toArray());
+    }
+
+    @Test
+    void getAllAnsweredQuestions() {
+        Mockito.when(questionService.getAllAnsweredQuestions("4812421dristic"))
+                .thenReturn(Arrays.asList(question1, question2));
+
+        assertArrayEquals(Arrays.asList(question1, question2).toArray(),
+                questionController.getAllAnsweredQuestions("4812421dristic").toArray());
+    }
+
+    @Test
+    void getAllNonAnsweredQuestions() {
+        Mockito.when(questionService.getAllNonAnsweredQuestions("4812421dristic"))
+                .thenReturn(Arrays.asList(question1, question2));
+
+        assertArrayEquals(Arrays.asList(question1, question2).toArray(),
+                questionController.getAllNonAnsweredQuestions("4812421dristic").toArray());
     }
 
     @Test
@@ -51,5 +69,19 @@ class QuestionControllerTest {
     void deleteQuestion() {
         Mockito.when(questionService.deleteQuestion(61)).thenReturn(true);
         assertTrue(questionController.deleteQuestion(61));
+    }
+
+    @Test
+    void updateAnswerQuestion() {
+        Mockito.when(questionService.updateAnswerQuestion(question1))
+                .thenReturn("Success");
+        assertEquals("Success", questionController.updateAnswerQuestion(question1));
+    }
+
+    @Test
+    void updateContentQuestion() {
+        Mockito.when(questionService.updateContentQuestion(question1))
+                .thenReturn("Success");
+        assertEquals("Success", questionController.updateContentQuestion(question1));
     }
 }

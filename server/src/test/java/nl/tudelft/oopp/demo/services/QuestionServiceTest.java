@@ -57,6 +57,43 @@ class QuestionServiceTest {
     }
 
     @Test
+    void updateAnswerQuestion() {
+        Mockito.when(questionRepository.existsByIdAndAndLecturePin(
+                question1.getId(), question1.getLecturePin())).thenReturn(true);
+        Mockito.when(questionRepository.getByIdAndLecturePin(
+                question1.getId(), question1.getLecturePin())).thenReturn(question1);
+        Mockito.when(questionRepository.save(question1)).thenReturn(question1);
+        assertEquals("Updated answer of Question", questionService.updateAnswerQuestion(question1));
+    }
+
+    @Test
+    void updateAnswerQuestionNeg() {
+        Mockito.when(questionRepository.existsByIdAndAndLecturePin(
+                question1.getId(), question1.getLecturePin())).thenReturn(false);
+        assertEquals("Question does not yet exists",
+                questionService.updateAnswerQuestion(question1));
+    }
+
+    @Test
+    void updateContentQuestion() {
+        Mockito.when(questionRepository.existsByIdAndAndLecturePin(
+                question1.getId(), question1.getLecturePin())).thenReturn(true);
+        Mockito.when(questionRepository.getByIdAndLecturePin(
+                question1.getId(), question1.getLecturePin())).thenReturn(question1);
+        Mockito.when(questionRepository.save(question1)).thenReturn(question1);
+        assertEquals("Updated content of Question",
+                questionService.updateContentQuestion(question1));
+    }
+
+    @Test
+    void updateContentQuestionNeg() {
+        Mockito.when(questionRepository.existsByIdAndAndLecturePin(
+                question1.getId(), question1.getLecturePin())).thenReturn(false);
+        assertEquals("Question does not yet exists",
+                questionService.updateContentQuestion(question1));
+    }
+
+    @Test
     void updateQuestionAnsweredStatus() {
         question1.setAnswered(1);
         Mockito.when(questionRepository.existsByLecturePin("4812421dristic")).thenReturn(true);
