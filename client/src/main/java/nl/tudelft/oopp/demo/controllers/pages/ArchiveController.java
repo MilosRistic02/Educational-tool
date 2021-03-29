@@ -7,7 +7,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,6 +22,7 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 
+import nl.tudelft.oopp.demo.alerts.Alerts;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.controllers.components.ArchiveFormatComponent;
 import nl.tudelft.oopp.demo.controllers.components.PollFormatComponent;
@@ -62,6 +66,7 @@ public class ArchiveController {
     private Users user;
     private List<LectureRoom> rooms;
     private String lecturePin;
+    private Timer timer;
 
     /**
      * String that displays in which view the user is in the archive.
@@ -73,6 +78,8 @@ public class ArchiveController {
      * Displays all of the rooms closed by the lecturer in the archive.
      */
     public void showPins() throws JsonProcessingException {
+        timer = null;
+
         showButtons(false);
         searchBar.setVisible(true);
         glass.setVisible(true);
@@ -126,7 +133,7 @@ public class ArchiveController {
      * @param lecturePin - Pin of the lecture that is displayed in archive view
      */
     @FXML
-    public void showArchive(String lecturePin) throws JsonProcessingException {
+    public void showArchive(String lecturePin) {
         showButtons(true);
         this.lecturePin = lecturePin;
         searchBar.setVisible(false);
@@ -136,6 +143,30 @@ public class ArchiveController {
         archiveRoomHeader.setVisible(true);
         archiveView = "questions";
         archiveRoomHeader.setText("Archive of room " + lecturePin);
+
+        // Update the questions in case a user edits a question/answer
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    try {
+                        showQuestions(lecturePin);
+                    } catch (JsonProcessingException e) {
+                        emptyArchive.setVisible(true);
+                        emptyArchive.setText("Something went wrong..");
+                    }
+                });
+            }
+        }, 0, 3000);
+    }
+
+    /**
+     * Shows all of the questions in a lectureRoom.
+     * @throws JsonProcessingException when the lectureRoom is not found.
+     */
+    @FXML
+    private void showQuestions(String lecturePin) throws JsonProcessingException {
         stack.getChildren().clear();
         stack.setSpacing(20);
 
@@ -156,6 +187,7 @@ public class ArchiveController {
 
     @FXML
     private void showPolls() throws JsonProcessingException {
+        timer.cancel();
         showButtons(false);
         searchBar.setVisible(false);
         glass.setVisible(false);

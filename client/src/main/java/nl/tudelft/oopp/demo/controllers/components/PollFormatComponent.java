@@ -6,13 +6,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.entities.Poll;
 
 public class PollFormatComponent extends Pane {
     @FXML
-    public Text question;
+    public Label question;
 
     @FXML
     public Text creationDate;

@@ -13,7 +13,7 @@
       <font>
          <Font size="14.0" />
       </font></Text>
-    <Text fx:id="creationDate" layoutX="625.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Creation Date" textAlignment="RIGHT" wrappingWidth="114.029296875">
+    <Text fx:id="creationDate" layoutX="619.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Creation Date" textAlignment="RIGHT" wrappingWidth="121.029296875">
       <font>
          <Font size="14.0" />
       </font></Text>
