@@ -266,10 +266,10 @@ public class QuestionLecturerController {
 
         if (!room.isOpen()) {
             closed = true;
-            if (this.users.getRole().equals("lecturer")) {
-                Display.showLecturer(users);
-            } else {
+            if (this.users.getRole().equals("student")) {
                 Display.showStudent(users);
+            } else {
+                Display.showLecturer(users);
             }
         }
         return closed;
