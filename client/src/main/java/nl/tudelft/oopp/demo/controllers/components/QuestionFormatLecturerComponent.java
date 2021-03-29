@@ -57,6 +57,8 @@ public class QuestionFormatLecturerComponent extends VBox {
     @FXML
     public Button verbal;
 
+    @FXML
+    public Button banButton;
 
     private Question currentQuestion;
     private Users loggedUser;
@@ -111,6 +113,7 @@ public class QuestionFormatLecturerComponent extends VBox {
                 currentQuestion.setAnswer(result.get());
                 currentQuestion.setAnswered(1);
                 ServerCommunication.updateAnswerQuestion(currentQuestion);
+                answer.setText(result.get());
             }
         }
     }

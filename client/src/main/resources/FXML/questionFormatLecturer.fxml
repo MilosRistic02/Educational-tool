@@ -57,7 +57,7 @@
                 </ImageView>
             </graphic></Button>
          <Button fx:id="verbal" layoutX="99.0" layoutY="8.0" mnemonicParsing="false" onAction="#answeredVerbal" style="-fx-background-color: #00A6D6;" text="Answer verbally" textFill="WHITE" />
-         <Button layoutX="282.0" layoutY="10.0" mnemonicParsing="false" onAction="#banUser" style="-fx-background-color: #c3312f;" text="Ban user" textFill="WHITE" />
+         <Button fx:id="banButton" layoutX="282.0" layoutY="10.0" mnemonicParsing="false" onAction="#banUser" style="-fx-background-color: #c3312f;" text="Ban user" textFill="WHITE" />
          <Text fx:id="isAnswered" fill="#00a6d6" layoutX="324.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Not Answered" textAlignment="CENTER" wrappingWidth="179.0292968750001">
             <font>
                <Font name="System Bold" size="14.0" />

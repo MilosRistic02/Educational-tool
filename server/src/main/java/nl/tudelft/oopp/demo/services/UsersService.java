@@ -60,7 +60,6 @@ public class UsersService {
         Users user = usersRepo.getByUsernameAndPassword(username, password);
 
         if (!user.isBanned()) {
-            System.out.println(new ObjectMapper().writeValueAsString(user));
             return new ObjectMapper().writeValueAsString(user);
         } else {
             return "This user is banned!";

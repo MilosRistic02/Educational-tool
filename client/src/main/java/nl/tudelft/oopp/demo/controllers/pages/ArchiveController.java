@@ -22,7 +22,6 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 
-import nl.tudelft.oopp.demo.alerts.Alerts;
 import nl.tudelft.oopp.demo.communication.ServerCommunication;
 import nl.tudelft.oopp.demo.controllers.components.ArchiveFormatComponent;
 import nl.tudelft.oopp.demo.controllers.components.PollFormatComponent;
@@ -66,7 +65,6 @@ public class ArchiveController {
     private Users user;
     private List<LectureRoom> rooms;
     private String lecturePin;
-    private Timer timer;
 
     /**
      * String that displays in which view the user is in the archive.
@@ -78,8 +76,6 @@ public class ArchiveController {
      * Displays all of the rooms closed by the lecturer in the archive.
      */
     public void showPins() throws JsonProcessingException {
-        timer = null;
-
         showButtons(false);
         searchBar.setVisible(true);
         glass.setVisible(true);
@@ -144,21 +140,12 @@ public class ArchiveController {
         archiveView = "questions";
         archiveRoomHeader.setText("Archive of room " + lecturePin);
 
-        // Update the questions in case a user edits a question/answer
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(() -> {
-                    try {
-                        showQuestions(lecturePin);
-                    } catch (JsonProcessingException e) {
-                        emptyArchive.setVisible(true);
-                        emptyArchive.setText("Something went wrong..");
-                    }
-                });
-            }
-        }, 0, 3000);
+        try {
+            showQuestions(lecturePin);
+        } catch (JsonProcessingException e) {
+            emptyArchive.setVisible(true);
+            emptyArchive.setText("Something went wrong..");
+        }
     }
 
     /**
@@ -180,14 +167,14 @@ public class ArchiveController {
         for (Question q : questions) {
             QuestionFormatLecturerComponent questionFormat =
                     new QuestionFormatLecturerComponent(q, user);
-
+            questionFormat.verbal.setVisible(false);
+            questionFormat.banButton.setVisible(false);
             stack.getChildren().add(questionFormat);
         }
     }
 
     @FXML
     private void showPolls() throws JsonProcessingException {
-        timer.cancel();
         showButtons(false);
         searchBar.setVisible(false);
         glass.setVisible(false);
@@ -266,7 +253,6 @@ public class ArchiveController {
         } else {
             Display.showLecturer(this.user);
         }
-
     }
 
     @FXML

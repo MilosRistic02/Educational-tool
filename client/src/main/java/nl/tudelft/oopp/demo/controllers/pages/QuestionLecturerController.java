@@ -306,6 +306,11 @@ public class QuestionLecturerController {
     public void createPoll() throws JsonProcessingException {
 
         String pollQuestion = pollField.getText();
+        if (pollQuestion.length() > 254) {
+            Alerts.alertError("Poll error",
+                    "Please write a question that is smaller than 255 tokens!");
+            return;
+        }
         Object sizeInput = numOptions.getValue();
         if (!(sizeInput instanceof Integer)) {
             Alerts.alertError("Poll error", "Please pick a size");

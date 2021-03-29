@@ -77,7 +77,6 @@ class LectureRoomServiceTest {
         for (int i = 0; i < 50001; i++) {
             list.add(lectureRoom);
         }
-        System.out.println(list.size());
         Mockito.when(lectureRoomRepository.getAllByLecturerID(lectureRoom.getLecturerID()))
                 .thenReturn(list);
         assertEquals("Too many rooms created under this host",

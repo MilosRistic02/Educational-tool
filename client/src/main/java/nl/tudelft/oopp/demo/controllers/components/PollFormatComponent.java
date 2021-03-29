@@ -8,6 +8,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import nl.tudelft.oopp.demo.entities.Poll;
 
@@ -37,7 +38,13 @@ public class PollFormatComponent extends Pane {
             System.out.println(exception);
         }
         creationDate.setText(String.valueOf(poll.getCreationDate()));
+
+        if (poll.getQuestion().length() > 150) {
+            Font font = question.getFont();
+            question.setFont(Font.font(font.getSize() - 3));
+        }
         question.setText(poll.getQuestion());
+
         BarChart pollChart = this.pollChart;
         int size = poll.getSize();
         int[] results = poll.getVotes();
