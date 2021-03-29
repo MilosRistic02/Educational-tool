@@ -39,6 +39,7 @@ public class UsersController {
     @PostMapping("login")
     @ResponseBody
     public String authenticateLogin(@RequestBody String json) throws Exception {
+        System.out.println(json);
         Map<String, String> info = new ObjectMapper().readValue(json, HashMap.class);
         return usersService.authenticateLogin(info.get("username"), info.get("password"));
     }
