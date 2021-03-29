@@ -142,7 +142,7 @@ public class QuestionController {
 
     @FXML
     private void displayAllQuestion() throws JsonProcessingException {
-        List<Question> qs = null;
+        List<Question> qs;
         if (changeList.isSelected()) {
             qs = ServerCommunication.getAllAnsweredQuestions(lectureRoom.getLecturePin());
             changeList.setText("questions");

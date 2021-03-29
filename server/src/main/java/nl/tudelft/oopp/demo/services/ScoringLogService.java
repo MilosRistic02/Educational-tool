@@ -30,6 +30,11 @@ public class ScoringLogService {
     public String vote(ScoringLog scoringLog) {
         ScoringLog newScoringLog = null;
         Question question = null;
+
+        if (!questionRepository.existsById(scoringLog.getQuestion().getId())) {
+            return "This question does not exists!";
+        }
+
         if (scoringLogRepository
                 .existsByQuestionAndUsers(scoringLog.getQuestion(), scoringLog.getUsers())) {
             question = questionRepository.getByIdAndLecturePin(scoringLog.getQuestion().getId(),
@@ -42,6 +47,7 @@ public class ScoringLogService {
                     + scoringLog.getScore());
             newScoringLog.setScore(scoringLog.getScore());
 
+
         } else {
             question = questionRepository.getByIdAndLecturePin(scoringLog.getQuestion().getId(),
                     scoringLog.getQuestion().getLecturePin());
@@ -51,9 +57,16 @@ public class ScoringLogService {
             question.setScore(question.getScore() + scoringLog.getScore());
         }
 
-        questionRepository.save(question);
-        scoringLogRepository.save(newScoringLog);
-        return "Success";
+        if (question.getScore() <= -5) {
+            questionRepository.delete(question);
+            scoringLogRepository.deleteByQuestion(question);
+            return "Question is deleted";
+        } else {
+            questionRepository.save(question);
+            scoringLogRepository.save(newScoringLog);
+            return "Success";
+
+        }
     }
 
     public List<ScoringLog> getVotes(Users users) {
