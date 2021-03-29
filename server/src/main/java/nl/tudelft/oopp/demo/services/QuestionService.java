@@ -154,7 +154,7 @@ public class QuestionService {
         Long difference = (System.currentTimeMillis()
                 - lastQuestion.getCreationDate().getTime()) / 1000;
         LectureRoom room = lectureRoomRepository
-                .getLectureRoomByLecturePin(question.getLecturePin());
+                .getByLecturePin(question.getLecturePin());
 
         if (room.getQuestionFrequency() <= difference) {
             questionRepository.save(question);

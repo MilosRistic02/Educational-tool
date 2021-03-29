@@ -64,37 +64,32 @@ public class LectureRoomService {
      * @param lecturePin - The pin of the archived lectureRoom.
      * @return the file with all of the questions and corresponding answers.
      */
-    public File exportRoom(File file, String lecturePin) {
+    public File exportRoom(File file, String lecturePin) throws IOException {
         List<Question> questions = questionRepository
                 .getAllByLecturePinOrderByScoreDescCreationDateDesc(lecturePin);
         LectureRoom room = lectureRoomRepository.getByLecturePin(lecturePin);
 
-        try {
-            FileWriter fileWriter = new FileWriter(file);
-            String output = "";
+        FileWriter fileWriter = new FileWriter(file);
+        String output = "";
 
-            if (questions.isEmpty()) {
-                output = "This archive did not contain questions, therefore this file is empty.";
-            } else {
-                output += room.getLectureName()
-                        + " ("
-                        + room.getCreationDate().toString().substring(0, 10)
-                        + ")\n\n";
-                for (Question question : questions) {
-                    output += "Q: " + question.getQuestion() + "\n";
+        if (questions.isEmpty()) {
+            output = "This archive did not contain questions, therefore this file is empty.";
+        } else {
+            output += room.getLectureName()
+                    + " ("
+                    + room.getCreationDate().toString().substring(0, 10)
+                    + ")\n\n";
+            for (Question question : questions) {
+                output += "Q: " + question.getQuestion() + "\n";
 
-                    String answer = (question.getAnswer() == null) ? "[Insert answer here]"
-                                    : question.getAnswer();
-                    output += "A: " + answer + "\n\n";
-                }
+                String answer = (question.getAnswer() == null) ? "[Insert answer here]"
+                                : question.getAnswer();
+                output += "A: " + answer + "\n\n";
             }
-
-            fileWriter.write(output);
-            fileWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
         }
+
+        fileWriter.write(output);
+        fileWriter.close();
 
         return file;
     }
@@ -105,7 +100,7 @@ public class LectureRoomService {
      * @return A LectureRoom that is associated with the pin
      */
     public LectureRoom getLectureRoom(String pin) {
-        return lectureRoomRepository.getLectureRoomByLecturePin(pin);
+        return lectureRoomRepository.getByLecturePin(pin);
     }
 
     /**
@@ -140,10 +135,9 @@ public class LectureRoomService {
      */
     public String updateFrequency(LectureRoom lectureRoom) {
         LectureRoom oldLectureRoom = lectureRoomRepository
-                .getLectureRoomByLecturePin(lectureRoom.getLecturePin());
+                .getByLecturePin(lectureRoom.getLecturePin());
         oldLectureRoom.setQuestionFrequency(lectureRoom.getQuestionFrequency());
         lectureRoomRepository.save(oldLectureRoom);
         return "success";
     }
-
 }
