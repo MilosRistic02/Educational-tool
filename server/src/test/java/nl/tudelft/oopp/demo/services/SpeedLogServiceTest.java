@@ -62,7 +62,7 @@ class SpeedLogServiceTest {
         Mockito.when(speedLogRepository.save(newSpeedLog))
                 .thenReturn(newSpeedLog);
 
-        String response = speedLogService.saveSpeedLog(newSpeedLog);
+        String response = speedLogService.saveSpeedLog(newSpeedLog, "me");
         assertEquals(60, speedLog.getSpeed());
         assertEquals("succes", response);
     }
@@ -86,7 +86,7 @@ class SpeedLogServiceTest {
         Mockito.when(speedLogRepository.save(newSpeedLog))
                 .thenReturn(newSpeedLog);
 
-        String response = speedLogService.saveSpeedLog(newSpeedLog);
+        String response = speedLogService.saveSpeedLog(newSpeedLog, "me");
         assertEquals("succes", response);
     }
 

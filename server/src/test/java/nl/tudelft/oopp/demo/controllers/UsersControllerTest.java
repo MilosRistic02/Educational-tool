@@ -88,7 +88,7 @@ class UsersControllerTest {
         Mockito.when(usersRepository.getByUsername(username)).thenReturn(testStudent);
         Mockito.when(usersRepository.save(testStudent)).thenReturn(testStudent);
 
-        assertEquals(usersController.banUser(username), "User banned successfully");
+        assertEquals(usersController.banUser(username, "me"), "User banned successfully");
     }
 
     @Test
@@ -97,7 +97,7 @@ class UsersControllerTest {
         Mockito.when(usersRepository.getByUsername(usernameBanned)).thenReturn(testStudentBanned);
         Mockito.when(usersRepository.save(testStudentBanned)).thenReturn(testStudentBanned);
 
-        assertEquals(usersController.unbanUser(usernameBanned), "User unbanned successfully");
+        assertEquals(usersController.unbanUser(usernameBanned,"me"), "User unbanned successfully");
     }
 
     @Test

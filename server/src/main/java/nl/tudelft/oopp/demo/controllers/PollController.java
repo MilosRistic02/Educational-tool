@@ -37,21 +37,21 @@ public class PollController {
         return pollService.getAllPollsByLecturePin(pin);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/create/{username}")
     @ResponseBody
-    public Poll createPoll(@RequestBody Poll poll) {
-        return pollService.savePoll(poll);
+    public Poll createPoll(@RequestBody Poll poll, @PathVariable String username) {
+        return pollService.savePoll(poll, username);
     }
 
-    @PutMapping("/vote/{id}")
+    @PutMapping("/vote/{id}/{username}")
     @ResponseBody
-    public String voteOnPoll(@RequestBody Character c, @PathVariable long id) {
-        return pollService.voteOnPoll(c, id);
+    public String voteOnPoll(@RequestBody Character c, @PathVariable long id, @PathVariable String username) {
+        return pollService.voteOnPoll(c, id, username);
     }
 
-    @PutMapping("/close")
+    @PutMapping("/close/{username}")
     @ResponseBody
-    public Poll closePoll(@RequestBody Poll poll) {
-        return pollService.savePoll(poll);
+    public Poll closePoll(@RequestBody Poll poll, @PathVariable String username) {
+        return pollService.savePoll(poll, username);
     }
 }

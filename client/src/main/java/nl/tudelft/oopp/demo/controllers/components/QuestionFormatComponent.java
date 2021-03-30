@@ -92,7 +92,7 @@ public class QuestionFormatComponent extends VBox {
         } else {
             scoringLog = new ScoringLog(currentQuestion, loggedUser, 0);
         }
-        ServerCommunication.voteQuestion(scoringLog);
+        ServerCommunication.voteQuestion(scoringLog, loggedUser.getUsername());
     }
 
     /** The action if the downvote button is toggled.
@@ -106,12 +106,13 @@ public class QuestionFormatComponent extends VBox {
         } else {
             scoringLog = new ScoringLog(currentQuestion, loggedUser, 0);
         }
-        ServerCommunication.voteQuestion(scoringLog);
+        ServerCommunication.voteQuestion(scoringLog, loggedUser.getUsername());
     }
 
     @FXML
     public void delete() {
-        ServerCommunication.deleteQuestion(Integer.toString((int) currentQuestion.getId()));
+        ServerCommunication.deleteQuestion(Integer.toString((int) currentQuestion.getId())
+                , loggedUser.getUsername());
     }
 
     /**

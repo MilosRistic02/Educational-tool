@@ -68,7 +68,7 @@ class LectureRoomServiceTest {
         Mockito.when(lectureRoomRepository.save(lectureRoom))
                 .thenReturn(lectureRoom);
         assertNotEquals("Too many rooms created under this host",
-                lectureRoomService.addLectureRoom(lectureRoom));
+                lectureRoomService.addLectureRoom(lectureRoom, "me"));
     }
 
     @Test
@@ -80,7 +80,7 @@ class LectureRoomServiceTest {
         Mockito.when(lectureRoomRepository.getAllByLecturerID(lectureRoom.getLecturerID()))
                 .thenReturn(list);
         assertEquals("Too many rooms created under this host",
-                lectureRoomService.addLectureRoom(lectureRoom));
+                lectureRoomService.addLectureRoom(lectureRoom, "me"));
     }
 
     @Test
@@ -164,7 +164,7 @@ class LectureRoomServiceTest {
         Mockito.when(lectureRoomRepository.save(lectureRoom))
                 .thenReturn(lectureRoom);
 
-        assertEquals("Updated room", lectureRoomService.putLectureRoom(lectureRoom));
+        assertEquals("Updated room", lectureRoomService.putLectureRoom(lectureRoom, "me"));
     }
 
     @Test
@@ -174,7 +174,7 @@ class LectureRoomServiceTest {
                 .thenReturn(false);
 
         assertEquals("Room does not yet exist",
-                    lectureRoomService.putLectureRoom(lectureRoom));
+                    lectureRoomService.putLectureRoom(lectureRoom, "me"));
     }
 
     @Test
@@ -206,7 +206,7 @@ class LectureRoomServiceTest {
                 .thenReturn(oldLectureRoom);
         Mockito.when(lectureRoomRepository.save(oldLectureRoom)).thenReturn(oldLectureRoom);
         lectureRoom.setQuestionFrequency(5);
-        assertEquals("success", lectureRoomService.updateFrequency(lectureRoom));
+        assertEquals("success", lectureRoomService.updateFrequency(lectureRoom, "me"));
         assertEquals(5, oldLectureRoom.getQuestionFrequency());
     }
 }

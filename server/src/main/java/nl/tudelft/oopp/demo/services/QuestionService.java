@@ -5,6 +5,7 @@ import java.util.List;
 
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Question;
+import nl.tudelft.oopp.demo.logger.FileLogger;
 import nl.tudelft.oopp.demo.repositories.LectureRoomRepository;
 import nl.tudelft.oopp.demo.repositories.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,13 +45,15 @@ public class QuestionService {
      * @param question - question with the updated answer and answered status.
      * @return - String informing about the result of the operation.
      */
-    public String updateAnswerQuestion(Question question) {
+    public String updateAnswerQuestion(Question question, String username) {
         if (!questionRepository.existsByIdAndAndLecturePin(
                 question.getId(), question.getLecturePin())) {
             return "Question does not yet exists";
         }
         Question old = questionRepository.getByIdAndLecturePin(
                 question.getId(), question.getLecturePin());
+        FileLogger.addMessage(username + "updated answer of question "
+                + question.getId() + " from " + old.getAnswered() + " to " + question.getAnswered());
         old.setAnswered(question.getAnswered());
         old.setAnswer(question.getAnswer());
         questionRepository.save(old);
@@ -63,14 +66,15 @@ public class QuestionService {
      * @param question - question with the updated content.
      * @return String informing about the result of the operation.
      */
-    public String updateContentQuestion(Question question) {
+    public String updateContentQuestion(Question question, String username) {
         if (!questionRepository.existsByIdAndAndLecturePin(
                 question.getId(), question.getLecturePin())) {
             return "Question does not yet exists";
         }
         Question old = questionRepository.getByIdAndLecturePin(
                 question.getId(), question.getLecturePin());
-
+        FileLogger.addMessage(username + "updated content of question "
+                + question.getId() + " from " + old.getQuestion() + " to " + question.getQuestion());
         old.setQuestion(question.getQuestion());
         questionRepository.save(old);
         return "Updated content of Question";
@@ -140,13 +144,14 @@ public class QuestionService {
      *
      * @param question question to add to the database.
      */
-    public String addQuestion(Question question) {
+    public String addQuestion(Question question, String username) {
         Question lastQuestion = questionRepository
                 .findTopByLecturePinAndAuthorOrderByCreationDateDesc(
                         question.getLecturePin(), question.getAuthor());
 
         if (lastQuestion == null) {
             questionRepository.save(question);
+            FileLogger.addMessage(username + " saved question with id " + question.getId());
             return "Success";
         }
 
@@ -158,8 +163,10 @@ public class QuestionService {
 
         if (room.getQuestionFrequency() <= difference) {
             questionRepository.save(question);
+            FileLogger.addMessage(username + " saved question with id" + question.getId());
             return "Success";
         } else {
+            FileLogger.addMessage(username + " tried to save a question but needs to wait " + difference + " seconds longer");
             return "Need to wait " + room.getQuestionFrequency() + " seconds per question";
         }
 
@@ -171,12 +178,13 @@ public class QuestionService {
      * @param id the id that uniquely identifies each question.
      * @return boolean that is true iff a question was deleted.
      */
-    public boolean deleteQuestion(long id) {
+    public boolean deleteQuestion(long id, String username) {
         if (!questionRepository.existsById(id)) {
             return false;
         }
 
         questionRepository.deleteById(id);
+        FileLogger.addMessage(username + " deleted question with id " + id);
         return true;
     }
 }

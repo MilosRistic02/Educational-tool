@@ -43,9 +43,9 @@ public class LectureRoomService {
      * @param lectureRoom LectureRoom we want to add.
      * @return String containing the pin that can be used to join this LectureRoom.
      */
-    public String addLectureRoom(LectureRoom lectureRoom) {
+    public String addLectureRoom(LectureRoom lectureRoom, String username) {
         if (lectureRoomRepository.getAllByLecturerID(lectureRoom.getLecturerID()).size() > 50000) {
-            FileLogger.addMessage(lectureRoom.getLecturerID() + " attempted to create a lecture room but already has more then 50000 rooms.");
+            FileLogger.addMessage(username + " attempted to create a lecture room but already has more then 50000 rooms.");
             return "Too many rooms created under this host";
         }
 
@@ -56,7 +56,7 @@ public class LectureRoomService {
 
         lectureRoom.setLecturePin(pin);
         lectureRoomRepository.save(lectureRoom);
-        FileLogger.addMessage(lectureRoom.getLecturerID() + " created lecture room " + lectureRoom.getLectureName() + "with pin " + lectureRoom.getLecturePin());
+        FileLogger.addMessage(username + " created lecture room " + lectureRoom.getLectureName() + "with pin " + lectureRoom.getLecturePin());
         return pin;
     }
 
@@ -111,14 +111,14 @@ public class LectureRoomService {
      * @param lectureRoom the lecture room to change to
      * @return whether the room is updated or didn't exist
      */
-    public String putLectureRoom(LectureRoom lectureRoom) {
+    public String putLectureRoom(LectureRoom lectureRoom, String username) {
         if (!lectureRoomRepository.existsByLecturePin(
                 lectureRoom.getLecturePin())) {
             return "Room does not yet exist";
         }
         LectureRoom prev = lectureRoomRepository.getByLecturePin(
                 lectureRoom.getLecturePin());
-        FileLogger.addMessage(lectureRoom.getLecturerID() + " changed status of "
+        FileLogger.addMessage(username + " changed status of "
                 + lectureRoom.getLecturePin() + " from " + prev.isOpen()
                 + " to " + lectureRoom.isOpen());
         prev.setOpen(lectureRoom.isOpen());
@@ -139,10 +139,10 @@ public class LectureRoomService {
      * @param lectureRoom   The lecture room to update
      * @return  Returns success
      */
-    public String updateFrequency(LectureRoom lectureRoom) {
+    public String updateFrequency(LectureRoom lectureRoom, String username) {
         LectureRoom oldLectureRoom = lectureRoomRepository
                 .getByLecturePin(lectureRoom.getLecturePin());
-        FileLogger.addMessage("Admin changed status of "
+        FileLogger.addMessage(username + " changed status of "
                 + lectureRoom.getLecturePin() + " from " + oldLectureRoom.getQuestionFrequency()
                 + " to " + lectureRoom.getQuestionFrequency());
         oldLectureRoom.setQuestionFrequency(lectureRoom.getQuestionFrequency());

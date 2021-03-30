@@ -23,16 +23,16 @@ public class QuestionController {
     private transient QuestionService questionService;
 
 
-    @PutMapping("/update-answer")
+    @PutMapping("/update-answer/{username}")
     @ResponseBody
-    public String updateAnswerQuestion(@RequestBody Question question) {
-        return questionService.updateAnswerQuestion(question);
+    public String updateAnswerQuestion(@RequestBody Question question, @PathVariable String username) {
+        return questionService.updateAnswerQuestion(question, username);
     }
 
-    @PutMapping("update-content")
+    @PutMapping("update-content/{username}")
     @ResponseBody
-    public String updateContentQuestion(@RequestBody Question question) {
-        return questionService.updateContentQuestion(question);
+    public String updateContentQuestion(@RequestBody Question question, @PathVariable String username) {
+        return questionService.updateContentQuestion(question, username);
     }
 
 
@@ -59,10 +59,10 @@ public class QuestionController {
      * @param question the question to save
      * @return the question String
      */
-    @PostMapping("/save-question")
+    @PostMapping("/save-question/{username}")
     @ResponseBody
-    public String addQuestion(@RequestBody Question question) {
-        return questionService.addQuestion(question);
+    public String addQuestion(@RequestBody Question question, @PathVariable String username) {
+        return questionService.addQuestion(question, username);
     }
 
     /**
@@ -70,10 +70,10 @@ public class QuestionController {
      * @param id the id of the question to delete
      * @return true if the question was deleted successfully, false otherwise
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/{username}")
     @ResponseBody
-    public boolean deleteQuestion(@PathVariable long id) {
-        return questionService.deleteQuestion(id);
+    public boolean deleteQuestion(@PathVariable long id, @PathVariable String username) {
+        return questionService.deleteQuestion(id, username);
     }
 
 }

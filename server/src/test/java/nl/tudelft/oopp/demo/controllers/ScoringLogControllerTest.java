@@ -28,9 +28,9 @@ class ScoringLogControllerTest {
     @Test
     void vote() {
         ScoringLog scoringLog = new ScoringLog();
-        Mockito.when(scoringLogService.vote(scoringLog))
+        Mockito.when(scoringLogService.vote(scoringLog, "me"))
                 .thenReturn("success");
-        assertEquals("success", scoringLogController.vote(scoringLog));
+        assertEquals("success", scoringLogController.vote(scoringLog, "me"));
     }
 
     @Test

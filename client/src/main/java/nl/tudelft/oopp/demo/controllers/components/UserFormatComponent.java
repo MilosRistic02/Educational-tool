@@ -20,12 +20,14 @@ public class UserFormatComponent  extends VBox {
 
     Users user;
 
+    Users loggedUser;
+
     /** constructor for UserFormatComponent Format component.
      *  This method loads an instance of question format and sets the controller to be this file.
      *
      */
 
-    public UserFormatComponent(Users user) {
+    public UserFormatComponent(Users user, Users loggedUser) {
         try {
             FXMLLoader fxmlLoader =
                     new FXMLLoader(getClass().getResource("/FXML/userFormat.fxml"));
@@ -38,6 +40,7 @@ public class UserFormatComponent  extends VBox {
         }
 
         this.user = user;
+        this.loggedUser = loggedUser;
         username.setText(user.getUsername());
         banButton.setText(user.isBanned() ? "Unban" : "Ban");
     }
@@ -48,11 +51,11 @@ public class UserFormatComponent  extends VBox {
     @FXML
     public void ban() {
         if (user.isBanned()) {
-            ServerCommunication.unbanUser(user.getUsername());
+            ServerCommunication.unbanUser(user.getUsername(), loggedUser.getUsername());
             banButton.setText("Ban");
             user.setBanned(false);
         } else {
-            ServerCommunication.banUser(user.getUsername());
+            ServerCommunication.banUser(user.getUsername(), loggedUser.getUsername());
             banButton.setText("Unban");
             user.setBanned(true);
         }

@@ -106,7 +106,7 @@ public class UsersListController {
         if (userList.size() > 0) {
             userListEmptyText.setVisible(false);
             for (Users u : userList) {
-                stack.getChildren().add(new UserFormatComponent(u));
+                stack.getChildren().add(new UserFormatComponent(u, user));
             }
         } else {
             userListEmptyText.setVisible(true);

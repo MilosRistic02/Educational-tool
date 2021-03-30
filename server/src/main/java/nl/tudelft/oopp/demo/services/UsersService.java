@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import nl.tudelft.oopp.demo.entities.Users;
+import nl.tudelft.oopp.demo.logger.FileLogger;
 import nl.tudelft.oopp.demo.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -86,14 +87,14 @@ public class UsersService {
 
     /**
      * Ban user if the user exists and not already banned.
-     * @param username username of the user to be banned.
+     * @param bannedUser bannedUser of the user to be banned.
      * @return resulting string.
      */
-    public String banUser(String username) {
-        if (!usersRepo.existsByUsername(username)) {
+    public String banUser(String bannedUser, String username) {
+        if (!usersRepo.existsByUsername(bannedUser)) {
             return "User doesn't exist";
         }
-        Users user = usersRepo.getByUsername(username);
+        Users user = usersRepo.getByUsername(bannedUser);
 
         if (user.isBanned()) {
             return "User is already banned";
@@ -101,20 +102,21 @@ public class UsersService {
 
         user.setBanned(true);
         usersRepo.save(user);
+        FileLogger.addMessage(username + " banned " + bannedUser);
         return "User banned successfully";
     }
 
     /**
      * Unban user if the user exists and not already banned.
-     * @param username username of the user to be banned.
+     * @param unbannedUser unbannedUser of the user to be banned.
      * @return resulting string.
      */
-    public String unbanUser(String username) {
-        if (!usersRepo.existsByUsername(username)) {
+    public String unbanUser(String unbannedUser, String username) {
+        if (!usersRepo.existsByUsername(unbannedUser)) {
             return "User doesn't exist";
         }
 
-        Users user = usersRepo.getByUsername(username);
+        Users user = usersRepo.getByUsername(unbannedUser);
 
         if (!user.isBanned()) {
             return "This user has not been banned";
@@ -122,6 +124,7 @@ public class UsersService {
 
         user.setBanned(false);
         usersRepo.save(user);
+        FileLogger.addMessage(username + " unbanned " + unbannedUser);
         return "User unbanned successfully";
     }
 

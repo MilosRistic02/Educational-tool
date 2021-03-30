@@ -49,20 +49,20 @@ class PollControllerTest {
     @Test
     void createPoll() {
         Mockito.when(pollRepository.save(poll)).thenReturn(poll);
-        assertEquals(pollController.createPoll(poll), poll);
+        assertEquals(pollController.createPoll(poll, "me"), poll);
     }
 
     @Test
     void voteOnPoll() {
         Mockito.when(pollRepository.existsById(0)).thenReturn(true);
         Mockito.when(pollRepository.getById(0)).thenReturn(poll);
-        assertEquals("Success", pollController.voteOnPoll('A', 0));
+        assertEquals("Success", pollController.voteOnPoll('A', 0, "me"));
     }
 
     @Test
     void closePoll() {
         Mockito.when(pollRepository.save(poll)).thenReturn(poll);
         poll.setOpen(false);
-        assertEquals(poll, pollController.closePoll(poll));
+        assertEquals(poll, pollController.closePoll(poll, "me"));
     }
 }

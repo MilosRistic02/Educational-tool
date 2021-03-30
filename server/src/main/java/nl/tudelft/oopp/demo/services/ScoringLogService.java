@@ -5,6 +5,7 @@ import java.util.List;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
 import nl.tudelft.oopp.demo.entities.Users;
+import nl.tudelft.oopp.demo.logger.FileLogger;
 import nl.tudelft.oopp.demo.repositories.QuestionRepository;
 import nl.tudelft.oopp.demo.repositories.ScoringLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class ScoringLogService {
      * @param scoringLog    the scoringlog to save
      * @return              returns success
      */
-    public String vote(ScoringLog scoringLog) {
+    public String vote(ScoringLog scoringLog, String username) {
         ScoringLog newScoringLog = null;
         Question question = null;
 
@@ -56,10 +57,13 @@ public class ScoringLogService {
                     scoringLog.getScore());
             question.setScore(question.getScore() + scoringLog.getScore());
         }
-
+        FileLogger.addMessage(username + " voted " + scoringLog.getScore()
+                + " on question with id " + scoringLog.getQuestion().getId());
         if (question.getScore() <= -5) {
             questionRepository.delete(question);
             scoringLogRepository.deleteByQuestion(question);
+            FileLogger.addMessage("Deleted question with id "
+                    + question.getId() + " because score is below -5");
             return "Question is deleted";
         } else {
             questionRepository.save(question);
