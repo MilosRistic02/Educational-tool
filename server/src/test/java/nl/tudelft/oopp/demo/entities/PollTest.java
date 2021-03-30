@@ -168,12 +168,12 @@ class PollTest {
 
     @Test
     void testEqualsOtherObject() {
-        assertNotEquals("Hello", poll);
+        assertNotEquals(poll, "Hello");
     }
 
     @Test
     void testEqualsNull() {
-        assertNotEquals(null, poll);
+        assertNotEquals(poll, null);
     }
 
 

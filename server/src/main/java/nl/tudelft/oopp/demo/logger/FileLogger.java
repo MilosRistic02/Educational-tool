@@ -14,6 +14,9 @@ public class FileLogger {
         logger.info(message);
     }
 
+    /**
+     * Construct a fileHandler.
+     */
     public static void init() {
         try {
             // This block configure the logger with handler and formatter

@@ -113,7 +113,7 @@ public class QuestionFormatLecturerComponent extends VBox {
                 currentQuestion.setAnswer(result.get());
                 currentQuestion.setAnswered(1);
                 ServerCommunication.updateAnswerQuestion(currentQuestion);
-                answer.setText(result.get());
+                setAnswered("#99d28c", "Answered");
             }
         }
     }
@@ -139,6 +139,7 @@ public class QuestionFormatLecturerComponent extends VBox {
                         "Question is too long, can only be 255 characters");
             } else {
                 currentQuestion.setQuestion(result.get());
+                question.setText(result.get());
                 ServerCommunication.updateContentQuestion(currentQuestion);
             }
         }
