@@ -154,7 +154,7 @@ class QuestionServiceTest {
                 .getByLecturePin("4812421dristic"))
                 .thenReturn(lectureRoom1);
         Mockito.when(questionRepository.save(question4)).thenReturn(question4);
-        assertEquals("Need to wait 10 seconds per question",
+        assertEquals("Need to wait 0 more seconds to ask a new question.",
                 questionService.addQuestion(question1, "me"));
     }
 
