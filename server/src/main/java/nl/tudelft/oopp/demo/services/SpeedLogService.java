@@ -33,7 +33,8 @@ public class SpeedLogService {
             );
         }
         FileLogger.addMessage(username + " set the pace of lecture room "
-                + speedLog.getLectureRoom().getLectureName() + " to " + speedLog.getSpeed() );
+                + speedLog.getLectureRoom().getLectureName() + " to "
+                + speedLog.getSpeed());
         speedLogRepository.save(newSpeedLog);
         return "succes";
     }

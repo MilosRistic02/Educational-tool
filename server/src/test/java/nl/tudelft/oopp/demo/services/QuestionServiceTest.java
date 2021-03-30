@@ -42,28 +42,14 @@ class QuestionServiceTest {
 
 
     @Test
-    void updateScoreQuestion() {
-        Mockito.when(questionRepository.existsByLecturePin("4812421dristic")).thenReturn(true);
-        Mockito.when(questionRepository.getByLecturePin("4812421dristic")).thenReturn(question1);
-        Mockito.when(questionRepository.save(question1)).thenReturn(question1);
-
-        assertEquals(questionService.updateScoreQuestion(question1), "Updated score of Question");
-    }
-
-    @Test
-    void updateScoreQuestionNeg() {
-        Mockito.when(questionRepository.existsByLecturePin("4812421dristic")).thenReturn(false);
-        assertEquals(questionService.updateScoreQuestion(question1), "Question does not yet exist");
-    }
-
-    @Test
     void updateAnswerQuestion() {
         Mockito.when(questionRepository.existsByIdAndAndLecturePin(
                 question1.getId(), question1.getLecturePin())).thenReturn(true);
         Mockito.when(questionRepository.getByIdAndLecturePin(
                 question1.getId(), question1.getLecturePin())).thenReturn(question1);
         Mockito.when(questionRepository.save(question1)).thenReturn(question1);
-        assertEquals("Updated answer of Question", questionService.updateAnswerQuestion(question1, "me"));
+        assertEquals("Updated answer of Question",
+                questionService.updateAnswerQuestion(question1, "me"));
     }
 
     @Test
@@ -91,26 +77,6 @@ class QuestionServiceTest {
                 question1.getId(), question1.getLecturePin())).thenReturn(false);
         assertEquals("Question does not yet exists",
                 questionService.updateContentQuestion(question1, "me"));
-    }
-
-    @Test
-    void updateQuestionAnsweredStatus() {
-        question1.setAnswered(1);
-        Mockito.when(questionRepository.existsByLecturePin("4812421dristic")).thenReturn(true);
-        Mockito.when(questionRepository.getByLecturePin("4812421dristic")).thenReturn(question1);
-        assertEquals(question1.getAnswered(), 1);
-        Mockito.when(questionRepository.save(question1)).thenReturn(question1);
-        assertEquals(questionService.updateQuestionAnsweredStatus(question1),
-                "The answered status of the question has been updated.");
-    }
-
-    @Test
-    void updateQuestionAnsweredStatusNeg() {
-        Mockito.when(questionRepository.existsByLecturePin("4812421dristic"))
-                .thenReturn(false);
-
-        assertEquals(questionService.updateQuestionAnsweredStatus(question1),
-                "The question is not in the database.");
     }
 
     @Test

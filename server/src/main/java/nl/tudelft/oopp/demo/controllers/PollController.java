@@ -45,7 +45,9 @@ public class PollController {
 
     @PutMapping("/vote/{id}/{username}")
     @ResponseBody
-    public String voteOnPoll(@RequestBody Character c, @PathVariable long id, @PathVariable String username) {
+    public String voteOnPoll(@RequestBody Character c,
+                             @PathVariable long id,
+                             @PathVariable String username) {
         return pollService.voteOnPoll(c, id, username);
     }
 

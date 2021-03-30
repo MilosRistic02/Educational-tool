@@ -25,13 +25,15 @@ public class QuestionController {
 
     @PutMapping("/update-answer/{username}")
     @ResponseBody
-    public String updateAnswerQuestion(@RequestBody Question question, @PathVariable String username) {
+    public String updateAnswerQuestion(@RequestBody Question question,
+                                       @PathVariable String username) {
         return questionService.updateAnswerQuestion(question, username);
     }
 
     @PutMapping("update-content/{username}")
     @ResponseBody
-    public String updateContentQuestion(@RequestBody Question question, @PathVariable String username) {
+    public String updateContentQuestion(@RequestBody Question question,
+                                        @PathVariable String username) {
         return questionService.updateContentQuestion(question, username);
     }
 
@@ -70,7 +72,7 @@ public class QuestionController {
      * @param id the id of the question to delete
      * @return true if the question was deleted successfully, false otherwise
      */
-    @DeleteMapping("/{id}/{username}")
+    @DeleteMapping("/{username}/{id}")
     @ResponseBody
     public boolean deleteQuestion(@PathVariable long id, @PathVariable String username) {
         return questionService.deleteQuestion(id, username);

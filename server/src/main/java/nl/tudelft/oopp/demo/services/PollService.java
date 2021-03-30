@@ -35,13 +35,20 @@ public class PollService {
         Poll retrievedPoll = pollRepository.getById(id);
         String message = retrievedPoll.vote(c);
         pollRepository.save(retrievedPoll);
-        FileLogger.addMessage(username + "answered option " + c + " in poll " + id
+        FileLogger.addMessage(username + " answered option " + c + " in poll " + id
                 + " with poll question " + retrievedPoll.getQuestion());
         return message;
     }
 
+    /**
+     * Method for saving a poll in the database.
+     * @param  poll - the new poll.
+     * @param username - username who wants to save the poll.
+     * @return the saved poll object.
+     */
     public Poll savePoll(Poll poll, String username) {
-        FileLogger.addMessage(username + " created poll " + poll.getId() + " with question " + poll.getQuestion());
+        FileLogger.addMessage(username + " created poll " + poll.getId()
+                + " with question " + poll.getQuestion());
         return pollRepository.save(poll);
     }
 

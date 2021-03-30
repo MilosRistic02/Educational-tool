@@ -61,6 +61,7 @@ public class UsersService {
         Users user = usersRepo.getByUsernameAndPassword(username, password);
 
         if (!user.isBanned()) {
+            FileLogger.addMessage(username + " logged in");
             return new ObjectMapper().writeValueAsString(user);
         } else {
             return "This user is banned!";
@@ -80,6 +81,9 @@ public class UsersService {
             return "This email address is already used!";
         }
         usersRepo.save(user);
+        FileLogger.addMessage("A user of type: " + user.getRole()
+                + " with username: " + user.getUsername()
+                + " has been added.");
         return "User type: " + user.getRole()
                 + ", username: " + user.getUsername()
                 + " has been added successfully";

@@ -45,7 +45,8 @@ public class LectureRoomService {
      */
     public String addLectureRoom(LectureRoom lectureRoom, String username) {
         if (lectureRoomRepository.getAllByLecturerID(lectureRoom.getLecturerID()).size() > 50000) {
-            FileLogger.addMessage(username + " attempted to create a lecture room but already has more then 50000 rooms.");
+            FileLogger.addMessage(username + " attempted to create a lecture "
+                    + "room but already has more then 50000 rooms.");
             return "Too many rooms created under this host";
         }
 
@@ -56,7 +57,9 @@ public class LectureRoomService {
 
         lectureRoom.setLecturePin(pin);
         lectureRoomRepository.save(lectureRoom);
-        FileLogger.addMessage(username + " created lecture room " + lectureRoom.getLectureName() + "with pin " + lectureRoom.getLecturePin());
+        FileLogger.addMessage(username + " created lecture room "
+                + lectureRoom.getLectureName() + " with pin "
+                + lectureRoom.getLecturePin());
         return pin;
     }
 

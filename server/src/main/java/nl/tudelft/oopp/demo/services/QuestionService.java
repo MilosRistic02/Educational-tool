@@ -22,23 +22,6 @@ public class QuestionService {
     @Autowired
     private LectureRoomRepository lectureRoomRepository;
 
-    /** Update score of a question iff it already exists.
-     *
-     * @param question  question with the updated score
-     * @return          Result of the operation
-     */
-    public String updateScoreQuestion(Question question) {
-        if (!questionRepository.existsByLecturePin(
-                question.getLecturePin())) {
-            return "Question does not yet exist";
-        }
-        Question prev = questionRepository.getByLecturePin(
-                question.getLecturePin());
-        prev.setScore(question.getScore());
-        questionRepository.save(prev);
-        return "Updated score of Question";
-    }
-
     /**
      * Update the answer and answered status of a question, iff
      * it already exists in the database.
@@ -52,8 +35,9 @@ public class QuestionService {
         }
         Question old = questionRepository.getByIdAndLecturePin(
                 question.getId(), question.getLecturePin());
-        FileLogger.addMessage(username + "updated answer of question "
-                + question.getId() + " from " + old.getAnswered() + " to " + question.getAnswered());
+        FileLogger.addMessage(username + " updated answer of question "
+                + question.getId() + " from " + old.getAnswered()
+                + " to " + question.getAnswered());
         old.setAnswered(question.getAnswered());
         old.setAnswer(question.getAnswer());
         questionRepository.save(old);
@@ -73,29 +57,12 @@ public class QuestionService {
         }
         Question old = questionRepository.getByIdAndLecturePin(
                 question.getId(), question.getLecturePin());
-        FileLogger.addMessage(username + "updated content of question "
-                + question.getId() + " from " + old.getQuestion() + " to " + question.getQuestion());
+        FileLogger.addMessage(username + " updated content of question "
+                + question.getId() + " from " + old.getQuestion()
+                + " to " + question.getQuestion());
         old.setQuestion(question.getQuestion());
         questionRepository.save(old);
         return "Updated content of Question";
-    }
-
-
-    /**
-     * Update the answered status of a question, given that the question exists in
-     * the database.
-     * @param question with the updated answered status.
-     * @return a String informing if the update was successful or not.
-     */
-    public String updateQuestionAnsweredStatus(Question question) {
-        if (!questionRepository.existsByLecturePin(question.getLecturePin())) {
-            return "The question is not in the database.";
-        }
-        Question q = questionRepository.getByLecturePin(question.getLecturePin());
-        q.setAnswered(question.getAnswered());
-        questionRepository.save(q);
-        return "The answered status of the question has been updated.";
-
     }
 
     /**
@@ -151,7 +118,7 @@ public class QuestionService {
 
         if (lastQuestion == null) {
             questionRepository.save(question);
-            FileLogger.addMessage(username + " saved question with id " + question.getId());
+            FileLogger.addMessage(username + " asked the question with id " + question.getId());
             return "Success";
         }
 
@@ -163,11 +130,12 @@ public class QuestionService {
 
         if (room.getQuestionFrequency() <= difference) {
             questionRepository.save(question);
-            FileLogger.addMessage(username + " saved question with id" + question.getId());
+            FileLogger.addMessage(username + " asked the question with id " + question.getId());
             return "Success";
         } else {
-            FileLogger.addMessage(username + " tried to save a question but needs to wait " + difference + " seconds longer");
-            return "Need to wait " + room.getQuestionFrequency() + " seconds per question";
+            FileLogger.addMessage(username + " tried to save a question but needs to wait "
+                    + difference + " seconds longer");
+            return "Need to wait " + difference + " more seconds to ask a new question.";
         }
 
     }

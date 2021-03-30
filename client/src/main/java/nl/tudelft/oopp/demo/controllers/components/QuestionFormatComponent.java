@@ -111,8 +111,8 @@ public class QuestionFormatComponent extends VBox {
 
     @FXML
     public void delete() {
-        ServerCommunication.deleteQuestion(Integer.toString((int) currentQuestion.getId())
-                , loggedUser.getUsername());
+        ServerCommunication.deleteQuestion(Integer.toString((int) currentQuestion.getId()),
+                loggedUser.getUsername());
     }
 
     /**

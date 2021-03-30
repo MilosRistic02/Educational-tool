@@ -14,6 +14,10 @@ public class FileLogger {
         logger.info(message);
     }
 
+    /**
+     * Initializes a new FileLogger. Every new message is appended
+     * in the specified file.
+     */
     public static void init() {
         try {
             // This block configure the logger with handler and formatter

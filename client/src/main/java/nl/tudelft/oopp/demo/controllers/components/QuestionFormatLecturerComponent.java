@@ -139,7 +139,8 @@ public class QuestionFormatLecturerComponent extends VBox {
                         "Question is too long, can only be 255 characters");
             } else {
                 currentQuestion.setQuestion(result.get());
-                ServerCommunication.updateContentQuestion(currentQuestion, loggedUser.getUsername());
+                ServerCommunication.updateContentQuestion(
+                        currentQuestion, loggedUser.getUsername());
             }
         }
     }
@@ -190,8 +191,8 @@ public class QuestionFormatLecturerComponent extends VBox {
 
     @FXML
     public void delete() {
-        ServerCommunication.deleteQuestion(Integer.toString((int) currentQuestion.getId())
-                , loggedUser.getUsername());
+        ServerCommunication.deleteQuestion(Integer.toString((int) currentQuestion.getId()),
+                loggedUser.getUsername());
     }
 
     @FXML

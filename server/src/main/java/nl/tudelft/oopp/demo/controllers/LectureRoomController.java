@@ -29,7 +29,8 @@ public class LectureRoomController {
 
     @PostMapping("/{username}")
     @ResponseBody
-    public String addLectureRoom(@RequestBody LectureRoom lectureRoom, @PathVariable String username) {
+    public String addLectureRoom(@RequestBody LectureRoom lectureRoom,
+                                 @PathVariable String username) {
         return lectureRoomService.addLectureRoom(lectureRoom, username);
     }
 
@@ -47,13 +48,15 @@ public class LectureRoomController {
 
     @PutMapping("/{username}")
     @ResponseBody
-    public String putLectureRoom(@RequestBody LectureRoom lectureRoom, @PathVariable String username) {
+    public String putLectureRoom(@RequestBody LectureRoom lectureRoom,
+                                 @PathVariable String username) {
         return lectureRoomService.putLectureRoom(lectureRoom, username);
     }
 
     @PutMapping("/update-frequency/{username}")
     @ResponseBody
-    public String updateFrequency(@RequestBody LectureRoom lectureRoom, @PathVariable String username) {
+    public String updateFrequency(@RequestBody LectureRoom lectureRoom,
+                                  @PathVariable String username) {
         return lectureRoomService.updateFrequency(lectureRoom, username);
     }
 
