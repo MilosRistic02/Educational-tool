@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Question;
+import nl.tudelft.oopp.demo.logger.FileLogger;
 import nl.tudelft.oopp.demo.repositories.LectureRoomRepository;
 import nl.tudelft.oopp.demo.repositories.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,7 @@ public class LectureRoomService {
      */
     public String addLectureRoom(LectureRoom lectureRoom) {
         if (lectureRoomRepository.getAllByLecturerID(lectureRoom.getLecturerID()).size() > 50000) {
+            FileLogger.addMessage(lectureRoom.getLecturerID() + " attempted to create a lecture room but already has more then 50000 rooms.");
             return "Too many rooms created under this host";
         }
 
@@ -54,6 +56,7 @@ public class LectureRoomService {
 
         lectureRoom.setLecturePin(pin);
         lectureRoomRepository.save(lectureRoom);
+        FileLogger.addMessage(lectureRoom.getLecturerID() + " created lecture room " + lectureRoom.getLectureName() + "with pin " + lectureRoom.getLecturePin());
         return pin;
     }
 
@@ -115,6 +118,9 @@ public class LectureRoomService {
         }
         LectureRoom prev = lectureRoomRepository.getByLecturePin(
                 lectureRoom.getLecturePin());
+        FileLogger.addMessage(lectureRoom.getLecturerID() + " changed status of "
+                + lectureRoom.getLecturePin() + " from " + prev.isOpen()
+                + " to " + lectureRoom.isOpen());
         prev.setOpen(lectureRoom.isOpen());
         lectureRoomRepository.save(prev);
         return "Updated room";
@@ -136,6 +142,9 @@ public class LectureRoomService {
     public String updateFrequency(LectureRoom lectureRoom) {
         LectureRoom oldLectureRoom = lectureRoomRepository
                 .getByLecturePin(lectureRoom.getLecturePin());
+        FileLogger.addMessage("Admin changed status of "
+                + lectureRoom.getLecturePin() + " from " + oldLectureRoom.getQuestionFrequency()
+                + " to " + lectureRoom.getQuestionFrequency());
         oldLectureRoom.setQuestionFrequency(lectureRoom.getQuestionFrequency());
         lectureRoomRepository.save(oldLectureRoom);
         return "success";
