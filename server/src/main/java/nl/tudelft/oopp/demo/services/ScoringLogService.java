@@ -57,9 +57,9 @@ public class ScoringLogService {
                     scoringLog.getScore());
             question.setScore(question.getScore() + scoringLog.getScore());
         }
-        String sVote = scoringLog.getScore() == -1 ? " downvoted" : scoringLog.getScore() == 1 ?
-                " upvoted" : " removed the vote from";
-        FileLogger.addMessage(username + sVote
+        String vote = scoringLog.getScore() == -1 ? " downvoted" : scoringLog.getScore() == 1
+                ? " upvoted" : " removed the vote from";
+        FileLogger.addMessage(username + vote
                 + " question with id " + scoringLog.getQuestion().getId());
         if (question.getScore() <= -5) {
             questionRepository.delete(question);

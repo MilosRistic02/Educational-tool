@@ -39,6 +39,11 @@ public class SpeedLogService {
         return "succes";
     }
 
+    /**
+     * Returns the average speed of the lecture.
+     * @param lecturePin    The pin to calculate the average of
+     * @return              Returns the average speed
+     */
     public double getSpeedVotes(String lecturePin) {
         if (speedLogRepository.existsRoom(lecturePin) > 0) {
             return speedLogRepository.getSpeedAverageByLecturePin(lecturePin);

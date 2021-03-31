@@ -36,9 +36,9 @@ public class QuestionService {
         Question old = questionRepository.getByIdAndLecturePin(
                 question.getId(), question.getLecturePin());
         String from = old.getAnswered() > 0 ? (old.getAnswered() > 1
-                ?  "answered verbally": "answered") : "unanswered";
+                ?  "answered verbally" : "answered") : "unanswered";
         String to = question.getAnswered() > 0 ? (question.getAnswered() > 1
-                ?  "answered verbally": "answered") : "unanswered";
+                ?  "answered verbally" : "answered") : "unanswered";
         FileLogger.addMessage(username + " updated answer of question "
                 + question.getId() + " from " + from
                 + " to " + to);
