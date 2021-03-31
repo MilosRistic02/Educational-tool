@@ -36,10 +36,12 @@ public class QuestionService {
         Question old = questionRepository.getByIdAndLecturePin(
                 question.getId(), question.getLecturePin());
         String from = old.getAnswered() > 0 ? (old.getAnswered() > 1
-                ?  "answered verbally" : "answered") : "unanswered";
+                ?  (old.getAnswered() > 2 ? "typing" : "answered verbally")
+                : "answered") : "unanswered";
         String to = question.getAnswered() > 0 ? (question.getAnswered() > 1
-                ?  "answered verbally" : "answered") : "unanswered";
-        FileLogger.addMessage(username + " updated answer of question "
+                ?  (question.getAnswered() > 2 ? "typing" : "answered verbally")
+                : "answered") : "unanswered";
+        FileLogger.addMessage(username + " updated the answered status of question "
                 + question.getId() + " from " + from
                 + " to " + to);
         old.setAnswered(question.getAnswered());
@@ -102,12 +104,36 @@ public class QuestionService {
         answered.addAll(questionRepository
                 .getAllByAnsweredAndLecturePinOrderByScoreDescCreationDateDesc(2, lecturePin));
 
+        Long currentTime = System.currentTimeMillis();
+        for (Question question : answered) {
+            // 10 minutes = 600000 milliseconds.
+            if ((currentTime - question.getCreationDate().getTime()) > 600000) {
+                question.setScore(question.getScore() / 2);
+            }
+        }
         return answered;
     }
 
+    /**
+     * Get all unanswered (either unanswered or typing) questions.
+     * @param lecturePin of the desired room.
+     * @return a list of all the unanswered questions.
+     */
     public List<Question> getAllNonAnsweredQuestions(String lecturePin) {
-        return questionRepository
-                .getAllByAnsweredAndLecturePinOrderByScoreDescCreationDateDesc(0, lecturePin);
+        List<Question> unanswered = new ArrayList<>();
+        unanswered.addAll(questionRepository
+                .getAllByAnsweredAndLecturePinOrderByScoreDescCreationDateDesc(0, lecturePin));
+        unanswered.addAll(questionRepository
+                .getAllByAnsweredAndLecturePinOrderByScoreDescCreationDateDesc(3, lecturePin));
+
+        Long currentTime = System.currentTimeMillis();
+        for (Question question : unanswered) {
+            // 10 minutes = 600000 milliseconds.
+            if ((currentTime - question.getCreationDate().getTime()) > 600000) {
+                question.setScore(question.getScore() / 2);
+            }
+        }
+        return unanswered;
     }
 
     /**
