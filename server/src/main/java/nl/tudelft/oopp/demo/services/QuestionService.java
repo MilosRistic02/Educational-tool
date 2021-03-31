@@ -35,9 +35,14 @@ public class QuestionService {
         }
         Question old = questionRepository.getByIdAndLecturePin(
                 question.getId(), question.getLecturePin());
+        String from = old.getAnswered() > 0 ? (old.getAnswered() > 1
+                ?  "answered_verbally": "answered") : "unanswered";
+        String to = question.getAnswered() > 0 ? (question.getAnswered() > 1
+                ?  "answered_verbally": "answered") : "unanswered";
+
         FileLogger.addMessage(username + " updated answer of question "
-                + question.getId() + " from " + old.getAnswered()
-                + " to " + question.getAnswered());
+                + question.getId() + " from " + from
+                + " to " + to);
         old.setAnswered(question.getAnswered());
         old.setAnswer(question.getAnswer());
         questionRepository.save(old);
