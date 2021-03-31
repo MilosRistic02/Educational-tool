@@ -112,6 +112,7 @@ public class QuestionFormatLecturerComponent extends VBox {
             } else {
                 currentQuestion.setAnswer(result.get());
                 currentQuestion.setAnswered(1);
+                answer.setText(result.get());
                 ServerCommunication.updateAnswerQuestion(currentQuestion);
                 setAnswered("#99d28c", "Answered");
             }

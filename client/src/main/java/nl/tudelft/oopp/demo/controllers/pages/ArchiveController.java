@@ -169,6 +169,7 @@ public class ArchiveController {
                     new QuestionFormatLecturerComponent(q, user);
             questionFormat.verbal.setVisible(false);
             questionFormat.banButton.setVisible(false);
+            questionFormat.delete.setVisible(false);
             stack.getChildren().add(questionFormat);
         }
     }
