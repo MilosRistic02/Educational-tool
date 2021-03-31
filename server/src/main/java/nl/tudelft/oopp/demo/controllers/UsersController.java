@@ -49,16 +49,16 @@ public class UsersController {
         return usersService.addUser(user);
     }
 
-    @PutMapping("ban")
+    @PutMapping("ban/{username}")
     @ResponseBody
-    public String banUser(@RequestBody String username) {
-        return usersService.banUser(username);
+    public String banUser(@RequestBody String bannedUser, @PathVariable String username) {
+        return usersService.banUser(bannedUser, username);
     }
 
-    @PutMapping("unban")
+    @PutMapping("unban/{username}")
     @ResponseBody
-    public String unbanUser(@RequestBody String username) {
-        return usersService.unbanUser(username);
+    public String unbanUser(@RequestBody String unbannedUser, @PathVariable String username) {
+        return usersService.unbanUser(unbannedUser, username);
     }
 
     @GetMapping("search/{search}/{view}")

@@ -89,7 +89,7 @@ public class QuestionController {
         // set the speed log to 0
         this.speedLog = new SpeedLog(this.loggedUser, this.lectureRoom, 50);
         // send speedlog to the server to reset any old values
-        ServerCommunication.speedVote(this.speedLog);
+        ServerCommunication.speedVote(this.speedLog, loggedUser.getUsername());
         // change listener added to the slider
         speedSlider.valueProperty()
                 .addListener(((observable, oldValue, newValue) -> updateSlider()));
@@ -131,7 +131,7 @@ public class QuestionController {
                     loggedUser.getUsername());
             q.setAnswered(0);
 
-            String response = ServerCommunication.saveQuestion(q);
+            String response = ServerCommunication.saveQuestion(q, loggedUser.getUsername());
             if (!response.equals("Success")) {
                 Alerts.alertInfo("Rate Limit", response);
             }
@@ -142,7 +142,7 @@ public class QuestionController {
 
     @FXML
     private void displayAllQuestion() throws JsonProcessingException {
-        List<Question> qs = null;
+        List<Question> qs;
         if (changeList.isSelected()) {
             qs = ServerCommunication.getAllAnsweredQuestions(lectureRoom.getLecturePin());
             changeList.setText("questions");
@@ -240,7 +240,7 @@ public class QuestionController {
             selectedSpeed.setText("Very fast");
             selectedSpeed.setFill(Color.valueOf("#c3312f"));
         }
-        ServerCommunication.speedVote(this.speedLog);
+        ServerCommunication.speedVote(this.speedLog, loggedUser.getUsername());
     }
 
     /**
@@ -258,7 +258,7 @@ public class QuestionController {
     @FXML
     public void logOut() throws IOException {
         this.speedLog.setSpeed(50);
-        ServerCommunication.speedVote(this.speedLog);
+        ServerCommunication.speedVote(this.speedLog, loggedUser.getUsername());
         Display.showLogin();
     }
 
@@ -269,7 +269,7 @@ public class QuestionController {
     @FXML
     public void changeLecture() throws IOException {
         this.speedLog.setSpeed(50);
-        ServerCommunication.speedVote(this.speedLog);
+        ServerCommunication.speedVote(this.speedLog, loggedUser.getUsername());
         Display.showStudent(loggedUser);
     }
 
@@ -315,7 +315,7 @@ public class QuestionController {
         if (poll.isOpen()) {
             Optional<Character> c = Alerts.createPoll(poll.getQuestion(), poll.getSize());
             if (!c.isEmpty()) {
-                ServerCommunication.vote(c.get(), poll.getId());
+                ServerCommunication.vote(c.get(), poll.getId(), loggedUser.getUsername());
             }
         }
     }

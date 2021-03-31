@@ -13,4 +13,6 @@ public interface ScoringLogRepository extends JpaRepository<ScoringLog, Long> {
     ScoringLog getByQuestionAndUsers(Question question, Users users);
 
     List<ScoringLog> findAllByUsers(Users users);
+
+    Integer deleteByQuestion(Question question);
 }

@@ -10,6 +10,10 @@ public interface SpeedLogRepository  extends JpaRepository<SpeedLog, Long> {
 
     boolean existsByUsersAndLectureRoom(Users users, LectureRoom lectureRoom);
 
+    @Query(value = "SELECT COUNT(*) FROM speed_log WHERE lecture_room_lecture_pin = ?1",
+            nativeQuery = true)
+    int existsRoom(String pin);
+
     SpeedLog getByUsersAndLectureRoom(Users users, LectureRoom lectureRoom);
 
     @Query(value = "SELECT AVG(speed) "

@@ -4,8 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+
 
 public class UsersTest {
 
@@ -28,6 +32,11 @@ public class UsersTest {
         student2 = new Users("user_std2","user_std2@gmail.com","pass123", "student2");
         moderator2 = new Users("user_mod2","user_mod2@gmail.com","pass123", "moderator2");
         lecturer2 = new Users("user_lec2", "user_lec2@gmail.com", "pass123", "lecturer2");
+    }
+
+    @Test
+    void userEmptyConstructorTest() {
+        assertNotNull(new Users());
     }
 
     @Test
@@ -58,6 +67,11 @@ public class UsersTest {
     @Test
     void getUsernameLecturerTest() {
         assertEquals(lecturer.getUsername(), "user_lec");
+    }
+
+    @Test
+    void isBannedTest() {
+        assertEquals(student.isBanned(), false);
     }
 
     @Test
@@ -99,14 +113,26 @@ public class UsersTest {
     }
 
     @Test
+    void setBannedTest() {
+        student.setBanned(true);
+        assertEquals(student.isBanned(), true);
+    }
+
+    @Test
     void setEmailTest() {
         student.setEmail("newEmail@gmail.com");
         assertEquals(student.getEmail(), "newEmail@gmail.com");
     }
 
     @Test
-    void equalsStudentTest() {
-        assertEquals(student, student);
+    void setRoleTest() {
+        student.setRole("lecturer");
+        assertEquals(student.getRole(), "lecturer");
+    }
+
+    @Test
+    void equalsDifferentClassTest() {
+        assertNotEquals(student, new ArrayList());
     }
 
     @Test
@@ -136,6 +162,11 @@ public class UsersTest {
     }
 
     @Test
+    void equalsStudentTest() {
+        assertEquals(student, student);
+    }
+
+    @Test
     void equalsDifferentTypes_StudentAndModerator() {
         student.setUsername("user_mod");
         assertNotEquals(student, moderator);
@@ -147,6 +178,10 @@ public class UsersTest {
         assertNotEquals(lecturer, moderator);
     }
 
+    @Test
+    void hashingMethodTest() {
+        assertEquals(student.hashCode(), -266142770);
+    }
 
 
 

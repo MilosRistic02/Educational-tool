@@ -57,6 +57,8 @@ public class QuestionFormatLecturerComponent extends VBox {
     @FXML
     public Button verbal;
 
+    @FXML
+    public Button banButton;
 
     private Question currentQuestion;
     private Users loggedUser;
@@ -110,7 +112,9 @@ public class QuestionFormatLecturerComponent extends VBox {
             } else {
                 currentQuestion.setAnswer(result.get());
                 currentQuestion.setAnswered(1);
-                ServerCommunication.updateAnswerQuestion(currentQuestion);
+                ServerCommunication.updateAnswerQuestion(currentQuestion, loggedUser.getUsername());
+                answer.setText(result.get());
+                setAnswered("#99d28c", "Answered");
             }
         }
     }
@@ -136,7 +140,9 @@ public class QuestionFormatLecturerComponent extends VBox {
                         "Question is too long, can only be 255 characters");
             } else {
                 currentQuestion.setQuestion(result.get());
-                ServerCommunication.updateContentQuestion(currentQuestion);
+                question.setText(result.get());
+                ServerCommunication.updateContentQuestion(
+                        currentQuestion, loggedUser.getUsername());
             }
         }
     }
@@ -187,17 +193,18 @@ public class QuestionFormatLecturerComponent extends VBox {
 
     @FXML
     public void delete() {
-        ServerCommunication.deleteQuestion(Integer.toString((int) currentQuestion.getId()));
+        ServerCommunication.deleteQuestion(Integer.toString((int) currentQuestion.getId()),
+                loggedUser.getUsername());
     }
 
     @FXML
     public void answeredVerbal() {
         currentQuestion.setAnswered(2);
-        ServerCommunication.updateAnswerQuestion(currentQuestion);
+        ServerCommunication.updateAnswerQuestion(currentQuestion, loggedUser.getUsername());
     }
 
     public void banUser() {
-        ServerCommunication.banUser(currentQuestion.getAuthor());
+        ServerCommunication.banUser(currentQuestion.getAuthor(), loggedUser.getUsername());
         delete();
     }
 }

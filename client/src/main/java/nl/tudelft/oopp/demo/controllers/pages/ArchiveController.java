@@ -7,7 +7,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -126,7 +129,7 @@ public class ArchiveController {
      * @param lecturePin - Pin of the lecture that is displayed in archive view
      */
     @FXML
-    public void showArchive(String lecturePin) throws JsonProcessingException {
+    public void showArchive(String lecturePin) {
         showButtons(true);
         this.lecturePin = lecturePin;
         searchBar.setVisible(false);
@@ -136,6 +139,21 @@ public class ArchiveController {
         archiveRoomHeader.setVisible(true);
         archiveView = "questions";
         archiveRoomHeader.setText("Archive of room " + lecturePin);
+
+        try {
+            showQuestions(lecturePin);
+        } catch (JsonProcessingException e) {
+            emptyArchive.setVisible(true);
+            emptyArchive.setText("Something went wrong..");
+        }
+    }
+
+    /**
+     * Shows all of the questions in a lectureRoom.
+     * @throws JsonProcessingException when the lectureRoom is not found.
+     */
+    @FXML
+    private void showQuestions(String lecturePin) throws JsonProcessingException {
         stack.getChildren().clear();
         stack.setSpacing(20);
 
@@ -149,7 +167,9 @@ public class ArchiveController {
         for (Question q : questions) {
             QuestionFormatLecturerComponent questionFormat =
                     new QuestionFormatLecturerComponent(q, user);
-
+            questionFormat.verbal.setVisible(false);
+            questionFormat.banButton.setVisible(false);
+            questionFormat.delete.setVisible(false);
             stack.getChildren().add(questionFormat);
         }
     }
@@ -234,7 +254,6 @@ public class ArchiveController {
         } else {
             Display.showLecturer(this.user);
         }
-
     }
 
     @FXML

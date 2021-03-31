@@ -154,7 +154,7 @@ public class QuestionLecturerController {
                 "The frequency should be a positive integer");
         if (questionFrequency.isPresent()) {
             lectureRoom.setQuestionFrequency(questionFrequency.get());
-            ServerCommunication.updateFrequency(lectureRoom);
+            ServerCommunication.updateFrequency(lectureRoom, users.getUsername());
         }
     }
 
@@ -168,7 +168,7 @@ public class QuestionLecturerController {
         Question q = new Question(questionText.getText(),
                 lectureRoom.getLecturePin(),
                 users.getUsername());
-        ServerCommunication.saveQuestion(q);
+        ServerCommunication.saveQuestion(q, users.getUsername());
         displayAllQuestion();
     }
 
@@ -214,7 +214,7 @@ public class QuestionLecturerController {
     @FXML
     public void closeRoom() throws IOException {
         this.lectureRoom.setOpen(false);
-        ServerCommunication.closeRoom(this.lectureRoom);
+        ServerCommunication.closeRoom(this.lectureRoom, users.getUsername());
 
         if (this.users.getRole().equals("lecturer")) {
             Display.showLecturer(this.users);
@@ -266,10 +266,10 @@ public class QuestionLecturerController {
 
         if (!room.isOpen()) {
             closed = true;
-            if (this.users.getRole().equals("lecturer")) {
-                Display.showLecturer(users);
-            } else {
+            if (this.users.getRole().equals("student")) {
                 Display.showStudent(users);
+            } else {
+                Display.showLecturer(users);
             }
         }
         return closed;
@@ -306,6 +306,11 @@ public class QuestionLecturerController {
     public void createPoll() throws JsonProcessingException {
 
         String pollQuestion = pollField.getText();
+        if (pollQuestion.length() > 254) {
+            Alerts.alertError("Poll error",
+                    "Please write a question that is smaller than 255 tokens!");
+            return;
+        }
         Object sizeInput = numOptions.getValue();
         if (!(sizeInput instanceof Integer)) {
             Alerts.alertError("Poll error", "Please pick a size");
@@ -318,7 +323,7 @@ public class QuestionLecturerController {
         closePoll();
         Poll poll = new Poll(lectureRoom.getLecturePin(), size, answers, pollQuestion);
         currentPoll = new ObjectMapper()
-                .readValue(ServerCommunication.createPoll(poll), Poll.class);
+                .readValue(ServerCommunication.createPoll(poll, users.getUsername()), Poll.class);
 
         pollTimer = new Timer();
         pollTimer.scheduleAtFixedRate(new TimerTask() {
@@ -374,7 +379,7 @@ public class QuestionLecturerController {
         pollTimer.cancel();
         closePollButton.setVisible(false);
         currentPoll.setOpen(false);
-        ServerCommunication.closePoll(currentPoll);
+        ServerCommunication.closePoll(currentPoll, users.getUsername());
     }
 
 }

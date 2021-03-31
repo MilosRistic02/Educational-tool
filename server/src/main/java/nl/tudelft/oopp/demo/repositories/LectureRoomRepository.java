@@ -8,19 +8,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-
-
-
 public interface LectureRoomRepository extends JpaRepository<LectureRoom, String> {
-
-    LectureRoom getLectureRoomByLecturePin(String lecturePin);
-
     boolean existsByLecturePin(String lecturePin);
 
     List<LectureRoom> getAllByIsOpenIsFalseOrderByCreationDateDesc();
-
-    @Query(value = "SELECT * FROM lecture_room", nativeQuery = true)
-    List<LectureRoom> getAll();
 
     List<LectureRoom> getAllByLecturerID(String lecturerID);
 
