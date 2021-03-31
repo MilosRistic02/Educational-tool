@@ -59,29 +59,29 @@ class QuestionControllerTest {
 
     @Test
     void addQuestion() {
-        Mockito.when(questionService.addQuestion(question1))
+        Mockito.when(questionService.addQuestion(question1, "me"))
                 .thenReturn(question1.getQuestion());
         assertEquals(question1.getQuestion(),
-                questionController.addQuestion(question1));
+                questionController.addQuestion(question1, "me"));
     }
 
     @Test
     void deleteQuestion() {
-        Mockito.when(questionService.deleteQuestion(61)).thenReturn(true);
-        assertTrue(questionController.deleteQuestion(61));
+        Mockito.when(questionService.deleteQuestion(61, "me")).thenReturn(true);
+        assertTrue(questionController.deleteQuestion(61, "me"));
     }
 
     @Test
     void updateAnswerQuestion() {
-        Mockito.when(questionService.updateAnswerQuestion(question1))
+        Mockito.when(questionService.updateAnswerQuestion(question1, "me"))
                 .thenReturn("Success");
-        assertEquals("Success", questionController.updateAnswerQuestion(question1));
+        assertEquals("Success", questionController.updateAnswerQuestion(question1, "me"));
     }
 
     @Test
     void updateContentQuestion() {
-        Mockito.when(questionService.updateContentQuestion(question1))
+        Mockito.when(questionService.updateContentQuestion(question1, "me"))
                 .thenReturn("Success");
-        assertEquals("Success", questionController.updateContentQuestion(question1));
+        assertEquals("Success", questionController.updateContentQuestion(question1, "me"));
     }
 }

@@ -154,13 +154,13 @@ class UsersServiceTest {
         Mockito.when(usersRepository.getByUsername(username)).thenReturn(testStudent);
         Mockito.when(usersRepository.save(testStudent)).thenReturn(testStudent);
 
-        assertEquals(usersService.banUser(username), "User banned successfully");
+        assertEquals(usersService.banUser(username, "me"), "User banned successfully");
     }
 
     @Test
     void banUserUserDoesntExist() {
         Mockito.when(usersRepository.existsByUsername(username)).thenReturn(false);
-        assertEquals(usersService.banUser(username), "User doesn't exist");
+        assertEquals(usersService.banUser(username, "me"), "User doesn't exist");
     }
 
     @Test
@@ -169,7 +169,7 @@ class UsersServiceTest {
         Mockito.when(usersRepository.getByUsername(usernameBanned)).thenReturn(testStudentBanned);
         Mockito.when(usersRepository.save(testStudentBanned)).thenReturn(testStudentBanned);
 
-        assertEquals(usersService.banUser(usernameBanned), "User is already banned");
+        assertEquals(usersService.banUser(usernameBanned, "me"), "User is already banned");
     }
 
     @Test
@@ -178,13 +178,13 @@ class UsersServiceTest {
         Mockito.when(usersRepository.getByUsername(usernameBanned)).thenReturn(testStudentBanned);
         Mockito.when(usersRepository.save(testStudentBanned)).thenReturn(testStudentBanned);
 
-        assertEquals(usersService.unbanUser(usernameBanned), "User unbanned successfully");
+        assertEquals(usersService.unbanUser(usernameBanned, "me"), "User unbanned successfully");
     }
 
     @Test
     void unbanUserDoesntExist() {
         Mockito.when(usersRepository.existsByUsername(usernameBanned)).thenReturn(false);
-        assertEquals(usersService.unbanUser(usernameBanned), "User doesn't exist");
+        assertEquals(usersService.unbanUser(usernameBanned, "me"), "User doesn't exist");
     }
 
     @Test
@@ -193,7 +193,7 @@ class UsersServiceTest {
         Mockito.when(usersRepository.getByUsername(username)).thenReturn(testStudent);
         Mockito.when(usersRepository.save(testStudent)).thenReturn(testStudent);
 
-        assertEquals(usersService.unbanUser(username), "This user has not been banned");
+        assertEquals(usersService.unbanUser(username, "me"), "This user has not been banned");
     }
 
     @Test

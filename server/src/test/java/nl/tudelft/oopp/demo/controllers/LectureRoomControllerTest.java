@@ -46,11 +46,11 @@ class LectureRoomControllerTest {
 
     @Test
     void addLectureRoomTest() {
-        Mockito.when(lectureRoomService.addLectureRoom(lectureRoom))
+        Mockito.when(lectureRoomService.addLectureRoom(lectureRoom, "me"))
                 .thenReturn("Too many rooms created under this host");
 
         assertEquals("Too many rooms created under this host",
-                        lectureRoomController.addLectureRoom(lectureRoom));
+                        lectureRoomController.addLectureRoom(lectureRoom, "me"));
     }
 
     @Test
@@ -79,20 +79,20 @@ class LectureRoomControllerTest {
     void putLectureRoomTest() {
         lectureRoom.setOpen(false);
 
-        Mockito.when(lectureRoomService.putLectureRoom(lectureRoom))
+        Mockito.when(lectureRoomService.putLectureRoom(lectureRoom, "me"))
                 .thenReturn("succes");
 
-        assertEquals("succes", lectureRoomController.putLectureRoom(lectureRoom));
+        assertEquals("succes", lectureRoomController.putLectureRoom(lectureRoom, "me"));
     }
 
     @Test
     void updateFrequencyTest() {
         lectureRoom.setQuestionFrequency(50);
 
-        Mockito.when(lectureRoomService.updateFrequency(lectureRoom))
+        Mockito.when(lectureRoomService.updateFrequency(lectureRoom, "me"))
                 .thenReturn("succes");
 
-        assertEquals("succes", lectureRoomController.updateFrequency(lectureRoom));
+        assertEquals("succes", lectureRoomController.updateFrequency(lectureRoom, "me"));
     }
 
     @Test

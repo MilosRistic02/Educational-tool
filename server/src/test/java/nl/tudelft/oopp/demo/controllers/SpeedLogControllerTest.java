@@ -26,10 +26,10 @@ class SpeedLogControllerTest {
     @Test
     void saveSpeedVote() {
         SpeedLog speedLog = new SpeedLog();
-        Mockito.when(speedLogService.saveSpeedLog(speedLog))
+        Mockito.when(speedLogService.saveSpeedLog(speedLog, "me"))
                 .thenReturn("succes");
 
-        assertEquals("succes", speedLogController.saveSpeedVote(speedLog));
+        assertEquals("succes", speedLogController.saveSpeedVote(speedLog, "me"));
     }
 
     @Test

@@ -19,10 +19,10 @@ public class SpeedLogController {
     @Autowired
     private SpeedLogService speedLogService;
 
-    @PostMapping("/speed-vote")
+    @PostMapping("/speed-vote/{username}")
     @ResponseBody
-    public String saveSpeedVote(@RequestBody SpeedLog speedLog) {
-        return speedLogService.saveSpeedLog(speedLog);
+    public String saveSpeedVote(@RequestBody SpeedLog speedLog, @PathVariable String username) {
+        return speedLogService.saveSpeedLog(speedLog, username);
     }
 
     @GetMapping("/get-speed-votes/{lecturePin}")

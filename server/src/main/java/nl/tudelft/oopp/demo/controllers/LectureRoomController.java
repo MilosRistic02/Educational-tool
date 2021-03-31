@@ -27,10 +27,11 @@ public class LectureRoomController {
         this.lectureRoomService = lectureRoomService;
     }
 
-    @PostMapping
+    @PostMapping("/{username}")
     @ResponseBody
-    public String addLectureRoom(@RequestBody LectureRoom lectureRoom) {
-        return lectureRoomService.addLectureRoom(lectureRoom);
+    public String addLectureRoom(@RequestBody LectureRoom lectureRoom,
+                                 @PathVariable String username) {
+        return lectureRoomService.addLectureRoom(lectureRoom, username);
     }
 
     @PostMapping("/file/{pin}")
@@ -45,16 +46,18 @@ public class LectureRoomController {
         return lectureRoomService.getLectureRoom(pin);
     }
 
-    @PutMapping()
+    @PutMapping("/{username}")
     @ResponseBody
-    public String putLectureRoom(@RequestBody LectureRoom lectureRoom) {
-        return lectureRoomService.putLectureRoom(lectureRoom);
+    public String putLectureRoom(@RequestBody LectureRoom lectureRoom,
+                                 @PathVariable String username) {
+        return lectureRoomService.putLectureRoom(lectureRoom, username);
     }
 
-    @PutMapping("/update-frequency")
+    @PutMapping("/update-frequency/{username}")
     @ResponseBody
-    public String updateFrequency(@RequestBody LectureRoom lectureRoom) {
-        return lectureRoomService.updateFrequency(lectureRoom);
+    public String updateFrequency(@RequestBody LectureRoom lectureRoom,
+                                  @PathVariable String username) {
+        return lectureRoomService.updateFrequency(lectureRoom, username);
     }
 
     @GetMapping("/getClosed")

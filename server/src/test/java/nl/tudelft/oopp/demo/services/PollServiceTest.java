@@ -42,20 +42,20 @@ class PollServiceTest {
     @Test
     void voteOnNonExistentPoll() {
         Mockito.when(pollRepository.existsById(5)).thenReturn(false);
-        assertEquals(pollService.voteOnPoll('A', 5), "This poll does not exist");
+        assertEquals(pollService.voteOnPoll('A', 5, "me"), "This poll does not exist");
     }
 
     @Test
     void voteOnPoll() {
         Mockito.when(pollRepository.existsById(0)).thenReturn(true);
         Mockito.when(pollRepository.getById(0)).thenReturn(poll);
-        assertEquals("Success", pollService.voteOnPoll('A', 0));
+        assertEquals("Success", pollService.voteOnPoll('A', 0, "me"));
     }
 
     @Test
     void savePoll() {
         Mockito.when(pollRepository.save(poll)).thenReturn(poll);
-        assertEquals(pollService.savePoll(poll), poll);
+        assertEquals(pollService.savePoll(poll, "me"), poll);
     }
 
     @Test

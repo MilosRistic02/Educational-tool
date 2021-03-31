@@ -112,8 +112,8 @@ public class QuestionFormatLecturerComponent extends VBox {
             } else {
                 currentQuestion.setAnswer(result.get());
                 currentQuestion.setAnswered(1);
+                ServerCommunication.updateAnswerQuestion(currentQuestion, loggedUser.getUsername());
                 answer.setText(result.get());
-                ServerCommunication.updateAnswerQuestion(currentQuestion);
                 setAnswered("#99d28c", "Answered");
             }
         }
@@ -141,7 +141,8 @@ public class QuestionFormatLecturerComponent extends VBox {
             } else {
                 currentQuestion.setQuestion(result.get());
                 question.setText(result.get());
-                ServerCommunication.updateContentQuestion(currentQuestion);
+                ServerCommunication.updateContentQuestion(
+                        currentQuestion, loggedUser.getUsername());
             }
         }
     }
@@ -192,17 +193,18 @@ public class QuestionFormatLecturerComponent extends VBox {
 
     @FXML
     public void delete() {
-        ServerCommunication.deleteQuestion(Integer.toString((int) currentQuestion.getId()));
+        ServerCommunication.deleteQuestion(Integer.toString((int) currentQuestion.getId()),
+                loggedUser.getUsername());
     }
 
     @FXML
     public void answeredVerbal() {
         currentQuestion.setAnswered(2);
-        ServerCommunication.updateAnswerQuestion(currentQuestion);
+        ServerCommunication.updateAnswerQuestion(currentQuestion, loggedUser.getUsername());
     }
 
     public void banUser() {
-        ServerCommunication.banUser(currentQuestion.getAuthor());
+        ServerCommunication.banUser(currentQuestion.getAuthor(), loggedUser.getUsername());
         delete();
     }
 }

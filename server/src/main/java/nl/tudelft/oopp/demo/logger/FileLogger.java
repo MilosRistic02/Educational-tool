@@ -15,7 +15,8 @@ public class FileLogger {
     }
 
     /**
-     * Construct a fileHandler.
+     * Initializes a new FileLogger. Every new message is appended
+     * in the specified file.
      */
     public static void init() {
         try {

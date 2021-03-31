@@ -123,7 +123,7 @@ public class LobbyController {
             lectureRoom = new LectureRoom(users.getUsername(),lectureName, courseId, date);
         }
 
-        String response = ServerCommunication.addLectureRoom(lectureRoom);
+        String response = ServerCommunication.addLectureRoom(lectureRoom, users.getUsername());
         if (response.equals("Too many rooms created under this host")) {
             Alerts.alertError("Too many rooms", response);
         } else {

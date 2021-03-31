@@ -44,7 +44,7 @@ class ScoringLogServiceTest {
                 .thenReturn(false);
 
         assertEquals("This question does not exist!",
-                scoringLogService.vote(scoringLogDownVote));
+                scoringLogService.vote(scoringLogDownVote, "me"));
     }
 
     @Test
@@ -63,7 +63,7 @@ class ScoringLogServiceTest {
         Mockito.when(questionRepository.save(question)).thenReturn(question);
         Mockito.when(scoringLogRepository.save(scoringLogDownVote)).thenReturn(scoringLogDownVote);
 
-        assertEquals("Success", scoringLogService.vote(scoringLogDownVote));
+        assertEquals("Success", scoringLogService.vote(scoringLogDownVote, "me"));
     }
 
     @Test
@@ -85,7 +85,7 @@ class ScoringLogServiceTest {
         Mockito.when(scoringLogRepository.deleteByQuestion(question)).thenReturn(1);
 
         assertEquals("Question is deleted",
-                scoringLogService.vote(scoringLogDownVoteLow));
+                scoringLogService.vote(scoringLogDownVoteLow, "me"));
     }
 
     @Test
@@ -106,7 +106,7 @@ class ScoringLogServiceTest {
         Mockito.when(scoringLogRepository.save(scoringLogDownVote)).thenReturn(scoringLogDownVote);
 
         assertEquals("Success",
-                scoringLogService.vote(scoringLogDownVoteLow));
+                scoringLogService.vote(scoringLogDownVoteLow, "me"));
     }
 
     @Test
