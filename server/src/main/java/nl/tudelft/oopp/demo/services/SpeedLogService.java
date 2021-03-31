@@ -40,6 +40,9 @@ public class SpeedLogService {
     }
 
     public double getSpeedVotes(String lecturePin) {
-        return speedLogRepository.getSpeedAverageByLecturePin(lecturePin);
+        if (speedLogRepository.existsRoom(lecturePin) > 0) {
+            return speedLogRepository.getSpeedAverageByLecturePin(lecturePin);
+        }
+        return 50.0;
     }
 }
