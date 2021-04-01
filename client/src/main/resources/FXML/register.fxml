@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="rootPane" maxHeight="-1.0" maxWidth="-1.0" prefHeight="823.0" prefWidth="1172.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.pages.RegisterController">
+<children>
+      <Pane prefHeight="823.0" prefWidth="300.0" style="-fx-background-color: #00A6D6;" />
+    <ImageView fitHeight="97.0" fitWidth="207.0" layoutX="951.0">
+        <image>
+            <Image url="@../images/TUDELFT.png" />
+        </image>
+    </ImageView>
+      <TextField fx:id="usernameField" layoutX="578.0" layoutY="217.0" prefHeight="66.0" prefWidth="367.0" style="-fx-background-color: #E4EDF2;">
+         <font>
+            <Font name="Cantarell Light" size="30.0" />
+         </font></TextField>
+      <TextField fx:id="emailField" layoutX="579.0" layoutY="300.0" prefHeight="66.0" prefWidth="367.0" style="-fx-background-color: #E4EDF2;">
+         <font>
+            <Font name="Cantarell Light" size="30.0" />
+         </font></TextField>
+      <PasswordField fx:id="passwordField" layoutX="579.0" layoutY="387.0" prefHeight="66.0" prefWidth="367.0" style="-fx-background-color: #E4EDF2;">
+         <font>
+            <Font name="Cantarell Light" size="30.0" />
+         </font></PasswordField>
+      <PasswordField fx:id="reEnteredPasswordField" layoutX="580.0" layoutY="472.0" prefHeight="66.0" prefWidth="367.0" style="-fx-background-color: #E4EDF2;">
+         <font>
+            <Font name="Cantarell Light" size="30.0" />
+         </font></PasswordField>
+      <Label layoutX="424.0" layoutY="227.0" text="Username">
+         <font>
+            <Font name="Cantarell Light" size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="479.0" layoutY="307.0" prefHeight="45.0" prefWidth="76.0" text="Email">
+         <font>
+            <Font name="Cantarell Light" size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="428.0" layoutY="397.0" text="Password">
+         <font>
+            <Font name="Cantarell Light" size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="322.0" layoutY="467.0" prefHeight="70.0" prefWidth="245.0" text="Confirm password" wrapText="true">
+         <font>
+            <Font name="Cantarell Light" size="30.0" />
+         </font>
+      </Label>
+      <Button fx:id="registerButton" layoutX="582.0" layoutY="583.0" mnemonicParsing="false" onAction="#registerButtonClicked" prefHeight="56.0" prefWidth="157.0" style="-fx-background-color: #00A6D6;" text="Register" textFill="WHITE">
+         <font>
+            <Font name="Cantarell Bold" size="30.0" />
+         </font>
+      </Button>
+      <Label fx:id="nonMatchingPassword" layoutX="658.0" layoutY="178.0" prefHeight="27.0" prefWidth="207.0" text="Passwords do not match" textFill="#d34343" visible="false">
+         <font>
+            <Font name="Cantarell Extra Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="userExists" layoutX="667.0" layoutY="178.0" prefHeight="27.0" prefWidth="187.0" text="This user already exists" textFill="#d34343" visible="false">
+         <font>
+            <Font name="Cantarell Extra Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="emptyFields" layoutX="670.0" layoutY="178.0" prefHeight="27.0" prefWidth="187.0" text="Please fill out the fields" textFill="#d34343" visible="false">
+         <font>
+            <Font name="Cantarell Extra Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="emailAlreadyExists" layoutX="622.0" layoutY="178.0" prefHeight="27.0" prefWidth="277.0" text="This email address is already in use" textFill="#d34343" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="emailInvalid" layoutX="668.0" layoutY="178.0" prefHeight="27.0" prefWidth="187.0" text="Email address is invalid" textFill="#d34343" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="45.0" fitWidth="54.0" layoutX="324.0" layoutY="26.0" onMouseClicked="#loadLoginPage" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/back_button.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="userSuccess" layoutX="664.0" layoutY="178.0" prefHeight="27.0" prefWidth="194.0" text="User created succesfully" textFill="#28ab5d" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+</children>
+</AnchorPane>

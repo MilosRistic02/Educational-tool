@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="rootPane" prefHeight="823.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.pages.LobbyController">
+   <children>
+      <Pane layoutY="-3.0" prefHeight="823.0" prefWidth="300.0" style="-fx-background-color: #00A6D6;" />
+      <ImageView fitHeight="97.0" fitWidth="207.0" layoutX="951.0">
+         <image>
+            <Image url="@../images/TUDELFT.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="pinText" layoutX="501.0" layoutY="391.0" prefHeight="64.0" prefWidth="415.0" promptText="Your pin here" style="-fx-background-color: #E4EDF2;">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <Button layoutX="643.0" layoutY="498.0" mnemonicParsing="false" onAction="#checkPin" prefHeight="52.0" prefWidth="131.0" style="-fx-background-color: #00A6D6;" text="Join" textFill="WHITE">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Button>
+      <ImageView fx:id="backToLobby" fitHeight="51.0" fitWidth="46.0" layoutX="315.0" layoutY="19.0" onMouseClicked="#loadLobbyLecturer" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../images/back_button.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="logOutStudent" layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#logOut" prefHeight="51.0" prefWidth="122.0" style="-fx-background-color: #ffffff;" text="Log out" textFill="#00a6d6">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Button>
+      <Label fx:id="emptyFields" alignment="CENTER" contentDisplay="CENTER" layoutX="625.0" layoutY="357.0" prefHeight="19.0" prefWidth="166.0" text="Please enter a pin" textAlignment="CENTER" textFill="#d34343" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Text layoutX="439.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter a lecture pin to join a lecture room" textAlignment="CENTER" wrappingWidth="538.2000000000002">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

@@ -124,4 +124,27 @@ class QuestionTest {
         assertNotEquals(question1, question2);
     }
 
+    @Test
+    void testNotEqualsNull() {
+        assertNotEquals(question1, null);
+    }
+
+    @Test
+    void testNotEqualsOtherObject() {
+        assertNotEquals(question1, 1);
+    }
+
+    @Test
+    void testHash() {
+        assertEquals(0, question1.hashCode());
+    }
+
+    @Test void testToString() {
+        assertEquals(
+                "Question{id=0, question='Is this a good example question?'"
+                        + ", answer='null', score=0, creationDate=null, answered=0, "
+                        + "lecturePin='2802202001Stefan', author='Stefan', scoringLogs=null}",
+                question1.toString());
+    }
+
 }

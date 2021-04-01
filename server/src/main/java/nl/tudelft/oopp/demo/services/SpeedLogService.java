@@ -2,6 +2,7 @@ package nl.tudelft.oopp.demo.services;
 
 import java.util.List;
 import nl.tudelft.oopp.demo.entities.SpeedLog;
+import nl.tudelft.oopp.demo.logger.FileLogger;
 import nl.tudelft.oopp.demo.repositories.SpeedLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class SpeedLogService {
      * @param speedLog  the speedlog to save
      * @return          returns succes
      */
-    public String saveSpeedLog(SpeedLog speedLog) {
+    public String saveSpeedLog(SpeedLog speedLog, String username) {
         SpeedLog newSpeedLog = null;
         if (speedLogRepository
                 .existsByUsersAndLectureRoom(speedLog.getUsers(), speedLog.getLectureRoom())) {
@@ -31,11 +32,22 @@ public class SpeedLogService {
                     speedLog.getSpeed()
             );
         }
+        FileLogger.addMessage(username + " set the pace of lecture room "
+                + speedLog.getLectureRoom().getLectureName() + " to "
+                + speedLog.getSpeed());
         speedLogRepository.save(newSpeedLog);
         return "succes";
     }
 
-    public List<SpeedLog> getSpeedVotes() {
-        return speedLogRepository.findAll();
+    /**
+     * Returns the average speed of the lecture.
+     * @param lecturePin    The pin to calculate the average of
+     * @return              Returns the average speed
+     */
+    public double getSpeedVotes(String lecturePin) {
+        if (speedLogRepository.existsRoom(lecturePin) > 0) {
+            return speedLogRepository.getSpeedAverageByLecturePin(lecturePin);
+        }
+        return 50.0;
     }
 }

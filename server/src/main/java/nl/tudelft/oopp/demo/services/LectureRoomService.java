@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Question;
+import nl.tudelft.oopp.demo.logger.FileLogger;
 import nl.tudelft.oopp.demo.repositories.LectureRoomRepository;
 import nl.tudelft.oopp.demo.repositories.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,47 +43,26 @@ public class LectureRoomService {
      * @param lectureRoom LectureRoom we want to add.
      * @return String containing the pin that can be used to join this LectureRoom.
      */
-    public String addLectureRoom(LectureRoom lectureRoom) {
+    public String addLectureRoom(LectureRoom lectureRoom, String username) {
         if (lectureRoomRepository.getAllByLecturerID(lectureRoom.getLecturerID()).size() > 50000) {
+            FileLogger.addMessage(username + " attempted to create a lecture "
+                    + "room but already has more then 50000 rooms.");
             return "Too many rooms created under this host";
         }
 
-        String pin = createPin(lectureRoom.getLecturerID());
-        if (lectureRoomRepository.existsByLecturePin(pin)) {
-            addLectureRoom(lectureRoom);
+        String pin = null;
+        while (pin == null || lectureRoomRepository.existsByLecturePin(pin)) {
+            pin = createPin(lectureRoom.getLecturerID());
         }
 
         lectureRoom.setLecturePin(pin);
         lectureRoomRepository.save(lectureRoom);
+        FileLogger.addMessage(username + " created lecture room "
+                + lectureRoom.getLectureName() + " with pin "
+                + lectureRoom.getLecturePin());
         return pin;
     }
 
-    /**
-     * Method for removing a LectureRoom from the database iff the LectureRoom exists.
-     * @param lectureRoomPin Pin that uniquely identifies each LectureRoom.
-     * @return Boolean that is true iff a LectureRoom was deleted.
-     */
-    public boolean deleteLectureRoom(String lectureRoomPin) {
-        if (!lectureRoomRepository.existsByLecturePin(lectureRoomPin)) {
-            return false;
-        }
-
-        LectureRoom room = lectureRoomRepository.getLectureRoomByLecturePin(lectureRoomPin);
-        lectureRoomRepository.delete(room);
-        return true;
-    }
-
-    /**
-     * Method for deleting all the lecture rooms.
-     * @return Boolean that is true iff all rooms were deleted
-     */
-    public boolean deleteAllLectureRooms() {
-        List<LectureRoom> lectureRooms = lectureRoomRepository.getAll();
-        for (LectureRoom lectureRoom : lectureRooms) {
-            lectureRoomRepository.delete(lectureRoom);
-        }
-        return true;
-    }
 
     /**
      * Writes all questions of a specific lectureRoom to the export file.
@@ -90,55 +70,34 @@ public class LectureRoomService {
      * @param lecturePin - The pin of the archived lectureRoom.
      * @return the file with all of the questions and corresponding answers.
      */
-    public File exportRoom(File file, String lecturePin) {
-        List<Question> questions = questionRepository.getAllByLecturePin(lecturePin);
+    public File exportRoom(File file, String lecturePin) throws IOException {
+        List<Question> questions = questionRepository
+                .getAllByLecturePinOrderByScoreDescCreationDateDesc(lecturePin);
         LectureRoom room = lectureRoomRepository.getByLecturePin(lecturePin);
 
-        try {
-            FileWriter fileWriter = new FileWriter(file);
-            String output = "";
+        FileWriter fileWriter = new FileWriter(file);
+        String output = "";
 
-            if (questions.isEmpty()) {
-                output = "This archive did not contain questions, therefore this file is empty.";
-            } else {
-                output += room.getLectureName()
-                        + " ("
-                        + room.getCreationDate().toString().substring(0, 10)
-                        + ")\n\n";
-                for (Question question : questions) {
-                    output += "Q: " + question.getQuestion() + "\n";
+        if (questions.isEmpty()) {
+            output = "This archive did not contain questions, therefore this file is empty.";
+        } else {
+            output += room.getLectureName()
+                    + " ("
+                    + room.getCreationDate().toString().substring(0, 10)
+                    + ")\n\n";
+            for (Question question : questions) {
+                output += "Q: " + question.getQuestion() + "\n";
 
-                    String answer = (question.getAnswer() == null) ? "[Insert answer here]"
-                                    : question.getAnswer();
-                    output += "A: " + answer + "\n\n";
-                }
+                String answer = (question.getAnswer() == null) ? "[Insert answer here]"
+                                : question.getAnswer();
+                output += "A: " + answer + "\n\n";
             }
-
-            fileWriter.write(output);
-            fileWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
         }
 
+        fileWriter.write(output);
+        fileWriter.close();
+
         return file;
-    }
-
-    /**
-     * Method for getting all the lecture rooms.
-     * @return List containing all the lecture rooms.
-     */
-    public List<LectureRoom> getAllLectureRooms() {
-        return lectureRoomRepository.getAll();
-    }
-
-    /**
-     * Method for checking if a room exists.
-     * @param pin the pin to check for.
-     * @return true if the room exists, false otherwise.
-     */
-    public boolean existsByPin(String pin) {
-        return lectureRoomRepository.existsByLecturePin(pin);
     }
 
     /**
@@ -147,7 +106,7 @@ public class LectureRoomService {
      * @return A LectureRoom that is associated with the pin
      */
     public LectureRoom getLectureRoom(String pin) {
-        return lectureRoomRepository.getLectureRoomByLecturePin(pin);
+        return lectureRoomRepository.getByLecturePin(pin);
     }
 
     /**
@@ -155,13 +114,16 @@ public class LectureRoomService {
      * @param lectureRoom the lecture room to change to
      * @return whether the room is updated or didn't exist
      */
-    public String putLectureRoom(LectureRoom lectureRoom) {
+    public String putLectureRoom(LectureRoom lectureRoom, String username) {
         if (!lectureRoomRepository.existsByLecturePin(
                 lectureRoom.getLecturePin())) {
             return "Room does not yet exist";
         }
         LectureRoom prev = lectureRoomRepository.getByLecturePin(
                 lectureRoom.getLecturePin());
+        FileLogger.addMessage(username + " changed status of "
+                + lectureRoom.getLecturePin() + " from " + prev.isOpen()
+                + " to " + lectureRoom.isOpen());
         prev.setOpen(lectureRoom.isOpen());
         lectureRoomRepository.save(prev);
         return "Updated room";
@@ -172,7 +134,7 @@ public class LectureRoomService {
      * @return list of lecturePins
      */
     public List<LectureRoom> getClosedLecturePins() {
-        return lectureRoomRepository.getAllByIsOpenIsFalse();
+        return lectureRoomRepository.getAllByIsOpenIsFalseOrderByCreationDateDesc();
     }
 
     /**
@@ -180,12 +142,14 @@ public class LectureRoomService {
      * @param lectureRoom   The lecture room to update
      * @return  Returns success
      */
-    public String updateFrequency(LectureRoom lectureRoom) {
+    public String updateFrequency(LectureRoom lectureRoom, String username) {
         LectureRoom oldLectureRoom = lectureRoomRepository
-                .getLectureRoomByLecturePin(lectureRoom.getLecturePin());
+                .getByLecturePin(lectureRoom.getLecturePin());
+        FileLogger.addMessage(username + " changed status of "
+                + lectureRoom.getLecturePin() + " from " + oldLectureRoom.getQuestionFrequency()
+                + " to " + lectureRoom.getQuestionFrequency());
         oldLectureRoom.setQuestionFrequency(lectureRoom.getQuestionFrequency());
         lectureRoomRepository.save(oldLectureRoom);
         return "success";
     }
-
 }

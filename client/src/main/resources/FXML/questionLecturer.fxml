@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import org.controlsfx.control.*?>
+
+<AnchorPane prefHeight="798.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.pages.QuestionLecturerController">
+
+   <children>
+      <Pane fx:id="list" layoutX="13.0" layoutY="25.0" prefHeight="723.0" prefWidth="876.0" style="-fx-background-color: #00A6D6; -fx-background-radius: 18;">
+         <children>
+            <Text fx:id="listTitle" fill="WHITE" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Questions" textAlignment="CENTER" wrappingWidth="876.0">
+               <font>
+                  <Font size="50.0" />
+               </font>
+            </Text>
+            <ScrollPane hbarPolicy="NEVER" layoutY="75.0">
+               <content>
+                  <VBox fx:id="stack" alignment="CENTER" prefHeight="622.0" prefWidth="874.0" style="-fx-background-color: #FFFFFF;" />
+               </content>
+            </ScrollPane>
+            <ToggleButton fx:id="changeList" layoutX="751.0" layoutY="25.0" mnemonicParsing="false" style="-fx-background-color: #99d28c;" text="answers" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </ToggleButton>
+         </children>
+      </Pane>
+      <Text fx:id="greetings" layoutX="915.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome, [username]" textAlignment="CENTER" wrappingWidth="238.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="24.0" fitWidth="28.0" layoutX="893.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true" visible="true">
+                  <Image url="@../images/zzz-sleep-symbol.png" />
+      </ImageView>
+      <ImageView fitHeight="24.0" fitWidth="28.0" layoutX="1131.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true" visible="true">
+                  <Image url="@../images/speedometer.png" />
+      </ImageView>
+      <ProgressBar fx:id="progress" layoutX="895.0" layoutY="128.0" prefHeight="24.0" prefWidth="264.0" progress="0.0" />
+      <Text fx:id="selectedSpeed" layoutX="925.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[selected speed]" textAlignment="CENTER" visible="false" wrappingWidth="202.8056640625">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Text>
+      <Button layoutX="1055.0" layoutY="692.0" mnemonicParsing="false" onAction="#closeRoom" prefHeight="31.0" prefWidth="93.0" style="-fx-background-color: #FF0000;" text="Close room" textFill="WHITE" />
+      <Button layoutX="933.0" layoutY="692.0" mnemonicParsing="false" onAction="#createPoll" prefHeight="31.0" prefWidth="93.0" style="-fx-background-color: #00A6D6;" text="Create Poll" textFill="WHITE" />
+      <Label layoutX="930.0" layoutY="382.0" prefHeight="25.0" prefWidth="121.0" text="Question:" />
+      <Label layoutX="930.0" layoutY="553.0" prefHeight="17.0" prefWidth="121.0" text="Number of options" />
+      <Label layoutX="930.0" layoutY="611.0" prefHeight="17.0" prefWidth="121.0" text="Correct Answers" />
+      <ChoiceBox fx:id="numOptions" layoutX="930.0" layoutY="571.0" prefHeight="28.0" prefWidth="175.0" />
+      <Button fx:id="closePollButton" layoutX="933.0" layoutY="739.0" mnemonicParsing="false" onAction="#closePoll" prefHeight="31.0" prefWidth="93.0" style="-fx-background-color: #00A6D6;" text="Close Poll" textFill="WHITE" visible="false" />
+      <BarChart fx:id="pollChart" layoutX="893.0" layoutY="200.0" prefHeight="207.0" prefWidth="267.0">
+        <xAxis>
+          <CategoryAxis label="Votes" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </BarChart>
+      <TextArea fx:id="pollField" layoutX="929.0" layoutY="408.0" prefHeight="133.0" prefWidth="210.0" wrapText="true" />
+      <CheckComboBox fx:id="correctAnswers" disable="true" layoutX="930.0" layoutY="629.0" prefHeight="29.0" prefWidth="175.0" title="Pick answers" />
+      <TextField fx:id="currentRoomPin" editable="false" layoutX="13.0" layoutY="755.0" prefHeight="39.0" prefWidth="371.0" style="-fx-background-color: #F4F4F4" text="Lecture pin: [lecturePin]">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextField>
+      <Button fx:id="adminSettings" disable="true" layoutX="980.0" layoutY="97.0" mnemonicParsing="false" onAction="#adminAction" prefHeight="31.0" prefWidth="108.0" style="-fx-background-color: #00A6D6;" text="Admin Settings" textFill="WHITE" visible="false" />
+      <Button layoutX="1055.0" layoutY="739.0" mnemonicParsing="false" onAction="#backToLobby" prefHeight="31.0" prefWidth="93.0" style="-fx-background-color: #00A6D6;" text="To lobby" textFill="WHITE" />
+
+   </children>
+</AnchorPane>

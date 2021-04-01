@@ -1,5 +1,6 @@
 package nl.tudelft.oopp.demo.repositories;
 
+import java.util.List;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
 import nl.tudelft.oopp.demo.entities.Users;
@@ -11,4 +12,7 @@ public interface ScoringLogRepository extends JpaRepository<ScoringLog, Long> {
 
     ScoringLog getByQuestionAndUsers(Question question, Users users);
 
+    List<ScoringLog> findAllByUsers(Users users);
+
+    Integer deleteByQuestion(Question question);
 }

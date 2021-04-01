@@ -3,6 +3,7 @@ package nl.tudelft.oopp.demo.services;
 import java.util.Comparator;
 import java.util.List;
 import nl.tudelft.oopp.demo.entities.Poll;
+import nl.tudelft.oopp.demo.logger.FileLogger;
 import nl.tudelft.oopp.demo.repositories.PollRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,17 +28,27 @@ public class PollService {
      * @param id Long with the id of the poll
      * @return String with whether the vote was valid
      */
-    public String voteOnPoll(Character c, long id) {
+    public String voteOnPoll(Character c, long id, String username) {
         if (!pollRepository.existsById(id)) {
             return "This poll does not exist";
         }
         Poll retrievedPoll = pollRepository.getById(id);
         String message = retrievedPoll.vote(c);
         pollRepository.save(retrievedPoll);
+        FileLogger.addMessage(username + " answered option " + c + " in poll " + id
+                + " with poll question " + retrievedPoll.getQuestion());
         return message;
     }
 
-    public Poll savePoll(Poll poll) {
+    /**
+     * Method for saving a poll in the database.
+     * @param  poll - the new poll.
+     * @param username - username who wants to save the poll.
+     * @return the saved poll object.
+     */
+    public Poll savePoll(Poll poll, String username) {
+        FileLogger.addMessage(username + " created poll " + poll.getId()
+                + " with question " + poll.getQuestion());
         return pollRepository.save(poll);
     }
 

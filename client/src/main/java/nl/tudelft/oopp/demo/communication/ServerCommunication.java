@@ -19,37 +19,41 @@ import nl.tudelft.oopp.demo.entities.Users;
 
 public class ServerCommunication extends Request {
 
-    private static HttpClient client = HttpClient.newBuilder().build();
-
     /**
      * Retrieves a quote from the server.
      * @return the body of a get request to the server.
      * @throws Exception if communication with the server fails.
      */
-    public static String saveQuestion(Question question) {
+    public static String saveQuestion(Question question, String username) {
         return post(
-                "http://localhost:8080/question/save-question",
+                "http://localhost:8080/question/save-question/" + username,
                 question);
     }
 
-    public static LectureRoom getLectureRoom(String pin) {
-        return getPin("http://localhost:8080/lecture/" + pin);
+    public static LectureRoom getLectureRoom(String pin) throws JsonProcessingException {
+        String response = get("http://localhost:8080/lecture/" + pin);
+        return new ObjectMapper().readValue(response, new TypeReference<>() {});
     }
 
-    public static String addLectureRoom(LectureRoom lectureRoom) {
-        return post("http://localhost:8080/lecture", lectureRoom);
+    public static String addLectureRoom(LectureRoom lectureRoom, String username) {
+        return post("http://localhost:8080/lecture/" + username, lectureRoom);
     }
 
-    public static List<Question> getAllQuestion(String lectureRoom) {
-        return getQuestions("http://localhost:8080/question/get-all/" + lectureRoom);
+    public static List<Question> getAllQuestion(String lectureRoom) throws JsonProcessingException {
+        String response = get("http://localhost:8080/question/get-all/" + lectureRoom);
+        return new ObjectMapper().readValue(response, new TypeReference<>() {});
     }
 
-    public static List<Question> getAllAnsweredQuestions(String lecturePin) {
-        return getQuestions("http://localhost:8080/question/get-all/answered/" + lecturePin);
+    public static List<Question> getAllAnsweredQuestions(String lecturePin)
+            throws JsonProcessingException {
+        String response = get("http://localhost:8080/question/get-all/answered/" + lecturePin);
+        return new ObjectMapper().readValue(response, new TypeReference<>() {});
     }
 
-    public static List<Question> getAllNonAnsweredQuestions(String lecturePin) {
-        return getQuestions("http://localhost:8080/question/get-all/non-answered/" + lecturePin);
+    public static List<Question> getAllNonAnsweredQuestions(String lecturePin)
+            throws JsonProcessingException {
+        String response = get("http://localhost:8080/question/get-all/non-answered/" + lecturePin);
+        return new ObjectMapper().readValue(response, new TypeReference<>() {});
     }
 
     /**
@@ -90,33 +94,35 @@ public class ServerCommunication extends Request {
                 new ObjectMapper().writeValueAsString(credentials));
     }
 
-    public static String voteQuestion(ScoringLog scoringLog) {
+    public static String voteQuestion(ScoringLog scoringLog, String username) {
 
-        return post("http://localhost:8080/scoringlog/vote", scoringLog);
+        return post("http://localhost:8080/scoringlog/vote/" + username, scoringLog);
     }
 
-    public static List<ScoringLog> getVotes() {
-        return getVotes("http://localhost:8080/scoringlog/get-votes");
+    public static List<ScoringLog> getVotes(Users users) throws JsonProcessingException {
+        String response = post("http://localhost:8080/scoringlog/get-votes", users);
+        return new ObjectMapper().readValue(response, new TypeReference<>() {});
     }
 
-    public static String deleteQuestion(String id) {
-        return delete("http://localhost:8080/question", id);
+    public static String deleteQuestion(String id, String username) {
+        return delete("http://localhost:8080/question/" + username, id);
     }
 
-    public static String updateAnswerQuestion(Question question) {
-        return put("http://localhost:8080/question/update-answer", question);
+    public static String updateAnswerQuestion(Question question, String username) {
+        return put("http://localhost:8080/question/update-answer/" + username, question);
     }
 
-    public static String updateContentQuestion(Question question) {
-        return put("http://localhost:8080/question/update-content", question);
+    public static String updateContentQuestion(Question question, String username) {
+        return put("http://localhost:8080/question/update-content/" + username, question);
     }
 
-    public static String closeRoom(LectureRoom lectureRoom) {
-        return put("http://localhost:8080/lecture/", lectureRoom);
+    public static String closeRoom(LectureRoom lectureRoom, String username) {
+        return put("http://localhost:8080/lecture/" + username, lectureRoom);
     }
 
-    public static List<LectureRoom> getClosedLecturePins() {
-        return getClosedPins("http://localhost:8080/lecture/getClosed/");
+    public static List<LectureRoom> getClosedLecturePins() throws JsonProcessingException {
+        String response = get("http://localhost:8080/lecture/getClosed/");
+        return new ObjectMapper().readValue(response, new TypeReference<>() {});
     }
 
     /**
@@ -132,16 +138,17 @@ public class ServerCommunication extends Request {
                 new ObjectMapper().writeValueAsString(file));
     }
 
-    public static String speedVote(SpeedLog speedLog) {
-        return post("http://localhost:8080/speedlog/speed-vote", speedLog);
+    public static String speedVote(SpeedLog speedLog, String username) {
+        return post("http://localhost:8080/speedlog/speed-vote/" + username, speedLog);
     }
 
-    public static List<SpeedLog> speedGetVotes() {
-        return getSpeedVotes("http://localhost:8080/speedlog/get-speed-votes");
+    public static double speedGetVotes(String lecturePin) throws JsonProcessingException {
+        String response = get("http://localhost:8080/speedlog/get-speed-votes/" + lecturePin);
+        return new ObjectMapper().readValue(response, new TypeReference<>() {});
     }
 
-    public static String createPoll(Poll poll) {
-        return post("http://localhost:8080/poll/create/", poll);
+    public static String createPoll(Poll poll, String username) {
+        return post("http://localhost:8080/poll/create/" + username, poll);
     }
 
 
@@ -150,20 +157,21 @@ public class ServerCommunication extends Request {
         return response.length() == 0 ? null : new ObjectMapper().readValue(response, Poll.class);
     }
 
-    public static List<Poll> getAllPolls(String lecturePin) {
-        return getPolls("http://localhost:8080/poll/lecture-polls/" + lecturePin);
+    public static List<Poll> getAllPolls(String lecturePin) throws JsonProcessingException {
+        String response = get("http://localhost:8080/poll/lecture-polls/" + lecturePin);
+        return new ObjectMapper().readValue(response, new TypeReference<List<Poll>>() {});
     }
 
-    public static String closePoll(Poll poll) {
-        return put("http://localhost:8080/poll/close", poll);
+    public static String closePoll(Poll poll, String username) {
+        return put("http://localhost:8080/poll/close/" + username, poll);
     }
 
-    public static String vote(Character c, long id) {
-        return put("http://localhost:8080/poll/vote/" + id, c);
+    public static String vote(Character c, long id, String username) {
+        return put("http://localhost:8080/poll/vote/" + id + "/" + username, c);
     }
 
-    public static String updateFrequency(LectureRoom lectureRoom) {
-        return put("http://localhost:8080/lecture/update-frequency", lectureRoom);
+    public static String updateFrequency(LectureRoom lectureRoom, String username) {
+        return put("http://localhost:8080/lecture/update-frequency/" + username, lectureRoom);
     }
 
     public static List<Users> getAllStudents() throws JsonProcessingException {
@@ -171,8 +179,8 @@ public class ServerCommunication extends Request {
         return new ObjectMapper().readValue(response, new TypeReference<List<Users>>(){});
     }
 
-    public static String banUser(String username) {
-        return put("http://localhost:8080/users/ban", username);
+    public static String banUser(String bannedUser, String username) {
+        return put("http://localhost:8080/users/ban/" + username, bannedUser);
     }
 
     public static List<Users> getBySubstring(String search,
@@ -181,8 +189,8 @@ public class ServerCommunication extends Request {
         return new ObjectMapper().readValue(response, new TypeReference<>(){});
     }
 
-    public static String unbanUser(String username) {
-        return put("http://localhost:8080/users/unban", username);
+    public static String unbanUser(String unbanned, String username) {
+        return put("http://localhost:8080/users/unban/" + username, unbanned);
     }
 
     public static List<Users> getAllNotBannedStudents() throws JsonProcessingException {
