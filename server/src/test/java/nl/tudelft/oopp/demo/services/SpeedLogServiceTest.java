@@ -92,10 +92,16 @@ class SpeedLogServiceTest {
 
     @Test
     void getSpeedVotesTest() {
+        Mockito.when(speedLogRepository.existsRoom("1234521Piet")).thenReturn(1);
         Mockito.when(speedLogRepository
                     .getSpeedAverageByLecturePin(lectureRoom.getLecturePin()))
-                .thenReturn(50.0);
+                .thenReturn(60.0);
+        assertEquals(60.0, speedLogService.getSpeedVotes(lectureRoom.getLecturePin()));
+    }
 
+    @Test
+    void getSpeedVotesTestEmpty() {
+        Mockito.when(speedLogRepository.existsRoom("1234521Piet")).thenReturn(0);
         assertEquals(50.0, speedLogService.getSpeedVotes(lectureRoom.getLecturePin()));
     }
 }
