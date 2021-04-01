@@ -1,12 +1,11 @@
 package nl.tudelft.oopp.demo.logger;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 class MyFormatterTest {
 
