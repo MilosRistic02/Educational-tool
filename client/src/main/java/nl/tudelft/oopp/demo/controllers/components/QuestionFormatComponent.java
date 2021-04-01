@@ -141,18 +141,16 @@ public class QuestionFormatComponent extends VBox {
      * Make the answer visible and update its content. It also changes the
      * border of the question to green and the status to "Answered".
      */
-    public void setAnswered() {
-        // Make answer visible and update its content.
+    public void setAnswered(String colour, String text) {
         answerHeading.setVisible(true);
         answer.setVisible(true);
         answer.setText(currentQuestion.getAnswer());
-        // change border of the question to green.
-        qanda.setStyle("-fx-border-color: #99d28c ; "
-                        + "-fx-border-width: 4; -fx-border-radius: 18");
-        // change status to "Answered" and its color to green.
-        isAnswered.setText("Answered");
-        isAnswered.setFill(Color.valueOf("#99d28c"));
+        qanda.setStyle("-fx-border-color:  " + colour + ";"
+                + "-fx-border-width: 4; -fx-border-radius: 18");
+        isAnswered.setText(text);
+        isAnswered.setFill(Color.valueOf(colour));
     }
+
 
     /**
      * Loads the current question with its corresponding information
@@ -162,8 +160,14 @@ public class QuestionFormatComponent extends VBox {
      * author of the current question.
      */
     public void loadQuestion() {
-        if (currentQuestion.getAnswered() >= 1) {
-            setAnswered();
+        if (currentQuestion.getAnswered() == 1) {
+            setAnswered("#99d28c", "Answered");
+        }
+        if (currentQuestion.getAnswered() == 2) {
+            setAnswered("#f1be3e", "Answered verbally");
+        }
+        if (currentQuestion.getAnswered() == 3) {
+            setAnswered("#00A6D6", "Typing...");
         }
 
         question.setText(currentQuestion.getQuestion());
