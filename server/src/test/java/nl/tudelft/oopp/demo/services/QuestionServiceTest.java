@@ -98,24 +98,26 @@ class QuestionServiceTest {
 
     @Test
     void getAllAnsweredQuestions() {
+        question2.setCreationDate(new Date(System.currentTimeMillis()));
+        question3.setCreationDate(new Date(System.currentTimeMillis()));
         Mockito.when(questionRepository
                 .getAllByAnsweredAndLecturePinOrderByScoreDescCreationDateDesc(1, "1889221jsloof"))
                 .thenReturn(Arrays.asList(question2));
         Mockito.when(questionRepository
                 .getAllByAnsweredAndLecturePinOrderByScoreDescCreationDateDesc(2, "1889221jsloof"))
                 .thenReturn(Arrays.asList(question3));
-        question2.setAnswered(1);
-        question3.setAnswered(2);
+
         assertArrayEquals(Arrays.asList(question2,question3).toArray(),
                 questionService.getAllAnsweredQuestions("1889221jsloof").toArray());
     }
 
     @Test
     void getAllNonAnsweredQuestions() {
+        question1.setCreationDate(new Date(System.currentTimeMillis()));
         Mockito.when(questionRepository
                 .getAllByAnsweredAndLecturePinOrderByScoreDescCreationDateDesc(0, "4812421dristic"))
                 .thenReturn(Arrays.asList(question1));
-        question1.setAnswered(0);
+
         assertArrayEquals(Arrays.asList(question1).toArray(),
                 questionService.getAllNonAnsweredQuestions("4812421dristic").toArray());
     }

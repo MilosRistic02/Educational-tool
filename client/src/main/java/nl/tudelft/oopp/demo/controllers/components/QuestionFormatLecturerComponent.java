@@ -94,6 +94,10 @@ public class QuestionFormatLecturerComponent extends VBox {
      */
     @FXML
     public void makeAnswer() {
+        // set answered status to "typing"
+        currentQuestion.setAnswered(3);
+        ServerCommunication.updateAnswerQuestion(currentQuestion,
+                loggedUser.getUsername());
         // display the last answer.
         String oldAnswer = "your answer";
         if (currentQuestion.getAnswered() >= 1) {
@@ -116,6 +120,9 @@ public class QuestionFormatLecturerComponent extends VBox {
                 answer.setText(result.get());
                 setAnswered("#99d28c", "Answered");
             }
+        } else {
+            currentQuestion.setAnswered(0);
+            ServerCommunication.updateAnswerQuestion(currentQuestion, loggedUser.getUsername());
         }
     }
 
@@ -178,6 +185,9 @@ public class QuestionFormatLecturerComponent extends VBox {
         }
         if (currentQuestion.getAnswered() == 2) {
             setAnswered("#f1be3e", "Answered verbally");
+        }
+        if (currentQuestion.getAnswered() == 3) {
+            setAnswered("#00A6D6", "Typing...");
         }
 
         question.setText(currentQuestion.getQuestion());

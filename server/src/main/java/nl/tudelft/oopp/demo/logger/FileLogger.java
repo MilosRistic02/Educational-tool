@@ -25,9 +25,7 @@ public class FileLogger {
             logger.addHandler(fh);
             fh.setFormatter(new MyFormatter());
             logger.setUseParentHandlers(false);
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
