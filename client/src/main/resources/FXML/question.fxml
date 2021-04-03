@@ -89,7 +89,7 @@
             <NumberAxis side="LEFT" />
          </yAxis>
       </BarChart>
-      <Text fx:id="selectedSpeed" layoutX="955.0" layoutY="214.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[Selected speed]" textAlignment="CENTER" visible="false" wrappingWidth="148.21630859375">
+      <Text fx:id="selectedSpeed" layoutX="955.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[Selected speed]" textAlignment="CENTER" visible="false" wrappingWidth="148.21630859375">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
