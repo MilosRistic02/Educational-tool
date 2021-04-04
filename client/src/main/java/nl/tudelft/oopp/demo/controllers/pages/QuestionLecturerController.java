@@ -87,6 +87,9 @@ public class QuestionLecturerController {
     @FXML
     private Text listTitle;
 
+    @FXML
+    private Button createPollButton;
+
 
     private Users users;
 
@@ -321,6 +324,7 @@ public class QuestionLecturerController {
         List<Character> answers = correctAnswers.getCheckModel().getCheckedItems();
 
         closePoll();
+        createPollButton.setText("Update poll");
         Poll poll = new Poll(lectureRoom.getLecturePin(), size, answers, pollQuestion);
         currentPoll = new ObjectMapper()
                 .readValue(ServerCommunication.createPoll(poll, users.getUsername()), Poll.class);
@@ -365,6 +369,7 @@ public class QuestionLecturerController {
         correctAnswers.getItems().clear();
         for (int i = 65; i < n + 65; i++) {
             correctAnswers.getItems().add((char) i);
+            correctAnswers.getCheckModel().clearCheck(i - 65);
         }
         correctAnswers.setDisable(false);
     }
@@ -380,6 +385,7 @@ public class QuestionLecturerController {
         closePollButton.setVisible(false);
         currentPoll.setOpen(false);
         ServerCommunication.closePoll(currentPoll, users.getUsername());
+        createPollButton.setText("Create poll");
     }
 
 }
