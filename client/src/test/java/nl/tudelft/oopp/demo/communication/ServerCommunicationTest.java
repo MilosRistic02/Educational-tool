@@ -18,8 +18,10 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import nl.tudelft.oopp.demo.entities.LectureRoom;
+import nl.tudelft.oopp.demo.entities.Poll;
 import nl.tudelft.oopp.demo.entities.Question;
 import nl.tudelft.oopp.demo.entities.ScoringLog;
+import nl.tudelft.oopp.demo.entities.SpeedLog;
 import nl.tudelft.oopp.demo.entities.Users;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,6 +33,11 @@ import org.mockserver.model.HttpResponse;
 public class ServerCommunicationTest {
 
     private static ClientAndServer mockServer;
+
+    private Users users = new Users("p", "p@tudelft.nl", "pass", "pass");
+    private LectureRoom lectureRoom = new LectureRoom("3739232b", "Stefan", "CSE1300");
+    private SpeedLog speedLog = new SpeedLog(users, lectureRoom, 95);
+    private Poll poll = new Poll("3739232b", 4, Arrays.asList('A'), "question");
 
     @BeforeEach
     void setUp() throws InterruptedException {
@@ -203,45 +210,74 @@ public class ServerCommunicationTest {
                 ServerCommunication.deleteQuestion("1", "user"));
     }
 
-    //    @Test
-    //    void updateAnswerQuestion() {
-    //    }
+    //        @Test
+    //        void updateAnswerQuestion() {
+    //        }
     //
-    //    @Test
-    //    void updateContentQuestion() {
-    //    }
+    //        @Test
+    //        void updateContentQuestion() {
+    //        }
     //
-    //    @Test
-    //    void closeRoom() {
-    //    }
+    //        @Test
+    //        void closeRoom() {
+    //        }
     //
-    //    @Test
-    //    void getClosedLecturePins() {
-    //    }
+    //        @Test
+    //        void getClosedLecturePins() {
+    //        }
     //
-    //    @Test
-    //    void exportRoom() {
-    //    }
-    //
-    //    @Test
-    //    void speedVote() {
-    //    }
-    //
-    //    @Test
-    //    void speedGetVotes() {
-    //    }
-    //
-    //    @Test
-    //    void createPoll() {
-    //    }
-    //
-    //    @Test
-    //    void getPoll() {
-    //    }
-    //
-    //    @Test
-    //    void getAllPolls() {
-    //    }
+    //        @Test
+    //        void exportRoom() {
+    //        }
+
+    @Test
+    void speedVote() throws JsonProcessingException {
+        new MockServerClient("localhost", 8080)
+                .when(
+                        request()
+                                .withMethod("POST")
+                                .withPath("/speedlog/speed-vote/user")
+                                .withHeader("Content-type", "application/json")
+                                .withBody(new ObjectMapper().writeValueAsString(speedLog))
+                )
+                .respond(
+                        HttpResponse.response()
+                                .withStatusCode(200)
+                                .withBody("Success"));
+
+        assertEquals("Success", ServerCommunication.speedVote(speedLog, "user"));
+
+    }
+
+    @Test
+    void speedGetVotes() {
+    }
+
+    @Test
+    void createPoll() throws JsonProcessingException {
+        new MockServerClient("localhost", 8080)
+                .when(
+                        request()
+                                .withMethod("POST")
+                                .withPath("/poll/create/user")
+                                .withHeader("Content-type", "application/json")
+                                .withBody(new ObjectMapper().writeValueAsString(poll))
+                )
+                .respond(
+                        HttpResponse.response()
+                                .withStatusCode(200)
+                                .withBody("Success"));
+
+        assertEquals("Success", ServerCommunication.createPoll(poll, "user"));
+    }
+
+    @Test
+    void getPoll() {
+    }
+
+    @Test
+    void getAllPolls() {
+    }
     //
     //    @Test
     //    void closePoll() {
@@ -258,6 +294,7 @@ public class ServerCommunicationTest {
     //    @Test
     //    void getAllStudents() {
     //    }
+
     @Test
     void banUser() {
         String user = "user";
