@@ -19,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Question;
+import nl.tudelft.oopp.demo.entities.ScoringLog;
 import nl.tudelft.oopp.demo.entities.Users;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,14 +33,18 @@ public class ServerCommunicationTest {
     private static ClientAndServer mockServer;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws InterruptedException {
         mockServer = startClientAndServer(8080);
     }
 
     @AfterEach
     void tearDown() {
         mockServer.stop();
-        while (!mockServer.hasStopped(3,100L, TimeUnit.MILLISECONDS)){
+        // Sometimes the previous mockServer is not yet shutdown while
+        // the next request is already posted.
+        // While loop will make sure the server has quit.
+        // found on: https://github.com/mock-server/mockserver/issues/498
+        while (!mockServer.hasStopped(3,100L, TimeUnit.MILLISECONDS)) {
 
         }
     }
@@ -361,22 +366,121 @@ public class ServerCommunicationTest {
                 ServerCommunication.getAllBannedStudents());
     }
 
-    //    @Test
-    //    void isUserBanned() {
-    //    }
-    //
-    //    @Test
-    //    void voteQuestion() {
-    //    }
-    //
-    //    @Test
-    //    void getVotes() {
-    //    }
-    //    @Test
-    //    void getAllAnsweredQuestions() {
-    //    }
-    //
-    //    @Test
-    //    void getAllNonAnsweredQuestions() {
-    //    }
+    @Test
+    void isUserBanned() {
+        new MockServerClient("localhost", 8080)
+            .when(
+                    request()
+                            .withMethod("GET")
+                            .withPath("/users/check-banned/me")
+            )
+            .respond(
+                    HttpResponse.response()
+                            .withStatusCode(200)
+                            .withBody("true")
+            );
+        assertEquals(true, ServerCommunication.isUserBanned("me"));
+    }
+
+    @Test
+    void voteQuestion() throws JsonProcessingException {
+        Question question = new Question("Is this a good example question?",
+                "2802202001Stefan", "Stefan");
+        Users users = new Users("Stefan", "stefan@tudelft.nl", "123", "student");
+        ScoringLog scoringLog = new ScoringLog(question, users, -1);
+        new MockServerClient("localhost", 8080)
+                .when(
+                        request()
+                                .withMethod("POST")
+                                .withPath("/scoringlog/vote/stefan")
+                                .withHeader("Content-type", "application/json")
+                                .withBody(new ObjectMapper().writeValueAsString(scoringLog))
+                )
+                .respond(
+                        HttpResponse.response()
+                                .withStatusCode(200)
+                                .withBody("Success"));
+
+        assertEquals("Success", ServerCommunication.voteQuestion(scoringLog, "stefan"));
+    }
+
+    @Test
+    void getVotes() throws JsonProcessingException {
+        Question question1 = new Question("Is this a good example question?",
+                "2802202001Stefan", "Stefan");
+        Question question2 = new Question("Is this a good example question too?",
+                "2802202001Stefan", "Stefan");
+        Question question3 = new Question("Is this a good example question three?",
+                "2802202001Stefan", "Stefan");
+        Users users = new Users("Stefan", "stefan@tudelft.nl", "123", "student");
+        ScoringLog scoringLog1 = new ScoringLog(question1, users, -1);
+        ScoringLog scoringLog2 = new ScoringLog(question2, users, 1);
+        ScoringLog scoringLog3 = new ScoringLog(question3, users, 0);
+        List<ScoringLog> list = Arrays.asList(scoringLog1, scoringLog2, scoringLog3);
+        new MockServerClient("localhost", 8080)
+                .when(
+                        request()
+                                .withMethod("POST")
+                                .withPath("/scoringlog/get-votes")
+                                .withHeader("Content-type", "application/json")
+                                .withBody(new ObjectMapper().writeValueAsString(users))
+                )
+                .respond(
+                        HttpResponse.response()
+                                .withStatusCode(200)
+                                .withBody(new ObjectMapper().writeValueAsString(list)));
+
+        assertArrayEquals(list.toArray(), ServerCommunication.getVotes(users).toArray());
+    }
+
+    @Test
+    void getAllAnsweredQuestions() throws JsonProcessingException {
+        Question question1 = new Question("Is this a good example question?",
+                "2802202001Stefan", "Stefan");
+        Question question2 = new Question("Is this a good example question too?",
+                "2802202001Stefan", "Stefan");
+        Question question3 = new Question("Is this a good example question three?",
+                "2802202001Stefan", "Stefan");
+        question1.setAnswered(1);
+        question2.setAnswered(1);
+        question3.setAnswered(1);
+        List<Question> list = Arrays.asList(question1, question2, question3);
+        new MockServerClient("localhost", 8080)
+                .when(
+                        request()
+                                .withMethod("GET")
+                                .withPath("/question/get-all/answered/2802202001Stefan")
+                )
+                .respond(
+                        HttpResponse.response()
+                                .withStatusCode(200)
+                                .withBody(new ObjectMapper().writeValueAsString(list)));
+
+        assertArrayEquals(list.toArray(),
+                ServerCommunication.getAllAnsweredQuestions("2802202001Stefan").toArray());
+    }
+
+    @Test
+    void getAllNonAnsweredQuestions() throws JsonProcessingException {
+        Question question1 = new Question("Is this a good example question?",
+                "2802202001Stefan", "Stefan");
+        Question question2 = new Question("Is this a good example question too?",
+                "2802202001Stefan", "Stefan");
+        Question question3 = new Question("Is this a good example question three?",
+                "2802202001Stefan", "Stefan");
+        List<Question> list = Arrays.asList(question1, question2, question3);
+        new MockServerClient("localhost", 8080)
+                .when(
+                        request()
+                                .withMethod("GET")
+                                .withPath("/question/get-all/non-answered/2802202001Stefan")
+                )
+                .respond(
+                        HttpResponse.response()
+                                .withStatusCode(200)
+                                .withBody(new ObjectMapper().writeValueAsString(list)));
+
+        assertArrayEquals(list.toArray(),
+                ServerCommunication.getAllNonAnsweredQuestions("2802202001Stefan").toArray());
+    }
 }

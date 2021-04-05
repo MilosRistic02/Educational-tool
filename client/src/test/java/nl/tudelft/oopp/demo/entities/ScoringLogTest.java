@@ -1,6 +1,7 @@
 package nl.tudelft.oopp.demo.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -68,4 +69,39 @@ class ScoringLogTest {
         scoringLog.setScore(3);
         assertEquals(3, scoringLog.getScore());
     }
+
+    @Test
+    void testEquals() {
+        assertEquals(scoringLog, scoringLog);
+    }
+
+    @Test
+    void testEqualsDiff() {
+        scoringLog2.setQuestion(question);
+        scoringLog2.setUsers(users);
+        scoringLog2.setScore(2);
+        scoringLog2.setId(scoringLog.getId());
+        assertEquals(scoringLog, scoringLog2);
+    }
+
+    @Test
+    void testNotEquals() {
+        assertNotEquals(scoringLog, scoringLog2);
+    }
+
+    @Test
+    void testNull() {
+        assertNotEquals(scoringLog, null);
+    }
+
+    @Test
+    void testNotEqualsOtherObject() {
+        assertNotEquals(scoringLog, 2);
+    }
+
+    @Test
+    void testHash() {
+        assertEquals(107587548, scoringLog.hashCode());
+    }
+
 }
