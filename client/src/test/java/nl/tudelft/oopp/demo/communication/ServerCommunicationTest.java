@@ -10,12 +10,16 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
 import nl.tudelft.oopp.demo.entities.LectureRoom;
 import nl.tudelft.oopp.demo.entities.Question;
+import nl.tudelft.oopp.demo.entities.Users;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,6 +39,9 @@ public class ServerCommunicationTest {
     @AfterEach
     void tearDown() {
         mockServer.stop();
+        while (!mockServer.hasStopped(3,100L, TimeUnit.MILLISECONDS)){
+
+        }
     }
 
     @Test
@@ -246,27 +253,114 @@ public class ServerCommunicationTest {
     //    @Test
     //    void getAllStudents() {
     //    }
-    //
-    //    @Test
-    //    void banUser() {
-    //    }
-    //
-    //    @Test
-    //    void getBySubstring() {
-    //    }
-    //
-    //    @Test
-    //    void unbanUser() {
-    //    }
-    //
-    //    @Test
-    //    void getAllNotBannedStudents() {
-    //    }
-    //
-    //    @Test
-    //    void getAllBannedStudents() {
-    //    }
-    //
+    @Test
+    void banUser() {
+        String user = "user";
+        new MockServerClient("localhost", 8080)
+                .when(
+                        request()
+                                .withMethod("PUT")
+                                .withPath("/users/ban/user")
+                                .withHeader("Content-type", "application.json")
+                                .withBody(user)
+                )
+                .respond(
+                        HttpResponse.response()
+                                .withStatusCode(200)
+                                .withBody("User banned successfully"));
+        assertEquals("User banned successfully",
+                ServerCommunication.banUser("user", "user"));
+    }
+
+    @Test
+    void getBySubstring() throws JsonProcessingException {
+        Users users = new Users();
+        users.setUsername("search");
+        users.setPassword("pass");
+        users.setRole("student");
+        users.setEmail("student@mail.com");
+        List<Users> list = new ArrayList<>();
+        list.add(users);
+        new MockServerClient("localhost", 8080)
+                .when(
+                        request()
+                                .withMethod("GET")
+                                .withPath("/users/search/search/false")
+                )
+                .respond(
+                        HttpResponse.response()
+                                .withStatusCode(200)
+                                .withBody(new ObjectMapper().writeValueAsString(list)));
+        assertEquals(list,
+                ServerCommunication.getBySubstring("search", false));
+    }
+
+    @Test
+    void unbanUser() {
+        new MockServerClient("localhost", 8080)
+                .when(
+                        request()
+                                .withMethod("PUT")
+                                .withPath("/users/unban/user")
+                                .withHeader("Content-type", "application.json")
+                                .withBody("user")
+                )
+                .respond(
+                        HttpResponse.response()
+                                .withStatusCode(200)
+                                .withBody("User unbanned successfully"));
+        assertEquals("User unbanned successfully",
+                ServerCommunication.unbanUser("user", "user"));
+    }
+
+    @Test
+    void getAllNotBannedStudents() throws JsonProcessingException {
+        Users users = new Users();
+        users.setUsername("user");
+        users.setPassword("pass");
+        users.setRole("student");
+        users.setEmail("student@mail.com");
+        users.setBanned(false);
+        List list = new ArrayList<Users>();
+        list.add(users);
+        new MockServerClient("localhost", 8080)
+                .when(
+                        request()
+                                .withMethod("GET")
+                                .withPath("/users/not-banned")
+                )
+                .respond(
+                        HttpResponse.response()
+                                .withStatusCode(200)
+                                .withBody(new ObjectMapper().writeValueAsString(list)));
+        assertEquals(list,
+                ServerCommunication.getAllNotBannedStudents());
+    }
+
+    @Test
+    void getAllBannedStudents() throws JsonProcessingException {
+        Users users = new Users();
+        users.setUsername("user");
+        users.setPassword("pass");
+        users.setRole("student");
+        users.setEmail("student@mail.com");
+        users.setBanned(true);
+        List list = new ArrayList<Users>();
+        list.add(users);
+        new MockServerClient("localhost", 8080)
+                .when(
+                        request()
+                                .withMethod("GET")
+                                .withPath("/users/banned")
+                )
+                .respond(
+                        HttpResponse.response()
+                                .withStatusCode(200)
+                                .withBody(new ObjectMapper().writeValueAsString(list)));
+        assertEquals(list,
+                ServerCommunication.getAllBannedStudents());
+    }
+
     //    @Test
     //    void isUserBanned() {
     //    }
