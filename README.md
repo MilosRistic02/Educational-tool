@@ -6,8 +6,9 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-    <img src="./docs/images/logo.png" alt="Logo" width="400" height="200">
+    <img src="./docs/images/logo.png" alt="Logo" width="300" height="150">
 </p>
+<br />
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
@@ -99,7 +100,7 @@ Run the main method in MainApp.
 
 Contributions are welcomed and appreciated. In order to contribute follow these steps:
 
-1. Clone the Project
+1. Clone the project
 2. Create your feature branch (`git checkout -b feature`)
 3. Commit your changes (`git commit -m 'Add some feature'`)
 4. Push to the branch (`git push origin feature`)
@@ -110,7 +111,7 @@ Contributions are welcomed and appreciated. In order to contribute follow these 
 | 📸 | Name | Email |
 |---|---|---|
 | ![](https://gitlab.ewi.tudelft.nl/uploads/-/system/user/avatar/2496/avatar.png?width=400) | Rodrigo Álvarez Lucendo | R.AlvarezLucendo@student.tudelft.nl |
-| ![](docs/images/profile_serenic_low_res.JPG) | Sérénic Monté | S.G.M.Monte@student.tudelft.nl |
+| ![](./docs/images/profile_serenic_low_res.JPG) | Sérénic Monté | S.G.M.Monte@student.tudelft.nl |
 | ![](https://gitlab.ewi.tudelft.nl/uploads/-/system/user/avatar/3681/avatar.png?width=400) | Miloš Ristić | m.ristic-1@student.tudelft.nl |
 | ![](https://gitlab.ewi.tudelft.nl/uploads/-/system/user/avatar/3678/avatar.png?width=400) | Jos Sloof | a.j.g.sloof@student.tudelft.nl |
 | ![](https://gitlab.ewi.tudelft.nl/uploads/-/system/user/avatar/3679/avatar.png?width=400) | Efe Sozen | E.Sozen@student.tudelft.nl |
