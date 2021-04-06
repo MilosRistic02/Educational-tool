@@ -161,9 +161,15 @@ public class QuestionLecturerController {
         }
     }
 
+    /**
+     * Function that is called when the back to lobby button is clicked.
+     * @throws IOException Exception thrown when something goes wrong with IO
+     */
     @FXML
     public void backToLobby() throws IOException {
         Display.showLecturer(users);
+        timer.cancel();
+        pollTimer.cancel();
     }
 
     @FXML
@@ -218,7 +224,8 @@ public class QuestionLecturerController {
     public void closeRoom() throws IOException {
         this.lectureRoom.setOpen(false);
         ServerCommunication.closeRoom(this.lectureRoom, users.getUsername());
-
+        timer.cancel();
+        pollTimer.cancel();
         if (this.users.getRole().equals("lecturer")) {
             Display.showLecturer(this.users);
         } else {
@@ -269,6 +276,8 @@ public class QuestionLecturerController {
 
         if (!room.isOpen()) {
             closed = true;
+            timer.cancel();
+            pollTimer.cancel();
             if (this.users.getRole().equals("student")) {
                 Display.showStudent(users);
             } else {

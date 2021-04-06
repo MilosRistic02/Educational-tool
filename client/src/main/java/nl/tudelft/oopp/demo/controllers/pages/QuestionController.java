@@ -208,6 +208,7 @@ public class QuestionController {
 
         if (isUserBanned) {
             timer.cancel();
+            pollTimer.cancel();
             Display.showLogin();
             Alerts.alertError("BAN", "You are banned from this application");
         }
@@ -273,6 +274,8 @@ public class QuestionController {
     @FXML
     public void logOut() throws IOException {
         this.speedLog.setSpeed(50);
+        timer.cancel();
+        pollTimer.cancel();
         ServerCommunication.speedVote(this.speedLog, loggedUser.getUsername());
         Display.showLogin();
     }
@@ -284,6 +287,8 @@ public class QuestionController {
     @FXML
     public void changeLecture() throws IOException {
         this.speedLog.setSpeed(50);
+        timer.cancel();
+        pollTimer.cancel();
         ServerCommunication.speedVote(this.speedLog, loggedUser.getUsername());
         Display.showStudent(loggedUser);
     }
@@ -334,4 +339,5 @@ public class QuestionController {
             }
         }
     }
+
 }

@@ -4,10 +4,13 @@ import java.io.IOException;
 import java.net.URL;
 
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import nl.tudelft.oopp.demo.controllers.pages.ArchiveController;
 import nl.tudelft.oopp.demo.controllers.pages.LobbyController;
 import nl.tudelft.oopp.demo.controllers.pages.QuestionController;
@@ -24,6 +27,10 @@ public class Display extends Application {
     public void start(Stage primaryStage) throws IOException {
         this.primaryStage = primaryStage;
         showLogin();
+        primaryStage.setOnCloseRequest(e -> {
+            Platform.exit();
+            System.exit(0);
+        });
     }
 
     /** This functions sets the main screen to the login screen.
@@ -42,6 +49,7 @@ public class Display extends Application {
     public static void showQuestion(Users users, LectureRoom lectureRoom) throws IOException {
         QuestionController questionController = load("/FXML/question.fxml").getController();
         questionController.init(users, lectureRoom);
+
     }
 
     /**
