@@ -8,6 +8,8 @@ import static org.mockserver.model.HttpResponse.response;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,6 +37,7 @@ public class ServerCommunicationTest {
     private static ClientAndServer mockServer;
 
     private Users users = new Users("p", "p@tudelft.nl", "pass", "pass");
+    private Question question = new Question("How can I ask questions?", "0", "Thomas");
     private LectureRoom lectureRoom = new LectureRoom("3739232b", "Stefan", "CSE1300");
     private SpeedLog speedLog = new SpeedLog(users, lectureRoom, 95);
     private Poll poll = new Poll("3739232b", 4, Arrays.asList('A'), "question");
@@ -210,25 +213,102 @@ public class ServerCommunicationTest {
                 ServerCommunication.deleteQuestion("1", "user"));
     }
 
-    //        @Test
-    //        void updateAnswerQuestion() {
-    //        }
-    //
-    //        @Test
-    //        void updateContentQuestion() {
-    //        }
-    //
-    //        @Test
-    //        void closeRoom() {
-    //        }
-    //
-    //        @Test
-    //        void getClosedLecturePins() {
-    //        }
-    //
-    //        @Test
-    //        void exportRoom() {
-    //        }
+    @Test
+    void updateAnswerQuestion() throws JsonProcessingException {
+        new MockServerClient("localhost", 8080)
+                .when(
+                        request()
+                            .withMethod("PUT")
+                            .withPath("/question/update-answer/user")
+                            .withHeader("Content-type", "application/json")
+                            .withBody(new ObjectMapper().writeValueAsString(question)))
+                .respond(
+                        HttpResponse.response()
+                                .withStatusCode(200)
+                                .withBody("Updated answer of Question"));
+
+        assertEquals("Updated answer of Question",
+                ServerCommunication.updateAnswerQuestion(question, "user"));
+    }
+
+    @Test
+    void updateContentQuestion() throws JsonProcessingException {
+        new MockServerClient("localhost", 8080)
+                .when(
+                        request()
+                                .withMethod("PUT")
+                                .withPath("/question/update-content/user")
+                                .withHeader("Content-type", "application/json")
+                                .withBody(new ObjectMapper().writeValueAsString(question)))
+                .respond(
+                        HttpResponse.response()
+                                .withStatusCode(200)
+                                .withBody("Updated content of Question"));
+
+        assertEquals("Updated content of Question",
+                ServerCommunication.updateContentQuestion(question, "user"));
+    }
+
+    @Test
+    void closeRoom() throws JsonProcessingException {
+        new MockServerClient("localhost", 8080)
+                .when(
+                        request()
+                                .withMethod("PUT")
+                                .withPath("/lecture/user")
+                                .withHeader("Content-type", "application/json")
+                                .withBody(new ObjectMapper().writeValueAsString(lectureRoom)))
+                .respond(
+                        HttpResponse.response()
+                                .withStatusCode(200)
+                                .withBody("Updated room"));
+
+        assertEquals("Updated room",
+                ServerCommunication.closeRoom(lectureRoom, "user"));
+    }
+
+    @Test
+    void getClosedLecturePins() throws JsonProcessingException {
+        LectureRoom lectureRoom1 = new LectureRoom("3739232b", "Stefan", "CSE1300");
+        lectureRoom1.setOpen(false);
+
+        List<LectureRoom> closedRooms = Arrays.asList(lectureRoom1);
+
+        new MockServerClient("localhost", 8080)
+                .when(
+                        request()
+                                .withMethod("GET")
+                                .withPath("/lecture/getClosed/"))
+                .respond(
+                        HttpResponse.response()
+                                .withStatusCode(200)
+                                .withBody(new ObjectMapper().writeValueAsString(closedRooms)));
+
+        assertEquals(closedRooms,
+                ServerCommunication.getClosedLecturePins());
+    }
+
+    @Test
+    void exportRoom() throws JsonProcessingException {
+        File testFile = new File("testFile");
+
+        new MockServerClient("localhost", 8080)
+                .when(
+                        request()
+                                .withMethod("post")
+                                .withPath("/lecture/file/0")
+                                .withHeader("Content-type", "application/json")
+                                .withBody(new ObjectMapper().writeValueAsString(testFile)))
+                .respond(
+                        HttpResponse.response()
+                                .withStatusCode(200)
+                                .withBody("Export successful"));
+
+        assertEquals("Export successful",
+                ServerCommunication.exportRoom(testFile, "0"));
+
+        testFile.deleteOnExit();
+    }
 
     @Test
     void speedVote() throws JsonProcessingException {

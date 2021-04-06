@@ -200,6 +200,7 @@ public class ArchiveController {
 
     /**
      * Exports an archived room to a text file.
+     * FileChooser tutorial used: https://www.youtube.com/watch?v=7lnVelyHxrc
      */
     @FXML
     private void writeArchive() throws JsonProcessingException {
