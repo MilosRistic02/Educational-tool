@@ -71,7 +71,8 @@ public class RegisterController {
         String reEnteredPassword = String.valueOf(reEnteredPasswordHash);
 
         reset();
-        if (!checkRequest(username, passwordField.getText(), email, reEnteredPasswordField.getText())) {
+        if (!checkRequest(username, passwordField.getText(),
+                email, reEnteredPasswordField.getText())) {
             return;
         }
 

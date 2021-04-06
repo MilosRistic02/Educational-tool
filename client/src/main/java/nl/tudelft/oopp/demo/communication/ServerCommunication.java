@@ -173,11 +173,6 @@ public class ServerCommunication extends Request {
         return put("http://localhost:8080/lecture/update-frequency/" + username, lectureRoom);
     }
 
-    public static List<Users> getAllStudents() throws JsonProcessingException {
-        String response = get("http://localhost:8080/users/student");
-        return new ObjectMapper().readValue(response, new TypeReference<List<Users>>(){});
-    }
-
     public static String banUser(String bannedUser, String username) {
         return put("http://localhost:8080/users/ban/" + username, bannedUser);
     }

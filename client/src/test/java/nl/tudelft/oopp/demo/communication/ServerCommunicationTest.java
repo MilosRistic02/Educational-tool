@@ -600,4 +600,63 @@ public class ServerCommunicationTest {
         assertArrayEquals(list.toArray(),
                 ServerCommunication.getAllNonAnsweredQuestions("2802202001Stefan").toArray());
     }
+
+    @Test
+    void closePollTest() throws JsonProcessingException {
+        new MockServerClient("localhost", 8080)
+                .when(
+                        request()
+                                .withMethod("PUT")
+                                .withPath("/poll/close/user")
+                                .withHeader("Content-type", "application/json")
+                                .withBody(new ObjectMapper().writeValueAsString(poll)))
+                .respond(
+                        HttpResponse.response()
+                                .withStatusCode(200)
+                                .withBody("Poll closed"));
+
+        assertEquals("Poll closed",
+                ServerCommunication.closePoll(poll, "user"));
+    }
+
+    @Test
+    void voteTest() throws JsonProcessingException {
+        new MockServerClient("localhost", 8080)
+                .when(
+                        request()
+                                .withMethod("PUT")
+                                .withPath("/poll/vote/" + poll.getId() + "/user")
+                                .withHeader("Content-type", "application/json")
+                                .withBody(new ObjectMapper().writeValueAsString('c')))
+                .respond(
+                        HttpResponse.response()
+                                .withStatusCode(200)
+                                .withBody("Vote sent"));
+
+        assertEquals("Vote sent",
+                ServerCommunication.vote('c', poll.getId(), "user"));
+    }
+
+    /*
+     public static String updateFrequency(LectureRoom lectureRoom, String username) {
+        return put("http://localhost:8080/lecture/update-frequency/" + username, lectureRoom);
+    }
+     */
+    @Test
+    void updateFrequencyTest() throws JsonProcessingException {
+        new MockServerClient("localhost", 8080)
+                .when(
+                        request()
+                                .withMethod("PUT")
+                                .withPath("/lecture/update-frequency/user")
+                                .withHeader("Content-type", "application/json")
+                                .withBody(new ObjectMapper().writeValueAsString(lectureRoom)))
+                .respond(
+                        HttpResponse.response()
+                                .withStatusCode(200)
+                                .withBody("Frequency updated"));
+
+        assertEquals("Frequency updated",
+                ServerCommunication.updateFrequency(lectureRoom, "user"));
+    }
 }
