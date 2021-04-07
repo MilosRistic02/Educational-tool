@@ -40,7 +40,8 @@ public class ServerCommunicationTest {
     private Question question = new Question("How can I ask questions?", "0", "Thomas");
     private LectureRoom lectureRoom = new LectureRoom("3739232b", "Stefan", "CSE1300");
     private SpeedLog speedLog = new SpeedLog(users, lectureRoom, 95);
-    private Poll poll = new Poll("3739232b", 4, Arrays.asList('A'), "question");
+    private Poll poll1 = new Poll("3739232b", 4, Arrays.asList('A'), "poll");
+    private Poll poll2 = new Poll("3739232b", 8, Arrays.asList('B', 'E'), "another poll");
 
     @BeforeEach
     void setUp() throws InterruptedException {
@@ -330,7 +331,19 @@ public class ServerCommunicationTest {
     }
 
     @Test
-    void speedGetVotes() {
+    void speedGetVotes() throws JsonProcessingException {
+        new MockServerClient("localhost", 8080)
+                .when(
+                        request()
+                                .withMethod("GET")
+                                .withPath("/speedlog/get-speed-votes/3739232b")
+                )
+                .respond(
+                        HttpResponse.response()
+                                .withStatusCode(200)
+                                .withBody(new ObjectMapper().writeValueAsString(40.0)));
+
+        assertEquals(40.0, ServerCommunication.speedGetVotes("3739232b"));
     }
 
     @Test
@@ -341,22 +354,47 @@ public class ServerCommunicationTest {
                                 .withMethod("POST")
                                 .withPath("/poll/create/user")
                                 .withHeader("Content-type", "application/json")
-                                .withBody(new ObjectMapper().writeValueAsString(poll))
+                                .withBody(new ObjectMapper().writeValueAsString(poll1))
                 )
                 .respond(
                         HttpResponse.response()
                                 .withStatusCode(200)
                                 .withBody("Success"));
 
-        assertEquals("Success", ServerCommunication.createPoll(poll, "user"));
+        assertEquals("Success", ServerCommunication.createPoll(poll1, "user"));
     }
 
     @Test
-    void getPoll() {
+    void getPoll() throws JsonProcessingException {
+        new MockServerClient("localhost", 8080)
+                .when(
+                        request()
+                                .withMethod("GET")
+                                .withPath("/poll/3739232b")
+                )
+                .respond(
+                        HttpResponse.response()
+                                .withStatusCode(200)
+                                .withBody(new ObjectMapper().writeValueAsString(poll1)));
+
+        assertEquals(poll1, ServerCommunication.getPoll("3739232b"));
     }
 
     @Test
-    void getAllPolls() {
+    void getAllPolls() throws JsonProcessingException {
+        List<Poll> polls = Arrays.asList(poll1, poll2);
+        new MockServerClient("localhost", 8080)
+                .when(
+                        request()
+                                .withMethod("GET")
+                                .withPath("/poll/lecture-polls/3739232b")
+                )
+                .respond(
+                        HttpResponse.response()
+                                .withStatusCode(200)
+                                .withBody(new ObjectMapper().writeValueAsString(polls)));
+
+        assertEquals(polls, ServerCommunication.getAllPolls("3739232b"));
     }
     //
     //    @Test
@@ -609,14 +647,14 @@ public class ServerCommunicationTest {
                                 .withMethod("PUT")
                                 .withPath("/poll/close/user")
                                 .withHeader("Content-type", "application/json")
-                                .withBody(new ObjectMapper().writeValueAsString(poll)))
+                                .withBody(new ObjectMapper().writeValueAsString(poll1)))
                 .respond(
                         HttpResponse.response()
                                 .withStatusCode(200)
                                 .withBody("Poll closed"));
 
         assertEquals("Poll closed",
-                ServerCommunication.closePoll(poll, "user"));
+                ServerCommunication.closePoll(poll1, "user"));
     }
 
     @Test
@@ -625,7 +663,7 @@ public class ServerCommunicationTest {
                 .when(
                         request()
                                 .withMethod("PUT")
-                                .withPath("/poll/vote/" + poll.getId() + "/user")
+                                .withPath("/poll/vote/" + poll1.getId() + "/user")
                                 .withHeader("Content-type", "application/json")
                                 .withBody(new ObjectMapper().writeValueAsString('c')))
                 .respond(
@@ -634,7 +672,7 @@ public class ServerCommunicationTest {
                                 .withBody("Vote sent"));
 
         assertEquals("Vote sent",
-                ServerCommunication.vote('c', poll.getId(), "user"));
+                ServerCommunication.vote('c', poll1.getId(), "user"));
     }
 
     /*
