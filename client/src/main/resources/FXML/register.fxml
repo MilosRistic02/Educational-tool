@@ -37,6 +37,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.scene.Cursor?>
 <AnchorPane fx:id="rootPane" maxHeight="-1.0" maxWidth="-1.0" prefHeight="823.0" prefWidth="1172.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.pages.RegisterController">
 <children>
       <Pane prefHeight="823.0" prefWidth="300.0" style="-fx-background-color: #00A6D6;" />
@@ -85,6 +86,9 @@
          <font>
             <Font name="Cantarell Bold" size="30.0" />
          </font>
+          <cursor>
+              <Cursor fx:constant="HAND" />
+          </cursor>
       </Button>
       <Label fx:id="nonMatchingPassword" layoutX="658.0" layoutY="178.0" prefHeight="27.0" prefWidth="207.0" text="Passwords do not match" textFill="#d34343" visible="false">
          <font>
@@ -115,6 +119,9 @@
          <image>
             <Image url="@../images/back_button.png" />
          </image>
+          <cursor>
+              <Cursor fx:constant="HAND" />
+          </cursor>
       </ImageView>
       <Label fx:id="userSuccess" layoutX="664.0" layoutY="178.0" prefHeight="27.0" prefWidth="194.0" text="User created succesfully" textFill="#28ab5d" visible="false">
          <font>

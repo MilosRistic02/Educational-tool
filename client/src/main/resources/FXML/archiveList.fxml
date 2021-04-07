@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.scene.Cursor?>
 <AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="819.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.pages.ArchiveController">
     <children>
         <Pane layoutY="20.0" prefHeight="740.0" prefWidth="1172.0" style="-fx-background-color: #00A6D6; -fx-background-radius: 18;">
@@ -23,6 +24,9 @@
                     <image>
                         <Image url="@../images/back_button_white.png" />
                     </image>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
                 </ImageView>
                 <Label fx:id="emptyArchive" alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="286.0" layoutY="-212.0" prefHeight="654.0" prefWidth="585.0" text="Archive is empty!" visible="true">
                     <font>
@@ -50,11 +54,17 @@
             <font>
                 <Font size="20.0" />
             </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
     </Button>
         <Button fx:id="writeArchive" layoutX="963.0" layoutY="765.0" mnemonicParsing="false" onAction="#writeArchive" prefHeight="21.0" prefWidth="194.0" style="-fx-background-color: #00A6D6;" text="Export questions" textFill="WHITE">
             <font>
                 <Font size="20.0" />
             </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
         </Button>
     </children>
 

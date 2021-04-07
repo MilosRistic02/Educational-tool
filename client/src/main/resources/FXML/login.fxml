@@ -37,6 +37,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.scene.Cursor?>
 <AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="823.0" prefWidth="1172.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.pages.LogInController">
    <children>
       <Pane layoutY="-3.0" prefHeight="823.0" prefWidth="300.0" style="-fx-background-color: #00A6D6;" />
@@ -68,6 +69,9 @@
          <font>
             <Font name="Cantarell Bold" size="30.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Label fx:id="invalidUser" layoutX="652.0" layoutY="212.0" prefHeight="27.0" prefWidth="150.0" text="User doesn't exist" textFill="#d34343" visible="false">
          <font>
@@ -88,6 +92,9 @@
          <font>
             <Font name="Cantarell Bold" size="30.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Label fx:id="userBannedLabel" layoutX="558.0" layoutY="188.0" prefHeight="22.0" prefWidth="166.0" text="This user is banned!" textFill="#d34343" visible="false">
          <font>

@@ -8,9 +8,14 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.scene.Cursor?>
 <AnchorPane prefHeight="823.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.pages.QuestionController">
    <children>
-      <Button layoutX="912.0" layoutY="431.0" mnemonicParsing="false" onAction="#displayQuestion" prefHeight="31.0" prefWidth="49.0" style="-fx-background-color: #00A6D6;" text="Send" textFill="WHITE" />
+      <Button layoutX="912.0" layoutY="431.0" mnemonicParsing="false" onAction="#displayQuestion" prefHeight="31.0" prefWidth="49.0" style="-fx-background-color: #00A6D6;" text="Send" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
       <TextField fx:id="questionText" layoutX="912.0" layoutY="349.0" prefHeight="74.0" prefWidth="244.0" promptText="Write your question here." />
       <Pane fx:id="list" layoutX="13.0" layoutY="25.0" prefHeight="742.0" prefWidth="876.0" style="-fx-background-color: #00A6D6; -fx-background-radius: 18;">
          <children>
@@ -27,7 +32,11 @@
             <ToggleButton fx:id="changeList" layoutX="758.0" layoutY="21.0" mnemonicParsing="false" style="-fx-background-color: #99d28c;" text="answers" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
-               </font></ToggleButton>
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ToggleButton>
          </children>
       </Pane>
       <Text fx:id="greetings" layoutX="910.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome, [username]" textAlignment="CENTER" wrappingWidth="238.0">
@@ -58,6 +67,9 @@
                </stops>
             </LinearGradient>
          </stroke>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Line>
       <Text layoutX="898.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lecture Speed" textAlignment="CENTER" wrappingWidth="260.0">
          <font>
@@ -79,8 +91,15 @@
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
-      <Button layoutX="1061.0" layoutY="735.0" mnemonicParsing="false" onAction="#logOut" prefHeight="31.0" prefWidth="77.0" style="-fx-background-color: #c3312f#c3312f;" text="Log out" textFill="WHITE" />
+      <Button layoutX="1061.0" layoutY="735.0" mnemonicParsing="false" onAction="#logOut" prefHeight="31.0" prefWidth="77.0" style="-fx-background-color: #c3312f#c3312f;" text="Log out" textFill="WHITE" >
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
       <BarChart fx:id="pollChart" layoutX="889.0" layoutY="505.0" prefHeight="207.0" prefWidth="260.0">
          <xAxis>
             <CategoryAxis label="Votes" side="BOTTOM" />

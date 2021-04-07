@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.scene.Cursor?>
 <fx:root fx:id="qanda" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="161.0" prefWidth="700.0" style="-fx-border-color: #00A6D6; -fx-border-width: 4; -fx-border-radius: 18;" type="VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Question:" translateX="20.0" wrappingWidth="404.0">
@@ -48,16 +49,31 @@
                    <Image url="@../images/delete-bin.png" />
                </ImageView>
             </graphic>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
          </Button>
-         <Button fx:id="makeAnswer" layoutX="25.0" layoutY="8.0" mnemonicParsing="false" onAction="#makeAnswer" style="-fx-background-color: #00A6D6;" text="Answer" textFill="WHITE" />
+         <Button fx:id="makeAnswer" layoutX="25.0" layoutY="8.0" mnemonicParsing="false" onAction="#makeAnswer" style="-fx-background-color: #00A6D6;" text="Answer" textFill="WHITE" >
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         </Button>
          <Button fx:id="editQuestion" layoutX="630.0" layoutY="1.0" mnemonicParsing="false" onAction="#editQuestion" prefHeight="41.0" prefWidth="43.0" style="-fx-background-color: #FFFFFF;">
             <graphic>
                 <ImageView fitHeight="24.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                     <Image url="@../images/pencil.png" />
                 </ImageView>
             </graphic></Button>
-         <Button fx:id="verbal" layoutX="99.0" layoutY="8.0" mnemonicParsing="false" onAction="#answeredVerbal" style="-fx-background-color: #00A6D6;" text="Answer verbally" textFill="WHITE" />
-         <Button fx:id="banButton" layoutX="282.0" layoutY="10.0" mnemonicParsing="false" onAction="#banUser" style="-fx-background-color: #c3312f;" text="Ban user" textFill="WHITE" />
+         <Button fx:id="verbal" layoutX="99.0" layoutY="8.0" mnemonicParsing="false" onAction="#answeredVerbal" style="-fx-background-color: #00A6D6;" text="Answer verbally" textFill="WHITE" >
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         </Button>
+         <Button fx:id="banButton" layoutX="282.0" layoutY="10.0" mnemonicParsing="false" onAction="#banUser" style="-fx-background-color: #c3312f;" text="Ban user" textFill="WHITE" >
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         </Button>
          <Text fx:id="isAnswered" fill="#00a6d6" layoutX="324.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Not Answered" textAlignment="CENTER" wrappingWidth="179.0292968750001">
             <font>
                <Font name="System Bold" size="14.0" />
