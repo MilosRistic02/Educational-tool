@@ -1,5 +1,6 @@
 package nl.tudelft.oopp.demo.entities;
 
+import java.util.Objects;
 
 public class ScoringLog {
 
@@ -55,5 +56,25 @@ public class ScoringLog {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ScoringLog that = (ScoringLog) o;
+        return score == that.score
+                && Objects.equals(id, that.id)
+                && Objects.equals(question, that.question)
+                && Objects.equals(users, that.users);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, question, users, score);
     }
 }

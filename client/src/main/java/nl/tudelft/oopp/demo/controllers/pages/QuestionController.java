@@ -75,6 +75,8 @@ public class QuestionController {
 
     private Timer timer;
 
+    private Timer pollTimer;
+
     /**
      * Set a new user for the view and update the question list
      * every 2 seconds.
@@ -108,13 +110,26 @@ public class QuestionController {
                                     "You are redirected to the lobby");
                         }
                         displayAllQuestion();
-                        refreshPoll();
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 });
             }
         }, 0, 2000);
+        pollTimer = new Timer();
+        pollTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    try {
+                        refreshPoll();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+        }, 0, 5000);
     }
 
     @FXML
@@ -193,6 +208,7 @@ public class QuestionController {
 
         if (isUserBanned) {
             timer.cancel();
+            pollTimer.cancel();
             Display.showLogin();
             Alerts.alertError("BAN", "You are banned from this application");
         }
@@ -258,6 +274,8 @@ public class QuestionController {
     @FXML
     public void logOut() throws IOException {
         this.speedLog.setSpeed(50);
+        timer.cancel();
+        pollTimer.cancel();
         ServerCommunication.speedVote(this.speedLog, loggedUser.getUsername());
         Display.showLogin();
     }
@@ -269,6 +287,8 @@ public class QuestionController {
     @FXML
     public void changeLecture() throws IOException {
         this.speedLog.setSpeed(50);
+        timer.cancel();
+        pollTimer.cancel();
         ServerCommunication.speedVote(this.speedLog, loggedUser.getUsername());
         Display.showStudent(loggedUser);
     }
@@ -319,4 +339,5 @@ public class QuestionController {
             }
         }
     }
+
 }

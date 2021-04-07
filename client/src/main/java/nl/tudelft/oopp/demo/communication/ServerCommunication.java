@@ -5,7 +5,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
-import java.net.http.HttpClient;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -172,11 +171,6 @@ public class ServerCommunication extends Request {
 
     public static String updateFrequency(LectureRoom lectureRoom, String username) {
         return put("http://localhost:8080/lecture/update-frequency/" + username, lectureRoom);
-    }
-
-    public static List<Users> getAllStudents() throws JsonProcessingException {
-        String response = get("http://localhost:8080/users/student");
-        return new ObjectMapper().readValue(response, new TypeReference<List<Users>>(){});
     }
 
     public static String banUser(String bannedUser, String username) {

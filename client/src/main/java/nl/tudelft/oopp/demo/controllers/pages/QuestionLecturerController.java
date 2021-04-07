@@ -87,6 +87,9 @@ public class QuestionLecturerController {
     @FXML
     private Text listTitle;
 
+    @FXML
+    private Button createPollButton;
+
 
     private Users users;
 
@@ -158,9 +161,15 @@ public class QuestionLecturerController {
         }
     }
 
+    /**
+     * Function that is called when the back to lobby button is clicked.
+     * @throws IOException Exception thrown when something goes wrong with IO
+     */
     @FXML
     public void backToLobby() throws IOException {
         Display.showLecturer(users);
+        timer.cancel();
+        pollTimer.cancel();
     }
 
     @FXML
@@ -215,7 +224,8 @@ public class QuestionLecturerController {
     public void closeRoom() throws IOException {
         this.lectureRoom.setOpen(false);
         ServerCommunication.closeRoom(this.lectureRoom, users.getUsername());
-
+        timer.cancel();
+        pollTimer.cancel();
         if (this.users.getRole().equals("lecturer")) {
             Display.showLecturer(this.users);
         } else {
@@ -266,6 +276,8 @@ public class QuestionLecturerController {
 
         if (!room.isOpen()) {
             closed = true;
+            timer.cancel();
+            pollTimer.cancel();
             if (this.users.getRole().equals("student")) {
                 Display.showStudent(users);
             } else {
@@ -321,6 +333,7 @@ public class QuestionLecturerController {
         List<Character> answers = correctAnswers.getCheckModel().getCheckedItems();
 
         closePoll();
+        createPollButton.setText("Update poll");
         Poll poll = new Poll(lectureRoom.getLecturePin(), size, answers, pollQuestion);
         currentPoll = new ObjectMapper()
                 .readValue(ServerCommunication.createPoll(poll, users.getUsername()), Poll.class);
@@ -365,6 +378,7 @@ public class QuestionLecturerController {
         correctAnswers.getItems().clear();
         for (int i = 65; i < n + 65; i++) {
             correctAnswers.getItems().add((char) i);
+            correctAnswers.getCheckModel().clearCheck(i - 65);
         }
         correctAnswers.setDisable(false);
     }
@@ -380,6 +394,7 @@ public class QuestionLecturerController {
         closePollButton.setVisible(false);
         currentPoll.setOpen(false);
         ServerCommunication.closePoll(currentPoll, users.getUsername());
+        createPollButton.setText("Create poll");
     }
 
 }

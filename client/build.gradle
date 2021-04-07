@@ -21,6 +21,13 @@ dependencies {
     implementation group: 'jakarta.activation', name: 'jakarta.activation-api', version: '2.0.0'
 
     implementation 'org.controlsfx:controlsfx:11.1.0'
+
+    testImplementation("org.mock-server:mockserver-netty:5.11.2")
+
+    testImplementation("org.mock-server:mockserver-client-java:5.11.2")
+
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
+    testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
 }
 
 javafx {

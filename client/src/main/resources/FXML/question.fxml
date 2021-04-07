@@ -89,12 +89,12 @@
             <NumberAxis side="LEFT" />
          </yAxis>
       </BarChart>
-      <Text fx:id="selectedSpeed" layoutX="955.0" layoutY="214.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[Selected speed]" textAlignment="CENTER" visible="false" wrappingWidth="148.21630859375">
+      <Text fx:id="selectedSpeed" layoutX="955.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[Selected speed]" textAlignment="CENTER" visible="false" wrappingWidth="148.21630859375">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Text>
-      <TextField fx:id="currentRoomPin" layoutX="13.0" layoutY="770.0" prefHeight="18.0" prefWidth="224.0" text="Lecture pin: [lecturePin]" style="-fx-background-color: #F4F4F4" editable="false">
+      <TextField fx:id="currentRoomPin" editable="false" layoutX="13.0" layoutY="770.0" prefHeight="39.0" prefWidth="527.0" style="-fx-background-color: #F4F4F4" text="Lecture pin: [lecturePin]">
          <font>
             <Font size="18.0" />
          </font>

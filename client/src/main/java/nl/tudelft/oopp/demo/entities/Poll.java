@@ -128,9 +128,4 @@ public class Poll {
         Poll poll = (Poll) o;
         return id == poll.id;
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }

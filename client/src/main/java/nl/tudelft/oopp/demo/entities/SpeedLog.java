@@ -74,6 +74,6 @@ public class SpeedLog {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, users, lectureRoom, speed);
+        return Objects.hash(id);
     }
 }
