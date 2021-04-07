@@ -121,4 +121,4 @@ Contributions are welcomed and appreciated. In order to contribute follow these 
 <!-- MARKDOWN LINKS & IMAGES -->
 [contributors-shield]: https://img.shields.io/badge/Contributors-6-green
 [server-coverage-shield]: https://img.shields.io/badge/Server%20Coverage-96-00A6D6
-[client-coverage-shield]: https://img.shields.io/badge/Client%20Coverage-28-00A6D6
+[client-coverage-shield]: https://img.shields.io/badge/Client%20Coverage-24-00A6D6
