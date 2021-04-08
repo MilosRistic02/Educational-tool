@@ -61,7 +61,7 @@
             <Font name="Cantarell Light" size="30.0" />
          </font>
       </Label>
-      <PasswordField fx:id="passwordField" layoutX="517.0" layoutY="332.0" prefHeight="66.0" prefWidth="422.0" style="-fx-background-color: #E4EDF2;">
+      <PasswordField fx:id="passwordField" onAction="#logInButtonClicked" layoutX="517.0" layoutY="332.0" prefHeight="66.0" prefWidth="422.0" style="-fx-background-color: #E4EDF2;">
          <font>
             <Font size="30.0" />
          </font></PasswordField>
