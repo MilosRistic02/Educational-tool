@@ -63,7 +63,11 @@
                 <ImageView fitHeight="24.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                     <Image url="@../images/pencil.png" />
                 </ImageView>
-            </graphic></Button>
+            </graphic>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </Button>
          <Button fx:id="verbal" layoutX="99.0" layoutY="8.0" mnemonicParsing="false" onAction="#answeredVerbal" style="-fx-background-color: #00A6D6;" text="Answer verbally" textFill="WHITE" >
          <cursor>
             <Cursor fx:constant="HAND" />

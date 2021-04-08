@@ -44,7 +44,11 @@
             <Font size="36.0" />
          </font>
       </Text>
-      <Slider fx:id="speedSlider" blockIncrement="1.0" layoutX="897.0" layoutY="186.0" majorTickUnit="1.0" minorTickCount="0" onDragDone="#updateSlider" prefHeight="37.0" prefWidth="263.0" value="50.0" />
+      <Slider fx:id="speedSlider" blockIncrement="1.0" layoutX="897.0" layoutY="186.0" majorTickUnit="1.0" minorTickCount="0" onDragDone="#updateSlider" prefHeight="37.0" prefWidth="263.0" value="50.0" >
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Slider>
       <Line endX="140.0" layoutX="1006.0" layoutY="178.0" startX="-96.0" strokeWidth="15.0">
          <stroke>
             <LinearGradient endX="1.0" endY="1.0">
@@ -67,9 +71,6 @@
                </stops>
             </LinearGradient>
          </stroke>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
       </Line>
       <Text layoutX="898.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lecture Speed" textAlignment="CENTER" wrappingWidth="260.0">
          <font>
