@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.scene.Cursor?>
 <fx:root fx:id="qanda" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="161.0" prefWidth="700.0" style="-fx-border-color: #00A6D6; -fx-border-width: 4; -fx-border-radius: 18;" type="VBox" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Question:" translateX="20.0" wrappingWidth="404.0">
@@ -48,6 +49,9 @@
              <Image url="@../images/thumb-up.png" />
          </ImageView>
             </graphic>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
          </ToggleButton>
          <ToggleButton fx:id="dislike" layoutX="99.0" layoutY="1.0" mnemonicParsing="false" onAction="#downvote" opacity="0.4" prefHeight="41.0" prefWidth="41.0" style="-fx-background-color: #FFFFFF;">
             <graphic>
@@ -55,6 +59,9 @@
               <Image url="@../images/thumb-down.png" />
           </ImageView>
             </graphic>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
          </ToggleButton>
          <Button fx:id="delete" disable="true" layoutX="550.0" layoutY="4.0" mnemonicParsing="false" onAction="#delete" prefHeight="41.0" prefWidth="43.0" style="-fx-background-color: #FFFFFF;" visible="false">
             <graphic>
@@ -62,6 +69,9 @@
              <Image url="@../images/delete-bin.png" />
          </ImageView>
             </graphic>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
          </Button>
          <Text fx:id="isAnswered" fill="#00a6d6" layoutX="243.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Not Answered" textAlignment="CENTER" wrappingWidth="121.02929687500011">
             <font>

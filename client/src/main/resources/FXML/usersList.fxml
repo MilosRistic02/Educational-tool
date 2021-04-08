@@ -12,6 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.Cursor?>
 <AnchorPane fx:id="rootPane" prefHeight="819.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.pages.UsersListController">
     <children>
         <Pane layoutY="20.0" prefHeight="740.0" prefWidth="1172.0" style="-fx-background-color: #00A6D6; -fx-background-radius: 18;">
@@ -32,6 +33,9 @@
                     <image>
                         <Image url="@../images/back_button_white.png" />
                     </image>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
                 </ImageView>
                 <Label fx:id="userListEmptyText" alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="286.0" layoutY="-212.0" prefHeight="509.0" prefWidth="304.0" text="Users List is Empty!" visible="false">
                     <font>
@@ -45,11 +49,16 @@
             <Button fx:id="switchViewButton" layoutX="188.0" layoutY="19.0" mnemonicParsing="false" onAction="#switchView" style="-fx-background-color: #FFFFFFFF;" text="Banned Users" textFill="#00a6d6">
                <font>
                   <Font size="15.0" />
-               </font></Button>
+               </font>
+                <cursor>
+                    <Cursor fx:constant="HAND" />
+                </cursor>
+            </Button>
             <ImageView fitHeight="39.0" fitWidth="44.0" layoutX="1105.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/search_white.png" />
-               </image></ImageView>
+               </image>
+            </ImageView>
             </children>
         </Pane>
     </children>

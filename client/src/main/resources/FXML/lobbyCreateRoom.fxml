@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.scene.Cursor?>
 <AnchorPane fx:id="rootPane" prefHeight="823.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.pages.LobbyController">
    <children>
       <ImageView fitHeight="97.0" fitWidth="207.0" layoutX="951.0">
@@ -27,6 +28,9 @@
          <font>
             <Font size="28.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Label fx:id="emptyRoomFields" layoutX="616.0" layoutY="172.0" prefHeight="27.0" prefWidth="226.0" text="Please fill in all of the fields" textFill="#d34343" visible="false">
          <font>
@@ -70,6 +74,9 @@
          <image>
             <Image url="@../images/back_button.png" />
          </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </ImageView>
       <ComboBox fx:id="startingTimeHours" disable="true" layoutX="708.0" layoutY="374.0" prefHeight="40.0" prefWidth="82.0" value="00">
          <items>

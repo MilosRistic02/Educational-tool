@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.scene.Cursor?>
 <AnchorPane fx:id="rootPane" prefHeight="823.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.oopp.demo.controllers.pages.LobbyController">
    <children>
       <Pane layoutY="-3.0" prefHeight="823.0" prefWidth="300.0" style="-fx-background-color: #00A6D6;" />
@@ -22,16 +23,25 @@
          <font>
             <Font size="28.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <ImageView fx:id="backToLobby" fitHeight="51.0" fitWidth="46.0" layoutX="315.0" layoutY="19.0" onMouseClicked="#loadLobbyLecturer" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../images/back_button.png" />
          </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </ImageView>
       <Button fx:id="logOutStudent" layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#logOut" prefHeight="51.0" prefWidth="122.0" style="-fx-background-color: #ffffff;" text="Log out" textFill="#00a6d6">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Label fx:id="emptyFields" alignment="CENTER" contentDisplay="CENTER" layoutX="625.0" layoutY="357.0" prefHeight="19.0" prefWidth="166.0" text="Please enter a pin" textAlignment="CENTER" textFill="#d34343" visible="false">
          <font>
