@@ -63,16 +63,18 @@ public class RegisterController {
      * @throws IOException if login page cannot be loaded
      */
     public void registerButtonClicked() throws IOException, InterruptedException {
+        String passwordText = passwordField.getText();
+        String reEnteredPasswordText = reEnteredPasswordField.getText();
         String username = usernameField.getText().toLowerCase();
-        int passwordHash = Objects.hash(passwordField.getText());
+        int passwordHash = Objects.hash(passwordText);
         String password = String.valueOf(passwordHash);
         String email = emailField.getText();
-        int reEnteredPasswordHash = Objects.hash(passwordField.getText());
+        int reEnteredPasswordHash = Objects.hash(reEnteredPasswordField.getText());
         String reEnteredPassword = String.valueOf(reEnteredPasswordHash);
 
         reset();
-        if (!checkRequest(username, passwordField.getText(),
-                email, reEnteredPasswordField.getText())) {
+        if (!checkRequest(username, passwordText,
+                email, reEnteredPasswordText)) {
             return;
         }
 
