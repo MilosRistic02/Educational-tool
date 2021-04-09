@@ -169,7 +169,10 @@ public class QuestionLecturerController {
     public void backToLobby() throws IOException {
         Display.showLecturer(users);
         timer.cancel();
-        pollTimer.cancel();
+
+        if (pollTimer != null) {
+            pollTimer.cancel();
+        }
     }
 
     @FXML
@@ -225,7 +228,10 @@ public class QuestionLecturerController {
         this.lectureRoom.setOpen(false);
         ServerCommunication.closeRoom(this.lectureRoom, users.getUsername());
         timer.cancel();
-        pollTimer.cancel();
+        if (pollTimer != null) {
+            pollTimer.cancel();
+        }
+
         if (this.users.getRole().equals("lecturer")) {
             Display.showLecturer(this.users);
         } else {
